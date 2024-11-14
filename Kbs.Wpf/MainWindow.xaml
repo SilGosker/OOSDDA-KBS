@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid HorizontalAlignment="Left" Width="180" Background="Orange">
 
-        <DockPanel>
+        </Grid>
+
+        <DockPanel Background="White" Margin="180,0,0,0" >
             <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" />
         </DockPanel>
 

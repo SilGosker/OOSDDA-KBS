@@ -1,6 +1,8 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
+using Kbs.Business.Session;
+using Kbs.Data.User;
 
 namespace Kbs.Wpf
 {
@@ -9,6 +11,10 @@ namespace Kbs.Wpf
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            SessionManager.Instance = new SessionManager(new UserRepository());
+        }
     }
 
 }

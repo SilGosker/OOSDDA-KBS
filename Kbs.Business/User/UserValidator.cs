@@ -6,7 +6,7 @@ namespace Kbs.Business.User;
 public class UserValidator
 {
     private static readonly Regex EmailValidationRegex =
-        new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", RegexOptions.Compiled);
+        new Regex("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$", RegexOptions.Compiled);
 
     public Dictionary<string, string> ValidatorForLogIn(UserEntity user)
     {

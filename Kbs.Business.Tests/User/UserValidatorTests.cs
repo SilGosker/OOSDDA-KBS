@@ -68,7 +68,7 @@ public class UserValidatorTests
         // Assert
         Assert.Equal(1, validationResult.Count);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
-        Assert.Equal("Email is ongeldig", validationResult[nameof(user.Email)]);
+        Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
     }
 
     [Fact]

@@ -29,7 +29,7 @@ namespace Kbs.Wpf.User.Login
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
             var user = new UserEntity()
             {
@@ -71,6 +71,13 @@ namespace Kbs.Wpf.User.Login
             var window = new MainWindow();
             window.Show();
             Close();
+        }
+
+        // have to use a event handler because PasswordBox doesn't support binding
+        private void PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Password = ((PasswordBox)sender).Password;
+
         }
     }
 }

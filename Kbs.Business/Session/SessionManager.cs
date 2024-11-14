@@ -1,4 +1,5 @@
-﻿using Kbs.Business.User;
+﻿using Kbs.Business.Helpers;
+using Kbs.Business.User;
 
 namespace Kbs.Business.Session;
 
@@ -22,6 +23,7 @@ public class SessionManager
     public Session Current { get; private set; }
     public SessionManager(IUserRepository userRepository)
     {
+        ThrowHelper.ThrowIfNull(userRepository);
         _userRepository = userRepository;
     }
 

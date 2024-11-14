@@ -19,7 +19,7 @@ public class SessionManager
             _instance = value;
         }
     }
-
+    public Session Current { get; private set; }
     public SessionManager(IUserRepository userRepository)
     {
         _userRepository = userRepository;
@@ -35,7 +35,7 @@ public class SessionManager
         }
 
         session = new Session(userFromDb);
-
+        Current = session;
         return true;
     }
 }

@@ -1,10 +1,13 @@
-﻿
-using Kbs.Business.Helpers;
+﻿using Kbs.Business.Helpers;
+using System.Text.RegularExpressions;
 
 namespace Kbs.Business.User;
 
 public class UserValidator
 {
+    private static readonly Regex EmailValidationRegex =
+        new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", RegexOptions.Compiled);
+
     public Dictionary<string, string> ValidatorForLogIn(UserEntity user)
     {
         ThrowHelper.ThrowIfNull(user);
@@ -22,11 +25,8 @@ public class UserValidator
         }
         else
         {
-            try
-            {
-                new System.Net.Mail.MailAddress(user.Email.Trim());
-            }
-            catch (Exception)
+            if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+                !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
             {
                 errors.Add(nameof(user.Email), "Ongeldig email adres");
             }

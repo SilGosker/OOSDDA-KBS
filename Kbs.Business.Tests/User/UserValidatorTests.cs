@@ -50,6 +50,7 @@ public class UserValidatorTests
         Assert.Equal("Wachtwoord is verplicht", validationResult[nameof(user.Password)]);
     }
 
+    [Fact]
     public void ValidateForLogin_WithInvalidEmail_ReturnsErrors()
     {
         // Arrange
@@ -70,6 +71,7 @@ public class UserValidatorTests
         Assert.Equal("Email is ongeldig", validationResult[nameof(user.Email)]);
     }
 
+    [Fact]
     public void ValidateForLogin_WithValidUser_ReturnsEmptyDictionary()
     {
         // Arrange

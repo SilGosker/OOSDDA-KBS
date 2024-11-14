@@ -1,16 +1,7 @@
-﻿using System.Data;
-
-namespace Kbs.Business.User;
+﻿namespace Kbs.Business.User;
 
 public class UserEntityTests
 {
-    [Fact]
-    public void Constructor_DoesNotThrow()
-    {
-        // Arrange, Act & Assert 
-        var user = new UserEntity();
-    }
-
     [Theory]
     [InlineData("user@test.com", "test 123", "User", Role.Member)]
     [InlineData(null, null, null, (Role)0)]

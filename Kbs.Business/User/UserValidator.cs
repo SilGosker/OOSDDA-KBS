@@ -18,7 +18,6 @@ public class UserValidator
             errors.Add(nameof(user.Password), "Wachtwoord is verplicht");
         }
 
-
         if (string.IsNullOrWhiteSpace(user.Email))
         {
             errors.Add(nameof(user.Email), "Email is verplicht");

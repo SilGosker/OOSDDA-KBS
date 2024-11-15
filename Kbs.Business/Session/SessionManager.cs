@@ -8,7 +8,7 @@ public class SessionManager
 {
     private readonly IUserRepository _userRepository;
     private readonly TimeSpan _sessionTime;
-    private readonly CancellationTokenSource _cancellationTokenSource = new();
+    private CancellationTokenSource _cancellationTokenSource = new();
     private static SessionManager _instance;
     public static SessionManager Instance
     {
@@ -34,13 +34,8 @@ public class SessionManager
 
     public bool TryCreate(UserEntity user, out Session session)
     {
-        session = default;
+        session =  default;
 
-        if (_cancellationTokenSource.Token.IsCancellationRequested && !_cancellationTokenSource.TryReset())
-        {
-            return false;
-        }
-        
         var userFromDb = _userRepository.GetByCredentials(user.Email, user.Password);
         if (userFromDb == null)
         {
@@ -76,6 +71,7 @@ public class SessionManager
     public void Logout()
     {
         _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
         Current = null;
     }
 }

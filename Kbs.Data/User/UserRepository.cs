@@ -10,9 +10,7 @@ public class UserRepository : IUserRepository, IDisposable
 
     public void Create(UserEntity user)
     {
-        _connection.Execute("INSERT INTO Users (Email, Password, Name, Role) VALUES (@Email, @Password, @Name, @Role)", user);
-        int id = _connection.Query<int>("SELECT LAST_INSERT_ID()").First();
-        user.UserId = id;
+        user.UserId = _connection.Execute("INSERT INTO Users (Email, Password, Name, Role) VALUES (@Email, @Password, @Name, @Role); SELECT SCOPE_IDENTITY()", user);
     }
 
     public void Update(UserEntity user)
@@ -44,6 +42,19 @@ public class UserRepository : IUserRepository, IDisposable
         }
 
         if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+        {
+            return null;
+        }
+
+        return user;
+    }
+
+    public UserEntity GetByEmail(string email)
+    {
+        var user = _connection.Query<UserEntity>("SELECT * FROM Users WHERE Email = @Email", new { Email = email })
+            .FirstOrDefault();
+
+        if (user == null)
         {
             return null;
         }

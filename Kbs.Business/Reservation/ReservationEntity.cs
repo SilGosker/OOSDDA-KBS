@@ -15,6 +15,8 @@ namespace Kbs.Business.Reservation
         public int UserId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public TimeSpan Duration { get; set; }
+        
         public reservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
         public bool isVerwijderd()
@@ -35,7 +37,8 @@ namespace Kbs.Business.Reservation
         }
         public void EndTimeMethod()
         {
-            DateTime end = StartTime.AddMinutes(Tijdsduur);
+            DateTime end = new DateTime(StartTime.Year, StartTime.Month, StartTime.Day);
+            end += Duration;
             EndTime = end;
         }
 

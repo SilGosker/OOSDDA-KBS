@@ -1,4 +1,4 @@
-﻿
+
 using Kbs.Business.Mock;
 using Kbs.Business.User;
 
@@ -148,5 +148,26 @@ public class SessionManagerTests
         // Assert
         Assert.True(success);
         Assert.False(eventInvoked);
+    }
+
+    [Fact]
+    public void Logout_WithSession_SetsCurrentToNull()
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        });
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+        var user = new UserEntity();
+        sessionManager.TryCreate(user, out _);
+        
+        // Act
+        sessionManager.Logout();
+
+        // Assert
+        Assert.Null(sessionManager.Current);
     }
 }

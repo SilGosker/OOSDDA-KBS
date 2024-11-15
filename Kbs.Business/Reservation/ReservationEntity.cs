@@ -27,7 +27,7 @@ namespace Kbs.Business.Reservation
         {
             return Is(reservationStatus.Verlopen);
         }
-        public bool isActief()
+        public bool IsActive()
         {
             return Is(reservationStatus.Actief);
         }

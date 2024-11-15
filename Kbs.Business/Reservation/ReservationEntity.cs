@@ -19,7 +19,7 @@ namespace Kbs.Business.Reservation
         
         public reservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
-        public bool isVerwijderd()
+        public bool IsDeleted()
         {
             return Is(reservationStatus.Verwijderd);
         }

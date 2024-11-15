@@ -10,7 +10,8 @@ namespace Kbs.Business.Reservation
     public class ReservationEntity
     {
         public int ReservationId { get; set; }
-        public int aantalReservations = 0;
+        //Onderstaand staat niet in TO
+        public int totalReservations = 0;
         public int UserId { get; set; }
         public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }
@@ -18,6 +19,7 @@ namespace Kbs.Business.Reservation
         
         public ReservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
+        //Onderstaande 4 staan nog niet in TO
         public bool IsDeleted()
         {
             return Is(ReservationStatus.Deleted);

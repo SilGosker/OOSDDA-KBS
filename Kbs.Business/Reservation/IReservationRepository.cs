@@ -12,7 +12,6 @@ namespace Kbs.Business.Reservation
         public void Update(ReservationEntity reservation);
         public void Delete(ReservationEntity reservation);
 
-        //Moet nog de databaselogica in
         public List<ReservationEntity> GetByUserId (int userId) 
         { 
             StringBuilder s = new StringBuilder();

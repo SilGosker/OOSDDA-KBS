@@ -1,51 +1,47 @@
 ﻿using Kbs.Business.User;
+using Microsoft.Data.SqlClient;
+using Dapper;
 
 namespace Kbs.Data.User;
 
-public class UserRepository : IUserRepository
+public class UserRepository : IUserRepository, IDisposable
 {
-    // passwords are 'testen'
-    // for now use this, later we will use the dapper ORM
-    private readonly List<UserEntity> _database = new List<UserEntity>()
-    {
-        new UserEntity() { UserId = 1, Email = "s1196405@student.windesheim.nl", Name = "Sil Gosker", Password = "$2a$11$JXroVdXQNDCdyqbZvnhPtetIqg606DxW7UWT5Ex43cAJUiSRcw5O6", Role = Role.Member },
-        new UserEntity() { UserId = 2, Email = "s1199183@gmail.com", Name = "Colin van Dongen", Password = "$2a$11$JXroVdXQNDCdyqbZvnhPtetIqg606DxW7UWT5Ex43cAJUiSRcw5O6", Role = Role.GameCommissioner }
-    };
+    private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
 
     public void Create(UserEntity user)
     {
-        user.UserId = _database.Count;
-        _database.Add(user);
+        _connection.Execute("INSERT INTO Users (Email, Password, Name, Role) VALUES (@Email, @Password, @Name, @Role)", user);
+        int id = _connection.Query<int>("SELECT LAST_INSERT_ID()").First();
+        user.UserId = id;
     }
 
     public void Update(UserEntity user)
     {
-        var userToUpdate = _database.FirstOrDefault(x => x.UserId == user.UserId);
-        if (userToUpdate == null) return;
+        if (user.UserId == 0) return;
 
-        userToUpdate.Email = user.Email;
-        userToUpdate.Name = user.Name;
-        userToUpdate.Password = user.Password;
-        userToUpdate.Role = user.Role;
+        _connection.Execute("UPDATE Users SET Email = @Email, Password = @Password, Name = @Name, Role = @Role WHERE UserId = @UserId", user);
     }
 
     public void Delete(UserEntity user)
     {
-        var userToDelete = _database.FirstOrDefault(x => x.UserId == user.UserId);
-        if (userToDelete == null) return;
+        if (user.UserId == 0) return;
 
-        _database.Remove(userToDelete);
+        _connection.Execute("DELETE FROM Users WHERE UserId = @UserId", user);
     }
 
     public List<UserEntity> Get()
     {
-        return _database;
+        return _connection.Query<UserEntity>("SELECT * FROM Users").ToList();
     }
 
     public UserEntity GetByCredentials(string email, string password)
     {
-        var user = _database.FirstOrDefault(x => x.Email == email);
-        if (user == null) return null;
+        var user = _connection.Query<UserEntity>("SELECT * FROM Users WHERE Email = @Email", new { Email = email }).FirstOrDefault();
+
+        if (user == null)
+        {
+            return null;
+        }
 
         if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
         {
@@ -53,5 +49,10 @@ public class UserRepository : IUserRepository
         }
 
         return user;
+    }
+
+    public void Dispose()
+    {
+        _connection?.Dispose();
     }
 }

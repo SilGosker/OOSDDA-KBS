@@ -1,5 +1,4 @@
-﻿
-using Kbs.Wpf.Components;
+﻿using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.Login;
 

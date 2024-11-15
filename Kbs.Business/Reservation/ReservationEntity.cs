@@ -10,9 +10,11 @@ namespace Kbs.Business.Reservation
     public class ReservationEntity
     {
         public int ReservationId { get; set; }
+        public int aantalReservations = 0;
         public int Tijdsduur {  get; set; }
         public int UserId { get; set; }
         public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public reservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
         public bool isVerwijderd()
@@ -31,10 +33,10 @@ namespace Kbs.Business.Reservation
         {
             return (Status & status) != 0;
         }
-        public void EndTime()
+        public void EndTimeMethod()
         {
             DateTime end = StartTime.AddMinutes(Tijdsduur);
-            Console.WriteLine(end);
+            EndTime = end;
         }
 
 

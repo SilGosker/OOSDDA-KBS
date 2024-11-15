@@ -11,7 +11,7 @@ namespace Kbs.Business.Reservation
     {
         public int ReservationId { get; set; }
         public int aantalReservations = 0;
-        public int Tijdsduur {  get; set; }
+        public int Duration {  get; set; }
         public int UserId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime => StartTime + Duration;

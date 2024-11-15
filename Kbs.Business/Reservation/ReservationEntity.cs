@@ -11,27 +11,26 @@ namespace Kbs.Business.Reservation
     {
         public int ReservationId { get; set; }
         public int aantalReservations = 0;
-        public int Duration {  get; set; }
         public int UserId { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime => StartTime + Duration;
         public TimeSpan Duration { get; set; }
+        public DateTime EndTime => StartTime + Duration;
         
-        public reservationStatus Status { get; set; }
+        public ReservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
         public bool IsDeleted()
         {
-            return Is(reservationStatus.Verwijderd);
+            return Is(ReservationStatus.Deleted);
         }
         public bool IsExpired()
         {
-            return Is(reservationStatus.Verlopen);
+            return Is(ReservationStatus.Expired);
         }
         public bool IsActive()
         {
-            return Is(reservationStatus.Actief);
+            return Is(ReservationStatus.Active);
         }
-        public bool Is(reservationStatus status)
+        public bool Is(ReservationStatus status)
         {
             return (Status & status) != 0;
         }

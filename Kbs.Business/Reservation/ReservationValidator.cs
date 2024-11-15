@@ -38,7 +38,7 @@ namespace Kbs.Business.Reservation
         }
         public bool IsDurationValid(ReservationEntity reservation) 
         {
-            if (reservation.Tijdsduur > 120)
+            if (reservation.Duration.TotalMinutes > 120)
             {
                 return false;
             }

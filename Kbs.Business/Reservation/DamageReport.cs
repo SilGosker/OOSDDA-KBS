@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Reservation
 {
-    internal class DamageReport
+    public class DamageReport
     {
         public int BoatID {  get; set; }
         public string DamageDescription { get; set; }

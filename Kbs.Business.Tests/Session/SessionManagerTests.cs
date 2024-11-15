@@ -13,7 +13,7 @@ public class SessionManagerTests
         IUserRepository userRepository = null;
 
         // Act
-        var act = () => new SessionManager(userRepository);
+        var act = () => new SessionManager(userRepository, TimeSpan.MaxValue);
 
         // Assert
         Assert.Throws<ArgumentNullException>(act);
@@ -24,7 +24,7 @@ public class SessionManagerTests
     {
         // Arrange
         var userRepository = new MockUserRepository();
-        var sessionManager = new SessionManager(userRepository);
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
 
         // Act
         var session = sessionManager.Current;
@@ -43,7 +43,7 @@ public class SessionManagerTests
             Email = "test@gmail.com",
             Password = "123456"
         });
-        var sessionManager = new SessionManager(userRepository);
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
         var unknownUser = new UserEntity()
         {
             Email = "test2@example.com",
@@ -72,7 +72,7 @@ public class SessionManagerTests
 
         var userRepository = new MockUserRepository();
         userRepository.Users.Add(dbUser);
-        var sessionManager = new SessionManager(userRepository);
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
         var knownUser = new UserEntity()
         {
             Email = email,
@@ -86,5 +86,67 @@ public class SessionManagerTests
         Assert.True(success);
         Assert.NotNull(session);
         Assert.Equal(dbUser, session.User);
+    }
+
+    [Fact]
+    public void TryCreate_InvokesSessionTimeExpiredEvent_AfterSessionTime()
+    {
+        // Arrange
+        var sessionTime = TimeSpan.FromMilliseconds(100);
+        var user = new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        };
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(user);
+        var sessionManager = new SessionManager(userRepository, sessionTime);
+        bool eventInvoked = false;
+        Session expectedSession = null;
+
+        sessionManager.SessionTimeExpired += (_, args) =>
+        {
+            eventInvoked = true;
+            expectedSession = args.Session;
+        };
+
+        // Act
+        var success = sessionManager.TryCreate(user, out Session session);
+        Thread.Sleep(sessionTime.Milliseconds + 50);
+
+        // Assert
+        Assert.True(success);
+        Assert.True(eventInvoked);
+        Assert.Equal(session, expectedSession);
+    }
+
+    [Fact]
+    public void TryCreate_DoesNotInvokeSessionTimeExpiredEvent_IfSessionIsDisposed()
+    {
+        // Arrange
+        var sessionTime = TimeSpan.FromMilliseconds(100);
+        var user = new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        };
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(user);
+        var sessionManager = new SessionManager(userRepository, sessionTime);
+        bool eventInvoked = false;
+
+        sessionManager.SessionTimeExpired += (_, _) =>
+        {
+            eventInvoked = true;
+        };
+
+        // Act
+        var success = sessionManager.TryCreate(user, out Session _);
+        sessionManager.Logout();
+        Thread.Sleep(sessionTime.Milliseconds + 50);
+
+        // Assert
+        Assert.True(success);
+        Assert.False(eventInvoked);
     }
 }

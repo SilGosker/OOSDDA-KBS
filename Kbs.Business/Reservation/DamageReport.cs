@@ -8,8 +8,8 @@ namespace Kbs.Business.Reservation
 {
     internal class DamageReport
     {
-        private int BoatID;
-        private string DamageDescription;
-        private DateTime? DateReported;
+        public int BoatID {  get; set; }
+        public string DamageDescription { get; set; }
+        public DateTime? DateReported { get; set; }
     }
 }

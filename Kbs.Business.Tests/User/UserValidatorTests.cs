@@ -13,7 +13,7 @@ public class UserValidatorTests
         var user = new UserEntity()
         {
             Password = "test",
-            Email = null
+            Email = email
         };
 
         var validator = new UserValidator();
@@ -22,7 +22,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForLogIn(user);
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Email is verplicht", validationResult[nameof(user.Email)]);
     }
@@ -45,7 +45,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForLogIn(user);
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Equal("Wachtwoord is verplicht", validationResult[nameof(user.Password)]);
     }
@@ -66,7 +66,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForLogIn(user);
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
     }

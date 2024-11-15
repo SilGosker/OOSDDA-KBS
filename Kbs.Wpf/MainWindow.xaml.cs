@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
 {
@@ -11,6 +12,34 @@ namespace Kbs.Wpf
         public MainWindow()
         {
             InitializeComponent();
+
+            SessionManager.Instance.SessionTimeExpired += async (_, _) =>
+            {
+                var success = Task.Run(() =>
+                {
+                    var dialogResult = MessageBox.Show("Uw sessie is verlopen. Druk op OK om af te sluiten.",
+                        "Sessie verlopen",
+                        MessageBoxButton.OKCancel);
+
+                    return dialogResult == MessageBoxResult.OK;
+                });
+
+                var timeout = Task.Delay(TimeSpan.FromSeconds(20));
+
+                var result = await Task.WhenAny(success, timeout);
+
+                if (result == timeout || (result == success && success.Result))
+                {
+                    SessionManager.Instance.Logout();
+                    var loginWindow = new LoginWindow();
+                    loginWindow.Show();
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
+                }
+            };
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
@@ -39,6 +68,14 @@ namespace Kbs.Wpf
 
             page = creator();
             NavigationFrame.Navigate(page);
+        }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            SessionManager.Instance.Logout();
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            Close();
         }
     }
 }

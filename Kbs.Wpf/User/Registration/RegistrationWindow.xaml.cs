@@ -63,6 +63,13 @@ public partial class RegistrationWindow : Window
             return;
         }
         
+        if (_userRepository.GetByEmail(user.Email) != null)
+        {
+            ViewModel.EmailErrorMessage = "Email already exists";
+            return;
+        }
+
+        user.Encrypt();
         _userRepository.Create(user);
         
         _loginWindow.Login(user);
@@ -73,9 +80,14 @@ public partial class RegistrationWindow : Window
         Hide();
     }
     
-    // have to use a event handler because PasswordBox doesn't support binding
+    // event handler because PasswordBox doesn't support binding
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
+    }
+    
+    private void PasswordConfirmationChanged(object sender, RoutedEventArgs e)
+    {
+        ViewModel.PasswordConfirmation = ((PasswordBox)sender).Password;
     }
 }

@@ -9,26 +9,30 @@
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>
+
     <Grid>
         <Label Content="Inloggen" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
 
-        <Label Content="Email" HorizontalAlignment="Left" Margin="200,114,0,0" VerticalAlignment="Top" />
-        <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="205,137,0,0" VerticalAlignment="Top"
-                 Width="400" />
-        <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="200,150,0,0"
-               VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
+        <Grid HorizontalAlignment="Center" Width="800" Margin="0,102,0,0" Height="156" VerticalAlignment="Top">
+            <Label Content="Email" HorizontalAlignment="Left" Margin="205,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.496,-3.139" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="210,54,0,0" VerticalAlignment="Top"
+                     Width="400" />
+            <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="205,67,0,0"
+                   VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
 
 
-        <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="200,179,0,0" VerticalAlignment="Top" />
+            <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="205,108,0,0" VerticalAlignment="Top" />
 
-        <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="205,205,0,0" VerticalAlignment="Top"
-                 Width="400" />
+            <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="210,134,0,0" VerticalAlignment="Top"
+                         Width="400" />
 
-        <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left"
-               Margin="200,217,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
+            <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left"
+                   Margin="205,146,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
+        </Grid>
 
-        <Button IsDefault="True"  Content="Bevestig" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Height="30"
+
+        <Button IsDefault="True"  Content="Bevestig" HorizontalAlignment="Center" Margin="0,313,0,0" VerticalAlignment="Top" Height="30"
                 Width="80" Click="SubmitButtonClicked" />
     </Grid>
 </Window>

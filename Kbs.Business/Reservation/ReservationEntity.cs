@@ -35,17 +35,5 @@ namespace Kbs.Business.Reservation
         {
             return (Status & status) != 0;
         }
-        public void EndTimeMethod()
-        {
-            DateTime end = new DateTime(StartTime.Year, StartTime.Month, StartTime.Day);
-            end += Duration;
-            EndTime = end;
-        }
-
-
-
-        //Enum nog niet duidelijk voor onderstaande
-        //private Reservationniveau niveau;
-
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Kbs.Business.Reservation;
 
 
-public enum reservationStatus
+public enum ReservationStatus
 {
     Deleted = 1,
     Expired = 2,

@@ -15,7 +15,7 @@ namespace Kbs.Wpf
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
         {
-            var page = creator();
+            Page page;
             var attributes = typeof(TPage).GetCustomAttributes(typeof(HasRoleAttribute))
                 .Cast<HasRoleAttribute>().ToArray();
 
@@ -29,13 +29,15 @@ namespace Kbs.Wpf
                 }
 
                 if (attributes.Any(e => user.Is(e.Role)))
-                {
+                { 
+                    page = creator();
                     NavigationFrame.Navigate(page);
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
             }
 
+            page = creator();
             NavigationFrame.Navigate(page);
         }
     }

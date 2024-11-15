@@ -1,9 +1,9 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.Login;
 
-public class LoginViewModel : INotifyPropertyChanged
+public class LoginViewModel : ViewModel
 {
     private string _email;
     private string _password;
@@ -32,18 +32,5 @@ public class LoginViewModel : INotifyPropertyChanged
         set => SetField(ref _passwordErrorMessage, value);
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
-    {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
-    }
+    
 }

@@ -1,5 +1,6 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.User;
+using System.Threading;
 
 namespace Kbs.Business.Session;
 
@@ -34,6 +35,12 @@ public class SessionManager
     public bool TryCreate(UserEntity user, out Session session)
     {
         session = default;
+
+        if (_cancellationTokenSource.Token.IsCancellationRequested && !_cancellationTokenSource.TryReset())
+        {
+            return false;
+        }
+        
         var userFromDb = _userRepository.GetByCredentials(user.Email, user.Password);
         if (userFromDb == null)
         {

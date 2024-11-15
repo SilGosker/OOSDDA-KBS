@@ -65,6 +65,11 @@ public class UserValidator
                 errorString += "\n- Wachtwoord moet minimaal 1 speciaal teken bevatten";
             }
             
+            if(passwordConfirmation != user.Password)
+            {
+                errorString += "\n- Wachtwoorden komen niet overeen";
+            }
+            
             if (!string.IsNullOrEmpty(errorString))
             {
                 errors.Add(nameof(user.Password), errorString);
@@ -82,11 +87,6 @@ public class UserValidator
             {
                 errors.Add(nameof(user.Email), "Ongeldig email adres");
             }
-        }
-        
-        if(passwordConfirmation != user.Password)
-        {
-            errors.Add(nameof(passwordConfirmation), "Wachtwoorden komen niet overeen");
         }
         
         return errors;

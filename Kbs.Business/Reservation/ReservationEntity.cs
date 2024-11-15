@@ -23,7 +23,7 @@ namespace Kbs.Business.Reservation
         {
             return Is(reservationStatus.Verwijderd);
         }
-        public bool isVerlopen()
+        public bool IsExpired()
         {
             return Is(reservationStatus.Verlopen);
         }

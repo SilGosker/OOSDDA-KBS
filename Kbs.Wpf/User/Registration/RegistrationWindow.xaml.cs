@@ -69,9 +69,16 @@ public partial class RegistrationWindow : Window
             ViewModel.EmailErrorMessage = "Email already exists";
             return;
         }
-
+        
+        // Create temporary variable to store the password before encryption
+        string password = user.Password;
+        
+        // Encrypt the password before storing it in the database
         user.Encrypt();
         _userRepository.Create(user);
+        
+        // Set the password back to the original value so the login check can be done with the original password
+        user.Password = password;
         
         _loginWindow.Login(user);
     }

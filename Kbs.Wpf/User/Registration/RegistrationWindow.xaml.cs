@@ -26,7 +26,8 @@ public partial class RegistrationWindow : Window
         {
             Email = ViewModel.Email,
             Name = ViewModel.Name,
-            Password = ViewModel.Password
+            Password = ViewModel.Password,
+            Role = Role.Member
         };
         
         var validationResult = _userValidator.ValidatorForRegistration(user, ViewModel.PasswordConfirmation);

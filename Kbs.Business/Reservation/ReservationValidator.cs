@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Reservation
 {
-    internal class ReservationValidator
+    public class ReservationValidator
     {
         public Dictionary<string, string> ValidForCreation(ReservationEntity reservation) { return new Dictionary<string, string>(); }
         public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }

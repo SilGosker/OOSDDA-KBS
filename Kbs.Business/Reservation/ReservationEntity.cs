@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Reservation
 {
-    internal class ReservationEntity
+    public class ReservationEntity
     {
         public int ReservationId { get; set; }
         public int Tijdsduur {  get; set; }

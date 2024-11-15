@@ -1,31 +1,35 @@
-﻿using Kbs.Business.Session;
+using Kbs.Business.Session;
 using Kbs.Business.User;
 using System.Windows;
 using System.Windows.Controls;
-using Kbs.Wpf.User.Registration;
+using Kbs.Data.User;
+using Kbs.Wpf.User.Login;
 
-namespace Kbs.Wpf.User.Login;
+namespace Kbs.Wpf.User.Registration;
 
-public partial class LoginWindow : Window
+public partial class RegistrationWindow : Window
 {
+    
+    private RegistrationViewModel ViewModel => (RegistrationViewModel)DataContext;
     private readonly UserValidator _userValidator = new UserValidator();
-    private readonly RegistrationWindow _registrationWindow;
-    private LoginViewModel ViewModel => (LoginViewModel)DataContext;
-    public LoginWindow()
+    private readonly LoginWindow _loginWindow;
+    private readonly IUserRepository _userRepository = new UserRepository();
+    public RegistrationWindow(LoginWindow loginWindow)
     {
+        _loginWindow = loginWindow;
         InitializeComponent();
-        _registrationWindow = new(this);
     }
-
+    
     private void SubmitButtonClicked(object sender, RoutedEventArgs e)
     {
         var user = new UserEntity()
         {
             Email = ViewModel.Email,
+            Name = ViewModel.Name,
             Password = ViewModel.Password
         };
-
-        var validationResult = _userValidator.ValidatorForLogIn(user);
+        
+        var validationResult = _userValidator.ValidatorForRegistration(user, ViewModel.PasswordConfirmation);
 
         if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
         {
@@ -44,41 +48,34 @@ public partial class LoginWindow : Window
         {
             ViewModel.PasswordErrorMessage = string.Empty;
         }
-
+        
+        if (validationResult.TryGetValue(nameof(ViewModel.PasswordConfirmation), out string passwordConfirmationMessage))
+        {
+            ViewModel.PasswordConfirmationErrorMessage = passwordConfirmationMessage;
+        }
+        else
+        {
+            ViewModel.PasswordConfirmationErrorMessage = string.Empty;
+        }
+        
         if (validationResult.Count > 0)
         {
             return;
         }
-
-        Login(user);
-    }
-
-
-    public void Login(UserEntity user)
-    {
-        if (!SessionManager.Instance.TryCreate(user, out var session))
-        {
-            MessageBox.Show(this, "Email/wachtwoord combinatie niet gevonden", "Kon niet inloggen", MessageBoxButton.OK);
-            return;
-        }
-
-        _registrationWindow.Close();
-        var window = new MainWindow();
-        window.Show();
-        Close();
+        
+        _userRepository.Create(user);
+        
+        _loginWindow.Login(user);
     }
     
-    private void RegistrationButtonClicked(object sender, RoutedEventArgs e)
+    private void CancelButtonClicked(object sender, RoutedEventArgs e)
     {
-        _registrationWindow.Show();
+        Hide();
     }
-
+    
     // have to use a event handler because PasswordBox doesn't support binding
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
-
     }
-
-    
 }

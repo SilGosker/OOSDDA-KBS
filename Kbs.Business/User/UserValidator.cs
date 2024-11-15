@@ -58,8 +58,9 @@ public class UserValidator
             { 
                 errorString += "\n- Wachtwoord moet minimaal 1 cijfer bevatten";
             }
-            Regex regex = new Regex(@"[!\""#\$%&'()*+,-./:;<=>?@[\]^_`{|}~€£¥₹©®™§°]");
-            if (!user.Password.Any(c => regex.IsMatch(c.ToString())));
+            
+            Regex regex = new Regex(@"[!\""#\$%&'()*+,-./:;<=>?@[\]^_`{|}~€£¥₹©®™§°]", RegexOptions.Compiled);
+            if (!user.Password.Any(c => regex.IsMatch(c.ToString())))
             {
                 errorString += "\n- Wachtwoord moet minimaal 1 speciaal teken bevatten";
             }

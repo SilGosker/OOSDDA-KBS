@@ -33,4 +33,32 @@ public class UserValidator
 
         return errors;
     }
+    public Dictionary<string, string> ValidatorForUpdate(UserEntity user)
+    {
+        ThrowHelper.ThrowIfNull(user);
+        var errors = new Dictionary<string, string>();
+        string passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\p{P}\p{S}]).{8,}$";
+
+        if (string.IsNullOrEmpty(user.Password))
+        {
+            errors.Add(nameof(user.Password), "Wachtwoord is verplicht");
+        } else if (!Regex.IsMatch(user.Password, passwordRegex))
+        {
+            errors.Add(nameof(user.Password), "Wachtwoord voldoet niet aan de eisen (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)");
+        }
+
+        if (string.IsNullOrWhiteSpace(user.Email))
+        {
+            errors.Add(nameof(user.Email), "Email is verplicht");
+        }
+        else
+        {
+            if (!EmailValidationRegex.IsMatch(user.Email.Trim()))
+            {
+                errors.Add(nameof(user.Email), "Ongeldig email adres");
+            }
+        }
+
+        return errors;
+    }
 }

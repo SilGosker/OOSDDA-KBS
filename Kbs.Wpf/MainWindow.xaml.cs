@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.User.Update;
 
 namespace Kbs.Wpf
 {
@@ -38,6 +39,12 @@ namespace Kbs.Wpf
             }
 
             page = creator();
+            NavigationFrame.Navigate(page);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AccountView page = new AccountView(this);
             NavigationFrame.Navigate(page);
         }
     }

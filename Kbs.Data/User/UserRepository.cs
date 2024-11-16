@@ -54,11 +54,6 @@ public class UserRepository : IUserRepository, IDisposable
         var user = _connection.Query<UserEntity>("SELECT * FROM Users WHERE Email = @Email", new { Email = email })
             .FirstOrDefault();
 
-        if (user == null)
-        {
-            return null;
-        }
-
         return user;
     }
 

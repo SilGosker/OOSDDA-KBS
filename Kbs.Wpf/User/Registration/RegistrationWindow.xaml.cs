@@ -66,7 +66,7 @@ public partial class RegistrationWindow : Window
         
         if (_userRepository.GetByEmail(user.Email) != null)
         {
-            ViewModel.EmailErrorMessage = "Email already exists";
+            ViewModel.EmailErrorMessage = "Er is al een account met dit e-mailadres";
             return;
         }
         

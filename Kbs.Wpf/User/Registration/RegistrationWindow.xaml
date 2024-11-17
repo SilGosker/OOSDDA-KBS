@@ -13,38 +13,33 @@
     <Grid>
         <Label Content="Registreren" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
-
-        <!-- Inner Grid for Form Fields -->
+        
         <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="300" VerticalAlignment="Top">
-            <!-- First Field (Email) -->
+            
             <Label Content="Email" HorizontalAlignment="Left" Margin="205,20,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="210,43,0,0" VerticalAlignment="Top"
                      Width="400" />
             <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="205,60,0,0"
                    VerticalAlignment="Top" />
-
-            <!-- Second Field (Name) -->
+            
             <Label Content="Naam (optioneel)" HorizontalAlignment="Left" Margin="205,80,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding Name}" Margin="210,103,0,0" VerticalAlignment="Top"
                          Width="400" />
 
             <Grid HorizontalAlignment="Center" Width="800" Margin="0,140,0,0" Height="160" VerticalAlignment="Top">
-            
-                <!-- Third Field (Password) -->
+                
                 <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="205,0,0,0" VerticalAlignment="Top" />
                 <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="210,23,0,0" VerticalAlignment="Top"
                          Width="180" />
                 <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="205,40,0,0"
                        VerticalAlignment="Top" />
-
-                <!-- Fourth Field (Confirm password) -->
+                
                 <Label Content="Wachtwoord bevestigen" HorizontalAlignment="Left" Margin="405,0,0,0" VerticalAlignment="Top" />
                 <PasswordBox HorizontalAlignment="Right" PasswordChanged="PasswordConfirmationChanged" Margin="0,23,210,0" VerticalAlignment="Top"
                          Width="180" />
             </Grid>
         </Grid>
-
-        <!-- Submit and Registration Section -->
+        
         <Button IsDefault="True" Content="Registreren" HorizontalAlignment="Center" Margin="0,420,0,0" VerticalAlignment="Top" Height="30"
                 Width="80" Click="SubmitButtonClicked" />
         

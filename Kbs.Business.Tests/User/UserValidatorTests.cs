@@ -233,8 +233,8 @@ public class UserValidatorTests
 
         // Assert
         Assert.Equal(1, validationResult.Count);
-        Assert.True(validationResult.ContainsKey("passwordConfirmation"));
-        Assert.Equal("Wachtwoorden komen niet overeen", validationResult["passwordConfirmation"]);
+        Assert.True(validationResult.ContainsKey(nameof(user.Password)));
+        Assert.Contains("Wachtwoorden komen niet overeen", validationResult[nameof(user.Password)]);
     }
 
     [Fact]

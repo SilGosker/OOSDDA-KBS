@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Helpers;
+﻿using System.Text;
+using Kbs.Business.Helpers;
 using System.Text.RegularExpressions;
 
 namespace Kbs.Business.User;
@@ -45,30 +46,32 @@ public class UserValidator
         }
         else
         {
-            string errorString = "";
+            var errorStringBuilder = new StringBuilder();
             if (user.Password.Length < 8)
             {
-                errorString += "\n- Wachtwoord moet minimaal 8 tekens lang zijn";
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");
             }
             if (!user.Password.Any(char.IsUpper) || !user.Password.Any(char.IsLower))
             {
-                errorString += "\n- Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten";
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten");
             }
             if (!user.Password.Any(char.IsDigit))
             { 
-                errorString += "\n- Wachtwoord moet minimaal 1 cijfer bevatten";
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 cijfer bevatten");
             }
-            
+
             Regex regex = new Regex(@"[!\""#\$%&'()*+,-./:;<=>?@[\]^_`{|}~€£¥₹©®™§°]", RegexOptions.Compiled);
             if (!user.Password.Any(c => regex.IsMatch(c.ToString())))
             {
-                errorString += "\n- Wachtwoord moet minimaal 1 speciaal teken bevatten";
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 speciaal teken bevatten");
             }
-            
-            if(passwordConfirmation != user.Password)
+
+            if (passwordConfirmation != user.Password)
             {
-                errorString += "\n- Wachtwoorden komen niet overeen";
+                errorStringBuilder.AppendLine("- Wachtwoorden komen niet overeen");
             }
+
+            string errorString = errorStringBuilder.ToString();
             
             if (!string.IsNullOrEmpty(errorString))
             {

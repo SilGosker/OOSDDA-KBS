@@ -25,7 +25,7 @@ public partial class RegistrationWindow : Window
         var user = new UserEntity()
         {
             Email = ViewModel.Email,
-            Name = ViewModel.Name,
+            Name = ViewModel.Name ?? string.Empty,
             Password = ViewModel.Password,
             Role = Role.Member
         };

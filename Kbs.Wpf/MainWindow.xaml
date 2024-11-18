@@ -15,7 +15,7 @@
                 <ItemsControl ItemsSource="{Binding NavigationItems}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock>
+                            <TextBlock Margin="10, 10, 0, 0">
                                 <Hyperlink Command="{Binding Navigate}" CommandParameter="{Binding}">
                                     <Run Text="{Binding Name}" />
                                 </Hyperlink>

@@ -28,6 +28,7 @@ namespace Kbs.Wpf.User.Update
         private readonly UserValidator _userValidator = new UserValidator(); 
         private readonly INavigationManager _navigationManager;
         private readonly IUserRepository _userRepository = new UserRepository();
+        private UserEntity _sessionUser; 
 
         public AccountViewModel ViewModel => (AccountViewModel)DataContext;
         public AccountView(INavigationManager navigationManager)
@@ -36,19 +37,20 @@ namespace Kbs.Wpf.User.Update
             this._navigationManager = navigationManager;
             ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
             EmailInput.Text = ViewModel.InputEmail;
+            _sessionUser = SessionManager.Instance.Current.User;
         }
 
         private void Submit(object sender, RoutedEventArgs e)
         {
             if (sender != ConfirmButton) return;
 
-            bool mailChange = false;
-            bool mailCorrect = false;
-            bool passwordChange = false;
-            bool passwordCorrect = false;
-            bool matching = true;
+            bool hasEmailChanged = false;
+            bool isEmailValid = false;
+            bool hasPasswordChanged = false;
+            bool isPasswordCorrect = false;
+            bool isPasswordMatching = true;
 
-            if ((EmailInput.Text.Length == 0 || EmailInput.Text.Equals(SessionManager.Instance.Current.User.Email)) && PasswordInput.Password.Length == 0)
+            if ((EmailInput.Text.Length == 0 || EmailInput.Text.Equals(_sessionUser.Email)) && PasswordInput.Password.Length == 0)
             {
                 GlobalError.Visibility = Visibility.Visible; 
                 EmailErrorMessage.Visibility = Visibility.Hidden;
@@ -63,9 +65,9 @@ namespace Kbs.Wpf.User.Update
                     Password = ViewModel.InputPassword
                 };
                 var validationResult = _userValidator.ValidatorForUpdate(user, PasswordConfirmInput.Password, _userRepository);
-                if (user.Email != null && user.Email.Length != 0 && !user.Email.Equals(SessionManager.Instance.Current.User.Email))
+                if (user.Email != null && user.Email.Length != 0 && !user.Email.Equals(_sessionUser.Email))
                 {
-                    mailChange = true;
+                    hasEmailChanged = true;
                     if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
                     {
                         EmailErrorMessage.Content = emailMessage;
@@ -74,13 +76,13 @@ namespace Kbs.Wpf.User.Update
                     else
                     {
                         EmailErrorMessage.Visibility = Visibility.Hidden;
-                        mailCorrect = true;
+                        isEmailValid = true;
                     }
                 } 
 
                 if (user.Password != null && user.Password.Length != 0)
                 {
-                    passwordChange = true;
+                    hasPasswordChanged = true;
                     if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
                     {
                         PasswordErrorMessage.Text = passwordMessage;
@@ -88,47 +90,46 @@ namespace Kbs.Wpf.User.Update
                     } else if (validationResult.ContainsKey("Bevestiging"))
                     {
                         PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        matching = false;
+                        isPasswordMatching = false;
                     }
                     else
                     {
                         PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        passwordCorrect = true;
+                        isPasswordCorrect = true;
                     }
                 }
 
-                if (validationResult.Count > 1 || !matching)
+                if (validationResult.Count > 1 || !isPasswordMatching)
                 {
                     return;
                 }
 
-                bool different = false;
-                if (mailChange && mailCorrect)
+                bool isInputDifferentThanExisting = false;
+                if (hasEmailChanged && isEmailValid)
                 {
 
-                    if (!user.Email.Equals(SessionManager.Instance.Current.User.Email))
+                    if (!user.Email.Equals(_sessionUser.Email))
                     {
-                        different = true;
-                        SessionManager.Instance.Current.User.Email = user.Email;
+                        isInputDifferentThanExisting = true;
+                        _sessionUser.Email = user.Email;
                     } else
                     {
-                        mailChange = false;
+                        hasEmailChanged = false;
                     }
                 }
-                if (passwordChange && passwordCorrect)
+                if (hasPasswordChanged && isPasswordCorrect)
                 {
                     user.Encrypt();
-                    if (!user.Password.Equals(SessionManager.Instance.Current.User.Password))
+                    if (!user.Password.Equals(_sessionUser.Password))
                     {
-                        different = true;
-                        SessionManager.Instance.Current.User.Password = user.Password;
+                        isInputDifferentThanExisting = true;
+                        _sessionUser.Password = user.Password;
                     }
                 }
-                if (different)
+                if (isInputDifferentThanExisting)
                 {
-                    UserRepository repository = new UserRepository();
-                    repository.Update(SessionManager.Instance.Current.User);
-                    MessageBox.Show(((mailCorrect)? "Email" : "") + ((mailCorrect && passwordCorrect)? " en " : "") + ((passwordCorrect)? "Wachtwoord" : "") + ((mailCorrect && passwordCorrect) ? " zijn " : " is ") + "succesvol aangepast.");
+                    _userRepository.Update(_sessionUser);
+                    MessageBox.Show(((isEmailValid)? "Email" : "") + ((isEmailValid && isPasswordCorrect)? " en " : "") + ((isPasswordCorrect)? "Wachtwoord" : "") + ((isEmailValid && isPasswordCorrect) ? " zijn " : " is ") + "succesvol aangepast.");
                     _navigationManager.Navigate(() => new AccountView(_navigationManager));
                 }
             }

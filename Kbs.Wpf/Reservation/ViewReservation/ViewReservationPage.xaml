@@ -31,7 +31,7 @@
         <Border Name="Border1" 
             Margin="10,117,30,0" 
             VerticalAlignment="Top" 
-            Height="140" 
+            Height="159" 
             BorderBrush="Gray" 
             BorderThickness="1" 
             CornerRadius="5" 
@@ -42,18 +42,18 @@
                        FontWeight="Bold" 
                        VerticalAlignment="Top" />
                 <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <TextBlock Text="Niveau: .." FontSize="14" />
-                    <TextBlock Text="Tijdstip: ..:.." FontSize="14" />
-                    <TextBlock Text="Tijdsduur: .. Uur" FontSize="14" />
-                    <TextBlock Text="Zitplaatsen: .." FontSize="14" />
-                    <TextBlock Text="Stuur: Ja/Nee" FontSize="14" />
+                    <TextBlock Text="{Binding Niveau}" FontSize="14" />
+                    <TextBlock Text="{Binding Stuur}" FontSize="14" />
+                    <TextBlock Text="{Binding Tijdsstip}" FontSize="14" />
+                    <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
+                    <TextBlock Text="{Binding Tijdsduur}" FontSize="14" />
                 </StackPanel>
             </Grid>
         </Border>
         <Border Name="Border2" 
             Margin="10,281,30,0" 
             VerticalAlignment="Top" 
-            Height="140" 
+            Height="159" 
             BorderBrush="Gray" 
             BorderThickness="1" 
             CornerRadius="5" 
@@ -64,11 +64,11 @@
                        FontWeight="Bold" 
                        VerticalAlignment="Top" />
                 <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <TextBlock Text="Niveau: .." FontSize="14" Width="742" />
-                    <TextBlock Text="Tijdstip: ..:.." FontSize="14" Width="736" />
-                    <TextBlock Text="Tijdsduur: .. Uur" FontSize="14" Width="749" />
-                    <TextBlock Text="Zitplaatsen: .." FontSize="14" />
-                    <TextBlock Text="Stuur: Ja/Nee" FontSize="14" />
+                    <TextBlock Text="{Binding Niveau}" FontSize="14" Width="742" />
+                    <TextBlock Text="{Binding Tijdsstip}" FontSize="14" Width="736" />
+                    <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="749" />
+                    <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
+                    <TextBlock Text="{Binding Stuur}" FontSize="14" />
                 </StackPanel>
             </Grid>
         </Border>

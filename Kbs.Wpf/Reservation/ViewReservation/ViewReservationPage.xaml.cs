@@ -1,4 +1,7 @@
-﻿using Kbs.Business.Session;
+﻿using Kbs.Business.Reservation;
+using Kbs.Business.Session;
+using Kbs.Business.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.User.Login;
 using System;
 using System.Collections.Generic;
@@ -22,6 +25,9 @@ namespace Kbs.Wpf.Reservation.ViewReservation
     /// </summary>
     public partial class ViewReservationPage : Page
     {
+        private ViewReservationViewModel ViewModel => (ViewReservationViewModel)DataContext;
+        private readonly ReservationValidator res;
+
         public ViewReservationPage()
         {
             InitializeComponent();
@@ -48,6 +54,12 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         private void Settings(object sender, RoutedEventArgs e)
         {
             //settings window
+        }
+        private void SubmitButtonClicked(object sender, RoutedEventArgs e)
+        {
+            var reservation = new ReservationEntity()
+            {
+            };
         }
     }
 }

@@ -7,4 +7,5 @@ public interface IUserRepository
     public void Delete(UserEntity user);
     public List<UserEntity> Get();
     public UserEntity GetByCredentials(string email, string password);
+    public UserEntity GetByEmail(string email);
 }

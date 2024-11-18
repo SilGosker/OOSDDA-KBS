@@ -2,17 +2,19 @@
 using Kbs.Business.User;
 using System.Windows;
 using System.Windows.Controls;
+using Kbs.Wpf.User.Registration;
 
 namespace Kbs.Wpf.User.Login;
 
 public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
-    public LoginViewModel ViewModel => (LoginViewModel)DataContext;
-
+    private readonly RegistrationWindow _registrationWindow;
+    private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {
         InitializeComponent();
+        _registrationWindow = new(this);
     }
 
     private void SubmitButtonClicked(object sender, RoutedEventArgs e)
@@ -48,15 +50,27 @@ public partial class LoginWindow : Window
             return;
         }
 
+        Login(user);
+    }
+
+
+    public void Login(UserEntity user)
+    {
         if (!SessionManager.Instance.TryCreate(user, out var session))
         {
             MessageBox.Show(this, "Email/wachtwoord combinatie niet gevonden", "Kon niet inloggen", MessageBoxButton.OK);
             return;
         }
 
+        _registrationWindow.Close();
         var window = new MainWindow();
         window.Show();
         Close();
+    }
+    
+    private void RegistrationButtonClicked(object sender, RoutedEventArgs e)
+    {
+        _registrationWindow.Show();
     }
 
     // have to use a event handler because PasswordBox doesn't support binding
@@ -65,4 +79,6 @@ public partial class LoginWindow : Window
         ViewModel.Password = ((PasswordBox)sender).Password;
 
     }
+
+    
 }

@@ -1,0 +1,54 @@
+﻿<Page x:Class="Kbs.Wpf.Boat.Index.BoatIndexPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Kbs.Wpf.Boat.Index"
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="620"
+      Title="Boten"
+      Background="White">
+    <Page.DataContext>
+        <local:BoatIndexViewModel />
+    </Page.DataContext>
+    <Grid HorizontalAlignment="Center">
+        <Label FontSize="32" Content="Boten" HorizontalAlignment="Left" Margin="38,50,0,0"
+               VerticalAlignment="Top" />
+
+        <TextBox HorizontalAlignment="Left" Margin="463,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
+                 TextChanged="NameChanged" Height="22" />
+        <Label Content="Naam" HorizontalAlignment="Left" Margin="463,47,0,0" VerticalAlignment="Top" Width="120" />
+        <ComboBox HorizontalAlignment="Left" Margin="322,74,0,0" VerticalAlignment="Top" Width="120"
+                  SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypeNames}" />
+        <Label Content="Boot type" HorizontalAlignment="Left" Margin="322,47,0,0" VerticalAlignment="Top" Width="120" />
+
+        <ListView Width="520" ItemsSource="{Binding Items}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="516" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:BoatIndexBoatViewModel}">
+                    <Grid>
+                        <Border BorderBrush="Black" BorderThickness="1" Height="100" Width="215" />
+
+                        <Label Content="{Binding BoatNumber}" />
+
+                        <Label Content="Naam: " FontWeight="Bold" Margin="0,20,0,0" />
+                        <Label Content="Type: " FontWeight="Bold" Margin="0,40,0,0" />
+                        <Label Content="Status: " FontWeight="Bold" Margin="0,60,0,0" />
+
+                        <Label Content="{Binding Name}" Margin="60,20,0,0" />
+                        <Label Content="{Binding BoatType}" Margin="60,40,0,0" />
+                        <Label Content="{Binding Status}" Margin="60,60,0,0" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</Page>

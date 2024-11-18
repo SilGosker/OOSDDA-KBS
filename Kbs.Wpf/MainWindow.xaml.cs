@@ -7,6 +7,7 @@ using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
+using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 
 namespace Kbs.Wpf
 {
@@ -95,6 +96,12 @@ namespace Kbs.Wpf
         {
             //settings window
         }
+        private void ZieMeer(object sender, RoutedEventArgs e)
+        {
+            var viewReservationSpecificPage = new ViewPageSpecific();
+            NavigationFrame.Navigate(viewReservationSpecificPage);
+        }
+
 
     }
 }

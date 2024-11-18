@@ -1,18 +1,14 @@
-﻿using Kbs.Business.Reservation;
-using Kbs.Business.Session;
-using Kbs.Data;
+﻿using Kbs.Data.Reservation;
 using Kbs.Wpf.Components;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kbs.Data.Reservation;
 
-namespace Kbs.Wpf.Reservation.ViewReservation
+namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
-    public class ViewReservationViewModel : ViewModel
+    internal class ViewPageSpecificViewModel : ViewModel
     {
         ReservationRepository rp;
         private int _niveau;

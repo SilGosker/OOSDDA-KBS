@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
     /// <summary>
-    /// Interaction logic for ViewReservationSpecificPage.xaml
+    /// Interaction logic for ViewPageSpecific.xaml
     /// </summary>
-    public partial class ViewReservationSpecificPage : Page
+    public partial class ViewPageSpecific : Page
     {
-        public ViewReservationSpecificPage()
+        public ViewPageSpecific()
         {
             InitializeComponent();
         }

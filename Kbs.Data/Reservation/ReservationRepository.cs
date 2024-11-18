@@ -13,6 +13,7 @@ namespace Kbs.Data.Reservation
     public class ReservationRepository : IReservationRepository, IDisposable
     {
         private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
+        
 
         public void Create(ReservationEntity res)
         {
@@ -23,6 +24,7 @@ namespace Kbs.Data.Reservation
             if (res.ReservationId == 0) return;
             _connection.Execute("UPDATE FROM Reservation WHERE ReservationID = @ReservationID", res);
         }
+       
 
         public void Delete(ReservationEntity res)
         {
@@ -40,6 +42,27 @@ namespace Kbs.Data.Reservation
         {
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation").ToList();
         }
-        
+
+        /*
+        public void GetStatus()
+        {
+            Console.WriteLine(_connection.Query("SELECT status FROM Reservation"));
+        }
+        public IEnumerable<dynamic> GetTijdsduur()
+        {
+            return _connection.Query("SELECT Length FROM Reservation");
+        }
+        */
+        public int GetReservationID()
+        {
+            var rp = _connection.Query<int>("SELECT FIRST ReservationID From Reservation");
+            return rp.FirstOrDefault();
+
+            /*
+            var rp1 = _connection.Query<int>("SELECT ReservationID FROM Reservation WHERE UserID = @UserID");
+            return rp1.FirstOrDefault();
+            */
+        }
+
     }
 }

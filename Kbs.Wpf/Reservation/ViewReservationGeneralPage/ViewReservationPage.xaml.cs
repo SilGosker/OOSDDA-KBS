@@ -2,6 +2,7 @@
 using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
+using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 using Kbs.Wpf.User.Login;
 using System;
 using System.Collections.Generic;
@@ -34,27 +35,15 @@ namespace Kbs.Wpf.Reservation.ViewReservation
             DataContext = new ViewReservationViewModel();
         }
 
-        private void LogOut(object sender, RoutedEventArgs e)
+        private void ZieMeer(object sender, RoutedEventArgs e)
         {
-            SessionManager.Instance.Logout();
-            var loginWindow = new LoginWindow();
-            loginWindow.Show();
-            //Close();
-        }
-
-        private void MyReservations(object sender, RoutedEventArgs e)
-        {
-            var myReservationsWindow = new ViewReservationPage();
-            //myReservationsWindow.Show();
-            //My reservations Window
-        }
-        
-
-        private void SubmitButtonClicked(object sender, RoutedEventArgs e)
-        {
-            var reservation = new ReservationEntity()
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            if (mainWindow != null)
             {
-            };
+                mainWindow.Show();
+            }
+            var viewReservationSpecificPage = new ViewPageSpecific();
+            NavigationService.Navigate(viewReservationSpecificPage);
         }
     }
 }

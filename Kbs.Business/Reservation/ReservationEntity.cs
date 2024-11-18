@@ -13,6 +13,8 @@ namespace Kbs.Business.Reservation
         //Onderstaand staat niet in TO
         public int totalReservations = 0;
         public int UserId { get; set; }
+        public int BoatId { get; set; }
+        public int BoatTypeId { get; set; }
         public DateTime StartTime { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime EndTime => StartTime + Duration;

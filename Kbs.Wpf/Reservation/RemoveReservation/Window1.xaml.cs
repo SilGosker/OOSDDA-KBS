@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kbs.Business.Session;
+using Kbs.Wpf.User.Login;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +23,14 @@ namespace Kbs.Wpf.Reservation.VerwijderenReservering
     {
         public Window1()
         {
-            InitializeComponent();
+            //InitializeComponent();
+        }
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            SessionManager.Instance.Logout();
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            Close();
         }
     }
 }

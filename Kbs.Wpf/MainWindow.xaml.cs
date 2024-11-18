@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
@@ -40,6 +41,8 @@ namespace Kbs.Wpf
                     MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
                 }
             };
+
+            Navigate(() => new BoatIndexPage());
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
@@ -61,9 +64,11 @@ namespace Kbs.Wpf
                 { 
                     page = creator();
                     NavigationFrame.Navigate(page);
+                    return;
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
+                return;
             }
 
             page = creator();

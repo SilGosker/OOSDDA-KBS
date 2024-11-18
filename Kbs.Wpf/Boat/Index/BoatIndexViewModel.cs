@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Kbs.Business.BoatType;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Index;
@@ -10,12 +11,14 @@ public class BoatIndexViewModel : ViewModel
 
     public BoatIndexViewModel()
     {
-        BoatTypeNames.Add("Alle boot types");
+        BoatTypes.Add(new BoatIndexBoatTypeViewModel(new BoatTypeEntity()
+        {
+            Name = "Alle boottypes"
+        }));
     }
 
     public ObservableCollection<BoatIndexBoatViewModel> Items { get; } = new();
     public ObservableCollection<BoatIndexBoatTypeViewModel> BoatTypes { get; } = new();
-    public ObservableCollection<string> BoatTypeNames { get; } = new();
     public string Name
     {
         get => _name;

@@ -22,7 +22,6 @@ public partial class BoatIndexPage : Page
         foreach (BoatTypeEntity boatType in _boatTypeRepository.GetAll())
         {
             ViewModel.BoatTypes.Add(new BoatIndexBoatTypeViewModel(boatType));
-            ViewModel.BoatTypeNames.Add(boatType.Name);
         }
 
         UpdateItems();
@@ -36,9 +35,9 @@ public partial class BoatIndexPage : Page
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
         var comboBox = (ComboBox)sender;
-        string selected = (string)comboBox.SelectedItem;
+        var selected = (BoatIndexBoatTypeViewModel)comboBox.SelectedItem;
         ViewModel.BoatTypeId = ViewModel.BoatTypes
-            .FirstOrDefault(boatType => boatType.Name.Equals(selected, StringComparison.CurrentCultureIgnoreCase))?.Id ?? 0;
+            .FirstOrDefault(boatType => boatType.Id != 0 && boatType.Id == selected.Id)?.Id ?? 0;
 
         UpdateItems();
     }

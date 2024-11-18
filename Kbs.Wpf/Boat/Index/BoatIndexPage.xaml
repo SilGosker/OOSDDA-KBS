@@ -19,7 +19,7 @@
                  TextChanged="NameChanged" Height="22" />
         <Label Content="Naam" HorizontalAlignment="Left" Margin="463,47,0,0" VerticalAlignment="Top" Width="120" />
         <ComboBox HorizontalAlignment="Left" Margin="322,74,0,0" VerticalAlignment="Top" Width="120"
-                  SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypeNames}" />
+                  SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypes}" />
         <Label Content="Boot type" HorizontalAlignment="Left" Margin="322,47,0,0" VerticalAlignment="Top" Width="120" />
 
         <ListView Width="520" ItemsSource="{Binding Items}"

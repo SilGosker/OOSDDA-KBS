@@ -24,5 +24,14 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void Annuleren(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        }
     }
 }

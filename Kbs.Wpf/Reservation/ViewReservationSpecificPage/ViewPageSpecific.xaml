@@ -11,7 +11,7 @@
     <Grid>
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
-            <TextBlock Text="verlopen" Foreground="Red" Canvas.Left="596" Canvas.Top="43" Height="24" Width="96"/>
+            <TextBlock Text="verlopen" Foreground="Red" Canvas.Left="559" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">
                 <TextBlock Text="Zitplaatsen:" Width="166"/>
@@ -34,7 +34,7 @@
             </StackPanel>
 
             <Button Content="Type boot" Width="100" Canvas.Left="137" Canvas.Top="376"/>
-            <Button Content="Verwijderen" Width="100" Canvas.Left="592" Canvas.Top="376"/>
+            <Button Content="Verwijderen" Width="100" Canvas.Left="559" Click="Annuleren" Canvas.Top="371"/>
         </Canvas>
     </Grid>
 </Page>

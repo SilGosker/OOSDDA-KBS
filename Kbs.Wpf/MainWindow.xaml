@@ -5,12 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    
     <Grid>
-        <Grid HorizontalAlignment="Left" Width="180" Background="Orange">
+        <Grid HorizontalAlignment="Left" Width="180" Background="#23272A">
+            <StackPanel>
+                <TextBlock Margin="10, 10, 0, 0" Style="{StaticResource HyperlinkStyle}">
+                    <Hyperlink TextDecorations="None" NavigateUri="http://www.msn.com">
+                        My MSN
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            
             <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 
-        <DockPanel Background="White" Margin="180,0,0,0" >
+        <DockPanel Background="#2C2F33" Margin="180,0,0,0" >
             <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" />
         </DockPanel>
 

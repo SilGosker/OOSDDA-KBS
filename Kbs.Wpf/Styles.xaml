@@ -1,0 +1,101 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style TargetType="Window">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+    </Style>
+    
+    <Style TargetType="Grid">
+        <Setter Property="Background" Value="#23272A" />
+    </Style>
+    
+    <Style TargetType="Label">
+        <Setter Property="Foreground" Value="#DCDDDE" /> <!-- Off-White Text -->
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+    </Style>
+    
+    <Style TargetType="TextBox">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CaretBrush" Value="#00B5D8" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="#00B5D8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="PasswordBox">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="CaretBrush" Value="#00B5D8" />
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="#00B5D8" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Cursor" Value="Hand" />
+
+        <!-- Hover State -->
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3B4048" />
+                <Setter Property="BorderBrush" Value="#00B5D8" />
+            </Trigger>
+            <!-- Pressed State -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#23272A" />
+                <Setter Property="BorderBrush" Value="#72767D" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="TextBlock" x:Key="HyperlinkStyle">
+        <Setter Property="TextDecorations" Value="Underline" />
+        <Setter Property="Foreground" Value="#00B5D8" /> <!-- Set initial color for hyperlink -->
+        <Setter Property="Cursor" Value="Hand" />
+
+        <Style.Triggers>
+            <!-- Trigger for Hyperlink itself on hover -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#33C6E0" /> <!-- Hover color -->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Hyperlink">
+        <Setter Property="Foreground" Value="#00B5D8" /> <!-- Set initial color for hyperlink -->
+        <Setter Property="TextDecorations" Value="Underline" />
+        <Setter Property="Cursor" Value="Hand" />
+
+        <Style.Triggers>
+            <!-- Trigger for Hyperlink on hover -->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#33C6E0" /> <!-- Hover color for hyperlink -->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

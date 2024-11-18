@@ -1,4 +1,5 @@
-﻿using Kbs.Wpf.Components;
+﻿using Kbs.Data;
+using Kbs.Wpf.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         private bool _stuur;
         private DateTime _tijdsstip;
         private int _tijdsduur;
+        private int _reservationID;
 
         public int Niveau
         {
@@ -39,6 +41,11 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         {
             get => _tijdsduur;
             set => SetField(ref _tijdsduur, value);
+        }
+        public int ReservationID
+        {
+            get => _reservationID;
+            set => SetField(ref _reservationID, value);
         }
     }
 }

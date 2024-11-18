@@ -31,6 +31,7 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         public ViewReservationPage()
         {
             InitializeComponent();
+            DataContext = new ViewReservationViewModel();
         }
 
         private void LogOut(object sender, RoutedEventArgs e)

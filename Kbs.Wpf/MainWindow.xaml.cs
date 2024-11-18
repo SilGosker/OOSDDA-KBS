@@ -1,9 +1,11 @@
 ﻿using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Azure;
+using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
-using Kbs.Wpf.Reservation.InzienReservering;
+using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
@@ -81,8 +83,8 @@ namespace Kbs.Wpf
 
         private void MyReservations(object sender, RoutedEventArgs e)
         {
-            var myReservationsWindow = new Window1();
-            myReservationsWindow.Show();
+            var myReservationsPage = new ViewReservationPage();
+            NavigationFrame.Content = myReservationsPage; // Stel de nieuwe inhoud in
             //My reservations Window
         }
         private void PlaceReservation(object sender, RoutedEventArgs e)

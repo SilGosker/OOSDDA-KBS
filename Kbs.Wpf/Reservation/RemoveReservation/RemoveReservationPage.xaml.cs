@@ -19,18 +19,11 @@ namespace Kbs.Wpf.Reservation.VerwijderenReservering
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class RemoveReservationWindow : Page
     {
-        public Window1()
+        public RemoveReservationWindow()
         {
-            //InitializeComponent();
-        }
-        private void LogOut(object sender, RoutedEventArgs e)
-        {
-            SessionManager.Instance.Logout();
-            var loginWindow = new LoginWindow();
-            loginWindow.Show();
-            Close();
+            
         }
     }
 }

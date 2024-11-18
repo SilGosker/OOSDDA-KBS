@@ -7,6 +7,7 @@ using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
+using Kbs.Wpf.Reservation.NewFolder;
 
 namespace Kbs.Wpf
 {
@@ -90,6 +91,8 @@ namespace Kbs.Wpf
         private void PlaceReservation(object sender, RoutedEventArgs e)
         {
             //place reservations window
+            var makeReservation = new MakeReservation(this);
+            NavigationFrame.Content = makeReservation;
         }
         private void Settings(object sender, RoutedEventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.Session;
+using Kbs.Wpf.Reservation.NewFolder;
 using Kbs.Wpf.User.Login;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,8 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         private void PlaceReservation(object sender, RoutedEventArgs e)
         {
             //place reservations window
-        }
+       
+            }
         private void Settings(object sender, RoutedEventArgs e)
         {
             //settings window

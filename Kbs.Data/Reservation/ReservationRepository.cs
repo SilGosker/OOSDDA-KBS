@@ -41,5 +41,9 @@ namespace Kbs.Data.Reservation
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation").ToList();
         }
         
+        public List<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan> GetTypesPLS()
+            {
+            return _connection.Query<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan>("SELECT * FROM BoatType").ToList();
+            }
     }
 }

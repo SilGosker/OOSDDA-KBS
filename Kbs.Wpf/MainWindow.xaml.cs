@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Reservation.InzienReservering;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
@@ -80,7 +81,17 @@ namespace Kbs.Wpf
 
         private void MyReservations(object sender, RoutedEventArgs e)
         {
-            var ViewReservationWindow = new LoginWindow();
+            var myReservationsWindow = new Window1();
+            myReservationsWindow.Show();
+            //My reservations Window
+        }
+        private void PlaceReservation(object sender, RoutedEventArgs e)
+        {
+            //place reservations window
+        }
+        private void Settings(object sender, RoutedEventArgs e)
+        {
+            //settings window
         }
     }
 }

@@ -53,7 +53,6 @@ namespace Kbs.Wpf.User.Update
                 GlobalError.Visibility = Visibility.Visible; 
                 EmailErrorMessage.Visibility = Visibility.Hidden;
                 PasswordErrorMessage.Visibility = Visibility.Hidden;
-                PasswordConfirmErrorMessage.Visibility = Visibility.Hidden;
             }
             else
             {
@@ -89,13 +88,11 @@ namespace Kbs.Wpf.User.Update
                     } else if (validationResult.ContainsKey("Bevestiging"))
                     {
                         PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        PasswordConfirmErrorMessage.Visibility = Visibility.Visible;
                         matching = false;
                     }
                     else
                     {
                         PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        PasswordConfirmErrorMessage.Visibility = Visibility.Hidden;
                         passwordCorrect = true;
                     }
                 }

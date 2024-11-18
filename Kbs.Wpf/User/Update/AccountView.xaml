@@ -20,22 +20,21 @@
         <Label Content="Instellingen" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="22"/>
 
         <Label Content="Email:" HorizontalAlignment="Center" Margin="-250,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox Name="EmailInput" HorizontalAlignment="Center" Margin="-100,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
-        <Label Name="EmailErrorMessage" Content="" HorizontalAlignment="Left" Margin="100,140,0,0" VerticalAlignment="Top" Foreground="Red" Visibility="Hidden"/>
+        <TextBox Name="EmailInput" HorizontalAlignment="Left" Margin="108,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
+        <Label Name="EmailErrorMessage" Content="" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" Foreground="Red" Visibility="Hidden"/>
 
-        <Label Content="Nieuw wachtwoord:" HorizontalAlignment="Center" Margin="-165,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Nieuw wachtwoord:" HorizontalAlignment="Left" Margin="102,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Width="200" Margin="200,176,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Text="Wachtwoord moet voldoen aan: (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)" 
                TextWrapping="Wrap" FontSize="9" />
         </Label>
-        <PasswordBox Name="PasswordInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Center" Margin="-160,191,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Width="350" Margin="100,209,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <PasswordBox Name="PasswordInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Width="400" Margin="100,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBlock Name="PasswordErrorMessage" Text="" TextWrapping="Wrap" Foreground="Red" Visibility="Hidden"/>
         </Label>
 
-        <Label Content="Nieuw wachtwoord bevestiging:" HorizontalAlignment="Center" Margin="-100,243,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <PasswordBox Name="PasswordConfirmInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Center" Margin="-160,269,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Name="PasswordConfirmErrorMessage" Content="Wachtwoord komt niet overeen" Margin="100,292,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="177" Visibility="Hidden"/>
+        <Label Content="Nieuw wachtwoord bevestiging:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="101,214,0,0"/>
+        <PasswordBox Name="PasswordConfirmInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Left" Margin="106,239,0,0" VerticalAlignment="Top" Width="120"/>
 
         <Label Name="GlobalError" Content="Email moet veranderd zijn of wachtwoord moet ingevuld zijn om te bevestigen" Margin="65,320,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="Auto" Visibility="Hidden"/>
         <Button Name="ConfirmButton" Content="Bevestig" HorizontalAlignment="Center" Margin="-200,351,0,0" VerticalAlignment="Top" Click="Submit"/>

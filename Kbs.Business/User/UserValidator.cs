@@ -38,23 +38,43 @@ public class UserValidator
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();
-        string passwordRegex = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\p{P}\p{S}]).{8,}$";
+
         if (string.IsNullOrEmpty(user.Password))
         {
             errors.Add(nameof(user.Password), "Wachtwoord is verplicht");
         }
-        else if (!Regex.IsMatch(user.Password, passwordRegex))
+        else
         {
-            errors.Add(nameof(user.Password), "Wachtwoord voldoet niet aan de eisen (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)");
-        } else
-        {
-            if (string.IsNullOrEmpty(passwordConfirmation))
+            var errorStringBuilder = new StringBuilder();
+            if (user.Password.Length < 8)
             {
-                errors.Add("Bevestiging", "Bevestiging is verplicht");
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");
             }
-            else if (!user.Password.Equals(passwordConfirmation))
+            if (!user.Password.Any(char.IsUpper) || !user.Password.Any(char.IsLower))
             {
-                errors.Add("Bevestiging", "Wachtwoord bevestiging komt niet overeen met wachtwoord");
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten");
+            }
+            if (!user.Password.Any(char.IsDigit))
+            {
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 cijfer bevatten");
+            }
+
+            Regex regex = new Regex(@"[!\""#\$%&'()*+,-./:;<=>?@[\]^_`{|}~€£¥₹©®™§°]", RegexOptions.Compiled);
+            if (!user.Password.Any(c => regex.IsMatch(c.ToString())))
+            {
+                errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 1 speciaal teken bevatten");
+            }
+
+            if (passwordConfirmation != user.Password)
+            {
+                errorStringBuilder.AppendLine("- Wachtwoorden komen niet overeen");
+            }
+
+            string errorString = errorStringBuilder.ToString();
+
+            if (!string.IsNullOrEmpty(errorString))
+            {
+                errors.Add(nameof(user.Password), errorString);
             }
         }
 
@@ -62,10 +82,12 @@ public class UserValidator
         {
             errors.Add(nameof(user.Email), "Email is verplicht");
         }
-        else if(!EmailValidationRegex.IsMatch(user.Email.Trim()))
+        else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+                !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
         {
             errors.Add(nameof(user.Email), "Ongeldig email adres");
-        } else if (userRepository.GetByEmail(user.Email) != null)
+        }
+        else if (userRepository.GetByEmail(user.Email) != null)
         {
             errors.Add(nameof(user.Email), "Email adres bestaat al");
         }

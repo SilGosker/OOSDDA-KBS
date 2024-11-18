@@ -48,14 +48,8 @@ namespace Kbs.Wpf.Reservation.ViewReservation
             //myReservationsWindow.Show();
             //My reservations Window
         }
-        private void PlaceReservation(object sender, RoutedEventArgs e)
-        {
-            //place reservations window
-        }
-        private void Settings(object sender, RoutedEventArgs e)
-        {
-            //settings window
-        }
+        
+
         private void SubmitButtonClicked(object sender, RoutedEventArgs e)
         {
             var reservation = new ReservationEntity()

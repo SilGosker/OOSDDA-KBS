@@ -95,5 +95,6 @@ namespace Kbs.Wpf
         {
             //settings window
         }
+
     }
 }

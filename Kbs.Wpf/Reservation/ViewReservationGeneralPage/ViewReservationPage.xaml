@@ -62,8 +62,10 @@
                         <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Stuur::" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Stuur}" FontSize="14" />
+                        <TextBlock Text="Stuur:" FontSize="14" Width="263" />
+                        <TextBlock Text="{Binding Stuur}" FontSize="14" Width="402" />
+                        <Button Content="Zie meer" Click="MyReservations"  />
+
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -102,8 +104,9 @@
                         <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Stuur::" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Stuur}" FontSize="14" />
+                        <TextBlock Text="Stuur:" FontSize="14" Width="263" />
+                        <TextBlock Text="{Binding Stuur}" FontSize="14" Width="402" />
+                        <Button Content="Zie meer" Click="MyReservations"  />
                     </StackPanel>
                 </StackPanel>
             </Grid>

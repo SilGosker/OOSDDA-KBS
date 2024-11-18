@@ -9,7 +9,15 @@
       Title="ViewReservationPage">
 
     <Grid>
-        
+        <Border Name="HeaderBorder"
+                Margin="10,10,291,0" 
+                VerticalAlignment="Top" 
+                Height="85" 
+                BorderBrush="Gray" 
+                BorderThickness="1" 
+                CornerRadius="5" 
+                Background="LightGray">
+        </Border>
         <TextBlock Text="Mijn reserveringen" Margin="20,26,177,0" VerticalAlignment="Top" Height="105" FontSize="30" RenderTransformOrigin="0.5,0.5" >
             <TextBlock.RenderTransform>
                 <TransformGroup>
@@ -29,15 +37,16 @@
             CornerRadius="5" 
             Background="LightGray">
             <Grid Margin="10">
-                <TextBlock Text="Boot1" 
+                <TextBlock Text="Boot *" 
                        FontSize="20" 
                        FontWeight="Bold" 
                        VerticalAlignment="Top" />
                 <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <TextBlock Text="Niveau: Gevorderd" FontSize="14" />
-                    <TextBlock Text="Tijdstip: 14:00" FontSize="14" />
-                    <TextBlock Text="Tijdsduur: 2 uur" FontSize="14" />
-                    <TextBlock Text="Zitplaatsen: 4" FontSize="14" />
+                    <TextBlock Text="Niveau: .." FontSize="14" />
+                    <TextBlock Text="Tijdstip: ..:.." FontSize="14" />
+                    <TextBlock Text="Tijdsduur: .. Uur" FontSize="14" />
+                    <TextBlock Text="Zitplaatsen: .." FontSize="14" />
+                    <TextBlock Text="Stuur: Ja/Nee" FontSize="14" />
                 </StackPanel>
             </Grid>
         </Border>
@@ -50,15 +59,16 @@
             CornerRadius="5" 
             Background="LightGray">
             <Grid Margin="10">
-                <TextBlock Text="Boot2" 
+                <TextBlock Text="Boot *" 
                        FontSize="20" 
                        FontWeight="Bold" 
                        VerticalAlignment="Top" />
                 <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <TextBlock Text="Niveau: Beginner" FontSize="14" />
-                    <TextBlock Text="Tijdstip: 16:00" FontSize="14" />
-                    <TextBlock Text="Tijdsduur: 1 uur" FontSize="14" />
-                    <TextBlock Text="Zitplaatsen: 2" FontSize="14" />
+                    <TextBlock Text="Niveau: .." FontSize="14" Width="742" />
+                    <TextBlock Text="Tijdstip: ..:.." FontSize="14" Width="736" />
+                    <TextBlock Text="Tijdsduur: .. Uur" FontSize="14" Width="749" />
+                    <TextBlock Text="Zitplaatsen: .." FontSize="14" />
+                    <TextBlock Text="Stuur: Ja/Nee" FontSize="14" />
                 </StackPanel>
             </Grid>
         </Border>

@@ -1,7 +1,4 @@
-﻿
-using System.Formats.Tar;
-
-namespace Kbs.Business.Boat;
+﻿namespace Kbs.Business.Boat;
 
 public class BoatEntity
 {

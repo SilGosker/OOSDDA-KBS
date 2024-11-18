@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
 using Kbs.Business.User;
@@ -27,17 +28,21 @@ public partial class BoatIndexPage : Page
         UpdateItems();
     }
 
-    private void NameChanged(object sender, TextChangedEventArgs e)
+    private void NameChanged(object sender, KeyEventArgs e)
     {
-        UpdateItems();
+        if (e.Key == Key.Enter)
+        {
+            UpdateItems();
+        }
     }
 
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
         var comboBox = (ComboBox)sender;
         var selected = (BoatIndexBoatTypeViewModel)comboBox.SelectedItem;
+
         ViewModel.BoatTypeId = ViewModel.BoatTypes
-            .FirstOrDefault(boatType => boatType.Id != 0 && boatType.Id == selected.Id)?.Id ?? 0;
+            .FirstOrDefault(boatType => boatType.Id == selected.Id)?.Id ?? 0;
 
         UpdateItems();
     }

@@ -77,5 +77,10 @@ namespace Kbs.Wpf
             loginWindow.Show();
             Close();
         }
+
+        private void MyReservations(object sender, RoutedEventArgs e)
+        {
+            var ViewReservationWindow = new LoginWindow();
+        }
     }
 }

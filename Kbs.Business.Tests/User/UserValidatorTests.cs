@@ -1,4 +1,6 @@
-﻿namespace Kbs.Business.User;
+﻿using Kbs.Business.Mock;
+
+namespace Kbs.Business.User;
 
 public class UserValidatorTests
 {
@@ -117,6 +119,13 @@ public class UserValidatorTests
     public void ValidateForUpdate_WithInvalidPassword_ReturnsErrors(string password)
     {
         // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "123456"
+        });
+
         var user = new UserEntity()
         {
             Password = password,
@@ -127,7 +136,7 @@ public class UserValidatorTests
         string errorMessage = "Wachtwoord voldoet niet aan de eisen (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository);
 
         // Assert
         Assert.Single(validationResult);
@@ -135,10 +144,46 @@ public class UserValidatorTests
         Assert.Equal(errorMessage, validationResult[nameof(user.Password)]);
     }
 
+    [Theory]
+    [InlineData("Test123!!", "Appel123")]
+    [InlineData("Test123!!", "Test123")]
+    public void ValidateForUpdate_InvalidMatchingPassword_ReturnsErrors(string password, string confirmation)
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "123456"
+        });
+        var user = new UserEntity()
+        {
+            Password = password,
+            Email = "test@gmail.com"
+        };
+
+        var validator = new UserValidator();
+        string errorMessage = "Wachtwoord bevestiging komt niet overeen met wachtwoord";
+
+        // Act
+        var validationResult = validator.ValidatorForUpdate(user, confirmation, userRepository);
+
+        // Assert
+        Assert.Single(validationResult);
+        Assert.True(validationResult.ContainsKey("Bevestiging"));
+        Assert.Equal(errorMessage, validationResult["Bevestiging"]);
+    }
+
     [Fact]
     public void ValidateForUpdate_WithNoPassword_ReturnsErrors()
     {
         // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "123456"
+        });
         var user = new UserEntity()
         {
             Password = null,
@@ -149,7 +194,7 @@ public class UserValidatorTests
         string errorMessage = "Wachtwoord is verplicht";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user);
+        var validationResult = validator.ValidatorForUpdate(user, null, userRepository);
 
         // Assert
         Assert.Single(validationResult);
@@ -157,26 +202,90 @@ public class UserValidatorTests
         Assert.Equal(errorMessage, validationResult[nameof(user.Password)]);
     }
 
-    [Fact]
-    public void ValidateForUpdate_WithInvalidEmail_ReturnsErrors()
+
+    [Theory]
+    [InlineData("Test 123!!")]
+    public void ValidateForUpdate_WithInvalidEmail_ReturnsErrors(string password)
     {
         // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "123456"
+        });
+
         var user = new UserEntity()
         {
-            Password = "Test 123!!",
+            Password = password,
             Email = "test"
         };
 
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository);
         // Assert
         Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
     }
-    
+
+    [Theory]
+    [InlineData("Test 123!!")]
+    [InlineData("Test 12#!")]
+    public void ValidateForUpdate_ExistingEmail_ReturnsErrors(string password)
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "Test 12#!"
+        });
+
+        var user = new UserEntity()
+        {
+            Password = password,
+            Email = "tester@gmail.com"
+        };
+
+        var validator = new UserValidator();
+
+        // Act
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository);
+        // Assert
+        Assert.Single(validationResult);
+        Assert.True(validationResult.ContainsKey(nameof(user.Email)));
+        Assert.Equal("Email adres bestaat al", validationResult[nameof(user.Email)]);
+    }
+
+    [Theory]
+    [InlineData("Test 123!!")]
+    public void ValidateForUpdate_WithValidUser_ReturnsEmptyDictionary(string password)
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "tester@gmail.com",
+            Password = "123456"
+        });
+
+        var user = new UserEntity()
+        {
+            Password = password,
+            Email = "test@gmail.com"
+        };
+
+        var validator = new UserValidator();
+
+        // Act
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository);
+        // Assert
+        Assert.Empty(validationResult);
+    }
+
     [Fact]
     public void ValidatorForRegistration_WithEmptyPassword_ReturnsErrors()
     {
@@ -287,24 +396,6 @@ public class UserValidatorTests
         Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
-    }
-
-    [Fact]
-    public void ValidateForUpdate_WithValidUser_ReturnsEmptyDictionary()
-    {
-        // Arrange
-        var user = new UserEntity()
-        {
-            Password = "Test 123!!",
-            Email = "test@gmail.com"
-        };
-
-        var validator = new UserValidator();
-
-        // Act
-        var validationResult = validator.ValidatorForUpdate(user);
-        // Assert
-        Assert.Empty(validationResult);
     }
 
     public void ValidatorForRegistration_WithNonMatchingPasswords_ReturnsErrors()

@@ -27,6 +27,7 @@ namespace Kbs.Wpf.User.Update
     {
         private readonly UserValidator _userValidator = new UserValidator(); 
         private readonly INavigationManager _navigationManager;
+        private readonly IUserRepository _userRepository = new UserRepository();
 
         public AccountViewModel ViewModel => (AccountViewModel)DataContext;
         public AccountView(INavigationManager navigationManager)
@@ -47,18 +48,12 @@ namespace Kbs.Wpf.User.Update
             bool passwordCorrect = false;
             bool matching = true;
 
-            if (!PasswordInput.Password.Equals(PasswordConfirmInput.Password)){
-                PasswordConfirmErrorMessage.Visibility = Visibility.Visible;
-                matching = false;
-            }
-            else
+            if ((EmailInput.Text.Length == 0 || EmailInput.Text.Equals(SessionManager.Instance.Current.User.Email)) && PasswordInput.Password.Length == 0)
             {
+                GlobalError.Visibility = Visibility.Visible; 
+                EmailErrorMessage.Visibility = Visibility.Hidden;
+                PasswordErrorMessage.Visibility = Visibility.Hidden;
                 PasswordConfirmErrorMessage.Visibility = Visibility.Hidden;
-            }
-
-            if (EmailInput.Text.Length == 0 && PasswordInput.Password.Length == 0)
-            {
-                GlobalError.Visibility = Visibility.Visible;
             }
             else
             {
@@ -68,8 +63,8 @@ namespace Kbs.Wpf.User.Update
                     Email = ViewModel.InputEmail,
                     Password = ViewModel.InputPassword
                 };
-                var validationResult = _userValidator.ValidatorForUpdate(user);
-                if (user.Email != null && user.Email.Length != 0)
+                var validationResult = _userValidator.ValidatorForUpdate(user, PasswordConfirmInput.Password, _userRepository);
+                if (user.Email != null && user.Email.Length != 0 && !user.Email.Equals(SessionManager.Instance.Current.User.Email))
                 {
                     mailChange = true;
                     if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
@@ -82,7 +77,7 @@ namespace Kbs.Wpf.User.Update
                         EmailErrorMessage.Visibility = Visibility.Hidden;
                         mailCorrect = true;
                     }
-                }
+                } 
 
                 if (user.Password != null && user.Password.Length != 0)
                 {
@@ -91,10 +86,16 @@ namespace Kbs.Wpf.User.Update
                     {
                         PasswordErrorMessage.Text = passwordMessage;
                         PasswordErrorMessage.Visibility = Visibility.Visible;
+                    } else if (validationResult.ContainsKey("Bevestiging"))
+                    {
+                        PasswordErrorMessage.Visibility = Visibility.Hidden;
+                        PasswordConfirmErrorMessage.Visibility = Visibility.Visible;
+                        matching = false;
                     }
                     else
                     {
                         PasswordErrorMessage.Visibility = Visibility.Hidden;
+                        PasswordConfirmErrorMessage.Visibility = Visibility.Hidden;
                         passwordCorrect = true;
                     }
                 }
@@ -130,7 +131,7 @@ namespace Kbs.Wpf.User.Update
                 {
                     UserRepository repository = new UserRepository();
                     repository.Update(SessionManager.Instance.Current.User);
-                    MessageBox.Show(((mailChange)? "Email" : "") + ((mailChange && passwordCorrect)? " en " : "") + ((passwordCorrect)? "Wachtwoord" : "") + ((mailChange && passwordCorrect) ? " zijn " : " is ") + "succesvol aangepast.");
+                    MessageBox.Show(((mailCorrect)? "Email" : "") + ((mailCorrect && passwordCorrect)? " en " : "") + ((passwordCorrect)? "Wachtwoord" : "") + ((mailCorrect && passwordCorrect) ? " zijn " : " is ") + "succesvol aangepast.");
                     _navigationManager.Navigate(() => new AccountView(_navigationManager));
                 }
             }
@@ -138,12 +139,6 @@ namespace Kbs.Wpf.User.Update
         private void Cancel(object sender, RoutedEventArgs e)
         {
             if (sender != CancelButton) return;
-            //EmailInput.Clear();
-            //EmailErrorMessage.Visibility = Visibility.Hidden;
-            //PasswordInput.Clear();
-            //PasswordErrorMessage.Visibility = Visibility.Hidden;
-            //PasswordConfirmInput.Clear();
-            //PasswordConfirmErrorMessage.Visibility = Visibility.Hidden;
             MessageBox.Show("Wijzigingen geannuleerd.");
             _navigationManager.Navigate(() => new AccountView(_navigationManager));
         }

@@ -8,7 +8,7 @@ public class UserValidator
 {
     private static readonly Regex EmailValidationRegex =
         new Regex("^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$", RegexOptions.Compiled);
-
+    
     public Dictionary<string, string> ValidatorForLogIn(UserEntity user)
     {
         ThrowHelper.ThrowIfNull(user);
@@ -34,7 +34,7 @@ public class UserValidator
 
         return errors;
     }
-    public Dictionary<string, string> ValidatorForUpdate(UserEntity user)
+    public Dictionary<string, string> ValidatorForUpdate(UserEntity user, string passwordConfirmation, IUserRepository userRepository)
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();
@@ -42,21 +42,32 @@ public class UserValidator
         if (string.IsNullOrEmpty(user.Password))
         {
             errors.Add(nameof(user.Password), "Wachtwoord is verplicht");
-        } else if (!Regex.IsMatch(user.Password, passwordRegex))
+        }
+        else if (!Regex.IsMatch(user.Password, passwordRegex))
         {
             errors.Add(nameof(user.Password), "Wachtwoord voldoet niet aan de eisen (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)");
+        } else
+        {
+            if (string.IsNullOrEmpty(passwordConfirmation))
+            {
+                errors.Add("Bevestiging", "Bevestiging is verplicht");
+            }
+            else if (!user.Password.Equals(passwordConfirmation))
+            {
+                errors.Add("Bevestiging", "Wachtwoord bevestiging komt niet overeen met wachtwoord");
+            }
         }
 
         if (string.IsNullOrWhiteSpace(user.Email))
         {
             errors.Add(nameof(user.Email), "Email is verplicht");
         }
-        else
+        else if(!EmailValidationRegex.IsMatch(user.Email.Trim()))
         {
-            if (!EmailValidationRegex.IsMatch(user.Email.Trim()))
-            {
-                errors.Add(nameof(user.Email), "Ongeldig email adres");
-            }
+            errors.Add(nameof(user.Email), "Ongeldig email adres");
+        } else if (userRepository.GetByEmail(user.Email) != null)
+        {
+            errors.Add(nameof(user.Email), "Email adres bestaat al");
         }
         return errors;
     }

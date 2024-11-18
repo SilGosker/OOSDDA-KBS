@@ -21,7 +21,7 @@
 
         <Label Content="Email:" HorizontalAlignment="Center" Margin="-250,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <TextBox Name="EmailInput" HorizontalAlignment="Center" Margin="-100,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
-        <Label Name="EmailErrorMessage" Content="" HorizontalAlignment="Left" Margin="65,140,0,0" VerticalAlignment="Top" Foreground="Red" Visibility="Hidden"/>
+        <Label Name="EmailErrorMessage" Content="" HorizontalAlignment="Left" Margin="100,140,0,0" VerticalAlignment="Top" Foreground="Red" Visibility="Hidden"/>
 
         <Label Content="Nieuw wachtwoord:" HorizontalAlignment="Center" Margin="-165,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Width="200" Margin="200,176,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
@@ -29,15 +29,15 @@
                TextWrapping="Wrap" FontSize="9" />
         </Label>
         <PasswordBox Name="PasswordInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Center" Margin="-160,191,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Width="350" Margin="65,209,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Label Width="350" Margin="100,209,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <TextBlock Name="PasswordErrorMessage" Text="" TextWrapping="Wrap" Foreground="Red" Visibility="Hidden"/>
         </Label>
 
         <Label Content="Nieuw wachtwoord bevestiging:" HorizontalAlignment="Center" Margin="-100,243,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <PasswordBox Name="PasswordConfirmInput" PasswordChanged="PasswordChanged" HorizontalAlignment="Center" Margin="-160,269,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Name="PasswordConfirmErrorMessage" Content="Wachtwoord komt niet overeen" Margin="65,292,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="177" Visibility="Hidden"/>
+        <Label Name="PasswordConfirmErrorMessage" Content="Wachtwoord komt niet overeen" Margin="100,292,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="177" Visibility="Hidden"/>
 
-        <Label Name="GlobalError" Content="Email of wachtwoord moet ingevuld zijn om te bevestigen" Margin="65,320,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="317" Visibility="Hidden"/>
+        <Label Name="GlobalError" Content="Email moet veranderd zijn of wachtwoord moet ingevuld zijn om te bevestigen" Margin="65,320,0,0" VerticalAlignment="Top" Foreground="Red" HorizontalAlignment="Left" Width="Auto" Visibility="Hidden"/>
         <Button Name="ConfirmButton" Content="Bevestig" HorizontalAlignment="Center" Margin="-200,351,0,0" VerticalAlignment="Top" Click="Submit"/>
         <Button Name="CancelButton" Content="Annuleer" HorizontalAlignment="Center" Margin="200,351,0,0" VerticalAlignment="Top" Click="Cancel"/>
 

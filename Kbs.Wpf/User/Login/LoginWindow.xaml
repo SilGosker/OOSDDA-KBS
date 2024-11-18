@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf.User.Login"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="450" Width="800">
+        Title="LoginWindow" Height="500" Width="800">
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>
@@ -14,17 +14,17 @@
         <Label Content="Inloggen" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
 
-        <Grid HorizontalAlignment="Center" Width="800" Margin="0,102,0,0" Height="156" VerticalAlignment="Top">
-            <Label Content="Email" HorizontalAlignment="Left" Margin="205,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.496,-3.139" />
-            <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="210,54,0,0" VerticalAlignment="Top"
+        <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="156" VerticalAlignment="Top">
+            <Label Content="Email" HorizontalAlignment="Left" Margin="205,20,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.496,-3.139" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="210,43,0,0" VerticalAlignment="Top"
                      Width="400" />
             <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="205,67,0,0"
                    VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
 
 
-            <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="205,108,0,0" VerticalAlignment="Top" />
+            <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="205,90,0,0" VerticalAlignment="Top" />
 
-            <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="210,134,0,0" VerticalAlignment="Top"
+            <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="210,116,0,0" VerticalAlignment="Top"
                          Width="400" />
 
             <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left"
@@ -32,7 +32,12 @@
         </Grid>
 
 
-        <Button IsDefault="True"  Content="Bevestig" HorizontalAlignment="Center" Margin="0,313,0,0" VerticalAlignment="Top" Height="30"
+        <Button IsDefault="True"  Content="Bevestig" HorizontalAlignment="Center" Margin="0,270,0,0" VerticalAlignment="Top" Height="30"
                 Width="80" Click="SubmitButtonClicked" />
+        
+        <Label Content="Nog geen account?" HorizontalAlignment="Center" Margin="0,350,0,0"
+               VerticalAlignment="Top" />
+        <Button Content="Registreren" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" Height="30"
+                Width="80" Click="RegistrationButtonClicked"/>
     </Grid>
 </Window>

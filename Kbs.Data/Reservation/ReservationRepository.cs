@@ -27,7 +27,7 @@ namespace Kbs.Data.Reservation
         {
             if (res.ReservationId == 0) return;
 
-            _connection.Execute("DELETE FROM Users WHERE UserId = @UserId", user);
+            _connection.Execute("DELETE FROM Users WHERE UserId = @UserId", res);
         }
 
         public void Dispose()

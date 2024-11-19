@@ -5,12 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.Reservation.ViewReservationSpecificPage"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="620"
+      Background="White"
       Title="ViewPageSpecific">
-
+    <Page.DataContext>
+        <local:ViewPageSpecificViewModel />
+    </Page.DataContext>
     <Grid>
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
+            <TextBlock Text="{Binding ReservationID}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="18"/>
+
             <TextBlock Text="verlopen" Foreground="Red" Canvas.Left="559" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">

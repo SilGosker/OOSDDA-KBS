@@ -1,26 +1,22 @@
-﻿using Kbs.Business.Reservation;
-using Kbs.Business.Session;
-using Kbs.Data;
-using Kbs.Wpf.Components;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kbs.Data.Reservation;
+﻿using Kbs.Wpf.Components;
+using System.Windows.Input;
 
-namespace Kbs.Wpf.Reservation.ViewReservation
+namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
 {
+
     public class ViewReservationViewModel : ViewModel
     {
-        ReservationRepository rp;
         private int _niveau;
         private int _zitplaatsen;
         private bool _stuur;
         private DateTime _tijdsstip;
-        private int _tijdsduur;
+        private TimeSpan _tijdsduur;
         private int _reservationID;
+        public ViewReservationViewModel(Action<ViewReservationViewModel> action) {
+            // TODO: ViewMore instellen
+        }
+
+        public ICommand ViewMore { get; }
 
         public int Niveau
         {
@@ -42,7 +38,8 @@ namespace Kbs.Wpf.Reservation.ViewReservation
             get => _tijdsstip;
             set => SetField(ref _tijdsstip, value);
         }
-        public int Tijdsduur
+        public string TijdsstipFormatted => Tijdsstip.ToString("dd-MM-yyyy");
+        public TimeSpan Tijdsduur
         {
             get => _tijdsduur;
             set => SetField(ref _tijdsduur, value);

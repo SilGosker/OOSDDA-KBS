@@ -1,50 +1,40 @@
 ﻿using Kbs.Business.Reservation;
 using Kbs.Business.Session;
-using Kbs.Business.User;
-using Kbs.Wpf.Components;
+using Kbs.Data.Reservation;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
-using Kbs.Wpf.User.Login;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kbs.Wpf.Reservation.ViewReservation
 {
-    /// <summary>
-    /// Interaction logic for ViewReservationPage.xaml
-    /// </summary>
     public partial class ViewReservationPage : Page
     {
-        private ViewReservationViewModel ViewModel => (ViewReservationViewModel)DataContext;
+        private ViewReservationPageViewModel ViewModel => (ViewReservationPageViewModel)DataContext;
         private readonly ReservationValidator res;
+        private readonly ReservationRepository _reservationRepository = new ReservationRepository();
+        private readonly INavigationManager _navigationManager;
 
-        public ViewReservationPage()
+        public ViewReservationPage(INavigationManager navigationManager)
         {
+            _navigationManager = navigationManager;
             InitializeComponent();
-            DataContext = new ViewReservationViewModel();
+
+            var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
+            foreach (var reservation in reservations)
+            {
+                ViewModel.Items.Add(new ViewReservationViewModel(ZieMeer)
+                {
+                    Tijdsduur = reservation.Duration,
+                    Tijdsstip = reservation.StartTime
+                });
+            }
         }
 
-        private void ZieMeer(object sender, RoutedEventArgs e)
+        private void ZieMeer(ViewReservationViewModel item)
         {
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            if (mainWindow != null)
-            {
-                mainWindow.Show();
-            }
-            var viewReservationSpecificPage = new ViewPageSpecific();
-            NavigationService.Navigate(viewReservationSpecificPage);
+            _navigationManager.Navigate(() => new ViewPageSpecific(item.ReservationID));
         }
     }
 }
+
 

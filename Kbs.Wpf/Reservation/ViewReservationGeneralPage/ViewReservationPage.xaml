@@ -3,14 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Kbs.Wpf.Reservation.ViewReservation"
+      xmlns:local="clr-namespace:Kbs.Wpf.Reservation.ViewReservationGeneralPage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewReservationPage">
+    <Page.DataContext>
+        <local:ViewReservationPageViewModel />
+    </Page.DataContext>
 
     <Grid>
         <Border Name="HeaderBorder"
-                Margin="10,10,291,0" 
+                Margin="5,10,291,0" 
                 VerticalAlignment="Top" 
                 Height="85" 
                 BorderBrush="Gray" 
@@ -18,7 +21,7 @@
                 CornerRadius="5" 
                 Background="LightGray">
         </Border>
-        <TextBlock Text="Mijn reserveringen" Margin="20,26,177,0" VerticalAlignment="Top" Height="105" FontSize="30" RenderTransformOrigin="0.5,0.5" >
+        <TextBlock Text="Mijn reserveringen" Margin="15,26,177,0" VerticalAlignment="Top" Height="105" FontSize="30" RenderTransformOrigin="0.5,0.5">
             <TextBlock.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -28,7 +31,10 @@
                 </TransformGroup>
             </TextBlock.RenderTransform>
         </TextBlock>
-        <Border Name="Border1" 
+        <ListView ItemsSource="{Binding Items}" Margin="0,100,0,0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border
             Margin="10,117,30,0" 
             VerticalAlignment="Top" 
             Height="159" 
@@ -36,79 +42,41 @@
             BorderThickness="1" 
             CornerRadius="5" 
             Background="LightGray">
-            <Grid Margin="10">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Boot:" FontSize="20" Width="263" />
-                    <TextBlock Text="{Binding ReservationID}" 
+                        <Grid Margin="10">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Boot:" FontSize="20" Width="263" />
+                                <TextBlock Text="{Binding ReservationID}" 
                         FontSize="20" 
                         FontWeight="Bold" 
                         VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Niveau:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Niveau}" FontSize="14" Width="275" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tijdsstip:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Tijdsstip}" FontSize="14" Width="736" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="749" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Zitplaatsen:" FontSize="14" Width="262" />
-                        <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Stuur:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Stuur}" FontSize="14" Width="136" />
-                        <Button Content="Zie meer" Click="ZieMeer"  />
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Border>
-        <Border Name="Border2" 
-            Margin="10,281,30,0" 
-            VerticalAlignment="Top" 
-            Height="159" 
-            BorderBrush="Gray" 
-            BorderThickness="1" 
-            CornerRadius="5" 
-            Background="LightGray">
-            <Grid Margin="10">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Boot:" FontSize="20" Width="263" />
-                    <TextBlock Text="{Binding ReservationID}" 
-                         FontSize="20" 
-                         FontWeight="Bold" 
-                         VerticalAlignment="Top" />
-                </StackPanel>
-                <StackPanel Orientation="Vertical" Margin="0,40,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Niveau:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Niveau}" FontSize="14" Width="275" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tijdsstip:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Tijdsstip}" FontSize="14" Width="736" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="749" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Zitplaatsen:" FontSize="14" Width="262" />
-                        <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Stuur:" FontSize="14" Width="263" />
-                        <TextBlock Text="{Binding Stuur}" FontSize="14" Width="141" />
-                        <Button Content="Zie meer" Command="{Binding ZieMeer}" />
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-        </Border>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Niveau:" FontSize="14" Width="263" />
+                                    <TextBlock Text="{Binding Niveau}" FontSize="14" Width="275" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Tijdsstip:" FontSize="14" Width="263" />
+                                    <TextBlock Text="{Binding TijdsstipFormatted}" FontSize="14" Width="736" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
+                                    <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="749" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Zitplaatsen:" FontSize="14" Width="262" />
+                                    <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Stuur:" FontSize="14" Width="263" />
+                                    <TextBlock Text="{Binding Stuur}" FontSize="14" Width="136" />
+                                    <Button Content="Zie meer" Command="{Binding ViewMore}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </Page>

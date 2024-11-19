@@ -9,14 +9,13 @@ using System.Windows;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
-    internal class ViewPageSpecificViewModel : ViewModel
+    public class ViewPageSpecificViewModel : ViewModel
     {
-        ReservationRepository rp;
         private int _niveau;
         private int _zitplaatsen;
         private bool _stuur;
         private DateTime _tijdsstip;
-        private int _tijdsduur;
+        private TimeSpan _tijdsduur;
         private int _reservationID;
 
         public int Niveau
@@ -39,7 +38,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _tijdsstip;
             set => SetField(ref _tijdsstip, value);
         }
-        public int Tijdsduur
+        public TimeSpan Tijdsduur
         {
             get => _tijdsduur;
             set => SetField(ref _tijdsduur, value);

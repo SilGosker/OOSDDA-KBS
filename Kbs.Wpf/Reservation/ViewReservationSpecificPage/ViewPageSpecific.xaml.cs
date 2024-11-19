@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Kbs.Business.Reservation;
+using Kbs.Data.Reservation;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
-    /// <summary>
-    /// Interaction logic for ViewPageSpecific.xaml
-    /// </summary>
     public partial class ViewPageSpecific : Page
     {
-        public ViewPageSpecific()
+        private readonly IReservationRepository _reservationRepository = new ReservationRepository();
+        public ViewPageSpecificViewModel ViewModel => (ViewPageSpecificViewModel)DataContext;
+        public ViewPageSpecific(int reservationId)
         {
             InitializeComponent();
+
+            var reservation = _reservationRepository.GetById(reservationId);
+            ViewModel.Tijdsduur = reservation.Duration;
+            ViewModel.Tijdsstip = reservation.StartTime;
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

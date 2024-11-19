@@ -43,26 +43,21 @@ namespace Kbs.Data.Reservation
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation").ToList();
         }
 
-        /*
-        public void GetStatus()
+        public List<ReservationEntity> GetByUserId(int userId)
         {
-            Console.WriteLine(_connection.Query("SELECT status FROM Reservation"));
+            return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE UserID = @userId", new { userId }).ToList();
         }
-        public IEnumerable<dynamic> GetTijdsduur()
-        {
-            return _connection.Query("SELECT Length FROM Reservation");
-        }
-        */
+
         public int GetReservationID()
         {
             var rp = _connection.Query<int>("SELECT FIRST ReservationID From Reservation");
             return rp.FirstOrDefault();
-
-            /*
-            var rp1 = _connection.Query<int>("SELECT ReservationID FROM Reservation WHERE UserID = @UserID");
-            return rp1.FirstOrDefault();
-            */
         }
 
+        public ReservationEntity GetById(int id)
+        {
+            return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE ReservationID = @id", new { id }).FirstOrDefault();
+           
+        }
     }
 }

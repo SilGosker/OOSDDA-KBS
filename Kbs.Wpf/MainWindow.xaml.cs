@@ -84,7 +84,7 @@ namespace Kbs.Wpf
 
         private void MyReservations(object sender, RoutedEventArgs e)
         {
-            var myReservationsPage = new ViewReservationPage();
+            var myReservationsPage = new ViewReservationPage(this);
             NavigationFrame.Content = myReservationsPage; // Stel de nieuwe inhoud in
             //My reservations Window
         }
@@ -96,12 +96,5 @@ namespace Kbs.Wpf
         {
             //settings window
         }
-        private void ZieMeer(object sender, RoutedEventArgs e)
-        {
-            var viewReservationSpecificPage = new ViewPageSpecific();
-            NavigationFrame.Navigate(viewReservationSpecificPage);
-        }
-
-
     }
 }

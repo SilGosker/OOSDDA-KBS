@@ -16,8 +16,8 @@ namespace Kbs.Business.Reservation
         public int BoatId { get; set; }
         public int BoatTypeId { get; set; }
         public DateTime StartTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        public DateTime EndTime => StartTime + Duration;
+        public TimeSpan Length { get; set; }
+        public DateTime EndTime => StartTime + Length;
         
         public ReservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }

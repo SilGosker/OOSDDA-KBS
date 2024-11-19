@@ -13,7 +13,7 @@ namespace Kbs.Wpf
     {
         public App()
         {
-            SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.FromMinutes(15));
+            SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.FromHours(15));
         }
     }
 

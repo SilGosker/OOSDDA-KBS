@@ -17,6 +17,7 @@ using Kbs.Data;
 using Kbs.Data.Reservation;
 using System.ComponentModel;
 using System.Diagnostics;
+using Kbs.Wpf.Reservation.MakeReservation.SelectTime;
 
 namespace Kbs.Wpf.Reservation.NewFolder
     {
@@ -26,9 +27,9 @@ namespace Kbs.Wpf.Reservation.NewFolder
     public partial class MakeReservation : Page
         {
         List<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan> types;
-        Window mainWindow;
+        MainWindow mainWindow;
 
-        public MakeReservation(Window maindWindow)
+        public MakeReservation(MainWindow maindWindow)
             {
             InitializeComponent();
             this.mainWindow = maindWindow;
@@ -64,7 +65,8 @@ namespace Kbs.Wpf.Reservation.NewFolder
 
         private void Button_Click(object sender, RoutedEventArgs e)
             {
-            throw new NotImplementedException();
+            var selectTime = new SelectTime();
+            mainWindow.NavigationFrame.Content = selectTime;
             }
         }
     }

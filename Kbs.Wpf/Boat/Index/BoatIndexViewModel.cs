@@ -11,9 +11,11 @@ public class BoatIndexViewModel : ViewModel
 
     public BoatIndexViewModel()
     {
+        // Add default boat type that shows all boats when selected
         BoatTypes.Add(new BoatIndexBoatTypeViewModel(new BoatTypeEntity()
         {
-            Name = "Alle boottypes"
+            Name = "Alle boottypes",
+            BoatTypeID = -1
         }));
     }
 

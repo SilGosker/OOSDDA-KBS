@@ -58,6 +58,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
+                                    <Button Content="Zie meer" Command="{Binding ViewMore}" CommandParameter="{Binding}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

@@ -28,126 +28,68 @@ namespace Kbs.Wpf.User.Update
         private readonly UserValidator _userValidator = new UserValidator(); 
         private readonly INavigationManager _navigationManager;
         private readonly IUserRepository _userRepository = new UserRepository();
-        private UserEntity _sessionUser; 
+        private readonly UserEntity _sessionUser;
+        private Func<Page> _navigationTarget;
 
         public AccountViewModel ViewModel => (AccountViewModel)DataContext;
         public AccountView(INavigationManager navigationManager)
         {
             InitializeComponent();
             this._navigationManager = navigationManager;
-            ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
-            EmailInput.Text = ViewModel.InputEmail;
+            _navigationTarget = () => new AccountView(_navigationManager); // change target to homescreen
             _sessionUser = SessionManager.Instance.Current.User;
+            ViewModel.InputEmail = _sessionUser.Email;
         }
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            if (sender != ConfirmButton) return;
-
-            bool hasEmailChanged = false;
-            bool isEmailValid = false;
-            bool hasPasswordChanged = false;
-            bool isPasswordCorrect = false;
-            bool isPasswordMatching = true;
-
-            if ((EmailInput.Text.Length == 0 || EmailInput.Text.Equals(_sessionUser.Email)) && PasswordInput.Password.Length == 0)
+            EmailErrorMessage.Content = "";
+            PasswordErrorMessage.Text = "";
+            var user = new UserEntity()
             {
-                GlobalError.Visibility = Visibility.Visible; 
-                EmailErrorMessage.Visibility = Visibility.Hidden;
-                PasswordErrorMessage.Visibility = Visibility.Hidden;
+                Email = EmailInput.Text,
+                Password = PasswordInput.Password
+            };
+            var validationResult = _userValidator.ValidatorForUpdate(user, PasswordConfirmInput.Password, _userRepository);
+
+            if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
+            {
+                if (!emailMessage.Contains("verplicht") && !emailMessage.Contains("bestaat"))
+                {
+                    EmailErrorMessage.Content = emailMessage;
+                }
             }
-            else
+            if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
             {
-                GlobalError.Visibility = Visibility.Hidden;
-                var user = new UserEntity()
+                if (!passwordMessage.Contains("verplicht"))
                 {
-                    Email = ViewModel.InputEmail,
-                    Password = ViewModel.InputPassword
-                };
-                var validationResult = _userValidator.ValidatorForUpdate(user, PasswordConfirmInput.Password, _userRepository);
-                if (user.Email != null && user.Email.Length != 0 && !user.Email.Equals(_sessionUser.Email))
-                {
-                    hasEmailChanged = true;
-                    if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
-                    {
-                        EmailErrorMessage.Content = emailMessage;
-                        EmailErrorMessage.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        EmailErrorMessage.Visibility = Visibility.Hidden;
-                        isEmailValid = true;
-                    }
-                } 
+                    PasswordErrorMessage.Text = passwordMessage;
+                }
+            }
 
-                if (user.Password != null && user.Password.Length != 0)
-                {
-                    hasPasswordChanged = true;
-                    if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
-                    {
-                        PasswordErrorMessage.Text = passwordMessage;
-                        PasswordErrorMessage.Visibility = Visibility.Visible;
-                    } else if (validationResult.ContainsKey("Bevestiging"))
-                    {
-                        PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        isPasswordMatching = false;
-                    }
-                    else
-                    {
-                        PasswordErrorMessage.Visibility = Visibility.Hidden;
-                        isPasswordCorrect = true;
-                    }
-                }
+            if (validationResult.Count > 1)
+            {
+                MessageBox.Show("Email en Wachtwoord zijn succesvol aangepast.");
+                _navigationManager.Navigate(_navigationTarget);
+                return;
+            }
 
-                if (validationResult.Count > 1 || !isPasswordMatching)
-                {
-                    return;
-                }
+            // status (true = valid value) is allowed to get updated in the system
+            bool emailStatus = !validationResult.ContainsKey(nameof(user.Email));
+            bool passwordStatus = !validationResult.ContainsKey(nameof(user.Password));
+            bool isSessionUserUpdated = SessionManager.Instance.UpdateSessionUser(((emailStatus) ? user.Email : null), ((passwordStatus) ? user.Password : null));
 
-                bool isInputDifferentThanExisting = false;
-                if (hasEmailChanged && isEmailValid)
-                {
-
-                    if (!user.Email.Equals(_sessionUser.Email))
-                    {
-                        isInputDifferentThanExisting = true;
-                        _sessionUser.Email = user.Email;
-                    } else
-                    {
-                        hasEmailChanged = false;
-                    }
-                }
-                if (hasPasswordChanged && isPasswordCorrect)
-                {
-                    user.Encrypt();
-                    if (!user.Password.Equals(_sessionUser.Password))
-                    {
-                        isInputDifferentThanExisting = true;
-                        _sessionUser.Password = user.Password;
-                    }
-                }
-                if (isInputDifferentThanExisting)
-                {
-                    _userRepository.Update(_sessionUser);
-                    MessageBox.Show(((isEmailValid)? "Email" : "") + ((isEmailValid && isPasswordCorrect)? " en " : "") + ((isPasswordCorrect)? "Wachtwoord" : "") + ((isEmailValid && isPasswordCorrect) ? " zijn " : " is ") + "succesvol aangepast.");
-                    _navigationManager.Navigate(() => new AccountView(_navigationManager));
-                }
+            if (isSessionUserUpdated)
+            {
+                _userRepository.Update(_sessionUser);
+                MessageBox.Show(((emailStatus) ? "Email" : "") + ((emailStatus && passwordStatus) ? " en " : "") + ((passwordStatus) ? "Wachtwoord" : "") + ((emailStatus && passwordStatus) ? " zijn " : " is ") + "succesvol aangepast.");
+                _navigationManager.Navigate(_navigationTarget);
             }
         }
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            if (sender != CancelButton) return;
             MessageBox.Show("Wijzigingen geannuleerd.");
-            _navigationManager.Navigate(() => new AccountView(_navigationManager));
-        }
-        private void PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (sender == PasswordInput) {
-                ViewModel.InputPassword = ((PasswordBox)sender).Password;
-            } else if (sender == PasswordConfirmInput)
-            {
-                ViewModel.InputConfirmPassword = ((PasswordBox)sender).Password;
-            }
+            _navigationManager.Navigate(_navigationTarget);
         }
     }
 }

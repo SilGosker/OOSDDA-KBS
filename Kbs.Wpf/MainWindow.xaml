@@ -7,7 +7,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid HorizontalAlignment="Left" Width="180" Background="Orange">
-            <Button Content="Instellingen" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+            <Button Content="Instellingen" HorizontalAlignment="Center" Margin="0,60,0,0" VerticalAlignment="Top" Click="Settings"/>
             <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 

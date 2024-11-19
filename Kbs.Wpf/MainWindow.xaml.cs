@@ -71,10 +71,9 @@ namespace Kbs.Wpf
             NavigationFrame.Navigate(page);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Settings(object sender, RoutedEventArgs e)
         {
-            AccountView page = new AccountView(this);
-            NavigationFrame.Navigate(page);
+            this.Navigate(() => new AccountView(this));
         }
         
         private void LogOut(object sender, RoutedEventArgs e)

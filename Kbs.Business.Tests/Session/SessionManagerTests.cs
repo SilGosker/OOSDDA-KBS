@@ -170,4 +170,57 @@ public class SessionManagerTests
         // Assert
         Assert.Null(sessionManager.Current);
     }
+
+
+    [Theory]
+    [InlineData("Test@tester.com", null)]
+    [InlineData(null, "12345678")]
+    public void UpdateSessionUser_WithValues_GivesTrue(string emailInput, string passwordInput)
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        });
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+        var user = new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        };
+        sessionManager.TryCreate(user, out _);
+
+        // Act
+        bool result = sessionManager.UpdateSessionUser(emailInput, passwordInput);
+
+        // Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void UpdateSessionUser_WithBothNullValues_GivesTrue()
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        });
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+        var user = new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        };
+        sessionManager.TryCreate(user, out _);
+
+        // Act
+        bool result = sessionManager.UpdateSessionUser(null, null);
+
+        // Assert
+        Assert.False(result);
+    }
 }

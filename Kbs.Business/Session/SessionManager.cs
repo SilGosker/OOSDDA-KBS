@@ -74,4 +74,29 @@ public class SessionManager
         _cancellationTokenSource = new();
         Current = null;
     }
+
+    public bool UpdateSessionUser(string newMail, string newPassword)
+    {
+        bool isInputDifferentThanExisting = false;
+        UserEntity sessionUser = Current.User;
+        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
+        if (newUser.Email != null)
+        {
+            if (!newMail.Equals(sessionUser.Email))
+            {
+                isInputDifferentThanExisting = true;
+                sessionUser.Email = newUser.Email;
+            }
+        }
+        if (newPassword != null)
+        {
+            newUser.Encrypt();
+            if (!newPassword.Equals(sessionUser.Password))
+            {
+                isInputDifferentThanExisting = true;
+                sessionUser.Password = newUser.Password;
+            }
+        }
+        return isInputDifferentThanExisting;
+    }
 }

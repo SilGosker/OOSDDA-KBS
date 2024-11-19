@@ -14,6 +14,5 @@ namespace Kbs.Business.Reservation
         public ReservationEntity GetById(int id);
 
         public List<ReservationEntity> Get();
-        public List<ReservationEntity> GetByUserId(int userId);
     }
 }

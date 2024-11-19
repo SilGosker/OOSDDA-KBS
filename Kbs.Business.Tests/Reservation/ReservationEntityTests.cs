@@ -20,9 +20,9 @@ namespace Kbs.Business.Reservation
             //Arrange
             var reservation = new ReservationEntity();
             //Act
-            reservation.ReservationId = reservationId;
+            reservation.ReservationID = reservationId;
             //Assert
-            Assert.Equal(reservationId, reservation.ReservationId);
+            Assert.Equal(reservationId, reservation.ReservationID);
         }
         [Theory]
         [InlineData()]

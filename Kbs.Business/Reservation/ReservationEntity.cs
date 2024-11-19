@@ -9,7 +9,7 @@ namespace Kbs.Business.Reservation
 {
     public class ReservationEntity
     {
-        public int ReservationId { get; set; }
+        public int ReservationID { get; set; }
         //Onderstaand staat niet in TO
         public int totalReservations = 0;
         public int UserId { get; set; }

@@ -26,8 +26,6 @@
             </StackPanel>
             
             <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
-            <Button Content="Reserveren" Margin="25,35,25,0" Click="MyReservations" VerticalAlignment="Top"  />
-            <Button Content="Instellingen" Margin="25,60,25,0" Click="MyReservations" VerticalAlignment="Top"  />
         </Grid>
 
         <DockPanel Background="White" Margin="180,0,0,0" >

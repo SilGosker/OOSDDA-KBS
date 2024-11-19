@@ -19,8 +19,10 @@
             <TextBlock Text="verlopen" Foreground="Red" Canvas.Left="559" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
             <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">
-                <TextBlock Text="Zitplaatsen:" Width="166"/>
-                <TextBlock Text="Stuur:" Margin="0,0,10,0" RenderTransformOrigin="0.5,0.5" Width="118">
+                <TextBlock Text="Zitplaatsen:" Width="71"/>
+                <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" Width="95" />
+                <TextBlock Text="{Binding Stuur}" FontSize="14" Width="93" />
+                <TextBlock Text="Stuur:" Width="100">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -30,12 +32,17 @@
                         </TransformGroup>
                     </TextBlock.RenderTransform>
                 </TextBlock>
-                <TextBlock Text="Niveau:"/>
+                <TextBlock Text="Niveau:" Width="98"/>
+                <TextBlock Text="{Binding Niveau}" FontSize="14" Width="239" />
+
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="140">
-                <TextBlock Text="Tijdstip:" Margin="0,0,10,0" Width="157"/>
+            <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="140" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Tijdstip:" Margin="0,0,10,0" Width="62"/>
+                <TextBlock Text="{Binding TijdsstipFormatted}" FontSize="14" Width="88" />
+
                 <TextBlock Text="Tijdsduur:" Width="196"/>
+                <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="92" />
             </StackPanel>
 
             <Button Content="Type boot" Width="100" Canvas.Left="137" Canvas.Top="376"/>

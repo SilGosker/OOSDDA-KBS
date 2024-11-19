@@ -1,4 +1,6 @@
-﻿using Kbs.Wpf.Components;
+﻿using Kbs.Business.Reservation;
+using Kbs.Data.Reservation;
+using Kbs.Wpf.Components;
 using System.Windows.Input;
 
 namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
@@ -12,11 +14,18 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         private DateTime _tijdsstip;
         private TimeSpan _tijdsduur;
         private int _reservationID;
-        public ViewReservationViewModel(Action<ViewReservationViewModel> action) {
-            // TODO: ViewMore instellen
+        private ICommand _viewMore;
+        
+        public ViewReservationViewModel(Action<ViewReservationViewModel> action)
+        {
+            ViewMore = new RelayCommand<ViewReservationViewModel>(action);
         }
 
-        public ICommand ViewMore { get; }
+        public ICommand ViewMore
+        {
+            get => _viewMore;
+            set => SetField(ref _viewMore, value);
+        }
 
         public int Niveau
         {

@@ -70,7 +70,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Stuur:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding Stuur}" FontSize="14" Width="136" />
-                                    <Button Content="Zie meer" Command="{Binding ViewMore}" />
+                                    <Button Content="Zie meer" Command="{Binding ViewMore}" CommandParameter="{Binding}" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

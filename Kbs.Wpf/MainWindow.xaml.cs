@@ -51,7 +51,7 @@ namespace Kbs.Wpf
             // todo: add navigation items
             if (user.IsMember() || user.IsGameCommissioner())
             {
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
                 

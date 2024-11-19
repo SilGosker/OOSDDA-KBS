@@ -1,11 +1,13 @@
 ﻿using Kbs.Data.Reservation;
 using Kbs.Wpf.Components;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
@@ -38,6 +40,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _tijdsstip;
             set => SetField(ref _tijdsstip, value);
         }
+        public string TijdsstipFormatted => Tijdsstip.ToString("dd-MM-yyyy");
         public TimeSpan Tijdsduur
         {
             get => _tijdsduur;
@@ -48,7 +51,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _reservationID;
             set => SetField(ref _reservationID, value);
         }
-        
-
+        public object Items { get; internal set; }
     }
 }

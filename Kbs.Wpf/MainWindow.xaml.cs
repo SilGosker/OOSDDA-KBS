@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
@@ -10,6 +10,7 @@ namespace Kbs.Wpf
 {
     public partial class MainWindow : Window, INavigationManager
     {
+        private MainViewModel ViewModel => (MainViewModel)DataContext;
         public MainWindow()
         {
             InitializeComponent();
@@ -42,7 +43,22 @@ namespace Kbs.Wpf
                 }
             };
 
-            Navigate(() => new BoatIndexPage());
+            var user = SessionManager.Instance.Current.User;
+
+            // todo: add navigation items
+            if (user.IsMember() || user.IsGameCommissioner())
+            {
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
+                
+            }
+
+            if (user.IsMaterialCommissioner())
+            {
+                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
+            }
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page

@@ -75,6 +75,16 @@ namespace Kbs.Wpf.User.Update
                     _navigationManager.Navigate(_navigationTarget);
                 }
                 return;
+            } else
+            {
+                // check if both have something in them / changed
+                // null = valid change
+                if (!(emailMessage == null && passwordMessage == null) &&
+                    (emailMessage == null || (!emailMessage.Contains("verplicht") && !emailMessage.Contains("bestaat"))) &&
+                    (passwordMessage == null || !passwordMessage.Contains("verplicht")))
+                {
+                    return;
+                }
             }
 
             // status (true = valid value) is allowed to get updated in the system

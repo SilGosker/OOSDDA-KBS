@@ -1,28 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows.Controls;
+using Kbs.Business.User;
+using Kbs.Wpf.Attributes;
 
-namespace Kbs.Wpf.Boat.Details
+namespace Kbs.Wpf.Boat.Details;
+
+[HasRole(Role.MaterialCommissioner)]
+public partial class BoatDetailPage : Page
 {
-    /// <summary>
-    /// Interaction logic for BoatDetailPage.xaml
-    /// </summary>
-    public partial class BoatDetailPage : Page
+    public BoatDetailPage(int boatId)
     {
-        public BoatDetailPage()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }

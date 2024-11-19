@@ -17,16 +17,16 @@
         <Label FontSize="32" Content="{Binding BoatId}" HorizontalAlignment="Left" Margin="135,50,0,0"
                VerticalAlignment="Top" />
 
-        <Separator Margin="10,108,-10,338"/>
+        <Separator Margin="10,108,10,338"/>
 
         <Label Content="Naam: " FontWeight="Bold" Margin="10,110,558,315" />
         <Label Content="Type: " FontWeight="Bold" Margin="10,135,558,290" />
         <Label Content="Status: " FontWeight="Bold" Margin="10,160,558,265" />
+        <Label Content="Reserveringen" FontWeight="Bold" Margin="310,114,10,310" />
 
         <Label Content="{Binding Name}" Margin="67,112,478,308" />
         <Label Content="{Binding BoatTypeName}" Margin="67,135,478,285" />
         <Label Content="{Binding Status}" Margin="67,160,478,260" />
-
 
         <DataGrid Width="300" d:ItemsSource="{d:SampleData}" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -38,6 +38,6 @@
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="Reserveringen" FontWeight="Bold" Margin="310,114,10,310" />
+
     </Grid>
 </Page>

@@ -13,7 +13,7 @@ namespace Kbs.Business.Reservation
         public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }
         public bool IsReservationLimitReached(UserEntity user, ReservationEntity reservation)
         {
-            if (user.UserId != null || reservation.totalReservations > 2)
+            if (reservation.totalReservations > 2)
             {
                 return true;
             }

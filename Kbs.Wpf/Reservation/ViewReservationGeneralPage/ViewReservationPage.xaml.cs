@@ -10,7 +10,6 @@ namespace Kbs.Wpf.Reservation.ViewReservation
     public partial class ViewReservationPage : Page
     {
         private ViewReservationPageViewModel ViewModel => (ViewReservationPageViewModel)DataContext;
-        private readonly ReservationValidator res;
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
         private readonly INavigationManager _navigationManager;
 

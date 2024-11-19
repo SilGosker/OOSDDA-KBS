@@ -8,6 +8,6 @@ public partial class App : Application
 {
     public App()
     {
-        SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.FromSeconds(30));
+        SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.FromMinutes(15));
     }
 }

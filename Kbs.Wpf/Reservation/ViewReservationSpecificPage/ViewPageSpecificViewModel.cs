@@ -1,23 +1,14 @@
-﻿using Kbs.Data.Reservation;
-using Kbs.Wpf.Components;
-using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
     public class ViewPageSpecificViewModel : ViewModel
     {
         private int _niveau;
-        private int _zitplaatsen;
-        private bool _stuur;
+        private int _seats;
+        private bool _hasSteeringWheel;
         private DateTime _tijdsstip;
-        private TimeSpan _tijdsduur;
+        private TimeSpan _length;
         private int _reservationID;
 
         public int Niveau
@@ -25,26 +16,26 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _niveau;
             set => SetField(ref _niveau, value);
         }
-        public int Zitplaatsen
+        public int Seats
         {
-            get => _zitplaatsen;
-            set => SetField(ref _zitplaatsen, value);
+            get => _seats;
+            set => SetField(ref _seats, value);
         }
-        public bool Stuur
+        public bool HasSteeringWheel
         {
-            get => _stuur;
-            set => SetField(ref _stuur, value);
+            get => _hasSteeringWheel;
+            set => SetField(ref _hasSteeringWheel, value);
         }
-        public DateTime Tijdsstip
+        public DateTime StartTime
         {
             get => _tijdsstip;
             set => SetField(ref _tijdsstip, value);
         }
-        public string TijdsstipFormatted => Tijdsstip.ToString("dd-MM-yyyy");
-        public TimeSpan Tijdsduur
+        public string TijdsstipFormatted => StartTime.ToString("dd-MM-yyyy");
+        public TimeSpan Length
         {
-            get => _tijdsduur;
-            set => SetField(ref _tijdsduur, value);
+            get => _length;
+            set => SetField(ref _length, value);
         }
         public int ReservationID
         {

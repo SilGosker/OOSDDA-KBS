@@ -20,8 +20,8 @@
 
             <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">
                 <TextBlock Text="Zitplaatsen:" Width="71"/>
-                <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" Width="95" />
-                <TextBlock Text="{Binding Stuur}" FontSize="14" Width="93" />
+                <TextBlock Text="{Binding Seats}" FontSize="14" Width="95" />
+                <TextBlock Text="{Binding HasSteeringWheel}" FontSize="14" Width="93" />
                 <TextBlock Text="Stuur:" Width="100">
                     <TextBlock.RenderTransform>
                         <TransformGroup>
@@ -42,7 +42,7 @@
                 <TextBlock Text="{Binding TijdsstipFormatted}" FontSize="14" Width="88" />
 
                 <TextBlock Text="Tijdsduur:" Width="196"/>
-                <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="92" />
+                <TextBlock Text="{Binding Length}" FontSize="14" Width="92" />
             </StackPanel>
 
             <Button Content="Type boot" Width="100" Canvas.Left="137" Canvas.Top="376"/>

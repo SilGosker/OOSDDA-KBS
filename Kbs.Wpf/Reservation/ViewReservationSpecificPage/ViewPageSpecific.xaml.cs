@@ -25,10 +25,11 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             var boatType = _boatTypeRepository.GetByReservationId(reservationId);
 
             ViewModel.ReservationID = reservation.ReservationID;
-            ViewModel.Tijdsduur = reservation.Length;
-            ViewModel.Tijdsstip = reservation.StartTime;
-            ViewModel.Stuur = boatType.HasSteeringWheel;
+            ViewModel.Length = reservation.Length;
+            ViewModel.StartTime = reservation.StartTime;
+            ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;
             ViewModel.Niveau = (int)boatType.RequiredExperience;
+            ViewModel.Seats = boatType.Seats;
 
         }
 

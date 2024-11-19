@@ -1,6 +1,4 @@
-﻿using Kbs.Business.Reservation;
-using Kbs.Data.Reservation;
-using Kbs.Wpf.Components;
+﻿using Kbs.Wpf.Components;
 using System.Windows.Input;
 
 namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
@@ -11,7 +9,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         private int _niveau;
         private int _zitplaatsen;
         private bool _stuur;
-        private DateTime _tijdsstip;
+        private DateTime _startTime;
         private TimeSpan _tijdsduur;
         private int _reservationID;
         private ICommand _viewMore;
@@ -42,12 +40,12 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             get => _stuur;
             set => SetField(ref _stuur, value);
         }
-        public DateTime Tijdsstip
+        public DateTime StartTime
         {
-            get => _tijdsstip;
-            set => SetField(ref _tijdsstip, value);
+            get => _startTime;
+            set => SetField(ref _startTime, value);
         }
-        public string TijdsstipFormatted => Tijdsstip.ToString("dd-MM-yyyy HH:mm");
+        public string TijdsstipFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
         public string TijdsduurFormatted => $"{Tijdsduur.TotalMinutes:F0} min";
 
         public TimeSpan Tijdsduur

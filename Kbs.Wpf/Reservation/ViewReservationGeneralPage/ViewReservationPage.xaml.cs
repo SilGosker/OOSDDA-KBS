@@ -1,5 +1,4 @@
-﻿using Kbs.Business.Reservation;
-using Kbs.Business.Session;
+﻿using Kbs.Business.Session;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
@@ -25,7 +24,7 @@ namespace Kbs.Wpf.Reservation.ViewReservation
                 {
                     ReservationID = reservation.ReservationID,
                     Tijdsduur = reservation.Length,
-                    Tijdsstip = reservation.StartTime
+                    StartTime = reservation.StartTime
                 });
             }
         }

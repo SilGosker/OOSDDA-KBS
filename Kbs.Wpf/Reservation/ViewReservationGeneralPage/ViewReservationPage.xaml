@@ -52,25 +52,12 @@
                             </StackPanel>
                             <StackPanel Orientation="Vertical" Margin="0,40,0,0">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Niveau:" FontSize="14" Width="263" />
-                                    <TextBlock Text="{Binding Niveau}" FontSize="14" Width="275" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tijdsstip:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding TijdsstipFormatted}" FontSize="14" Width="736" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
-                                    <TextBlock Text="{Binding Tijdsduur}" FontSize="14" Width="749" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Zitplaatsen:" FontSize="14" Width="262" />
-                                    <TextBlock Text="{Binding Zitplaatsen}" FontSize="14" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="Stuur:" FontSize="14" Width="263" />
-                                    <TextBlock Text="{Binding Stuur}" FontSize="14" Width="136" />
-                                    <Button Content="Zie meer" Command="{Binding ViewMore}" CommandParameter="{Binding}" />
+                                    <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>

@@ -13,6 +13,7 @@ namespace Kbs.Wpf
 {
     public partial class MainWindow : Window, INavigationManager
     {
+        private MainViewModel ViewModel => (MainViewModel)DataContext;
         public MainWindow()
         {
             InitializeComponent();
@@ -44,6 +45,23 @@ namespace Kbs.Wpf
                     MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
                 }
             };
+
+            var user = SessionManager.Instance.Current.User;
+
+            // todo: add navigation items
+            if (user.IsMember() || user.IsGameCommissioner())
+            {
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
+                
+            }
+
+            if (user.IsMaterialCommissioner())
+            {
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boten" });
+            }
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page

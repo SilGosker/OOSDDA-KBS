@@ -69,8 +69,11 @@ namespace Kbs.Wpf.User.Update
 
             if (validationResult.Count > 1)
             {
-                MessageBox.Show("Email en Wachtwoord zijn succesvol aangepast.");
-                _navigationManager.Navigate(_navigationTarget);
+                if ((emailMessage.Contains("verplicht") || emailMessage.Contains("bestaat")) && passwordMessage.Contains("verplicht"))
+                {
+                    MessageBox.Show("Email en Wachtwoord zijn succesvol aangepast.");
+                    _navigationManager.Navigate(_navigationTarget);
+                }
                 return;
             }
 

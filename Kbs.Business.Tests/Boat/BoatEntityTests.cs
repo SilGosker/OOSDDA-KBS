@@ -18,7 +18,7 @@ public class BoatEntityTests
         boat.Status = status;
 
         // Assert
-        Assert.Equal(boatTypeId, boat.BoatID);
+        Assert.Equal(id, boat.BoatID);
         Assert.Equal(name, boat.Name);
         Assert.Equal(boatTypeId, boat.BoatTypeId);
         Assert.Equal(status, boat.Status);

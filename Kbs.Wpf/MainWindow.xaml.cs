@@ -1,15 +1,17 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.User.Update;
+using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
 {
     public partial class MainWindow : Window, INavigationManager
     {
+        private MainViewModel ViewModel => (MainViewModel)DataContext;
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +43,23 @@ namespace Kbs.Wpf
                     MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
                 }
             };
+
+            var user = SessionManager.Instance.Current.User;
+
+            // todo: add navigation items
+            if (user.IsMember() || user.IsGameCommissioner())
+            {
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
+                
+            }
+
+            if (user.IsMaterialCommissioner())
+            {
+                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
+            }
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
@@ -62,18 +81,15 @@ namespace Kbs.Wpf
                 { 
                     page = creator();
                     NavigationFrame.Navigate(page);
+                    return;
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
+                return;
             }
 
             page = creator();
             NavigationFrame.Navigate(page);
-        }
-
-        private void Settings(object sender, RoutedEventArgs e)
-        {
-            this.Navigate(() => new AccountView(this));
         }
         
         private void LogOut(object sender, RoutedEventArgs e)

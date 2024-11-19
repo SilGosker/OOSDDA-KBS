@@ -3,19 +3,28 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kbs.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
+
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
     <Grid>
-        <Grid HorizontalAlignment="Left" Width="180" Background="#23272A">
+        <Grid HorizontalAlignment="Left" Width="180" Background="#23272">
             <StackPanel>
-                <TextBlock Margin="10, 10, 0, 0" Style="{StaticResource HyperlinkStyle}">
-                    <Hyperlink TextDecorations="None" NavigateUri="http://www.msn.com">
-                        My MSN
-                    </Hyperlink>
-                </TextBlock>
+                <ItemsControl ItemsSource="{Binding NavigationItems}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="10, 10, 0, 0">
+                                <Hyperlink Command="{Binding Navigate}" CommandParameter="{Binding}">
+                                    <Run Text="{Binding Name}" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
-            
             <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 

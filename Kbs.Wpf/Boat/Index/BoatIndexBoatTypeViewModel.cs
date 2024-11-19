@@ -27,6 +27,7 @@ public class BoatIndexBoatTypeViewModel : ViewModel
         set => SetField(ref _id, value);
     }
 
+    // Override ToString to display the name in the dropdown
     public override string ToString()
     {
         return Name;

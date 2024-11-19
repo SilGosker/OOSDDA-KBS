@@ -41,6 +41,8 @@ public partial class BoatIndexPage : Page
         var comboBox = (ComboBox)sender;
         var selected = (BoatIndexBoatTypeViewModel)comboBox.SelectedItem;
 
+        if (selected == null) return;
+        
         ViewModel.BoatTypeId = ViewModel.BoatTypes
             .FirstOrDefault(boatType => boatType.Id == selected.Id)?.Id ?? 0;
 

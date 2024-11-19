@@ -19,11 +19,11 @@ public class BoatRepository : IBoatRepository
 
     public List<BoatEntity> GetManyByName(string name)
     {
-        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE LOWER(Name) LIKE '%@name%'", new { name = name.ToLower() }).ToList();
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE LOWER(Name) LIKE @name", new { name = $"%{name.ToLower()}%" }).ToList();
     }
 
     public List<BoatEntity> GetManyByNameAndType(string name, int boatTypeId)
     {
-        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE LOWER(Name) LIKE '%@name%' AND BoatTypeId = @boatTypeId", new { name = name.ToLower(), boatTypeId }).ToList();
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE LOWER(Name) LIKE @name AND BoatTypeId = @boatTypeId", new { name = $"%{name.ToLower()}%", boatTypeId }).ToList();
     }
 }

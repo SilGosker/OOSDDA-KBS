@@ -67,6 +67,8 @@ public class SessionManager
 
     public void ExtendSession()
     {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
         TrackSessionTime();
     }
 

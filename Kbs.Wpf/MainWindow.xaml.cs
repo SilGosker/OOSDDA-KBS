@@ -1,13 +1,13 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Azure;
 using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
-using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
-using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
+using Kbs.Wpf.Reservation.ViewReservation;
+using Kbs.Wpf.Boat.Index;
 
 namespace Kbs.Wpf
 {
@@ -59,8 +59,8 @@ namespace Kbs.Wpf
 
             if (user.IsMaterialCommissioner())
             {
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boten" });
+                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
             }
         }
 
@@ -83,9 +83,11 @@ namespace Kbs.Wpf
                 { 
                     page = creator();
                     NavigationFrame.Navigate(page);
+                    return;
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
+                return;
             }
 
             page = creator();

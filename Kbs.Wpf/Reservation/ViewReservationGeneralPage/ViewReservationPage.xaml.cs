@@ -18,18 +18,35 @@ namespace Kbs.Wpf.Reservation.ViewReservation
             _navigationManager = navigationManager;
             InitializeComponent();
             ReservationRepository repository = new ReservationRepository();
+            ReservationValidator validator = new ReservationValidator();
             var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
             var sortedReservations = repository.SortByStatus(reservations);
             foreach (var reservation in sortedReservations)
             {
-                ViewModel.Items.Add(new ViewReservationViewModel(ZieMeer)
+                //Deze laat perongeluk alleen de 2 reserveringen zien
+                //if (validator.ShowStatus(reservation.Status, reservation))
                 {
-                    ReservationID = reservation.ReservationID,
-                    Length = reservation.Length,
-                    StartTime = reservation.StartTime,
-                    Status = reservation.Status
-                });
-
+                    var Temporary = "123";
+                    bool IsBool = false;
+                    if (reservation.Status == ReservationStatus.Active)
+                    {
+                        Temporary = "Active";
+                        IsBool = true;
+                    }
+                    else
+                    {
+                        Temporary = string.Empty;
+                    }
+                    ViewModel.Items.Add(new ViewReservationViewModel(ZieMeer)
+                    {
+                        ReservationID = reservation.ReservationID,
+                        Length = reservation.Length,
+                        StartTime = reservation.StartTime,
+                        Status = reservation.Status,
+                        //Deze nog verder uitwerken zodat er active getoond wordt
+                        StatusDisplay = Temporary
+                    });
+                }
             }
         }
 

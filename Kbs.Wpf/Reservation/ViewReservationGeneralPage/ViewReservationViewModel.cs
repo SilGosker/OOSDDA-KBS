@@ -15,7 +15,8 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         private int _reservationID;
         private ICommand _viewMore;
         public ReservationStatus _status;
-        
+        public bool _boolshowStatus;
+        public string _statusDisplay;
         public ViewReservationViewModel(Action<ViewReservationViewModel> action)
         {
             ViewMore = new RelayCommand<ViewReservationViewModel>(action);
@@ -64,6 +65,15 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             get => _reservationID;
             set => SetField(ref _reservationID, value);
         }
+        public bool BoolShowStatus
+        {
+            get => _boolshowStatus;
+            set => SetField(ref _boolshowStatus, value);
+        }
+        public string StatusDisplay { 
+            get => _statusDisplay;
+            set => SetField(ref _statusDisplay, value);
+        } 
 
     }
 }

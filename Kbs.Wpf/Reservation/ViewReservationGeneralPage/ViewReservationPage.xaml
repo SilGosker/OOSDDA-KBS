@@ -32,7 +32,7 @@
                 
             </TextBlock.RenderTransform>
         </TextBlock>
-        <ListView ItemsSource="{Binding Items.}" Margin="0,100,0,0">
+        <ListView ItemsSource="{Binding Items}" Margin="0,100,0,0">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -60,6 +60,9 @@
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
                                 </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding StatusDisplay}" FontSize="14" Width="800" Background="Green"/>
+                                </StackPanel> 
                                 
                             </StackPanel>
                         </Grid>

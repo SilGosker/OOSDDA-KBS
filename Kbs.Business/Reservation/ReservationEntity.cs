@@ -26,9 +26,14 @@ namespace Kbs.Business.Reservation
         {
             get; set;     
         }
+        public string StatusDisplay { get; set; } 
+
         public int Seats { get; set; }
         public bool IsForCompetition { get; set; }
-        
+
+        public bool BoolShowStatus { get; set; }
+
+
     }
 }
 

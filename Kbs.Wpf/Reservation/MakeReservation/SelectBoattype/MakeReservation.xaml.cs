@@ -65,7 +65,8 @@ namespace Kbs.Wpf.Reservation.NewFolder
 
         private void Button_Click(object sender, RoutedEventArgs e)
             {
-            var selectTime = new SelectTime();
+            BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan boatType = (BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan)this.Tag;
+            var selectTime = new SelectTime(mainWindow, boatType);
             mainWindow.NavigationFrame.Content = selectTime;
             }
         }

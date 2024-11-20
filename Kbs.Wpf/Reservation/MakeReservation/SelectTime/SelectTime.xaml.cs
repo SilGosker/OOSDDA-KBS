@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kbs.Business.Reservation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,13 @@ namespace Kbs.Wpf.Reservation.MakeReservation.SelectTime
     /// </summary>
     public partial class SelectTime : Page
         {
-        public SelectTime()
+        MainWindow mainWindow;
+        BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan boatType;
+        public SelectTime(MainWindow mainWindow, BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan boatType)
             {
             InitializeComponent();
+            this.mainWindow = mainWindow;
+            this.boatType = boatType;
             }
         }
     }

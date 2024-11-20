@@ -11,6 +11,7 @@ public class CreateBoatExperienceViewModel : ViewModel
     }
     public BoatTypeRequiredExperience RequiredExperience { get; }
 
+    // Override ToString to display the RequiredExperience in Dutch
     public override string ToString()
     {
         return RequiredExperience.ToDutchString();

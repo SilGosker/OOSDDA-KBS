@@ -1,10 +1,11 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Azure;
 using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
 using Kbs.Wpf.Reservation.NewFolder;
@@ -13,37 +14,64 @@ namespace Kbs.Wpf
 {
     public partial class MainWindow : Window, INavigationManager
     {
+        private MainViewModel ViewModel => (MainViewModel)DataContext;
+        protected override void OnClosed(EventArgs e)
+        {
+            SessionManager.Instance.SessionTimeExpired -= SessionExpired;
+            base.OnClosed(e);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            SessionManager.Instance.SessionTimeExpired += async (_, _) =>
+            SessionManager.Instance.SessionTimeExpired += SessionExpired;
+
+            var user = SessionManager.Instance.Current.User;
+
+            // todo: add navigation items
+            if (user.IsMember() || user.IsGameCommissioner())
             {
-                var success = Task.Run(() =>
-                {
-                    var dialogResult = MessageBox.Show("Uw sessie is verlopen. Druk op OK om af te sluiten.",
-                        "Sessie verlopen",
-                        MessageBoxButton.OKCancel);
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
+                
+            }
 
-                    return dialogResult == MessageBoxResult.OK;
-                });
+            if (user.IsMaterialCommissioner())
+            {
+                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
+            }
+        }
 
-                var timeout = Task.Delay(TimeSpan.FromSeconds(20));
+        private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
+        {
+            var success = Task.Run(() =>
+            {
+                var dialogResult = MessageBox.Show("Uw sessie is verlopen. Druk op OK om af te sluiten.",
+                    "Sessie verlopen",
+                    MessageBoxButton.OKCancel);
 
-                var result = await Task.WhenAny(success, timeout);
+                return dialogResult == MessageBoxResult.OK;
+            });
 
-                if (result == timeout || (result == success && success.Result))
-                {
-                    SessionManager.Instance.Logout();
-                    var loginWindow = new LoginWindow();
-                    loginWindow.Show();
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
-                }
-            };
+            var timeout = Task.Delay(TimeSpan.FromSeconds(20));
+
+            var result = await Task.WhenAny(success, timeout);
+
+            if (result == timeout || (result == success && success.Result))
+            {
+                SessionManager.Instance.Logout();
+                var loginWindow = new LoginWindow();
+                loginWindow.Show();
+                Close();
+            }
+            else
+            {
+                SessionManager.Instance.ExtendSession();
+                MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
+            }
         }
 
         public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
@@ -65,9 +93,11 @@ namespace Kbs.Wpf
                 { 
                     page = creator();
                     NavigationFrame.Navigate(page);
+                    return;
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
+                return;
             }
 
             page = creator();

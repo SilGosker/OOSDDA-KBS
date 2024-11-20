@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
@@ -36,7 +37,7 @@ namespace Kbs.Wpf
 
             if (user.IsMaterialCommissioner())
             {
-                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
             }
         }

@@ -12,4 +12,11 @@ public class BoatTypeRepository : IBoatTypeRepository
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
     }
+
+    public void Create(BoatTypeEntity boatType)
+    {
+        _connection.Execute(
+            "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed)",
+            boatType);
+    }
 }

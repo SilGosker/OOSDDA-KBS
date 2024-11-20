@@ -44,16 +44,16 @@ public class SessionManager
 
         session = new Session(userFromDb);
         Current = session;
-        TrackSessionTime(_cancellationTokenSource.Token);
+        TrackSessionTime();
         return true;
     }
 
-    private async void TrackSessionTime(CancellationToken token)
+    private async void TrackSessionTime()
     {
         try
         {
             var current = Current;
-            await Task.Delay(_sessionTime, token);
+            await Task.Delay(_sessionTime, _cancellationTokenSource.Token);
             if (Current != null && current == Current)
             {
                 SessionTimeExpired?.Invoke(this, new SessionTimeExpiredEventArgs(Current));
@@ -61,11 +61,15 @@ public class SessionManager
         }
         catch
         {
-            return;
             // ignored
         }
+    }
 
-        TrackSessionTime(_cancellationTokenSource.Token);
+    public void ExtendSession()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
+        TrackSessionTime();
     }
 
     public void Logout()

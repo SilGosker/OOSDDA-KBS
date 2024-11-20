@@ -135,10 +135,7 @@ public class SessionManagerTests
         var sessionManager = new SessionManager(userRepository, sessionTime);
         bool eventInvoked = false;
 
-        sessionManager.SessionTimeExpired += (_, _) =>
-        {
-            eventInvoked = true;
-        };
+        sessionManager.SessionTimeExpired += (_, _) => { eventInvoked = true; };
 
         // Act
         var success = sessionManager.TryCreate(user, out Session _);
@@ -163,14 +160,13 @@ public class SessionManagerTests
         var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
         var user = new UserEntity();
         sessionManager.TryCreate(user, out _);
-        
+
         // Act
         sessionManager.Logout();
 
         // Assert
         Assert.Null(sessionManager.Current);
     }
-
 
     [Theory]
     [InlineData("Test@tester.com", null)]
@@ -203,7 +199,6 @@ public class SessionManagerTests
             isPasswordUpdated = false;
         }
 
-
         // Act
         sessionManager.UpdateSessionUser(emailInput, passwordInput);
 
@@ -217,29 +212,43 @@ public class SessionManagerTests
             Assert.True(BCrypt.Net.BCrypt.Verify(passwordInput, $"{sessionManager.Current.User.Password}"));
         }
     }
+  
+    [Fact]
+    public void ExtendSession_AfterSessionExpiration_ExtendsSession()
+    {
+        // Arrange
+        var userRepository = new MockUserRepository();
+        userRepository.Users.Add(new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        });
+        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+        var user = new UserEntity()
+        {
+            Email = "test@example.com",
+            Password = "123456"
+        };
+        int timesInvoked = 0;
+        bool sessionDiffers = false;
 
-    //[Fact]
-    //public void UpdateSessionUser_WithBothNullValues_GivesTrue()
-    //{
-    //    // Arrange
-    //    var userRepository = new MockUserRepository();
-    //    userRepository.Users.Add(new UserEntity()
-    //    {
-    //        Email = "test@example.com",
-    //        Password = "123456"
-    //    });
-    //    var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
-    //    var user = new UserEntity()
-    //    {
-    //        Email = "test@example.com",
-    //        Password = "123456"
-    //    };
-    //    sessionManager.TryCreate(user, out _);
+        sessionManager.TryCreate(user, out var expectedSession);
 
-    //    // Act
-    //    sessionManager.UpdateSessionUser(null, null);
+        sessionManager.SessionTimeExpired += (_, args) =>
+        {
+            timesInvoked++;
+            sessionDiffers = sessionDiffers || args.Session != expectedSession;
+        };
 
-    //    // Assert
-    //    Assert.False(result);
-    //}
+
+        // Act
+        Thread.Sleep(100);
+        sessionManager.ExtendSession();
+        Thread.Sleep(100);
+
+        // Assert
+        Assert.Equal(2, timesInvoked);
+        Assert.False(sessionDiffers);
+        Assert.Equal(sessionManager.Current, expectedSession);
+    }
 }

@@ -48,7 +48,7 @@ namespace Kbs.Wpf.User.Update
                 Email = ViewModel.InputEmail,
                 Password = ViewModel.InputPassword
             };
-            var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, _sessionUser);
+            var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, _sessionUser.Email);
             
             if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
             {
@@ -69,7 +69,7 @@ namespace Kbs.Wpf.User.Update
             }
 
             // When no errors are shown
-            if (!validationResult.ContainsKey(nameof(user.Email)) && !validationResult.ContainsKey(nameof(user.Password)))
+            if (validationResult.Count == 0)
             {
                 bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(_sessionUser.Email);
                 bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(_sessionUser.Password);
@@ -97,14 +97,9 @@ namespace Kbs.Wpf.User.Update
                 _navigationManager.Navigate(_navigationTarget);
                 return;
             }
-            else
-            {
-                MessageBox.Show("Er zijn foutmeldingen. Corrigeer de aangegeven velden.");
-            }
         }
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Wijzigingen geannuleerd.");
             _navigationManager.Navigate(_navigationTarget);
         }
         private void PasswordChanged(object sender, RoutedEventArgs e)

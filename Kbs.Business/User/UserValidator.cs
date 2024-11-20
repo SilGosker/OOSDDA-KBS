@@ -34,7 +34,7 @@ public class UserValidator
 
         return errors;
     }
-    public Dictionary<string, string> ValidatorForUpdate(UserEntity user, string passwordConfirmation, IUserRepository userRepository, UserEntity previousUserValues)
+    public Dictionary<string, string> ValidatorForUpdate(UserEntity user, string passwordConfirmation, IUserRepository userRepository, string previousUserEmail)
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();
@@ -74,7 +74,7 @@ public class UserValidator
             }
         }
 
-        if (!string.IsNullOrWhiteSpace(user.Email) && !user.Email.Equals(previousUserValues.Email))
+        if (!string.IsNullOrWhiteSpace(user.Email) && !user.Email.Equals(previousUserEmail))
         {
             if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
                 !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))

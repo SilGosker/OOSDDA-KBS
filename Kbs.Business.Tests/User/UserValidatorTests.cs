@@ -134,7 +134,7 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
@@ -165,7 +165,7 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
@@ -195,7 +195,7 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoord moet minimaal 1 cijfer bevatten\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
@@ -226,7 +226,7 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoord moet minimaal 1 speciaal teken bevatten\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
@@ -257,7 +257,7 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoord moet minimaal 8 tekens lang zijn\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
@@ -288,42 +288,13 @@ public class UserValidatorTests
         string errorMessage = "- Wachtwoorden komen niet overeen\r\n";
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, confirmation, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, confirmation, userRepository, oldUser.Email);
 
         // Assert
         Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey("Password"));
         Assert.Equal(errorMessage, validationResult["Password"]);
     }
-
-    //[Fact]
-    //public void ValidateForUpdate_WithNoPassword_ReturnsErrors()
-    //{
-    //    // Arrange
-    //    var userRepository = new MockUserRepository();
-    //    userRepository.Users.Add(new UserEntity()
-    //    {
-    //        Email = "tester@gmail.com",
-    //        Password = "123456"
-    //    });
-    //    var user = new UserEntity()
-    //    {
-    //        Password = null,
-    //        Email = "test@gmail.com"
-    //    };
-
-    //    var validator = new UserValidator();
-    //    string errorMessage = "Wachtwoord is verplicht";
-
-    //    // Act
-    //    var validationResult = validator.ValidatorForUpdate(user, null, userRepository);
-
-    //    // Assert
-    //    Assert.Single(validationResult);
-    //    Assert.True(validationResult.ContainsKey(nameof(user.Password)));
-    //    Assert.Equal(errorMessage, validationResult[nameof(user.Password)]);
-    //}
-
 
     [Theory]
     [InlineData("Test 123!!")]
@@ -347,42 +318,12 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
         // Assert
         Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
     }
-
-    //[Theory]
-    //[InlineData("Test 123!!")]
-    //[InlineData("Test 12#!")]
-    //public void ValidateForUpdate_ExistingEmail_ReturnsErrors(string password)
-    //{
-    //    // Arrange
-    //    var userRepository = new MockUserRepository();
-    //    UserEntity oldUser = new UserEntity()
-    //    {
-    //        Email = "tester@gmail.com",
-    //        Password = "123456"
-    //    };
-    //    userRepository.Users.Add(oldUser);
-
-    //    var user = new UserEntity()
-    //    {
-    //        Password = password,
-    //        Email = "tester@gmail.com"
-    //    };
-
-    //    var validator = new UserValidator();
-
-    //    // Act
-    //    var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
-    //    // Assert
-    //    Assert.Single(validationResult);
-    //    Assert.True(validationResult.ContainsKey(nameof(user.Email)));
-    //    Assert.Equal("Email adres bestaat al", validationResult[nameof(user.Email)]);
-    //}
 
     [Theory]
     [InlineData("Test 123!!")]
@@ -406,7 +347,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser);
+        var validationResult = validator.ValidatorForUpdate(user, password, userRepository, oldUser.Email);
         // Assert
         Assert.Empty(validationResult);
     }
@@ -523,6 +464,7 @@ public class UserValidatorTests
         Assert.Equal("Ongeldig email adres", validationResult[nameof(user.Email)]);
     }
 
+    [Fact]
     public void ValidatorForRegistration_WithNonMatchingPasswords_ReturnsErrors()
     {
         // Arrange

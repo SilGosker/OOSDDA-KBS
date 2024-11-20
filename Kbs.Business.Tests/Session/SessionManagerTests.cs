@@ -171,7 +171,7 @@ public class SessionManagerTests
     [Theory]
     [InlineData("Test@tester.com", null)]
     [InlineData(null, "12345678")]
-    public void UpdateSessionUser_WithValues_GivesTrue(string emailInput, string passwordInput)
+    public void UpdateSessionUser_WithValues_ReturnsTrue(string emailInput, string passwordInput)
     {
         // Arrange
         var userRepository = new MockUserRepository();

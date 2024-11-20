@@ -15,8 +15,7 @@
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
             <TextBlock Text="{Binding ReservationID}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="18"/>
-            <TextBlock Text="{Binding Status}" Foreground="Red" Canvas.Left="507" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
+            <TextBlock Text="{Binding Status}" Foreground="{Binding StatusColor}" Canvas.Left="507" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">
                 <TextBlock Text="Zitplaatsen:" Width="71"/>
                 <TextBlock Text="{Binding Seats}" FontSize="14" Width="95" />
@@ -40,7 +39,7 @@
                 <TextBlock Text="Tijdstip:" Margin="0,0,10,0" Width="62"/>
                 <TextBlock Text="{Binding StartTimeFormatted}" FontSize="14" Width="193" Height="18" />
 
-                <TextBlock Text="Tijdsduur:" Width="106" Height="16"/>
+                <TextBlock Text="Tijdsduur:" Width="93" Height="16"/>
                 <TextBlock Text="{Binding Length}" FontSize="14" Width="92" />
             </StackPanel>
 

@@ -24,6 +24,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             var reservation = _reservationRepository.GetById(reservationId);
             var boatType = _boatTypeRepository.GetByReservationId(reservationId);
 
+
             ViewModel.ReservationID = reservation.ReservationID;
             ViewModel.Length = reservation.Length;
             ViewModel.StartTime = reservation.StartTime;

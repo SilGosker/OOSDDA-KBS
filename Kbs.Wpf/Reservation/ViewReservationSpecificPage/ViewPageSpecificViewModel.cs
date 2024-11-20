@@ -1,5 +1,6 @@
 ﻿using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
+using System.Windows.Media;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
@@ -11,7 +12,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         private DateTime _startTime;
         private TimeSpan _length;
         private int _reservationID;
-        private ReservationStatus _status;
+        private ReservationStatus _status = ReservationStatus.Active;
 
         public int Niveau
         {
@@ -26,7 +27,21 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         public ReservationStatus Status
         {
             get => _status;
-            set => SetField(ref _status, value);
+            set {
+                SetField(ref _status, value);
+                OnPropertyChanged(nameof(StatusColor));
+            }
+        }
+        public Brush StatusColor
+        {
+            get
+            {
+                if (Status == ReservationStatus.Active)
+                {
+                    return Brushes.Green;
+                }
+                return Brushes.Red;
+            }
         }
         public bool HasSteeringWheel
         {
@@ -36,7 +51,11 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         public DateTime StartTime
         {
             get => _startTime;
-            set => SetField(ref _startTime, value);
+            set
+            {
+                SetField(ref _startTime, value);
+                OnPropertyChanged(nameof(StartTimeFormatted));
+            }
         }
         public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
         public TimeSpan Length

@@ -53,7 +53,7 @@
                             <StackPanel Orientation="Vertical" Margin="0,40,0,0">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tijdsstip:" FontSize="14" Width="263" />
-                                    <TextBlock Text="{Binding TijdsstipFormatted}" FontSize="14" Width="736" />
+                                    <TextBlock Text="{Binding StartTimeFormatted}" FontSize="14" Width="736" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />

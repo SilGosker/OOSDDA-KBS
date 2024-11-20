@@ -16,14 +16,13 @@ public class BoatTypeRepository : IBoatTypeRepository
 
     public BoatTypeEntity GetByReservationId(int reservationID)
     {
-        const string values = @"
+        const string query = @"
         SELECT bt.* 
         FROM Boattype bt
         INNER JOIN Boat b ON bt.BoattypeID = b.BoattypeID
-        INNER JOIN Reservation r ON r.ReservationID = @ReservationID";
-        
+        INNER JOIN Reservation r ON r.BoatID = b.BoatID
+        WHERE r.ReservationID = @ReservationID";
 
-        return _connection.Query<BoatTypeEntity>(values, new { ReservationID = reservationID })
-                          .FirstOrDefault();
+        return _connection.Query<BoatTypeEntity>(query, new { ReservationID = reservationID }).FirstOrDefault();
     }
 }

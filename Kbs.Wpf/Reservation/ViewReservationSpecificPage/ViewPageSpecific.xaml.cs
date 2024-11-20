@@ -13,9 +13,9 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
     public partial class ViewPageSpecific : Page
     {
-        private readonly IReservationRepository _reservationRepository = new ReservationRepository();
+        //private readonly IReservationRepository _reservationRepository1 = new ReservationRepository();
         private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
-
+        private readonly ReservationRepository _reservationRepository = new ReservationRepository();
         public ViewPageSpecificViewModel ViewModel => (ViewPageSpecificViewModel)DataContext;
 
         public ViewPageSpecific(int reservationId)
@@ -30,6 +30,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;
             ViewModel.Niveau = (int)boatType.RequiredExperience;
             ViewModel.Seats = boatType.Seats;
+            ViewModel.Status = reservation.Status;
 
         }
 

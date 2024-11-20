@@ -48,7 +48,7 @@ namespace Kbs.Business.Reservation
             }
         }
         public bool CompetitionReservationValidator(ReservationEntity reservation) 
-        { 
+        {
             if (!reservation.IsForCompetition)
             {
                 IsDurationValid(reservation);
@@ -58,8 +58,6 @@ namespace Kbs.Business.Reservation
             {
                 return true;
             }
-
         }
-        
     }
 }

@@ -45,7 +45,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             get => _startTime;
             set => SetField(ref _startTime, value);
         }
-        public string TijdsstipFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
+        public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
         public string TijdsduurFormatted => $"{Length.TotalMinutes:F0} min";
 
         public TimeSpan Length

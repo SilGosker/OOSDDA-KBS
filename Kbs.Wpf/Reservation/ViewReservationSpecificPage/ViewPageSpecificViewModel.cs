@@ -1,4 +1,5 @@
-﻿using Kbs.Wpf.Components;
+﻿using Kbs.Business.Reservation;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
@@ -7,10 +8,10 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         private int _niveau;
         private int _seats;
         private bool _hasSteeringWheel;
-        private DateTime _tijdsstip;
+        private DateTime _startTime;
         private TimeSpan _length;
         private int _reservationID;
-        private int _status;
+        private ReservationStatus _status;
 
         public int Niveau
         {
@@ -22,7 +23,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _seats;
             set => SetField(ref _seats, value);
         }
-        public int Status
+        public ReservationStatus Status
         {
             get => _status;
             set => SetField(ref _status, value);
@@ -34,10 +35,10 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         }
         public DateTime StartTime
         {
-            get => _tijdsstip;
-            set => SetField(ref _tijdsstip, value);
+            get => _startTime;
+            set => SetField(ref _startTime, value);
         }
-        public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy");
+        public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
         public TimeSpan Length
         {
             get => _length;

@@ -19,39 +19,17 @@ namespace Kbs.Business.Reservation
         public DateTime StartTime { get; set; }
         public TimeSpan Length { get; set; }
         public DateTime EndTime => StartTime + Length;
-        private int _status;
-        public int Status { get; set; }
-        /* Om van int naar string te converten om te kunnen tonen
-        public string Status
+        public ReservationStatus _status;
+        //public int Status { get; set; }
+        
+        //Om van int naar string te converten om te kunnen tonen
+        
+        public ReservationStatus Status
         {
-            get
-            {
-                if (_status == 1)
-                {
-                    return "Expired";
-                }
-                else if (_status == 2)
-                {
-                    return "Delivered";
-                }
-                else if (_status == 3)
-                {
-                    return "Active";
-                }
-                return string.Empty;
-            }
-            set
-            {
-                _status = value switch
-                {
-                    "Expired" => 1,
-                    "Delivered" => 2,
-                    "Active" => 3,
-                    _ => throw new ArgumentException("Invalid status value")
-                };
-            }
+            get; set;     
         }
-        */
+        
+        
         public int Seats { get; set; }
         public bool IsForCompetition { get; set; }
         //Onderstaande 4 staan nog niet in TO

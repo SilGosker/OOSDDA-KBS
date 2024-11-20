@@ -62,8 +62,6 @@
                                 <StackPanel Orientation="Vertical">
                                     <Button Content="Zie meer" Command="{Binding ViewMore}" CommandParameter="{Binding}" Width="100" />
                                 </StackPanel>
-                                            
-                                    
                             </StackPanel>
                         </Grid>
                     </Border>

@@ -8,8 +8,8 @@ public class CreateBoatTypeViewModel : ViewModel
 {
     private string _name;
     private BoatTypeRequiredExperience _requiredExperience;
+    private BoatTypeSeats _seats;
     private int _speed;
-    private int _seats;
     private bool _hasSteeringWheel;
     private string _nameErrorMessage;
     private string _experienceErrorMessage;
@@ -17,6 +17,7 @@ public class CreateBoatTypeViewModel : ViewModel
     private string _seatsErrorMessage;
 
     public ObservableCollection<CreateBoatExperienceViewModel> PossibleExperiences { get; } = new();
+    public ObservableCollection<CreateBoatSeatsViewModel> PossibleSeats { get; } = new();
 
     public string Name
     {
@@ -36,7 +37,7 @@ public class CreateBoatTypeViewModel : ViewModel
         set => SetField(ref _speed, value);
     }
 
-    public int Seats
+    public BoatTypeSeats Seats
     {
         get => _seats;
         set => SetField(ref _seats, value);

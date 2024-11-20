@@ -43,66 +43,78 @@ namespace Kbs.Wpf.User.Update
 
         private void Submit(object sender, RoutedEventArgs e)
         {
-            EmailErrorMessage.Content = "";
-            PasswordErrorMessage.Text = "";
             var user = new UserEntity()
             {
-                Email = EmailInput.Text,
-                Password = PasswordInput.Password
+                Email = ViewModel.InputEmail,
+                Password = ViewModel.InputPassword
             };
-            var validationResult = _userValidator.ValidatorForUpdate(user, PasswordConfirmInput.Password, _userRepository);
-
+            var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, _sessionUser);
+            
             if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
             {
-                if (!emailMessage.Contains("verplicht") && !emailMessage.Contains("bestaat"))
-                {
-                    EmailErrorMessage.Content = emailMessage;
-                }
+                ViewModel.EmailErrorMessage = emailMessage;
             }
+            else
+            {
+                ViewModel.EmailErrorMessage = string.Empty;
+            }
+
             if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
             {
-                if (!passwordMessage.Contains("verplicht"))
-                {
-                    PasswordErrorMessage.Text = passwordMessage;
-                }
+                ViewModel.PasswordErrorMessage = passwordMessage;
+            }
+            else
+            {
+                ViewModel.PasswordErrorMessage = string.Empty;
             }
 
-            if (validationResult.Count > 1)
+            // When no errors are shown
+            if (!validationResult.ContainsKey(nameof(user.Email)) && !validationResult.ContainsKey(nameof(user.Password)))
             {
-                if ((emailMessage.Contains("verplicht") || emailMessage.Contains("bestaat")) && passwordMessage.Contains("verplicht"))
-                {
-                    MessageBox.Show("Email en Wachtwoord zijn succesvol aangepast.");
-                    _navigationManager.Navigate(_navigationTarget);
-                }
-                return;
-            } else
-            {
-                // check if both have something in them / changed
-                // null = valid change
-                if (!(emailMessage == null && passwordMessage == null) &&
-                    (emailMessage == null || (!emailMessage.Contains("verplicht") && !emailMessage.Contains("bestaat"))) &&
-                    (passwordMessage == null || !passwordMessage.Contains("verplicht")))
-                {
-                    return;
-                }
-            }
+                bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(_sessionUser.Email);
+                bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(_sessionUser.Password);
 
-            // status (true = valid value) is allowed to get updated in the system
-            bool emailStatus = !validationResult.ContainsKey(nameof(user.Email));
-            bool passwordStatus = !validationResult.ContainsKey(nameof(user.Password));
-            bool isSessionUserUpdated = SessionManager.Instance.UpdateSessionUser(((emailStatus) ? user.Email : null), ((passwordStatus) ? user.Password : null));
-
-            if (isSessionUserUpdated)
-            {
-                _userRepository.Update(_sessionUser);
-                MessageBox.Show(((emailStatus) ? "Email" : "") + ((emailStatus && passwordStatus) ? " en " : "") + ((passwordStatus) ? "Wachtwoord" : "") + ((emailStatus && passwordStatus) ? " zijn " : " is ") + "succesvol aangepast.");
+                string successMessage = "Er zijn geen aanpassingen gemaakt.";
+                if (emailUpdated && passwordUpdated)
+                {
+                    successMessage = "Email en Wachtwoord zijn succesvol aangepast.";
+                }
+                else if (emailUpdated)
+                {
+                    successMessage = "Email is succesvol aangepast.";
+                }
+                else if (passwordUpdated)
+                {
+                    successMessage = "Wachtwoord is succesvol aangepast.";
+                }
+               
+                if (emailUpdated || passwordUpdated)
+                {
+                    SessionManager.Instance.UpdateSessionUser(((emailUpdated) ? user.Email : null), ((passwordUpdated) ? user.Password : null));
+                    _userRepository.Update(_sessionUser);
+                }
+                MessageBox.Show(successMessage);
                 _navigationManager.Navigate(_navigationTarget);
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Er zijn foutmeldingen. Corrigeer de aangegeven velden.");
             }
         }
         private void Cancel(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Wijzigingen geannuleerd.");
             _navigationManager.Navigate(_navigationTarget);
+        }
+        private void PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InputPassword = ((PasswordBox)sender).Password;
+        }
+
+        private void PasswordConfirmationChanged(object sender, RoutedEventArgs e)
+        {
+            ViewModel.InputConfirmPassword = ((PasswordBox)sender).Password;
         }
     }
 }

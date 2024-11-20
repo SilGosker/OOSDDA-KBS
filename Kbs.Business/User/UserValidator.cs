@@ -34,16 +34,12 @@ public class UserValidator
 
         return errors;
     }
-    public Dictionary<string, string> ValidatorForUpdate(UserEntity user, string passwordConfirmation, IUserRepository userRepository)
+    public Dictionary<string, string> ValidatorForUpdate(UserEntity user, string passwordConfirmation, IUserRepository userRepository, UserEntity previousUserValues)
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();
 
-        if (string.IsNullOrEmpty(user.Password))
-        {
-            errors.Add(nameof(user.Password), "Wachtwoord is verplicht");
-        }
-        else
+        if (!string.IsNullOrEmpty(user.Password))
         {
             var errorStringBuilder = new StringBuilder();
             if (user.Password.Length < 8)
@@ -78,18 +74,17 @@ public class UserValidator
             }
         }
 
-        if (string.IsNullOrWhiteSpace(user.Email))
+        if (!string.IsNullOrWhiteSpace(user.Email) && !user.Email.Equals(previousUserValues.Email))
         {
-            errors.Add(nameof(user.Email), "Email is verplicht");
-        }
-        else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+            if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
                 !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
-        {
-            errors.Add(nameof(user.Email), "Ongeldig email adres");
-        }
-        else if (userRepository.GetByEmail(user.Email) != null)
-        {
-            errors.Add(nameof(user.Email), "Email adres bestaat al");
+            {
+                errors.Add(nameof(user.Email), "Ongeldig email adres");
+            }
+            else if (userRepository.GetByEmail(user.Email) != null)
+            {
+                errors.Add(nameof(user.Email), "Email adres bestaat al");
+            }
         }
         return errors;
     }

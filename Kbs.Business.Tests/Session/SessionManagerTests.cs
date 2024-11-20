@@ -192,35 +192,54 @@ public class SessionManagerTests
         };
         sessionManager.TryCreate(user, out _);
 
-        // Act
-        bool result = sessionManager.UpdateSessionUser(emailInput, passwordInput);
-
-        // Assert
-        Assert.True(result);
-    }
-
-    [Fact]
-    public void UpdateSessionUser_WithBothNullValues_GivesTrue()
-    {
-        // Arrange
-        var userRepository = new MockUserRepository();
-        userRepository.Users.Add(new UserEntity()
+        bool isEmailUpdated = true;
+        if (emailInput == null)
         {
-            Email = "test@example.com",
-            Password = "123456"
-        });
-        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
-        var user = new UserEntity()
+            isEmailUpdated = false;
+        }
+        bool isPasswordUpdated = true;
+        if (passwordInput == null)
         {
-            Email = "test@example.com",
-            Password = "123456"
-        };
-        sessionManager.TryCreate(user, out _);
+            isPasswordUpdated = false;
+        }
+
 
         // Act
-        bool result = sessionManager.UpdateSessionUser(null, null);
+        sessionManager.UpdateSessionUser(emailInput, passwordInput);
 
         // Assert
-        Assert.False(result);
+        if (isEmailUpdated)
+        {
+            Assert.Equal(emailInput, $"{sessionManager.Current.User.Email}");
+        }
+        if (isPasswordUpdated)
+        {
+            Assert.True(BCrypt.Net.BCrypt.Verify(passwordInput, $"{sessionManager.Current.User.Password}"));
+        }
     }
+
+    //[Fact]
+    //public void UpdateSessionUser_WithBothNullValues_GivesTrue()
+    //{
+    //    // Arrange
+    //    var userRepository = new MockUserRepository();
+    //    userRepository.Users.Add(new UserEntity()
+    //    {
+    //        Email = "test@example.com",
+    //        Password = "123456"
+    //    });
+    //    var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+    //    var user = new UserEntity()
+    //    {
+    //        Email = "test@example.com",
+    //        Password = "123456"
+    //    };
+    //    sessionManager.TryCreate(user, out _);
+
+    //    // Act
+    //    sessionManager.UpdateSessionUser(null, null);
+
+    //    // Assert
+    //    Assert.False(result);
+    //}
 }

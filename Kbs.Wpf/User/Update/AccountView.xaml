@@ -21,24 +21,24 @@
         <Label Content="Instellingen" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="22"/>
 
         <Label Content="Email:" HorizontalAlignment="Center" Margin="-250,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox Name="EmailInput" HorizontalAlignment="Left" Margin="108,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
-        <Label Name="EmailErrorMessage" Content="" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" Foreground="Red" />
+        <TextBox HorizontalAlignment="Left" Margin="108,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
+        <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" />
 
         <Label Content="Nieuw wachtwoord:" HorizontalAlignment="Left" Margin="102,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
         <Label Width="200" Margin="200,176,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Text="Wachtwoord moet voldoen aan: (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)" 
                TextWrapping="Wrap" FontSize="9" />
         </Label>
-        <PasswordBox Name="PasswordInput" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox PasswordChanged="PasswordChanged" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="120"/>
 
         <Label Content="Nieuw wachtwoord bevestiging:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="101,214,0,0"/>
-        <PasswordBox Name="PasswordConfirmInput" HorizontalAlignment="Left" Margin="106,239,0,0" VerticalAlignment="Top" Width="120"/>
+        <PasswordBox PasswordChanged="PasswordConfirmationChanged" HorizontalAlignment="Left" Margin="106,239,0,0" VerticalAlignment="Top" Width="120"/>
         <Label Width="400" Margin="100,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock Name="PasswordErrorMessage" Text="" TextWrapping="Wrap" Foreground="Red" />
+            <TextBlock Text="{Binding PasswordErrorMessage}" TextWrapping="Wrap" Foreground="Red" />
         </Label>
 
-        <Button Name="ConfirmButton" Content="Bevestig" HorizontalAlignment="Center" Margin="-200,351,0,0" VerticalAlignment="Top" Click="Submit"/>
-        <Button Name="CancelButton" Content="Annuleer" HorizontalAlignment="Center" Margin="200,351,0,0" VerticalAlignment="Top" Click="Cancel"/>
+        <Button IsDefault="True" Content="Bevestig" HorizontalAlignment="Center" Margin="-200,351,0,0" VerticalAlignment="Top" Click="Submit"/>
+        <Button IsCancel="True" Content="Annuleer" HorizontalAlignment="Center" Margin="200,351,0,0" VerticalAlignment="Top" Click="Cancel"/>
 
     </Grid>
 </Page>

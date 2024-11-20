@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Reservation
 {
-    public class DamageReport
+    internal class DamageReport
     {
-        public int BoatID {  get; set; }
-        public string DamageDescription { get; set; }
-        public DateTime? DateReported { get; set; }
-        public byte[] Image { get; set; }
+        private int BoatID;
+        private string DamageDescription;
+        private DateTime? DateReported;
     }
 }

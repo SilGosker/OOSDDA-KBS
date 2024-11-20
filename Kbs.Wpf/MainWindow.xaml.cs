@@ -1,14 +1,10 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Azure;
-using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Index;
-using Kbs.Wpf.Reservation.ViewReservation;
 using Kbs.Wpf.User.Login;
-using Kbs.Wpf.Reservation.NewFolder;
 
 namespace Kbs.Wpf
 {
@@ -111,7 +107,5 @@ namespace Kbs.Wpf
             loginWindow.Show();
             Close();
         }
-
-
     }
 }

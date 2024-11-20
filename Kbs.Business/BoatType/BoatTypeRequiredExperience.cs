@@ -2,7 +2,7 @@
 
 public enum BoatTypeRequiredExperience
 {
-    Beginner,
-    Intermediate,
-    Expert
+    Beginner = 1,
+    Intermediate = 2,
+    Expert = 3
 }

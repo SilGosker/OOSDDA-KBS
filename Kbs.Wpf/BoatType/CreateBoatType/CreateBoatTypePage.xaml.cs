@@ -43,7 +43,7 @@ public partial class CreateBoatTypePage : Page
             Speed = ViewModel.Speed
         };
 
-        var validationResult = new BoatTypeEntityValidator().ValidateForCreation(boatType);
+        var validationResult = new BoatTypeValidator().ValidateForCreate(boatType);
 
         if (validationResult.TryGetValue(nameof(boatType.Name), out string nameError))
         {

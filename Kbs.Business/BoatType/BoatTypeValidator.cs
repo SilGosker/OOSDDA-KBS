@@ -2,9 +2,9 @@
 
 namespace Kbs.Business.BoatType;
 
-public class BoatTypeEntityValidator
+public class BoatTypeValidator
 {
-    public Dictionary<string, string> ValidateForCreation(BoatTypeEntity boatType)
+    public Dictionary<string, string> ValidateForCreate(BoatTypeEntity boatType)
     {
         ThrowHelper.ThrowIfNull(boatType);
         Dictionary<string, string> validationResult = new();

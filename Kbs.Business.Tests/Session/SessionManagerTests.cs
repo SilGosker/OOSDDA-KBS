@@ -212,7 +212,7 @@ public class SessionManagerTests
             Assert.True(BCrypt.Net.BCrypt.Verify(passwordInput, $"{sessionManager.Current.User.Password}"));
         }
     }
-  
+
     [Fact]
     public void ExtendSession_AfterSessionExpiration_ExtendsSession()
     {
@@ -223,12 +223,13 @@ public class SessionManagerTests
             Email = "test@example.com",
             Password = "123456"
         });
-        var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
+        var sessionManager = new SessionManager(userRepository, TimeSpan.FromMilliseconds(50));
         var user = new UserEntity()
         {
             Email = "test@example.com",
             Password = "123456"
         };
+
         int timesInvoked = 0;
         bool sessionDiffers = false;
 

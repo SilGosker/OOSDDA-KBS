@@ -25,8 +25,6 @@
                 </ItemsControl>
             </StackPanel>
             
-            
-            <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 
         <DockPanel Background="White" Margin="180,0,0,0" >

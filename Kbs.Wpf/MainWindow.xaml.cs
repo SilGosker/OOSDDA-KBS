@@ -1,8 +1,9 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf
@@ -10,37 +11,17 @@ namespace Kbs.Wpf
     public partial class MainWindow : Window, INavigationManager
     {
         private MainViewModel ViewModel => (MainViewModel)DataContext;
+        protected override void OnClosed(EventArgs e)
+        {
+            SessionManager.Instance.SessionTimeExpired -= SessionExpired;
+            base.OnClosed(e);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            SessionManager.Instance.SessionTimeExpired += async (_, _) =>
-            {
-                var success = Task.Run(() =>
-                {
-                    var dialogResult = MessageBox.Show("Uw sessie is verlopen. Druk op OK om af te sluiten.",
-                        "Sessie verlopen",
-                        MessageBoxButton.OKCancel);
-
-                    return dialogResult == MessageBoxResult.OK;
-                });
-
-                var timeout = Task.Delay(TimeSpan.FromSeconds(20));
-
-                var result = await Task.WhenAny(success, timeout);
-
-                if (result == timeout || (result == success && success.Result))
-                {
-                    SessionManager.Instance.Logout();
-                    var loginWindow = new LoginWindow();
-                    loginWindow.Show();
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
-                }
-            };
+            SessionManager.Instance.SessionTimeExpired += SessionExpired;
 
             var user = SessionManager.Instance.Current.User;
 
@@ -55,8 +36,37 @@ namespace Kbs.Wpf
 
             if (user.IsMaterialCommissioner())
             {
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boten" });
+                //ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Overzicht boottypen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
+            }
+        }
+
+        private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
+        {
+            var success = Task.Run(() =>
+            {
+                var dialogResult = MessageBox.Show("Uw sessie is verlopen. Druk op OK om af te sluiten.",
+                    "Sessie verlopen",
+                    MessageBoxButton.OKCancel);
+
+                return dialogResult == MessageBoxResult.OK;
+            });
+
+            var timeout = Task.Delay(TimeSpan.FromSeconds(20));
+
+            var result = await Task.WhenAny(success, timeout);
+
+            if (result == timeout || (result == success && success.Result))
+            {
+                SessionManager.Instance.Logout();
+                var loginWindow = new LoginWindow();
+                loginWindow.Show();
+                Close();
+            }
+            else
+            {
+                SessionManager.Instance.ExtendSession();
+                MessageBox.Show("Uw sessie is verlengd.", "Sessie verlengd", MessageBoxButton.OK);
             }
         }
 
@@ -79,9 +89,11 @@ namespace Kbs.Wpf
                 { 
                     page = creator();
                     NavigationFrame.Navigate(page);
+                    return;
                 }
 
                 MessageBox.Show(this, "U heeft geen toegang tot deze functie", "Toegang geweigerd");
+                return;
             }
 
             page = creator();

@@ -4,10 +4,10 @@ public class BoatTypeEntityTests
 {
 
     [Theory]
-    [InlineData(1, "Kano 1", BoatTypeRequiredExperience.Beginner, 4, 20, true)]
-    [InlineData(int.MaxValue, null, (BoatTypeRequiredExperience)0, -20, 800, false)]
-    [InlineData(int.MinValue, "", (BoatTypeRequiredExperience)100, int.MaxValue, -1, true)]
-    public void Properties_ShouldSetValues(int id, string name, BoatTypeRequiredExperience experience, int seats, int speed, bool hasSteeringWheel)
+    [InlineData(1, "Kano 1", BoatTypeRequiredExperience.Beginner, BoatTypeSeats.Four, 20, true)]
+    [InlineData(int.MaxValue, null, (BoatTypeRequiredExperience)0, (BoatTypeSeats)0, 800, false)]
+    [InlineData(int.MinValue, "", (BoatTypeRequiredExperience)100, (BoatTypeSeats)int.MaxValue, -1, true)]
+    public void Properties_ShouldSetValues(int id, string name, BoatTypeRequiredExperience experience, BoatTypeSeats seats, int speed, bool hasSteeringWheel)
     {
         // Arrange
         var boatType = new BoatTypeEntity();

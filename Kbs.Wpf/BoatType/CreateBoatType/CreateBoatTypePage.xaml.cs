@@ -22,6 +22,11 @@ public partial class CreateBoatTypePage : Page
         {
             ViewModel.PossibleExperiences.Add(new CreateBoatExperienceViewModel(requiredExperience));
         }
+
+        foreach (BoatTypeSeats seats in Enum.GetValues<BoatTypeSeats>())
+        {
+            ViewModel.PossibleSeats.Add(new CreateBoatSeatsViewModel(seats));
+        }
     }
 
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
@@ -30,6 +35,15 @@ public partial class CreateBoatTypePage : Page
         if (experience == null) return;
 
         ViewModel.RequiredExperience = experience.RequiredExperience;
+    }
+
+    private void SeatsChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var experience = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
+        if (experience == null) return;
+
+        ViewModel.Seats = experience.BoatTypeSeats;
+
     }
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)

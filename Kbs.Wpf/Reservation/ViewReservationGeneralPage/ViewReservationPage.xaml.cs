@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Session;
+﻿using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
@@ -16,16 +17,19 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         {
             _navigationManager = navigationManager;
             InitializeComponent();
-
+            ReservationRepository repository = new ReservationRepository();
             var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
-            foreach (var reservation in reservations)
+            var sortedReservations = repository.SortByStatus(reservations);
+            foreach (var reservation in sortedReservations)
             {
                 ViewModel.Items.Add(new ViewReservationViewModel(ZieMeer)
                 {
                     ReservationID = reservation.ReservationID,
                     Length = reservation.Length,
-                    StartTime = reservation.StartTime
+                    StartTime = reservation.StartTime,
+                    Status = reservation.Status
                 });
+
             }
         }
 

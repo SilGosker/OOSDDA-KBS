@@ -21,7 +21,7 @@ namespace Kbs.Wpf
         public MainWindow()
         {
             InitializeComponent();
-
+            WindowState = WindowState.Maximized;
             SessionManager.Instance.SessionTimeExpired += SessionExpired;
 
             var user = SessionManager.Instance.Current.User;

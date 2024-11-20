@@ -44,16 +44,16 @@ public class SessionManager
 
         session = new Session(userFromDb);
         Current = session;
-        TrackSessionTime(_cancellationTokenSource.Token);
+        TrackSessionTime();
         return true;
     }
 
-    private async void TrackSessionTime(CancellationToken token)
+    private async void TrackSessionTime()
     {
         try
         {
             var current = Current;
-            await Task.Delay(_sessionTime, token);
+            await Task.Delay(_sessionTime, _cancellationTokenSource.Token);
             if (Current != null && current == Current)
             {
                 SessionTimeExpired?.Invoke(this, new SessionTimeExpiredEventArgs(Current));
@@ -61,11 +61,15 @@ public class SessionManager
         }
         catch
         {
-            return;
             // ignored
         }
+    }
 
-        TrackSessionTime(_cancellationTokenSource.Token);
+    public void ExtendSession()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
+        TrackSessionTime();
     }
 
     public void Logout()
@@ -73,5 +77,23 @@ public class SessionManager
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource = new();
         Current = null;
+    }
+
+    public void UpdateSessionUser(string newMail, string newPassword)
+    {
+        UserEntity sessionUser = Current.User;
+        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
+        if (newUser.Email != null && !newMail.Equals(sessionUser.Email))
+        {
+            sessionUser.Email = newUser.Email;
+        }
+        if (newPassword != null)
+        {
+            newUser.Encrypt();
+            if (!newPassword.Equals(sessionUser.Password))
+            {
+                sessionUser.Password = newUser.Password;
+            }
+        }
     }
 }

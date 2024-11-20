@@ -11,7 +11,7 @@
         <local:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid HorizontalAlignment="Left" Width="180" Background="#23272">
+        <Grid HorizontalAlignment="Left" Width="180" Background="#23272A">
             <StackPanel>
                 <ItemsControl ItemsSource="{Binding NavigationItems}">
                     <ItemsControl.ItemTemplate>

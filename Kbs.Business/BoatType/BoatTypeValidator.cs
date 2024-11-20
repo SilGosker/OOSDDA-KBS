@@ -21,7 +21,7 @@ public class BoatTypeValidator
 
         if (boatType.Seats <= 0)
         {
-            validationResult.Add(nameof(boatType.Seats), "Stoelen is verplicht en moet groter zijn dan 0");
+            validationResult.Add(nameof(boatType.Seats), "Het stoelenveld is verplicht en moet groter zijn dan 0");
         }
 
         if (boatType.Speed <= 0)

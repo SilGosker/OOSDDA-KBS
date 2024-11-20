@@ -71,7 +71,7 @@ public class BoatTypeValidatorTests
         Assert.NotNull(validationResult);
         Assert.Single(validationResult);
         Assert.True(validationResult.TryGetValue(nameof(boatType.Seats), out string errorMessage));
-        Assert.Equal("Stoelen is verplicht en moet groter zijn dan 0", errorMessage);
+        Assert.Equal("Het stoelenveld is verplicht en moet groter zijn dan 0", errorMessage);
     }
 
     [Theory]

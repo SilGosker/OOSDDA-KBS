@@ -18,13 +18,8 @@ public partial class BoatDetailPage : Page
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
         ViewModel.Name = boat.Name;
-        ViewModel.Status = boat.Status switch
-        {
-            BoatStatus.Operational => "Operationeel",
-            BoatStatus.Maintaining => "In onderhoud",
-            BoatStatus.Broken => "Kapot",
-            _ => "Onbekend"
-        };
+        ViewModel.Status = boat.Status.ToDutchString();
+
 
         ViewModel.BoatTypeName = "Onbekend";
     }

@@ -13,14 +13,7 @@ public class BoatIndexBoatViewModel : ViewModel
 
         Name = boat.Name;
         BoatId = boat.BoatID;
-        Status = boat.Status switch
-        {
-            BoatStatus.Operational => "Operationeel",
-            BoatStatus.Maintaining => "In onderhoud",
-            BoatStatus.Broken => "Kapot",
-            _ => "Onbekend"
-        };
-
+        Status = boat.Status.ToDutchString();
         BoatType = boatType?.Name ?? "Onbekend";
     }
 

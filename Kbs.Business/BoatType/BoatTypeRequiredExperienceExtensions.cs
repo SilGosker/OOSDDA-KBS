@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-namespace Kbs.Business.BoatType;
+﻿namespace Kbs.Business.BoatType;
 
 public static class BoatTypeRequiredExperienceExtensions
 {

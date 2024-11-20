@@ -13,14 +13,7 @@ namespace Kbs.Business.Reservation
         public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }
         public bool IsReservationLimitReached(UserEntity user, ReservationEntity reservation)
         {
-            if (reservation.totalReservations > 2)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return reservation.totalReservations > 2;
         }
         public bool IsWithinDaylightHours(ReservationEntity reservation) 
         {
@@ -28,24 +21,11 @@ namespace Kbs.Business.Reservation
             var EndTime = TimeOnly.FromDateTime(reservation.EndTime);
             TimeOnly Morning = new TimeOnly(9, 0, 0);
             TimeOnly Evening = new TimeOnly(17, 0, 0);
-            if (StartTime < Morning || EndTime > Evening)
-            {
-                return false;
-            } else
-            {
-                return true;
-            }
+            return StartTime < Morning || EndTime > Evening;
         }
         public bool IsDurationValid(ReservationEntity reservation) 
         {
-            if (reservation.Length.TotalMinutes > 120)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return reservation.Length.TotalMinutes > 120;
         }
         public bool CompetitionReservationValidator(ReservationEntity reservation) 
         {

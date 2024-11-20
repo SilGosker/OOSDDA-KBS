@@ -32,7 +32,7 @@
                 
             </TextBlock.RenderTransform>
         </TextBlock>
-        <ListView ItemsSource="{Binding Items}" Margin="0,100,0,0">
+        <ListView ItemsSource="{Binding Items.}" Margin="0,100,0,0">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">

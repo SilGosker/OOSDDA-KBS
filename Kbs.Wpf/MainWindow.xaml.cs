@@ -111,20 +111,5 @@ namespace Kbs.Wpf
             loginWindow.Show();
             Close();
         }
-
-        private void MyReservations(object sender, RoutedEventArgs e)
-        {
-            var myReservationsPage = new ViewReservationPage(this);
-            NavigationFrame.Content = myReservationsPage; // Stel de nieuwe inhoud in
-            //My reservations Window
-        }
-        private void PlaceReservation(object sender, RoutedEventArgs e)
-        {
-            //place reservations window
-        }
-        private void Settings(object sender, RoutedEventArgs e)
-        {
-            //settings window
-        }
     }
 }

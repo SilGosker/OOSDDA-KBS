@@ -13,7 +13,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
     public partial class ViewPageSpecific : Page
     {
-        //private readonly IReservationRepository _reservationRepository1 = new ReservationRepository();
         private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
         public ViewPageSpecificViewModel ViewModel => (ViewPageSpecificViewModel)DataContext;
@@ -35,10 +34,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         public void Annuleren(object sender, RoutedEventArgs e)
         {
             var entity = _reservationRepository.GetById(ViewModel.ReservationID);

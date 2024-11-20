@@ -10,7 +10,7 @@ public class BoatTypeValidatorTests
         {
             Name = string.Empty,
             RequiredExperience = BoatTypeRequiredExperience.Beginner,
-            Seats = 2,
+            Seats = BoatTypeSeats.Two,
             Speed = 100
         };
         var validator = new BoatTypeValidator();
@@ -31,7 +31,7 @@ public class BoatTypeValidatorTests
         // Arrange
         var boatType = new BoatTypeEntity()
         {
-            Seats = 2,
+            Seats = BoatTypeSeats.Two,
             Name = "test",
             Speed = 100,
             RequiredExperience = default
@@ -52,38 +52,12 @@ public class BoatTypeValidatorTests
     [InlineData(0)]
     [InlineData(-1)]
     [InlineData(int.MinValue)]
-    public void ValidateForCreate_WhenSeatsIsLessThanOne_ShouldReturnError(int seats)
-    {
-        // Arrange
-        var boatType = new BoatTypeEntity()
-        {
-            Seats = seats,
-            Name = "test",
-            Speed = 100,
-            RequiredExperience = BoatTypeRequiredExperience.Beginner
-        };
-        var validator = new BoatTypeValidator();
-
-        // Act
-        var validationResult = validator.ValidateForCreate(boatType);
-
-        // Assert
-        Assert.NotNull(validationResult);
-        Assert.Single(validationResult);
-        Assert.True(validationResult.TryGetValue(nameof(boatType.Seats), out string errorMessage));
-        Assert.Equal("Het stoelenveld is verplicht en moet groter zijn dan 0", errorMessage);
-    }
-
-    [Theory]
-    [InlineData(0)]
-    [InlineData(-1)]
-    [InlineData(int.MinValue)]
     public void ValidateForCreate_WhenSpeedIsLessThanOne_ShouldReturnError(int speed)
     {
         // Arrange
         var boatType = new BoatTypeEntity()
         {
-            Seats = 2,
+            Seats = BoatTypeSeats.Two,
             Name = "test",
             Speed = speed,
             RequiredExperience = BoatTypeRequiredExperience.Beginner
@@ -121,7 +95,7 @@ public class BoatTypeValidatorTests
         // Arrange
         var boatType = new BoatTypeEntity()
         {
-            Seats = 2,
+            Seats = BoatTypeSeats.Two,
             Name = "test",
             Speed = 100,
             RequiredExperience = BoatTypeRequiredExperience.Beginner

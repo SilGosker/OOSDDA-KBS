@@ -19,9 +19,9 @@ public class BoatTypeValidator
             validationResult.Add(nameof(boatType.RequiredExperience), "Benodigde ervaring is verplicht");
         }
 
-        if (boatType.Seats <= 0)
+        if (!Enum.IsDefined(boatType.Seats))
         {
-            validationResult.Add(nameof(boatType.Seats), "Het stoelenveld is verplicht en moet groter zijn dan 0");
+            validationResult.Add(nameof(boatType.Seats), "Stoelen zijn verplicht");
         }
 
         if (boatType.Speed <= 0)

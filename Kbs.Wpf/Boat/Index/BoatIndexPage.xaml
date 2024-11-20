@@ -5,9 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kbs.Wpf.Boat.Index"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="620"
-      Title="Boten"
-      Background="White">
+      d:DesignHeight="700" d:DesignWidth="800"
+      Title="Boten">
     <Page.DataContext>
         <local:BoatIndexViewModel />
     </Page.DataContext>

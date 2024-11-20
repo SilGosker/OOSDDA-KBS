@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.User.Update"
       mc:Ignorable="d"
-      Background="White"
       d:DesignHeight="700" d:DesignWidth="800"
       Title="AccountView">
     <Page.DataContext>

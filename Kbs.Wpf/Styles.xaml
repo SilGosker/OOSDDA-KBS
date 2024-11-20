@@ -97,5 +97,121 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style TargetType="ComboBox">
+    <Setter Property="Background" Value="#2C2F33" /> <!-- Background of the ComboBox -->
+    <Setter Property="Foreground" Value="#DCDDDE" /> <!-- Text Color -->
+    <Setter Property="BorderBrush" Value="#99AAB5" /> <!-- Border Color -->
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="5,2,5,2" />
+    <Setter Property="FontSize" Value="14" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="ComboBox">
+                <Grid>
+                    <!-- TextBox for displaying selected item -->
+                    <ToggleButton Name="ToggleButton"
+                                  Background="{TemplateBinding Background}"
+                                  Foreground="{TemplateBinding Foreground}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ClickMode="Press"
+                                  >
+                        <ContentPresenter Content="{TemplateBinding Text}" />
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton">
+                                <Setter Property="Background" Value="#2C2F33" />
+                                <Setter Property="Foreground" Value="#DCDDDE" />
+                                <Setter Property="BorderBrush" Value="#99AAB5" />
+                                <Setter Property="BorderThickness" Value="1" />
+                                <Setter Property="Padding" Value="8, 4, 0, 4" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
 
+                    <!-- Dropdown menu -->
+                    <Popup Name="Popup"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           Placement="Bottom"
+                           AllowsTransparency="True"
+                           Focusable="False">
+                        <Border Background="#23272A"
+                                BorderBrush="#99AAB5"
+                                BorderThickness="1">
+                            <ScrollViewer Margin="4,0,4,4">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </Border>
+                    </Popup>
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+    <Style.Resources>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#DCDDDE" />
+            <Setter Property="Padding" Value="4,2" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3B4048" /> <!-- Hover Background -->
+                    <Setter Property="Foreground" Value="#FFFFFF" /> <!-- Hover Text -->
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#00B5D8" /> <!-- Selected Background -->
+                    <Setter Property="Foreground" Value="#FFFFFF" /> <!-- Selected Text -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Style.Resources>
+</Style>
+
+    
+    <Style TargetType="ListView">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="14" />
+    </Style>
+
+    <Style TargetType="ListViewItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="Padding" Value="5" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3B4048" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#00B5D8" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="Border">
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Background" Value="#23272A" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="1" />
+    </Style>
+    
+    <Style x:Key="TitleLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+    </Style>
+    
+
+
+    
 </ResourceDictionary>

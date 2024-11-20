@@ -33,6 +33,13 @@ namespace Kbs.Wpf.Reservation.ViewReservation
         {
             _navigationManager.Navigate(() => new ViewPageSpecific(item.ReservationID));
         }
+
+        private void ReservationClicked(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var listViewItem = (ListViewItem)sender;
+            var item = (ViewReservationViewModel)listViewItem.DataContext;
+            ZieMeer(item);
+        }
     }
 }
 

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.User.Login;
 
@@ -30,7 +31,7 @@ namespace Kbs.Wpf
             {
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
                 
             }
 
@@ -99,7 +100,7 @@ namespace Kbs.Wpf
             page = creator();
             NavigationFrame.Navigate(page);
         }
-
+        
         private void LogOut(object sender, RoutedEventArgs e)
         {
             SessionManager.Instance.Logout();

@@ -21,16 +21,7 @@
                 CornerRadius="5" 
                 Background="White">
         </Border>
-        <TextBlock Text="Mijn reserveringen" Margin="15,26,177,0" VerticalAlignment="Top" Height="105" FontSize="30" RenderTransformOrigin="0.5,0.5">
-            <TextBlock.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="0.396"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-                
-            </TextBlock.RenderTransform>
+        <TextBlock Text="Mijn reserveringen" Margin="15,26,177,0" VerticalAlignment="Top" Height="105" FontSize="30">
         </TextBlock>
         <ListView ItemsSource="{Binding Items}" Margin="0,100,0,0">
 
@@ -61,7 +52,7 @@
                                     <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
                                 </StackPanel>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding StatusDisplay}" FontSize="14" Width="800" Background="Green"/>
+                                    <TextBlock Text="{Binding BoolShowStatus}" FontSize="14" Width="800" Background="{Binding StatusColor}"/>
                                 </StackPanel> 
                                 
                             </StackPanel>

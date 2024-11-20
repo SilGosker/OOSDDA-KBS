@@ -39,19 +39,5 @@ namespace Kbs.Business.Reservation
                 return true;
             }
         }
-        public bool ShowStatus(ReservationStatus status, ReservationEntity reservation)
-        {
-            if (status == ReservationStatus.Active)
-            {
-                reservation.BoolShowStatus = true;
-                //Console.WriteLine("Active");
-                return true;
-            }
-            else
-            {
-                reservation.BoolShowStatus = false;
-                return false;
-            }
-        }
     }
 }

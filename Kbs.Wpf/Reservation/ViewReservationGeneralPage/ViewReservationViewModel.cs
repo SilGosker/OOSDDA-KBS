@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
 {
@@ -15,8 +16,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         private int _reservationID;
         private ICommand _viewMore;
         public ReservationStatus _status;
-        public bool _boolshowStatus;
-        public string _statusDisplay;
         public ViewReservationViewModel(Action<ViewReservationViewModel> action)
         {
             ViewMore = new RelayCommand<ViewReservationViewModel>(action);
@@ -24,8 +23,24 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         public ReservationStatus Status
         {
             get => _status;
-            set => SetField(ref _status, value);
+            set
+            {
+                SetField(ref _status, value);
+                OnPropertyChanged(nameof(StatusColor));
+            }
         }
+        public Brush StatusColor
+        {
+            get
+            {
+                if (Status == ReservationStatus.Active)
+                {
+                    return Brushes.Green;
+                }
+                return Brushes.Red;
+            }
+        }
+
         public ICommand ViewMore
         {
             get => _viewMore;
@@ -65,15 +80,5 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             get => _reservationID;
             set => SetField(ref _reservationID, value);
         }
-        public bool BoolShowStatus
-        {
-            get => _boolshowStatus;
-            set => SetField(ref _boolshowStatus, value);
-        }
-        public string StatusDisplay { 
-            get => _statusDisplay;
-            set => SetField(ref _statusDisplay, value);
-        } 
-
     }
 }

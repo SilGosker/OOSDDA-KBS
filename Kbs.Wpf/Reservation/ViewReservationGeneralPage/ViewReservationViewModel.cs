@@ -30,12 +30,12 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             get => _niveau;
             set => SetField(ref _niveau, value);
         }
-        public int Zitplaatsen
+        public int Seats
         {
             get => _zitplaatsen;
             set => SetField(ref _zitplaatsen, value);
         }
-        public bool Stuur
+        public bool HasSteeringWheel
         {
             get => _stuur;
             set => SetField(ref _stuur, value);
@@ -46,9 +46,9 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
             set => SetField(ref _startTime, value);
         }
         public string TijdsstipFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
-        public string TijdsduurFormatted => $"{Tijdsduur.TotalMinutes:F0} min";
+        public string TijdsduurFormatted => $"{Length.TotalMinutes:F0} min";
 
-        public TimeSpan Tijdsduur
+        public TimeSpan Length
         {
             get => _tijdsduur;
             set => SetField(ref _tijdsduur, value);

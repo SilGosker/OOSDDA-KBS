@@ -23,7 +23,7 @@ namespace Kbs.Wpf.Reservation.ViewReservation
                 ViewModel.Items.Add(new ViewReservationViewModel(ZieMeer)
                 {
                     ReservationID = reservation.ReservationID,
-                    Tijdsduur = reservation.Length,
+                    Length = reservation.Length,
                     StartTime = reservation.StartTime
                 });
             }

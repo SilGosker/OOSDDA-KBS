@@ -1,7 +1,6 @@
-﻿namespace Kbs.Business.Reservation
-{
-    internal class ReservationNiveau
-    {
+﻿namespace Kbs.Business.Reservation;
 
-    }
+internal class ReservationNiveau
+{
+
 }

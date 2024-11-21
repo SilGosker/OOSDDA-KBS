@@ -31,4 +31,11 @@ public class BoatRepository : IBoatRepository
     {
         return _connection.QueryFirstOrDefault<BoatEntity>("SELECT * FROM Boat WHERE BoatId = @boatId", new { boatId });
     }
+    
+    public void Create(BoatEntity boat)
+    {
+        boat.BoatID = _connection.Execute(
+            "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 0); SELECT SCOPE_IDENTITY()",
+            boat);
+    }
 }

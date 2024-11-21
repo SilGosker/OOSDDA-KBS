@@ -15,9 +15,11 @@
         
         <Label Content="Naam" HorizontalAlignment="Left" Margin="38,117,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding Name}" HorizontalAlignment="Left" Margin="38,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
-
+        <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="38,163,0,0" VerticalAlignment="Top"/>
+        
         <Label Content="Boot type" HorizontalAlignment="Left" Margin="228,117,0,0" VerticalAlignment="Top"/>
         <ComboBox ItemsSource="{Binding PossibleBoatTypes}" SelectionChanged="TypeChanged" IsEditable="True" Text="Selecteer boot type" HorizontalAlignment="Left" Margin="228,141,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="{Binding BoatTypeErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="228,163,0,0" VerticalAlignment="Top"/>
         
         <Button Content="Opslaan" HorizontalAlignment="Left" Margin="415,225,0,0" VerticalAlignment="Top" Height="20" Width="120" Click="Submit"/>
     </Grid>

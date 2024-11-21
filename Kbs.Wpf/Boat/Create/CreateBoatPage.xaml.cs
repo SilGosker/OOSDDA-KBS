@@ -69,7 +69,6 @@ public partial class CreateBoatPage : Page
 
         _boatRepository.Create(boat);
 
-        // TODO: navigate to details page
         _navigationManager.Navigate(() => new BoatIndexPage(_navigationManager));
     }
 }

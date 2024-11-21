@@ -8,5 +8,5 @@ public interface IUserRepository
     public List<UserEntity> Get();
     public UserEntity GetByCredentials(string email, string password);
     public UserEntity GetByEmail(string email);
-    UserEntity GetById(int id);
+    public UserEntity GetById(int id);
 }

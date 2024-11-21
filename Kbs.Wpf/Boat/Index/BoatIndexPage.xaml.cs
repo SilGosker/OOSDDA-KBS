@@ -83,6 +83,6 @@ public partial class BoatIndexPage : Page
     private void BoatClicked(object sender, MouseButtonEventArgs e)
     {
         var item = (BoatIndexBoatViewModel)((ListViewItem)sender).DataContext;
-        _navigationManager.Navigate(() => new BoatDetailPage(item.BoatId));
+        _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, item.BoatId));
     }
 }

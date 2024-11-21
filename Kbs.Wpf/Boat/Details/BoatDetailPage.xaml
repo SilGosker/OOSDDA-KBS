@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.Boat.Details"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="620"
       Background="White"
@@ -29,9 +30,15 @@
         <Label Content="{Binding BoatTypeName}" Margin="67,135,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
-        <DataGrid AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
+        <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="218,135,0,0" Height="292">
+
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected"/>
+                </Style>
+            </DataGrid.Resources>
 
             <DataGrid.Columns>
                 <DataGridTextColumn Width="80" Header="Gebruiker"  Binding="{Binding UserName}"/>

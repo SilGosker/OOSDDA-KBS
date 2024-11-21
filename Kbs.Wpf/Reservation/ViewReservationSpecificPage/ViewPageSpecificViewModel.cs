@@ -7,7 +7,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
     public class ViewPageSpecificViewModel : ViewModel
     {
         private int _niveau;
-        private int _seats;
+        private string _seats;
         private bool _hasSteeringWheel;
         private DateTime _startTime;
         private TimeSpan _length;
@@ -19,7 +19,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _niveau;
             set => SetField(ref _niveau, value);
         }
-        public int Seats
+        public string Seats
         {
             get => _seats;
             set => SetField(ref _seats, value);

@@ -1,17 +1,15 @@
-﻿using Kbs.Business.Reservation;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using Kbs.Business.Session;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
-using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace Kbs.Wpf.Reservation.ViewReservation
+namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
 {
     public partial class ViewReservationPage : Page
     {
         private ViewReservationPageViewModel ViewModel => (ViewReservationPageViewModel)DataContext;
-        private readonly ReservationRepository _reservationRepository = new ReservationRepository();
+        private readonly ReservationRepository _reservationRepository = new();
         private readonly INavigationManager _navigationManager;
 
         public ViewReservationPage(INavigationManager navigationManager)

@@ -1,10 +1,10 @@
-﻿using Kbs.Business.Session;
-using Kbs.Business.User;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Wpf.User.Registration;
 
-namespace Kbs.Wpf.User.Login;
+namespace Kbs.Wpf.Session.Login;
 
 public partial class LoginWindow : Window
 {

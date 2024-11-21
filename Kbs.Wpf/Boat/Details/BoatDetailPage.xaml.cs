@@ -14,11 +14,11 @@ namespace Kbs.Wpf.Boat.Details;
 [HasRole(Role.MaterialCommissioner)]
 public partial class BoatDetailPage : Page
 {
-    private readonly IBoatRepository _boatRepository = new BoatRepository();
-    private readonly IUserRepository _userRepository = new UserRepository();
-    private readonly IReservationRepository _registrationRepository = new ReservationRepository();
-    public BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
+    private readonly BoatRepository _boatRepository = new();
+    private readonly UserRepository _userRepository = new();
+    private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
+    private BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
     public BoatDetailPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;

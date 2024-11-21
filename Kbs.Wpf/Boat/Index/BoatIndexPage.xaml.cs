@@ -13,10 +13,10 @@ namespace Kbs.Wpf.Boat.Index;
 [HasRole(Role.MaterialCommissioner)]
 public partial class BoatIndexPage : Page
 {
-    private readonly IBoatRepository _boatRepository = new BoatRepository();
-    private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
-    public BoatIndexViewModel ViewModel => (BoatIndexViewModel)DataContext;
+    private readonly BoatRepository _boatRepository = new();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
+    private BoatIndexViewModel ViewModel => (BoatIndexViewModel)DataContext;
     public BoatIndexPage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;

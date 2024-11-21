@@ -1,15 +1,13 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
-using Azure;
-using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
-using Kbs.Wpf.User.Login;
-using Kbs.Wpf.Reservation.ViewReservation;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
+using Kbs.Wpf.Session.Login;
 
 namespace Kbs.Wpf
 {

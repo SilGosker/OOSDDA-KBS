@@ -1,33 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
-using Kbs.Wpf.Components;
-using Kbs.Wpf.User.Login;
 
 namespace Kbs.Wpf.User.Update
 {
-    /// <summary>
-    /// Interaction logic for AccountView.xaml
-    /// </summary>
     public partial class AccountView : Page
     {
-        private readonly UserValidator _userValidator = new UserValidator(); 
+        private readonly UserValidator _userValidator = new(); 
         private readonly INavigationManager _navigationManager;
-        private readonly IUserRepository _userRepository = new UserRepository();
+        private readonly UserRepository _userRepository = new();
         private readonly UserEntity _sessionUser;
         private Func<Page> _navigationTarget;
 

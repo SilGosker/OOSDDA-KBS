@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Kbs.Business.BoatType;
-using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.BoatType;

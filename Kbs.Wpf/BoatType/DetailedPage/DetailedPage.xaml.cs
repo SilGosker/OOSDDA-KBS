@@ -1,0 +1,36 @@
+﻿using Kbs.Data.BoatType;
+using Kbs.Data.Reservation;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Kbs.Wpf.BoatType.DetailedPage
+{
+    /// <summary>
+    /// Interaction logic for DetailedPage.xaml
+    /// </summary>
+    public partial class DetailedPage : Page
+    {
+        private readonly INavigationManager _navigationManager;
+        private DetailedPageViewModel ViewModel => (DetailedPageViewModel)DataContext;
+        private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
+
+
+        public DetailedPage(INavigationManager navigationManager)
+        {
+            InitializeComponent();
+        }
+    }
+}

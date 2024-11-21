@@ -10,6 +10,7 @@ using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.User.Login;
 using Kbs.Wpf.Reservation.ViewReservation;
+using Kbs.Wpf.BoatType.DetailedPage;
 
 namespace Kbs.Wpf
 {
@@ -43,6 +44,7 @@ namespace Kbs.Wpf
             {
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage()) { Name = "Overzicht boten" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new DetailedPage(this)) { Name = "Detail Pagina Boottype" });
             }
         }
 

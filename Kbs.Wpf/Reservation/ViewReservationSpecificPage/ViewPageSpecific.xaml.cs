@@ -29,7 +29,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             ViewModel.StartTime = reservation.StartTime;
             ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;
             ViewModel.Niveau = (int)boatType.RequiredExperience;
-            ViewModel.Seats = boatType.Seats;
+            ViewModel.Seats = (int)boatType.Seats;
             ViewModel.Status = reservation.Status;
 
         }
@@ -42,7 +42,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             if (MessageBoxResult.Yes == result) {
                 _reservationRepository.Delete(entity);
             }
-
         }
     }
 }

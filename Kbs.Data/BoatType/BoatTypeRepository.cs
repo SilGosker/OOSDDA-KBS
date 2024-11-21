@@ -24,7 +24,6 @@ public class BoatTypeRepository : IBoatTypeRepository
 
         return _connection.Query<BoatTypeEntity>(query, new { ReservationID = reservationID }).FirstOrDefault();
     }
-
     public void Create(BoatTypeEntity boatType)
     {
         boatType.BoatTypeID = _connection.Execute(

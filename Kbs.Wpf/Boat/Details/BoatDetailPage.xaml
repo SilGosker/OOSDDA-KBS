@@ -14,28 +14,30 @@
     <Grid>
         <Label FontSize="32" Content="Boot #" HorizontalAlignment="Left" Margin="38,50,0,0"
                VerticalAlignment="Top" />
+
         <Label FontSize="32" Content="{Binding BoatId}" HorizontalAlignment="Left" Margin="135,50,0,0"
                VerticalAlignment="Top" />
 
-        <Separator Margin="10,108,10,338"/>
+        <Separator Margin="10,108,0,0" Height="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600"/>
 
-        <Label Content="Naam: " FontWeight="Bold" Margin="10,110,558,315" />
-        <Label Content="Type: " FontWeight="Bold" Margin="10,135,558,290" />
-        <Label Content="Status: " FontWeight="Bold" Margin="10,160,558,265" />
-        <Label Content="Reserveringen" FontWeight="Bold" Margin="310,114,10,310" />
+        <Label Content="Naam:" FontWeight="Bold" Margin="10,110,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="Type:" FontWeight="Bold" Margin="10,135,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="Status:" FontWeight="Bold" Margin="10,160,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="Reserveringen" FontWeight="Bold" Margin="218,110,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
-        <Label Content="{Binding Name}" Margin="67,112,478,308" />
-        <Label Content="{Binding BoatTypeName}" Margin="67,135,478,285" />
-        <Label Content="{Binding Status}" Margin="67,160,478,260" />
+        <Label Content="{Binding Name}" Margin="67,112,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="{Binding BoatTypeName}" Margin="67,135,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
-        <DataGrid Width="300" d:ItemsSource="{d:SampleData}" ItemsSource="{Binding Reservations}"
+        <DataGrid AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="310,145,0,0" Height="262">
+                  VerticalAlignment="Top" HorizontalAlignment="Left" Margin="218,135,0,0" Height="292">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Gebruiker"  Binding="{Binding UserName}"/>
-                <DataGridTextColumn Header="Startdatum" Binding="{Binding StartDate}" />
-                <DataGridTextColumn Header="Eindtijd" Binding="{Binding EndDate}" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" />
+                <DataGridTextColumn Width="80" Header="Gebruiker"  Binding="{Binding UserName}"/>
+                <DataGridTextColumn Width="80" Header="Startdatum" Binding="{Binding StartDate}" />
+                <DataGridTextColumn Width="80" Header="Eindtijd" Binding="{Binding EndDate}" />
+                <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
             </DataGrid.Columns>
         </DataGrid>
 

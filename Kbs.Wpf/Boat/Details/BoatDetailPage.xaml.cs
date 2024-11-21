@@ -17,9 +17,9 @@ public partial class BoatDetailPage : Page
     {
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
+        ViewModel.BoatId = boat.BoatID;
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
-
 
         ViewModel.BoatTypeName = "Onbekend";
     }

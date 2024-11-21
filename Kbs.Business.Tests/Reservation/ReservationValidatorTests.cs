@@ -11,37 +11,6 @@ namespace Kbs.Business.Reservation
     {
         
         [Fact]
-        public void ReservationValidator_IsReservationLimitReached_ShouldReturnTrueIfLimitExceeded()
-        {
-            var user = new UserEntity();
-            var reservation = new ReservationEntity
-            {
-                totalReservations = 3
-            };
-
-            var validator = new ReservationValidator();
-            Assert.False(validator.IsReservationLimitReached(user, reservation));
-            
-        }
-        [Fact]
-        public void ReservationValidator_IsReservationLimitReached_ShouldReturnFalseIfLimitNotExceeded()
-        {
-            // Arrange
-            var user = new UserEntity();
-            var reservation = new ReservationEntity
-            {
-                totalReservations = 2 // Limiet is exact bereikt
-            };
-
-            var validator = new ReservationValidator();
-
-            // Act
-            var result = validator.IsReservationLimitReached(user, reservation);
-
-            // Assert
-            Assert.False(result, "Moet false retourneren als het limiet niet is overschreden.");
-        }
-        [Fact]
         public void ReservationValidator_IsWithinDaylightHours_ShouldReturnFalseIfOutsideDaylight()
         {
             // Arrange

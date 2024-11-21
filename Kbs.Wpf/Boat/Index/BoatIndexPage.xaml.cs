@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
@@ -87,7 +88,7 @@ public partial class BoatIndexPage : Page
         _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, item.BoatId));
     }
     
-    private void CreateBoatButtonClicked(object sender, MouseButtonEventArgs e)
+    private void CreateBoatButtonClicked(object sender, RoutedEventArgs e)
     {
         _navigationManager.Navigate(() => new CreateBoatPage(_navigationManager));
     }

@@ -11,18 +11,18 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
     public void Create(ReservationEntity res)
     {
-        res.ReservationID = _connection.Execute("INSERT INTO Reservation (ReservationID, UserID, BoatID, StartTime, Length, Status) VALUES (@Email, @Reservation, @UserID @BoatID, @StartTime, @Length, @Status); SELECT SCOPE_IDENTITY()", res);
+        res.ReservationId = _connection.Execute("INSERT INTO Reservation (ReservationID, UserID, BoatID, StartTime, Length, Status) VALUES (@Email, @Reservation, @UserID @BoatID, @StartTime, @Length, @Status); SELECT SCOPE_IDENTITY()", res);
     }
     public void Update(ReservationEntity res)
     {
-        if (res.ReservationID == 0) return;
+        if (res.ReservationId == 0) return;
         _connection.Execute("UPDATE FROM Reservation WHERE ReservationID = @ReservationID", res);
     }
 
 
     public void Delete(ReservationEntity res)
     {
-        if (res.ReservationID == 0) return;
+        if (res.ReservationId == 0) return;
 
         _connection.Execute("DELETE FROM Reservation WHERE ReservationID = @ReservationID", res);
     }

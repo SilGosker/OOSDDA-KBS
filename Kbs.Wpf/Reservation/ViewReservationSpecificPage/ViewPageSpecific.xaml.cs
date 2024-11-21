@@ -20,7 +20,7 @@ public partial class ViewPageSpecific : Page
         var boatType = _boatTypeRepository.GetByReservationId(reservationId);
 
 
-        ViewModel.ReservationID = reservation.ReservationID;
+        ViewModel.ReservationID = reservation.ReservationId;
         ViewModel.Length = reservation.Length;
         ViewModel.StartTime = reservation.StartTime;
         ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;

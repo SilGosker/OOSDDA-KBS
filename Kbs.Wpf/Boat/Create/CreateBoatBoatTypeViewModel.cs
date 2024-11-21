@@ -9,7 +9,7 @@ public class CreateBoatBoatTypeViewModel
     public CreateBoatBoatTypeViewModel(BoatTypeEntity boatType)
     {
         _name = boatType.Name;
-        BoatTypeId = boatType.BoatTypeID;
+        BoatTypeId = boatType.BoatTypeId;
     }
     
     public int BoatTypeId { get; private set; }

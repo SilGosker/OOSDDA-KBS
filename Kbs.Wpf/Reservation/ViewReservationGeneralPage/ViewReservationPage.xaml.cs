@@ -24,7 +24,7 @@ public partial class ViewReservationPage : Page
             {
                 ViewModel.Items.Add(new ViewReservationViewModel()
                 {
-                    ReservationID = reservation.ReservationID,
+                    ReservationID = reservation.ReservationId,
                     Length = reservation.Length,
                     StartTime = reservation.StartTime,
                     Status = reservation.Status,

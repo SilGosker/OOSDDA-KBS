@@ -15,7 +15,7 @@ public class BoatDetailReservationViewModel : ViewModel
     {
         StartDate = reservation.StartTime.ToString("dd-MM-yyyy HH:mm");
         EndDate = reservation.EndTime.ToString("dd-MM-yyyy HH:mm");
-        ReservationId = reservation.ReservationID;
+        ReservationId = reservation.ReservationId;
         Status = reservation.Status.ToDutchString();
     }
 

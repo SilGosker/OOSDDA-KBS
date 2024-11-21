@@ -41,9 +41,10 @@ namespace Kbs.Wpf.BoatType.DetailedPage
                 ViewModel.Items.Add(new BoatIndexBoatTypeViewModel(boatType));
             }  
         }
-        private void RemoveBootType(object sender, RoutedEventArgs e)
+        private void RemoveBoatType(object sender, RoutedEventArgs e)
         {
-            var entity = _boatTypeRepository.GetName();
+            BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeID);
+            
 
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == result)
@@ -51,7 +52,7 @@ namespace Kbs.Wpf.BoatType.DetailedPage
                 _boatTypeRepository.Delete(entity);
             }
         }
-        private void AddBootType(object sender, RoutedEventArgs e)
+        private void AddBoatType(object sender, RoutedEventArgs e)
         {
         }
     }

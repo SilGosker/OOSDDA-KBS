@@ -13,7 +13,7 @@ public class BoatTypeEntityTests
         var boatType = new BoatTypeEntity();
 
         // Act
-        boatType.BoatTypeID = id;
+        boatType.BoattypeID = id;
         boatType.Name = name;
         boatType.RequiredExperience = experience;
         boatType.Seats = seats;
@@ -21,7 +21,7 @@ public class BoatTypeEntityTests
         boatType.HasSteeringWheel = hasSteeringWheel;
 
         // Assert
-        Assert.Equal(boatType.BoatTypeID, id);
+        Assert.Equal(boatType.BoattypeID, id);
         Assert.Equal(boatType.Name, name);
         Assert.Equal(boatType.RequiredExperience, experience);
         Assert.Equal(boatType.Seats, seats);

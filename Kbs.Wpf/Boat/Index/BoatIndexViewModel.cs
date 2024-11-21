@@ -15,7 +15,7 @@ public class BoatIndexViewModel : ViewModel
         BoatTypes.Add(new BoatIndexBoatTypeViewModel(new BoatTypeEntity()
         {
             Name = "Alle boottypes",
-            BoatTypeID = -1
+            BoattypeID = -1
         }));
     }
 

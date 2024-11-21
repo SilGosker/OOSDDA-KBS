@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Reservation\MakeReservation\SelectLength\Class1.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
   </ItemGroup>
 </Project>

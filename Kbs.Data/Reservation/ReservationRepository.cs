@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Kbs.Business.Boat;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
@@ -16,7 +17,7 @@ namespace Kbs.Data.Reservation
 
         public void Create(ReservationEntity res)
         {
-            res.ReservationId = _connection.Execute("INSERT INTO Reservation (ReservationID, UserID, BoatID, StartTime, Length, Status) VALUES (@Email, @Reservation, @UserID @BoatID, @StartTime, @Length, @Status); SELECT SCOPE_IDENTITY()", res);
+            res.ReservationId = _connection.Execute("INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status) VALUES (@UserID, @BoatID, @StartTime, @Length, @Status); SELECT SCOPE_IDENTITY()", res);
         }
         public void Update(ReservationEntity res)
         {
@@ -40,10 +41,11 @@ namespace Kbs.Data.Reservation
         {
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation").ToList();
         }
-        
-        public List<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan> GetTypesPLS()
+
+        public List<ReservationEntity> GetByBoatIDAndDay(BoatEntity boat, DateTime day)
             {
-            return _connection.Query<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan>("SELECT * FROM BoatType").ToList();
+
+            return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatID AND StartTime Like @day  ORDER BY StartTime", new { day = $"%"+ day.Year + "-" + day.Month+"-"+ day.Day +"%", boat.BoatID }).ToList();
             }
-    }
+        }
 }

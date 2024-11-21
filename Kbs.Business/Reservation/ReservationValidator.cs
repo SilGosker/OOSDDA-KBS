@@ -9,6 +9,9 @@ namespace Kbs.Business.Reservation
 {
     public class ReservationValidator
     {
+
+        public static readonly TimeOnly Morning = new TimeOnly(9, 0, 0);
+        public static readonly TimeOnly Evening = new TimeOnly(17, 0, 0);
         public Dictionary<string, string> ValidForCreation(ReservationEntity reservation) { return new Dictionary<string, string>(); }
         public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }
         public bool IsReservationLimitReached(UserEntity user, ReservationEntity reservation)
@@ -26,8 +29,6 @@ namespace Kbs.Business.Reservation
         {
             var StartTime = TimeOnly.FromDateTime(reservation.StartTime);
             var EndTime = TimeOnly.FromDateTime(reservation.EndTime);
-            TimeOnly Morning = new TimeOnly(9, 0, 0);
-            TimeOnly Evening = new TimeOnly(17, 0, 0);
             if (StartTime < Morning || EndTime > Evening)
             {
                 return false;
@@ -36,9 +37,9 @@ namespace Kbs.Business.Reservation
                 return true;
             }
         }
-        public bool IsDurationValid(ReservationEntity reservation) 
+        public bool IsLengthValid(ReservationEntity reservation) 
         {
-            if (reservation.Duration.TotalMinutes > 120)
+            if (reservation.Length.TotalMinutes > 120)
             {
                 return false;
             }
@@ -51,7 +52,7 @@ namespace Kbs.Business.Reservation
         { 
             if (!reservation.IsForCompetition)
             {
-                IsDurationValid(reservation);
+                IsLengthValid(reservation);
                 return false;
             }
             else
@@ -60,6 +61,8 @@ namespace Kbs.Business.Reservation
             }
 
         }
+
         
     }
+
 }

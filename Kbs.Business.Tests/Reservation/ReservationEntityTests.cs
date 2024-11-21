@@ -24,6 +24,7 @@ namespace Kbs.Business.Reservation
             //Assert
             Assert.Equal(reservationId, reservation.ReservationId);
         }
+
         [Theory]
         [InlineData()]
         public void GetAndSet_StartTime_ReturnsAndSetsStartTime()
@@ -32,6 +33,7 @@ namespace Kbs.Business.Reservation
             //Act
             //Assert
         }
+
         [Theory]
         [InlineData()]
         public void GetAndSet_Duration_ReturnsAndSetsDuration()
@@ -40,6 +42,7 @@ namespace Kbs.Business.Reservation
             //Act
             //Assert
         }
+
         [Theory]
         [InlineData(ReservationStatus.Expired)]
         [InlineData(ReservationStatus.Active)]

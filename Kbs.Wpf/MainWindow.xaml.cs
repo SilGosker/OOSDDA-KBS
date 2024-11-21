@@ -33,7 +33,7 @@ namespace Kbs.Wpf
             if (user.IsMember() || user.IsGameCommissioner())
             {
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new MakeReservation(this)) { Name = "Plaatsen reservering"});
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Instellingen"});
                 
             }
@@ -112,21 +112,5 @@ namespace Kbs.Wpf
             Close();
         }
 
-        private void MyReservations(object sender, RoutedEventArgs e)
-        {
-            var myReservationsPage = new ViewReservationPage();
-            NavigationFrame.Content = myReservationsPage; // Stel de nieuwe inhoud in
-            //My reservations Window
-        }
-        private void PlaceReservation(object sender, RoutedEventArgs e)
-        {
-            //place reservations window
-            var makeReservation = new MakeReservation(this);
-            NavigationFrame.Content = makeReservation;
-        }
-        private void Settings(object sender, RoutedEventArgs e)
-        {
-            //settings window
-        }
     }
 }

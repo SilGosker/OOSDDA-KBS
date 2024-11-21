@@ -1,0 +1,93 @@
+﻿<Page x:Class="Kbs.Wpf.Reservation.MakeReservation.SelectLength.SelectLength"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kbs.Wpf.Reservation.MakeReservation.SelectLength"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SelectLength" >
+    <Page.DataContext>
+        <local:SelectLengthViewModel />
+    </Page.DataContext>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Reserveren boot" Margin="5" VerticalAlignment="Top" Height="40" FontSize="30" HorizontalAlignment="Center"  />
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
+            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="425"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Selecteer de lengte"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center"  />
+            <TextBlock Text="van de reservering"  VerticalAlignment="Bottom" Height="40" FontSize="30" HorizontalAlignment="Center"  />
+            <Grid Grid.RowSpan="6" Grid.Column="0" Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="160"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Height="30" Grid.Row="0" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
+                        <RadioButton GroupName="length" IsChecked="True" Checked="RadioButton30_Checked" />
+                </Viewbox>
+                <Label Content="30 minuten" Grid.Row="0" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
+                <Viewbox Height="30" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
+                    <RadioButton GroupName="length" Checked="RadioButton60_Checked"  />
+                </Viewbox>
+                <Label Content="60 minuten" Grid.Row="1" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
+                <Viewbox Height="30" Grid.Row="2" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
+                    <RadioButton GroupName="length" Checked="RadioButton90_Checked"  />
+                </Viewbox>
+                <Label Content="90 minuten" Grid.Row="2" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
+                <Viewbox Height="30" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
+                    <RadioButton GroupName="length" Checked="RadioButton120_Checked" />
+                </Viewbox>
+                <Label Content="120 minuten" Grid.Row="3" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
+            </Grid>
+
+                <TextBlock Text="Selecteer de Starttijd"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" />
+                <TextBlock Text="van de reservering"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="1" Margin="0 55 0 0"/>
+                <ComboBox Text="kies een starttijd"   Grid.Row="2" Grid.Column="1" ItemsSource="{Binding AvailableStartTimes}" FontSize="35" Height="55" Width="200" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" />
+                
+                <Grid Grid.Column="2" Grid.RowSpan="6" VerticalAlignment="Center" Background="LightGray" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Reservering voor boot:" FontSize="35" Grid.Row="0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding name}" FontSize="35" Grid.Row="1" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Op:" FontSize="35" Grid.Row="2" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding day}" FontSize="35" Grid.Row="3" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding date}" FontSize="35" Grid.Row="4" HorizontalAlignment="Center"/>
+                </Grid>
+                
+        </Grid>
+        </ScrollViewer>
+        <Button Content="Reserveer" Height="50" Width="150" FontSize="28" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="20" Grid.Row="2" Click="ButtonReservation_Click"/>
+    </Grid>
+</Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kbs.Business.Boat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,7 @@ namespace Kbs.Business.Reservation
             List<ReservationEntity> VolledigeLijst = new List<ReservationEntity>();
             return VolledigeLijst;
         }
+
+        public List<ReservationEntity> GetByBoatIDAndDay(BoatEntity boat, DateTime day);
     }
 }

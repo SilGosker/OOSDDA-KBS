@@ -14,29 +14,16 @@ namespace Kbs.Business.Reservation
         public int totalReservations = 0;
         public int UserId { get; set; }
         public int BoatId { get; set; }
-        public int BoatTypeId { get; set; }
         public DateTime StartTime { get; set; }
-        public TimeSpan Duration { get; set; }
-        public DateTime EndTime => StartTime + Duration;
+        public TimeSpan Length { get; set; }
+        public DateTime EndTime => StartTime + Length;
         
         public ReservationStatus Status { get; set; }
         public bool IsForCompetition { get; set; }
         //Onderstaande 4 staan nog niet in TO
-        public bool IsDeleted()
-        {
-            return Is(ReservationStatus.Deleted);
-        }
-        public bool IsExpired()
-        {
-            return Is(ReservationStatus.Expired);
-        }
-        public bool IsActive()
-        {
-            return Is(ReservationStatus.Active);
-        }
         public bool Is(ReservationStatus status)
         {
-            return (Status & status) != 0;
+            return Status == status;
         }
     }
 }

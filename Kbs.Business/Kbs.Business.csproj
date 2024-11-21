@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Reservation\BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan.cs" />
+    <Compile Remove="Reservation\DateEntity.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
   </ItemGroup>
 

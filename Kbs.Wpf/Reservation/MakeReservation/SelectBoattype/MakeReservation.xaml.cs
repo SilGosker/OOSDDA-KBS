@@ -18,6 +18,8 @@ using Kbs.Data.Reservation;
 using System.ComponentModel;
 using System.Diagnostics;
 using Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+using Kbs.Business.BoatType;
+using Kbs.Data.BoatType;
 
 namespace Kbs.Wpf.Reservation.NewFolder
     {
@@ -26,19 +28,19 @@ namespace Kbs.Wpf.Reservation.NewFolder
     /// </summary>
     public partial class MakeReservation : Page
         {
-        List<BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan> types;
+        List<BoatTypeEntity> types;
         MainWindow mainWindow;
 
         public MakeReservation(MainWindow maindWindow)
             {
             InitializeComponent();
             this.mainWindow = maindWindow;
-            
 
-            ReservationRepository repo = new ReservationRepository();
-            types = repo.GetTypesPLS();
 
-            foreach (BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan type in types)
+            BoatTypeRepository repo = new BoatTypeRepository();
+            types = repo.GetAll();
+
+            foreach (BoatTypeEntity type in types)
                 {
 
                 Button button = new Button()
@@ -52,7 +54,7 @@ namespace Kbs.Wpf.Reservation.NewFolder
                     BorderBrush = Brushes.Black,
                     BorderThickness = new Thickness(5),
                     FontSize = 35,
-                    Content = type.Name+"\n Snelheid: " + type.Speed + " Niveau: " + type.RequiredExperience + "\n Zitplaatsen: " + type.Seats + " Stuur: " + type.HasSteeringwheel
+                    Content = type.Name+"\n Snelheid: " + type.Speed + " Niveau: " + type.RequiredExperience + "\n Zitplaatsen: " + type.Seats + " Stuur: " + type.HasSteeringWheel
                     };
                 button.Tag = type;
                 button.Click += Button_Click;
@@ -65,7 +67,8 @@ namespace Kbs.Wpf.Reservation.NewFolder
 
         private void Button_Click(object sender, RoutedEventArgs e)
             {
-            BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan boatType = (BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan)this.Tag;
+            Button send = (Button)sender;
+            BoatTypeEntity boatType = (BoatTypeEntity)send.Tag;
             var selectTime = new SelectTime(mainWindow, boatType);
             mainWindow.NavigationFrame.Content = selectTime;
             }

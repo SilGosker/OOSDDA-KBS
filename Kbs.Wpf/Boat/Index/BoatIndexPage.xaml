@@ -33,8 +33,7 @@
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type local:BoatIndexBoatViewModel}">
-                    <Grid>
-                        <Border BorderBrush="Black" BorderThickness="1" Height="100" Width="215" />
+                    <Grid Height="100" Width="215">
 
                         <Label Content="{Binding BoatNumber}" />
 

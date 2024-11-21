@@ -11,7 +11,7 @@
     </Style>
     
     <Style TargetType="Label">
-        <Setter Property="Foreground" Value="#DCDDDE" /> <!-- Off-White Text -->
+        <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontWeight" Value="Normal" />
@@ -24,7 +24,17 @@
         <Setter Property="Background" Value="#2C2F33" />
         <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="BorderBrush" Value="#99AAB5" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Padding" Value="5" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="CaretBrush" Value="#00B5D8" />
@@ -39,10 +49,20 @@
         <Setter Property="Background" Value="#2C2F33" />
         <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="BorderBrush" Value="#99AAB5" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="CaretBrush" Value="#00B5D8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="PasswordBox">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                        <ScrollViewer x:Name="PART_ContentHost" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsFocused" Value="True">
                 <Setter Property="BorderBrush" Value="#00B5D8" />
@@ -54,17 +74,27 @@
         <Setter Property="Background" Value="#2C2F33" />
         <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="BorderBrush" Value="#99AAB5" />
-        <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Cursor" Value="Hand" />
-
-        <!-- Hover State -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#3B4048" />
                 <Setter Property="BorderBrush" Value="#00B5D8" />
             </Trigger>
-            <!-- Pressed State -->
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="#23272A" />
                 <Setter Property="BorderBrush" Value="#72767D" />
@@ -74,34 +104,32 @@
     
     <Style TargetType="TextBlock" x:Key="HyperlinkStyle">
         <Setter Property="TextDecorations" Value="Underline" />
-        <Setter Property="Foreground" Value="#00B5D8" /> <!-- Set initial color for hyperlink -->
+        <Setter Property="Foreground" Value="#00B5D8" />
         <Setter Property="Cursor" Value="Hand" />
 
         <Style.Triggers>
-            <!-- Trigger for Hyperlink itself on hover -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#33C6E0" /> <!-- Hover color -->
+                <Setter Property="Foreground" Value="#33C6E0" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style TargetType="Hyperlink">
-        <Setter Property="Foreground" Value="#00B5D8" /> <!-- Set initial color for hyperlink -->
+        <Setter Property="Foreground" Value="#00B5D8" />
         <Setter Property="TextDecorations" Value="Underline" />
         <Setter Property="Cursor" Value="Hand" />
 
         <Style.Triggers>
-            <!-- Trigger for Hyperlink on hover -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#33C6E0" /> <!-- Hover color for hyperlink -->
+                <Setter Property="Foreground" Value="#33C6E0" />
             </Trigger>
         </Style.Triggers>
     </Style>
     
     <Style TargetType="ComboBox">
-    <Setter Property="Background" Value="#2C2F33" /> <!-- Background of the ComboBox -->
-    <Setter Property="Foreground" Value="#DCDDDE" /> <!-- Text Color -->
-    <Setter Property="BorderBrush" Value="#99AAB5" /> <!-- Border Color -->
+    <Setter Property="Background" Value="#2C2F33" />
+    <Setter Property="Foreground" Value="#DCDDDE" />
+    <Setter Property="BorderBrush" Value="#99AAB5" /> 
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="Padding" Value="5,2,5,2" />
     <Setter Property="FontSize" Value="14" />
@@ -117,8 +145,7 @@
                                   BorderBrush="{TemplateBinding BorderBrush}"
                                   BorderThickness="{TemplateBinding BorderThickness}"
                                   IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                  ClickMode="Press"
-                                  >
+                                  ClickMode="Press">
                         <ContentPresenter Content="{TemplateBinding Text}" />
                         <ToggleButton.Style>
                             <Style TargetType="ToggleButton">
@@ -157,18 +184,17 @@
             <Setter Property="Padding" Value="4,2" />
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3B4048" /> <!-- Hover Background -->
-                    <Setter Property="Foreground" Value="#FFFFFF" /> <!-- Hover Text -->
+                    <Setter Property="Background" Value="#3B4048" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#00B5D8" /> <!-- Selected Background -->
-                    <Setter Property="Foreground" Value="#FFFFFF" /> <!-- Selected Text -->
+                    <Setter Property="Background" Value="#00B5D8" />
+                    <Setter Property="Foreground" Value="#FFFFFF" />
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Style.Resources>
 </Style>
-
     
     <Style TargetType="ListView">
         <Setter Property="Background" Value="#2C2F33" />
@@ -176,32 +202,65 @@
         <Setter Property="BorderBrush" Value="#99AAB5" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="FontSize" Value="14" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                        <ScrollViewer Padding="{TemplateBinding Padding}">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
+
     <Style TargetType="ListViewItem">
-        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Background" Value="#99AAB5" />
         <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="5" />
         <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#3B4048" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#00B5D8" />
-                <Setter Property="Foreground" Value="#FFFFFF" />
-            </Trigger>
-        </Style.Triggers>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListViewItem">
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Stretch"
+                                          VerticalAlignment="Stretch"
+                                          Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#3B4048" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#00B5D8" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#00B5D8" />
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#FFFFFF" />
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
-    <Style TargetType="Border">
-        <Setter Property="CornerRadius" Value="5" />
-        <Setter Property="Background" Value="#23272A" />
-        <Setter Property="BorderBrush" Value="#99AAB5" />
-        <Setter Property="BorderThickness" Value="1" />
-    </Style>
+
+    <!-- <Style TargetType="Border"> -->
+    <!--     <Setter Property="CornerRadius" Value="5" /> -->
+    <!--     <Setter Property="Background" Value="#23272A" /> -->
+    <!--     <Setter Property="BorderBrush" Value="#99AAB5" /> -->
+    <!--     <Setter Property="BorderThickness" Value="1" /> -->
+    <!-- </Style> -->
     
     <Style x:Key="TitleLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="32" />
@@ -210,8 +269,5 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
-    
-
-
     
 </ResourceDictionary>

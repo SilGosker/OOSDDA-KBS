@@ -24,12 +24,12 @@ public partial class BoatDetailPage : Page
         _navigationManager = navigationManager;
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
-        ViewModel.BoatId = boat.BoatID;
+        ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
         ViewModel.BoatTypeName = "Onbekend";
 
-        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatID))
+        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new BoatDetailReservationViewModel(reservation, user));

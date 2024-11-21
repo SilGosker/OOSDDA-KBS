@@ -27,7 +27,7 @@ public partial class AccountView : Page
             Email = ViewModel.InputEmail,
             Password = ViewModel.InputPassword
         };
-        var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, _sessionUser.Email);
+        var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, sessionUser.Email);
             
         if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
         {

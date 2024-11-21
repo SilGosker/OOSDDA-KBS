@@ -12,32 +12,26 @@ public class BoatIndexBoatViewModel : ViewModel
         ThrowHelper.ThrowIfNull(boatType);
 
         Name = boat.Name;
-        BoatNumber = $"Boot nr.{boat.BoatID}";
-        Status = boat.Status switch
-        {
-            BoatStatus.Operational => "Operationeel",
-            BoatStatus.Maintaining => "In onderhoud",
-            BoatStatus.Broken => "Kapot",
-            _ => "Onbekend"
-        };
-
+        BoatId = boat.BoatID;
+        Status = boat.Status.ToDutchString();
         BoatType = boatType?.Name ?? "Onbekend";
     }
 
     private string _name;
-    private string _boatNumber;
     private string _status;
     private string _boatType;
+    private int _boatId;
+    public int BoatId
+    {
+        get => _boatId;
+        set => SetField(ref _boatId, value);
+    }
     public string Name
     {
         get => _name;
         set => SetField(ref _name, value);
     }
-    public string BoatNumber
-    {
-        get => _boatNumber;
-        set => SetField(ref _boatNumber, value);
-    }
+    public string BoatNumber => "Boot nr. " + BoatId;
     public string Status
     {
         get => _status;

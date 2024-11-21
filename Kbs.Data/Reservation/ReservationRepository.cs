@@ -48,12 +48,6 @@ namespace Kbs.Data.Reservation
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE UserID = @userId", new { userId }).ToList();
         }
 
-        public int GetReservationID()
-        {
-            var rp = _connection.Query<int>("SELECT FIRST ReservationID From Reservation");
-            return rp.FirstOrDefault();
-        }
-
         public ReservationEntity GetById(int id)
         {
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE ReservationID = @id", new { id }).FirstOrDefault();
@@ -63,6 +57,10 @@ namespace Kbs.Data.Reservation
         {
             return reservations.OrderByDescending(r => r.Status).ToList();
         }
-        
+
+        public List<ReservationEntity> GetByBoatId(int boatBoatId)
+        {
+            return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE BoatID = @boatBoatId", new { boatBoatId }).ToList();
+        }
     }
 }

@@ -27,6 +27,13 @@
         <ListView Width="520" ItemsSource="{Binding Items}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatClicked"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="516" />

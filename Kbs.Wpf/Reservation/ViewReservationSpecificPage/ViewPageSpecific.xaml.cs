@@ -1,13 +1,9 @@
 ﻿using Kbs.Business.BoatType;
-using Kbs.Business.Reservation;
-using Kbs.Business.Session;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Components;
-using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
-using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Reservation;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
@@ -29,8 +25,8 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             ViewModel.StartTime = reservation.StartTime;
             ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;
             ViewModel.Niveau = (int)boatType.RequiredExperience;
-            ViewModel.Seats = boatType.Seats;
-            ViewModel.Status = reservation.Status;
+            ViewModel.Seats = boatType.Seats.ToDutchString();
+            ViewModel.Status = reservation.Status.ToDutchString();
 
         }
 

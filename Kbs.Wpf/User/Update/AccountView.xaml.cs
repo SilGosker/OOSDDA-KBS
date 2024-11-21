@@ -11,21 +11,17 @@ namespace Kbs.Wpf.User.Update
         private readonly UserValidator _userValidator = new(); 
         private readonly INavigationManager _navigationManager;
         private readonly UserRepository _userRepository = new();
-        private readonly UserEntity _sessionUser;
-        private Func<Page> _navigationTarget;
-
-        public AccountViewModel ViewModel => (AccountViewModel)DataContext;
+        private AccountViewModel ViewModel => (AccountViewModel)DataContext;
         public AccountView(INavigationManager navigationManager)
         {
             InitializeComponent();
             this._navigationManager = navigationManager;
-            _navigationTarget = () => new AccountView(_navigationManager); // change target to homescreen
-            _sessionUser = SessionManager.Instance.Current.User;
-            ViewModel.InputEmail = _sessionUser.Email;
+            ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
         }
 
         private void Submit(object sender, RoutedEventArgs e)
         {
+            var sessionUser = SessionManager.Instance.Current.User;
             var user = new UserEntity()
             {
                 Email = ViewModel.InputEmail,
@@ -54,8 +50,8 @@ namespace Kbs.Wpf.User.Update
             // When no errors are shown
             if (validationResult.Count == 0)
             {
-                bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(_sessionUser.Email);
-                bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(_sessionUser.Password);
+                bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(sessionUser.Email);
+                bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(sessionUser.Password);
 
                 string successMessage = "Er zijn geen aanpassingen gemaakt.";
                 if (emailUpdated && passwordUpdated)
@@ -74,16 +70,16 @@ namespace Kbs.Wpf.User.Update
                 if (emailUpdated || passwordUpdated)
                 {
                     SessionManager.Instance.UpdateSessionUser(((emailUpdated) ? user.Email : null), ((passwordUpdated) ? user.Password : null));
-                    _userRepository.Update(_sessionUser);
+                    _userRepository.Update(sessionUser);
                 }
                 MessageBox.Show(successMessage);
-                _navigationManager.Navigate(_navigationTarget);
+                _navigationManager.Navigate(() => new AccountView(_navigationManager));
                 return;
             }
         }
         private void Cancel(object sender, RoutedEventArgs e)
         {
-            _navigationManager.Navigate(_navigationTarget);
+            _navigationManager.Navigate(() => new AccountView(_navigationManager));
         }
         private void PasswordChanged(object sender, RoutedEventArgs e)
         {

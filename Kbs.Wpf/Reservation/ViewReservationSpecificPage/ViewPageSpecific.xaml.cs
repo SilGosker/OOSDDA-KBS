@@ -9,9 +9,9 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
     public partial class ViewPageSpecific : Page
     {
-        private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
-        private readonly ReservationRepository _reservationRepository = new ReservationRepository();
-        public ViewPageSpecificViewModel ViewModel => (ViewPageSpecificViewModel)DataContext;
+        private readonly BoatTypeRepository _boatTypeRepository = new();
+        private readonly ReservationRepository _reservationRepository = new();
+        private ViewPageSpecificViewModel ViewModel => (ViewPageSpecificViewModel)DataContext;
 
         public ViewPageSpecific(int reservationId)
         {

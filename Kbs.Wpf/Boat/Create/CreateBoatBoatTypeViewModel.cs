@@ -1,4 +1,3 @@
-using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
 
 namespace Kbs.Wpf.Boat.Create;

@@ -1,17 +1,15 @@
 using System.Windows.Controls;
 using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.Boat.Index;
-using Kbs.Wpf.BoatType.CreateBoatType;
 
 namespace Kbs.Wpf.Boat.Create;
 
 public partial class CreateBoatPage : Page
 {
     private CreateBoatViewModel ViewModel => (CreateBoatViewModel)DataContext;
-    private readonly IBoatRepository _boatRepository = new BoatRepository();
+    private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
     

@@ -30,4 +30,8 @@ public class BoatTypeRepository : IBoatTypeRepository
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
+    public List<BoatTypeEntity> GetName()
+    {
+        return _connection.Query<BoatTypeEntity>("SELECT Name FROM Boattype").ToList();
+    }
 }

@@ -1,14 +1,37 @@
 ﻿<Page x:Class="Kbs.Wpf.BoatType.DetailedPage.DetailedPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kbs.Wpf.BoatType.DetailedPage"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="DetailedPage">
-
-    <Grid>
-        
+      mc:Ignorable="d"
+      d:DesignHeight="450" d:DesignWidth="620"
+      Title="Details"
+      Background="White">
+    <Page.DataContext>
+        <local:DetailedPageViewModel />
+    </Page.DataContext>
+    <Grid HorizontalAlignment="Center">
+        <Label FontSize="32" Content="Boottypen" HorizontalAlignment="Left" Margin="38,50,0,0"
+               VerticalAlignment="Top" />
+        <Label  />
+            <ListView 
+                Width="520" ItemsSource="{Binding Items}"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:DetailedPageViewModel}">
+                    <Grid>
+                        <Border BorderBrush="Black" BorderThickness="1" Height="00" Width="215" />
+                        <Label Content="Naam: " FontWeight="Bold" Margin="0,20,0,0" />
+                        <Label Content="{Binding Name}" Margin="60,20,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Content="Toevoegen" HorizontalAlignment="Left" Margin="100,360,0,0" VerticalAlignment="Top" Width="83" 
+                Command="{Binding AddBootType}"  />
+        <Button Content="Verwijderen" HorizontalAlignment="Left" Margin="445,360,0,0" VerticalAlignment="Top" Width="100"
+                Command="{Binding RemoveBootType}" />
     </Grid>
 </Page>

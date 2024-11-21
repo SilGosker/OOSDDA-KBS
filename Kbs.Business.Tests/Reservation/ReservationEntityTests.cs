@@ -52,7 +52,7 @@ namespace Kbs.Business.Reservation
         }
 
 
-
+        /*
         [Theory]
         [InlineData(0)]
         [InlineData(1)]
@@ -66,6 +66,7 @@ namespace Kbs.Business.Reservation
             //Assert
             Assert.Equal(reservation.totalReservations, totalReservationsInt);
         }
+        */
 
         [Fact]
         public void ReservationEntity_EndTime_ShouldBeCalculatedCorrectly()

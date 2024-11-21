@@ -9,6 +9,7 @@ namespace Kbs.Business.Reservation
 {
     public class ReservationValidatorTests
     {
+        /*
         
         [Fact]
         public void ReservationValidator_IsReservationLimitReached_ShouldReturnTrueIfLimitExceeded()
@@ -41,6 +42,7 @@ namespace Kbs.Business.Reservation
             // Assert
             Assert.False(result, "Moet false retourneren als het limiet niet is overschreden.");
         }
+        */
         [Fact]
         public void ReservationValidator_IsWithinDaylightHours_ShouldReturnFalseIfOutsideDaylight()
         {

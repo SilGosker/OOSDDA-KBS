@@ -1,6 +1,75 @@
-﻿namespace Kbs.Business.Boat;
+﻿using Kbs.Business.Mock;
+
+namespace Kbs.Business.Boat;
 
 public class BoatValidatorTests
 {
-    
+
+    [Fact]
+    public void ValidateForCreate_ShouldReturnError_WhenBoatIsNull()
+    {
+        // Arrange
+        BoatEntity boat = null;
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => validator.ValidateForCreate(boat));
+        Assert.Equal("Value cannot be null. (Parameter 'boat')", exception.Message);
+    }
+
+    [Fact]
+    public void ValidateForCreate_ShouldReturnError_WhenBoatNameIsNullOrWhitespace()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            Name = null,
+            BoatTypeId = 1
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.ValidateForCreate(boat);
+
+        // Assert
+        Assert.Contains(nameof(BoatEntity.Name), result.Keys);
+        Assert.Equal("Naam is verplicht", result[nameof(BoatEntity.Name)]);
+    }
+
+    [Fact]
+    public void ValidateForCreate_ShouldReturnError_WhenBoatTypeIdIsInvalid()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            Name = "Valid Boat",
+            BoatTypeId = 99
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.ValidateForCreate(boat);
+
+        // Assert
+        Assert.Contains(nameof(BoatEntity.BoatTypeId), result.Keys);
+        Assert.Equal("Boottype is verplicht", result[nameof(BoatEntity.BoatTypeId)]);
+    }
+
+    [Fact]
+    public void ValidateForCreate_ShouldReturnNoErrors_WhenBoatIsValid()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            Name = "Valid Boat",
+            BoatTypeId = 1
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.ValidateForCreate(boat);
+
+        // Assert
+        Assert.Empty(result);
+    }
 }

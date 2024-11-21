@@ -5,6 +5,7 @@ using Azure;
 using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
@@ -43,6 +44,7 @@ namespace Kbs.Wpf
             {
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage(this)) { Name = "Overzicht boten" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
             }
         }
 

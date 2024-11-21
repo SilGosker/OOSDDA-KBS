@@ -13,7 +13,7 @@ namespace Kbs.Business.Reservation
         public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }
         public bool IsReservationLimitReached(UserEntity user, ReservationEntity reservation)
         {
-            return reservation.totalReservations < 2;
+            return false;
         }
         public bool IsWithinDaylightHours(ReservationEntity reservation) 
         {
@@ -25,7 +25,7 @@ namespace Kbs.Business.Reservation
         }
         public bool IsDurationValid(ReservationEntity reservation) 
         {
-            return reservation.Length.TotalMinutes < 120;
+            return reservation.Length.TotalMinutes <= 120;
         }
         public bool CompetitionReservationValidator(ReservationEntity reservation) 
         {

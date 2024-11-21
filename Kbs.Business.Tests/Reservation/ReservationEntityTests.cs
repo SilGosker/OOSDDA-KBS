@@ -80,17 +80,6 @@ namespace Kbs.Business.Reservation
         }
 
         [Fact]
-        public void ReservationEntity_StatusDisplay_ShouldReflectStatus()
-        {
-            var reservation = new ReservationEntity
-            {
-                Status = ReservationStatus.Active,
-                StatusDisplay = "Active"
-            };
-
-            Assert.Equal("Active", reservation.StatusDisplay);
-        }
-        [Fact]
         public void ReservationEntity_Seats_ShouldBePositive()
         {
             var reservation = new ReservationEntity

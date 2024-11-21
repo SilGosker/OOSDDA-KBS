@@ -14,12 +14,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
         private DateTime _startTime;
         private TimeSpan _tijdsduur;
         private int _reservationID;
-        private ICommand _viewMore;
         public ReservationStatus _status;
-        public ViewReservationViewModel(Action<ViewReservationViewModel> action)
-        {
-            ViewMore = new RelayCommand<ViewReservationViewModel>(action);
-        }
         public ReservationStatus Status
         {
             get => _status;
@@ -39,12 +34,6 @@ namespace Kbs.Wpf.Reservation.ViewReservationGeneralPage
                 }
                 return Brushes.Red;
             }
-        }
-
-        public ICommand ViewMore
-        {
-            get => _viewMore;
-            set => SetField(ref _viewMore, value);
         }
 
         public int Niveau

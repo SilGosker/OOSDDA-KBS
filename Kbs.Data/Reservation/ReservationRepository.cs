@@ -57,9 +57,9 @@ namespace Kbs.Data.Reservation
         public ReservationEntity GetById(int id)
         {
             return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE ReservationID = @id", new { id }).FirstOrDefault();
-
         }
-        public List<ReservationEntity> SortByStatus(List<ReservationEntity> reservations)
+       
+        public List<ReservationEntity> OrderByStatus(List<ReservationEntity> reservations)
         {
             return reservations.OrderByDescending(r => r.Status).ToList();
         }

@@ -68,6 +68,5 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _reservationID;
             set => SetField(ref _reservationID, value);
         }
-        public object Items { get; internal set; }
     }
 }

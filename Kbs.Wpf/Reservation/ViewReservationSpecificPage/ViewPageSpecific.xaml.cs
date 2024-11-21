@@ -3,6 +3,7 @@ using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Reservation;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 {
@@ -25,7 +26,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             ViewModel.HasSteeringWheel = boatType.HasSteeringWheel;
             ViewModel.Niveau = (int)boatType.RequiredExperience;
             ViewModel.Seats = boatType.Seats.ToDutchString();
-            ViewModel.Status = reservation.Status;
+            ViewModel.Status = reservation.Status.ToDutchString();
 
         }
 

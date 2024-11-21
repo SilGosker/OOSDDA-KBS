@@ -12,7 +12,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         private DateTime _startTime;
         private TimeSpan _length;
         private int _reservationID;
-        private ReservationStatus _status = ReservationStatus.Active;
+        private string _status = ((ReservationStatus)0).ToDutchString();
 
         public int Niveau
         {
@@ -24,7 +24,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             get => _seats;
             set => SetField(ref _seats, value);
         }
-        public ReservationStatus Status
+        public string Status
         {
             get => _status;
             set {
@@ -36,7 +36,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
         {
             get
             {
-                if (Status == ReservationStatus.Active)
+                if (Status == ReservationStatus.Active.ToDutchString())
                 {
                     return Brushes.Green;
                 }

@@ -39,10 +39,10 @@ public partial class CreateBoatTypePage : Page
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
-        var experience = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (experience == null) return;
+        var seats = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
+        if (seats == null) return;
 
-        ViewModel.Seats = experience.BoatTypeSeats;
+        ViewModel.Seats = seats.BoatTypeSeats;
 
     }
 

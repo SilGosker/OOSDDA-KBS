@@ -49,15 +49,12 @@
                         <Label Content="Naam: " FontWeight="Bold" Margin="0,20,0,0" />
                         <Label Content="Type: " FontWeight="Bold" Margin="0,40,0,0" />
                         <Label Content="Status: " FontWeight="Bold" Margin="0,60,0,0" />
-
                         <Label Content="{Binding Name}" Margin="60,20,0,0" />
                         <Label Content="{Binding BoatType}" Margin="60,40,0,0" />
                         <Label Content="{Binding Status}" Margin="60,60,0,0" />
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
     </Grid>
 </Page>

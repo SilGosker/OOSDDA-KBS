@@ -6,6 +6,7 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Details;
 
 namespace Kbs.Wpf.Boat.Index;
@@ -84,5 +85,10 @@ public partial class BoatIndexPage : Page
     {
         var item = (BoatIndexBoatViewModel)((ListViewItem)sender).DataContext;
         _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, item.BoatId));
+    }
+    
+    private void CreateBoatButtonClicked(object sender, MouseButtonEventArgs e)
+    {
+        _navigationManager.Navigate(() => new CreateBoatPage(_navigationManager));
     }
 }

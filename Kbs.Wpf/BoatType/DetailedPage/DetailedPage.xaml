@@ -15,7 +15,7 @@
         <Label FontSize="32" Content="Boottypen" HorizontalAlignment="Left" Margin="38,50,0,0"
                VerticalAlignment="Top" />
         <Label  />
-            <ListView 
+        <ListView 
                 Width="520" ItemsSource="{Binding Items}"
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
@@ -29,9 +29,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Toevoegen" HorizontalAlignment="Left" Margin="100,360,0,0" VerticalAlignment="Top" Width="83" 
+        <Button Content="Toevoegen" HorizontalAlignment="Left" Margin="369,76,0,0" VerticalAlignment="Top" Width="83" 
                 Command="{Binding AddBootType}"  />
-        <Button Content="Verwijderen" HorizontalAlignment="Left" Margin="445,360,0,0" VerticalAlignment="Top" Width="100"
+        <Button Content="Verwijderen" HorizontalAlignment="Left" Margin="460,76,0,0" VerticalAlignment="Top" Width="100"
                 Command="{Binding RemoveBootType}" />
     </Grid>
 </Page>

@@ -22,24 +22,5 @@ namespace Kbs.Wpf.BoatType.DetailedPage
         }
         public ObservableCollection<BoatIndexBoatTypeViewModel> BoatTypes { get; } = new();
         public ObservableCollection<BoatIndexBoatTypeViewModel> Items { get; } = new();
-
-        /*
-        public DetailedPageViewModel (BoatTypeEntity boatType)
-        {
-            ThrowHelper.ThrowIfNull(boatType);
-            //Name = boatType;
-        }
-        public DetailedPageViewModel(char boattype) { }
-        */
-
-
-        /*
-        public DetailedPageViewModel(BoatTypeEntity boatType)
-        {
-            ThrowHelper.ThrowIfNull(boatType);
-            Name = boatType.Name;
-        }
-        */
-        
     }
 }

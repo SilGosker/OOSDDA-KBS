@@ -38,28 +38,11 @@ namespace Kbs.Wpf.BoatType.DetailedPage
             _navigationManager = navigationManager;
             InitializeComponent();
             
-            //string boattypename = _boatTypeRepository.GetAll().ToString();
             foreach (var boatType in _boatTypeRepository.GetName())
             {
-                //ViewModel.BoatTypes.Add(new BoatIndexBoatTypeViewModel(boatType));
-                //ViewModel.BoatTypes.Add(new DetailedPageViewModel(boatType));
                 ViewModel.Items.Add(new BoatIndexBoatTypeViewModel(boatType));
-            }
-            
+            }  
         }
-        /*
-        public DetailedPage()
-        {
-            InitializeComponent();
-
-            foreach (var boatType in _boatTypeRepository.GetName())
-            {
-                ViewModel.BoatTypes.Add(new BoatIndexBoatTypeViewModel(boatType));
-            }
-        }
-        */
-        
-
         private void RemoveBootType(object sender, RoutedEventArgs e)
         {
 

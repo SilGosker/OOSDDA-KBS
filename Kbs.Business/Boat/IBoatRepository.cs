@@ -7,4 +7,6 @@ public interface IBoatRepository
     List<BoatEntity> GetManyByName(string name);
     List<BoatEntity> GetManyByNameAndType(string name, int boatTypeId);
     BoatEntity GetById(int boatId);
+    void UpdateDeleteRequestDate(int boatId, DateTime? requestDate);
+    void DeleteById(int boatId);
 }

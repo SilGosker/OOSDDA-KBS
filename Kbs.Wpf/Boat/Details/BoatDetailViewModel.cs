@@ -9,6 +9,7 @@ public class BoatDetailViewModel : ViewModel
     private string _name;
     private string _status;
     private string _boatTypeName;
+    private DateTime? _deleteRequestDate;
     public ObservableCollection<BoatDetailReservationViewModel> Reservations { get; } = new();
     public int BoatId
     {
@@ -29,5 +30,11 @@ public class BoatDetailViewModel : ViewModel
     {
         get => _boatTypeName;
         set => SetField(ref _boatTypeName, value);
+    }
+
+    public DateTime? DeleteRequestDate
+    {
+        get => _deleteRequestDate;
+        set => SetField(ref _deleteRequestDate, value);
     }
 }

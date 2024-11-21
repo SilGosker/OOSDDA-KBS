@@ -1,6 +1,8 @@
 ﻿using Dapper;
 using Kbs.Business.Boat;
+using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace Kbs.Data.Boat;
 
@@ -30,5 +32,15 @@ public class BoatRepository : IBoatRepository
     public BoatEntity GetById(int boatId)
     {
         return _connection.QueryFirstOrDefault<BoatEntity>("SELECT * FROM Boat WHERE BoatId = @boatId", new { boatId });
+    }
+
+    public void UpdateDeleteRequestDate(int boatId, DateTime? requestDate)
+    {
+        _connection.Execute("UPDATE Boat SET DeleteRequestDate = @DeleteRequestDate WHERE BoatId = @boatId", new { boatId, requestDate });
+    }
+
+    public void DeleteById(int boatId)
+    {
+        _connection.Execute("DELETE WHERE BoatId = @boatId", new { boatId });
     }
 }

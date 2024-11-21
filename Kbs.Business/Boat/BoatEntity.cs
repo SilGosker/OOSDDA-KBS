@@ -6,4 +6,5 @@ public class BoatEntity
     public string Name { get; set; }
     public int BoatTypeId { get; set; }
     public BoatStatus Status { get; set; }
+    public DateTime DeleteRequestDate { get; set; }
 }

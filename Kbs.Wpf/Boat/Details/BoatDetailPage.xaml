@@ -47,6 +47,8 @@
                 <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Ter verwijdering opstellen" Click="RequestDeletion" HorizontalAlignment="Center" Margin="-450,205,0,0" VerticalAlignment="Top"/>
+        <Button Name="PermanentDeletionButton" Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Center" Margin="-465,235,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Page>

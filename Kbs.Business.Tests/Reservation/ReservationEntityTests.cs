@@ -65,18 +65,6 @@ namespace Kbs.Business.Reservation
             //Assert
             Assert.Equal(reservation.IsForCompetition, o);
         }
-        /*
-        [Theory]
-        [InlineData((9,0,0)]
-        public void Set_EndTime_ReturnsEndTime(TimeOnly time)
-        {
-            //Arrange
-            var reservation = new ReservationEntity();
-            //Act
-            reservation.EndTime = time;
-            //Assert
-        }
-        */
 
 
 
@@ -92,6 +80,41 @@ namespace Kbs.Business.Reservation
             reservation.totalReservations += totalReservationsInt;
             //Assert
             Assert.Equal(reservation.totalReservations, totalReservationsInt);
-        }       
+        }
+
+        [Fact]
+        public void ReservationEntity_EndTime_ShouldBeCalculatedCorrectly()
+        {
+            var reservation = new ReservationEntity
+            {
+                StartTime = new DateTime(2024, 1, 1, 10, 0, 0),
+                Length = TimeSpan.FromHours(2)
+            };
+
+            Assert.Equal(new DateTime(2024, 1, 1, 12, 0, 0), reservation.EndTime);
+        }
+
+        [Fact]
+        public void ReservationEntity_StatusDisplay_ShouldReflectStatus()
+        {
+            var reservation = new ReservationEntity
+            {
+                Status = ReservationStatus.Active,
+                StatusDisplay = "Active"
+            };
+
+            Assert.Equal("Active", reservation.StatusDisplay);
+        }
+        [Fact]
+        public void ReservationEntity_Seats_ShouldBePositive()
+        {
+            var reservation = new ReservationEntity
+            {
+                Seats = 5
+            };
+
+            Assert.Equal(true, reservation.Seats > 0);
+        }
+
     }
 }

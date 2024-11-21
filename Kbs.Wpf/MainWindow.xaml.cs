@@ -1,12 +1,15 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using Azure;
+using System.Windows.Navigation;
 using Kbs.Business.Session;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.User.Login;
+using Kbs.Wpf.Reservation.ViewReservation;
 
 namespace Kbs.Wpf
 {
@@ -30,7 +33,7 @@ namespace Kbs.Wpf
             // todo: add navigation items
             if (user.IsMember() || user.IsGameCommissioner())
             {
-                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) { Name = "Mijn reserveringen" });
+                ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
                 ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
                 

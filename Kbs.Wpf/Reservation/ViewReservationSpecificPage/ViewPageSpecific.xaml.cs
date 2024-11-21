@@ -34,7 +34,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
 
         }
 
-        public void Annuleren(object sender, RoutedEventArgs e)
+        public void Verwijderen(object sender, RoutedEventArgs e)
         {
             var entity = _reservationRepository.GetById(ViewModel.ReservationID);
 

@@ -31,7 +31,8 @@
         </ListView>
         <Button Content="Toevoegen" HorizontalAlignment="Left" Margin="369,76,0,0" VerticalAlignment="Top" Width="83" 
                 Command="{Binding AddBootType}"  />
-        <Button Content="Verwijderen" HorizontalAlignment="Left" Margin="460,76,0,0" VerticalAlignment="Top" Width="100"
-                Command="{Binding RemoveBootType}" />
+        
+        <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="RemoveBootType" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="460,76,0,0"/>
+
     </Grid>
 </Page>

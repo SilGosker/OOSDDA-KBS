@@ -44,7 +44,7 @@
             </StackPanel>
 
             <Button Content="Type boot" Width="100" Canvas.Left="137" Canvas.Top="376"/>
-            <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="Annuleren" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="Verwijderen" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </Page>

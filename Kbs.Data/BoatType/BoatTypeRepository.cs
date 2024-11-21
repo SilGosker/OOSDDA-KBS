@@ -12,6 +12,13 @@ public class BoatTypeRepository : IBoatTypeRepository
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
     }
+    public void Delete(BoatTypeEntity Boattype)
+    {
+        //Boattype.BoatTypeID = _connection.Execute("DELETE FROM Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",  boatType);
+        if (Boattype.BoatTypeID == 0) return;
+
+        _connection.Execute("DELETE FROM Boattype WHERE Boattype = @Boattype", Boattype);
+    }
 
     public BoatTypeEntity GetByReservationId(int reservationID)
     {
@@ -32,6 +39,12 @@ public class BoatTypeRepository : IBoatTypeRepository
     }
     public List<BoatTypeEntity> GetName()
     {
-        return _connection.Query<BoatTypeEntity>("SELECT Name FROM Boattype").ToList();
+        return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
     }
+    
+    public void Delete(List<BoatTypeEntity> entity)
+    {
+        throw new NotImplementedException();
+    }
+    
 }

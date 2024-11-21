@@ -32,12 +32,10 @@ namespace Kbs.Wpf.BoatType.DetailedPage
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
 
-
         public DetailedPage(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
             InitializeComponent();
-            
             foreach (var boatType in _boatTypeRepository.GetName())
             {
                 ViewModel.Items.Add(new BoatIndexBoatTypeViewModel(boatType));
@@ -45,11 +43,16 @@ namespace Kbs.Wpf.BoatType.DetailedPage
         }
         private void RemoveBootType(object sender, RoutedEventArgs e)
         {
+            var entity = _boatTypeRepository.GetName();
 
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
+            {
+                _boatTypeRepository.Delete(entity);
+            }
         }
         private void AddBootType(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectLength;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength;
 
 public class SelectLengthLengthOptionViewModel : ViewModel
 {

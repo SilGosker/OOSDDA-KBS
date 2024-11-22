@@ -52,7 +52,7 @@ public class ReservationTimeFactory
         date = date.Date;
         List<ReservationTime> reservationTimes = new List<ReservationTime>();
 
-        while (start <= end)
+        while (start < end)
         {
             reservationTimes.Add(new ReservationTime(date.Add(start), date.Add(start.Add(_interval))));
             start = start.Add(_interval);

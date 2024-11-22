@@ -44,4 +44,15 @@ public class BoatTypeRepository : IBoatTypeRepository
             .Query<BoatTypeEntity>(@"SELECT * FROM Boattype WHERE BoattypeID IN (SELECT BoatTypeId FROM Boat WHERE Status = 0)")
             .ToList();
     }
+
+    public BoatTypeEntity GetByBoatId(int boatId)
+    {
+        const string query = @"
+        SELECT bt.* 
+        FROM Boattype bt
+        INNER JOIN Boat b ON bt.BoattypeID = b.BoattypeID
+        WHERE b.BoatID = @boatId";
+
+        return _connection.Query<BoatTypeEntity>(query, new { boatId }).FirstOrDefault();
+    }
 }

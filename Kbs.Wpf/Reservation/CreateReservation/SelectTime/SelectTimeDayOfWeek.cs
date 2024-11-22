@@ -1,7 +1,7 @@
-﻿using Kbs.Wpf.Components;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 
 public class SelectTimeDayOfWeek : ViewModel
 {

@@ -1,7 +1,7 @@
-﻿using Kbs.Wpf.Components;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 
 public class SelectTimeViewModel : ViewModel
 {
@@ -9,12 +9,12 @@ public class SelectTimeViewModel : ViewModel
     public ObservableCollection<SelectTimeDayOfWeek> CurrentWeek { get; } = new();
     public ObservableCollection<SelectTimePossibleTimeViewModel> PossibleTimes { get; } = new();
 
-    private int _selectedBoatId;
+    private SelectTimeBoatViewModel _selectedBoat;
     private DateTime _selectedDate = DateTime.Now;
-    public int SelectedBoatId
+    public SelectTimeBoatViewModel SelectedBoat
     {
-        get => _selectedBoatId;
-        set => SetField(ref _selectedBoatId, value);
+        get => _selectedBoat;
+        set => SetField(ref _selectedBoat, value);
     }
 
     public DateTime SelectedDate

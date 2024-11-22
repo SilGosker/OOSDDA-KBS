@@ -2,9 +2,9 @@
 using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Data.BoatType;
-using Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+using Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectBoatType;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 
 public partial class SelectBoatTypePage : Page
 {

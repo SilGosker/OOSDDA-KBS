@@ -2,7 +2,7 @@
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 
 public class SelectTimePossibleTimeViewModel : ViewModel
 {

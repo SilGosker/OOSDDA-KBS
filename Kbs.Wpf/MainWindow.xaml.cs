@@ -7,7 +7,7 @@ using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
-using Kbs.Wpf.Reservation.MakeReservation.SelectBoatType;
+using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Session.Login;
 

@@ -2,7 +2,7 @@
 using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectBoatType;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 
 public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {

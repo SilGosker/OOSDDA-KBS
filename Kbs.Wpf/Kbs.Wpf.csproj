@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Reservation\MakeReservation\SelectLength\Class1.cs" />
+    <Compile Remove="Reservation\CreateReservation\SelectLength\Class1.cs" />
   </ItemGroup>
 
   <ItemGroup>

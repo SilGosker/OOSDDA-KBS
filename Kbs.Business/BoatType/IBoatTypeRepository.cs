@@ -2,9 +2,10 @@
 
 public interface IBoatTypeRepository
 {
+    void Create(BoatTypeEntity boatType);
     List<BoatTypeEntity> GetAll();
     BoatTypeEntity GetByReservationId(int reservationId);
     BoatTypeEntity GetById(int boatTypeId);
-    void Create(BoatTypeEntity boatType);
     List<BoatTypeEntity> GetAllWithBoats();
+    BoatTypeEntity GetByBoatId(int boatId);
 }

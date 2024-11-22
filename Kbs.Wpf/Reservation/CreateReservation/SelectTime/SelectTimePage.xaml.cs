@@ -1,11 +1,12 @@
-﻿using Kbs.Business.Boat;
+﻿using System.Windows.Controls;
+using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Data.Boat;
 using Kbs.Data.Reservation;
-using System.Windows.Controls;
+using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 
-namespace Kbs.Wpf.Reservation.MakeReservation.SelectTime;
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 
 public partial class SelectTimePage : Page
 {
@@ -17,18 +18,26 @@ public partial class SelectTimePage : Page
     private readonly TimeSpan _evening = new(17, 0, 0);
     private SelectTimeViewModel ViewModel => (SelectTimeViewModel)DataContext;
 
-    public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType)
+    public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType, BoatEntity selectedBoat = null)
     {
         _navigationManager = navigationManager;
         _reservationTimeFactory = new(_reservationRepository, _boatRepository);
         InitializeComponent();
 
         var boats = _boatRepository.GetAvailableByType(boatType.BoatTypeId);
-        ViewModel.SelectedBoatId = boats[0].BoatId;
 
         foreach (BoatEntity boat in boats)
         {
             ViewModel.Boats.Add(new SelectTimeBoatViewModel(boat));
+        }
+
+        if (selectedBoat == null)
+        {
+            ViewModel.SelectedBoat = ViewModel.Boats.First();
+        }
+        else
+        {
+            ViewModel.SelectedBoat = ViewModel.Boats.First(b => b.BoatId == selectedBoat.BoatId);
         }
 
         foreach (var day in _reservationTimeFactory.GetDaysOfWeek(ViewModel.SelectedDate))
@@ -53,7 +62,7 @@ public partial class SelectTimePage : Page
         foreach (DateTime dateTime in _reservationTimeFactory.GetDaysOfWeek(ViewModel.SelectedDate))
         {
             var dayViewModel = new SelectTimeDayOfWeek(dateTime);
-            var times = _reservationTimeFactory.GetPossibleReservationTimes(_morning, _evening, dateTime, ViewModel.SelectedBoatId);
+            var times = _reservationTimeFactory.GetPossibleReservationTimes(_morning, _evening, dateTime, ViewModel.SelectedBoat.BoatId);
             foreach (ReservationTime time in times)
             {
                 dayViewModel.Times.Add(new SelectTimePossibleTimeViewModel(time, TimeSelected));
@@ -61,17 +70,19 @@ public partial class SelectTimePage : Page
             ViewModel.CurrentWeek.Add(dayViewModel);
         }
     }
-   
-    private void ComboBoxBoats_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    
+    private void BoatSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ComboBox comboBox = (ComboBox)sender;
-        SelectTimeBoatViewModel selectedBoat = (SelectTimeBoatViewModel)comboBox.SelectedItem;
-        ViewModel.SelectedBoatId = selectedBoat.BoatId;
         UpdateCalendar();
     }
 
     private void TimeSelected(SelectTimePossibleTimeViewModel selectedTime)
     {
-        _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, ViewModel.SelectedBoatId, selectedTime.ReservationTime));
+        _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, ViewModel.SelectedBoat.BoatId, selectedTime.ReservationTime));
+    }
+
+    private void PreviousStep(object sender, System.Windows.RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager));
     }
 }

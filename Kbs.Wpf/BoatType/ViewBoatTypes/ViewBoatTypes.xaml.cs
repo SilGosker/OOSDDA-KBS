@@ -31,7 +31,6 @@ namespace Kbs.Wpf.BoatType.DetailedPage
         private ViewBoatTypesViewModel ViewModel => (ViewBoatTypesViewModel)DataContext;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
-
         public DetailedPage(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
@@ -39,21 +38,23 @@ namespace Kbs.Wpf.BoatType.DetailedPage
             foreach (var boatType in _boatTypeRepository.GetName())
             {
                 ViewModel.Items.Add(new BoatIndexBoatTypeViewModel(boatType));
-            }  
+            }
         }
         private void RemoveBoatType(object sender, RoutedEventArgs e)
         {
             BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeID);
-            
 
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (MessageBoxResult.Yes == result)
+            if (result == MessageBoxResult.Yes)
             {
                 _boatTypeRepository.Delete(entity);
             }
         }
-        private void AddBoatType(object sender, RoutedEventArgs e)
+        private void BoatTypeSelected(object sender, RoutedEventArgs e)
         {
+            ListViewItem item = (ListViewItem)sender;
+            BoatIndexBoatTypeViewModel context = (BoatIndexBoatTypeViewModel)item.DataContext;
+            ViewModel.BoatTypeID = context.Id;
         }
     }
 }

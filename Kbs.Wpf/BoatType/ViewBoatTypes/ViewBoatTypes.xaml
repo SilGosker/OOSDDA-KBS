@@ -19,6 +19,11 @@
                 Width="520" ItemsSource="{Binding Items}"
                 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                 VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatTypeSelected" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type local:ViewBoatTypesViewModel}">
                     <Grid>
@@ -31,8 +36,6 @@
         </ListView>
         <Button Content="Toevoegen" HorizontalAlignment="Left" Margin="369,76,0,0" VerticalAlignment="Top" Width="83" 
                 Command="{Binding AddBootType}"  />
-        
-        <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="RemoveBoatType" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="460,76,0,0" Command="{Binding RemoveBoatType}"/>
-
+        <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="RemoveBoatType" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="460,76,0,0" />
     </Grid>
 </Page>

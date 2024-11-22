@@ -14,21 +14,13 @@ namespace Kbs.Wpf.BoatType.DetailedPage
 {
     public class ViewBoatTypesViewModel : ViewModel
     {
-        public string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetField(ref _name, value);
-        }
+        
         public int _boatTypeID;
         public int BoatTypeID
         {
             get => _boatTypeID;
             set => SetField(ref _boatTypeID, value);
-
-        }
-         
-        //public ObservableCollection<BoatIndexBoatTypeViewModel> BoatTypes { get; } = new();
+        }         
         public ObservableCollection<BoatIndexBoatTypeViewModel> Items { get; } = new();
     }
 }

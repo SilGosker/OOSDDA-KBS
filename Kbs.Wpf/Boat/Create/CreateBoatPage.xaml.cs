@@ -2,6 +2,7 @@ using System.Windows.Controls;
 using Kbs.Business.Boat;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Wpf.Boat.Details;
 using Kbs.Wpf.Boat.Index;
 
 namespace Kbs.Wpf.Boat.Create;
@@ -68,6 +69,6 @@ public partial class CreateBoatPage : Page
 
         _boatRepository.Create(boat);
 
-        _navigationManager.Navigate(() => new BoatIndexPage(_navigationManager));
+        _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, boat.BoatId));
     }
 }

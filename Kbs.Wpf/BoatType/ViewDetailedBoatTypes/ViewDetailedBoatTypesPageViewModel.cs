@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,5 +9,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
     public class ViewDetailedBoatTypesPageViewModel
     {
+        public ObservableCollection<ViewDetailedBoatTypesBoatViewModel> Items { get; } = new();
+
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Kbs.Business.BoatType;
+using Kbs.Data.BoatType;
+using Kbs.Wpf.BoatType.ViewBoatTypes;
+using Kbs.Wpf.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +24,33 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
     /// </summary>
     public partial class ViewDetailedBoatTypesPage : Page
     {
+        private readonly INavigationManager _navigationManager;
+        private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
+        private ViewDetailedBoatTypesBoatViewModel ViewModel => (ViewDetailedBoatTypesBoatViewModel)DataContext;
+
         public ViewDetailedBoatTypesPage(int boatTypeId)
         {
             InitializeComponent();
+            var boatType = _boatTypeRepository.GetByBoatTypeID(boatTypeId);
+            ViewModel.Speed = boatType.Speed;
+            ViewModel.BoatTypeId = boatType.BoattypeID;
+            ViewModel.Experience = boatType.Experience;
+            ViewModel.HasWheel = boatType.hasWheel;
+            ViewModel.Seats = (int)boatType.Seats;
+        }
+        public ViewDetailedBoatTypesPage()
+        {
+            InitializeComponent();
+        }
+        private void RemoveBoatType(object sender, RoutedEventArgs e)
+        {
+            BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeId);
+
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                _boatTypeRepository.Delete(entity);
+            }
         }
     }
 }

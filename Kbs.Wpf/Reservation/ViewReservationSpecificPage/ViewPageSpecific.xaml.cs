@@ -33,6 +33,10 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage
             ViewModel.Status = reservation.Status;
 
         }
+        public ViewPageSpecific()
+        {
+            InitializeComponent();
+        }
 
         public void Verwijderen(object sender, RoutedEventArgs e)
         {

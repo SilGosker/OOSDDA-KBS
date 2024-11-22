@@ -24,12 +24,6 @@ namespace Kbs.Wpf.BoatType.ViewBoatTypes
             get => _id;
             set => SetField(ref _id, value);
         }
-        private int _boatTypeID;
-        public int BoatTypeID
-        {
-            get => _boatTypeID;
-            set => SetField(ref _boatTypeID, value);
-        }
 
     }
 }

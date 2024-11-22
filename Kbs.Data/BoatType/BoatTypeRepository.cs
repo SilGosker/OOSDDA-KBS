@@ -44,6 +44,7 @@ public class BoatTypeRepository : IBoatTypeRepository
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM boatType").ToList();
     }
+   
     
     public BoatTypeEntity GetByBoatTypeID(int id)
     {

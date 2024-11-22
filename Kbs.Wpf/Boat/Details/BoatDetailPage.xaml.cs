@@ -101,7 +101,7 @@ public partial class BoatDetailPage : Page
             if (timeRemaining <= 0)
             {
                 _boatRepository.DeleteById(ViewModel.BoatId);
-                popupMessage = "Succesfully deleted";
+                popupMessage = "Succesvol verwijderd";
                 _navigationManager.Navigate(() => new BoatIndexPage(_navigationManager));
             }
             else

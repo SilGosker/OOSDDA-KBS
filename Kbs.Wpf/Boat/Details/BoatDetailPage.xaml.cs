@@ -4,6 +4,7 @@ using Kbs.Business.Boat;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
+using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Attributes;
@@ -15,6 +16,7 @@ namespace Kbs.Wpf.Boat.Details;
 public partial class BoatDetailPage : Page
 {
     private readonly BoatRepository _boatRepository = new();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
@@ -27,7 +29,7 @@ public partial class BoatDetailPage : Page
         ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
-        ViewModel.BoatTypeName = "Onbekend";
+        ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
 
         foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {

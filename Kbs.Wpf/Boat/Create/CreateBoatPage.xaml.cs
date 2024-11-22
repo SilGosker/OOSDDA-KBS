@@ -37,7 +37,8 @@ public partial class CreateBoatPage : Page
         var boat = new BoatEntity()
         {
             Name = ViewModel.Name,
-            BoatTypeId = ViewModel.BoatTypeId
+            BoatTypeId = ViewModel.BoatTypeId,
+            Status = BoatStatus.Operational
         };
 
         var validationResult = new BoatValidator(_boatTypeRepository).ValidateForCreate(boat);

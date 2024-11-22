@@ -51,6 +51,6 @@ public class BoatDetailViewModel : ViewModel
     }
     public int GetTimeRemaining(int targetDuration)
     {
-        return (int)(targetDuration - (DateTime.Now - _deleteRequestDate).Value.TotalSeconds); // Change TotalDays to TotalSeconds only for testing purposes
+        return (int)(targetDuration - (DateTime.Now - _deleteRequestDate).Value.TotalDays); // Change TotalDays to TotalSeconds only for testing purposes
     }
 }

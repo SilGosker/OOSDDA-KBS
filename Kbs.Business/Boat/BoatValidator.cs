@@ -24,7 +24,7 @@ public class BoatValidator
         }
 
         // Validate BoatTypeId
-        if (boat.BoatTypeId <= 0)
+        if (_boatTypeRepository.GetById(boat.BoatTypeId) == null)
         {
             validationResult.Add(nameof(boat.BoatTypeId), "Boottype is verplicht");
         }

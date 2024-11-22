@@ -13,9 +13,9 @@ public class ReservationEntityTests
         //Arrange
         var reservation = new ReservationEntity();
         //Act
-        reservation.ReservationID = reservationId;
+        reservation.ReservationId = reservationId;
         //Assert
-        Assert.Equal(reservationId, reservation.ReservationID);
+        Assert.Equal(reservationId, reservation.ReservationId);
     }
         
     [Theory]
@@ -55,16 +55,4 @@ public class ReservationEntityTests
 
         Assert.Equal(new DateTime(2024, 1, 1, 12, 0, 0), reservation.EndTime);
     }
-
-    [Fact]
-    public void ReservationEntity_Seats_ShouldBePositive()
-    {
-        var reservation = new ReservationEntity
-        {
-            Seats = 5
-        };
-
-        Assert.Equal(true, reservation.Seats > 0);
-    }
-
 }

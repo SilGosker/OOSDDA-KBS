@@ -1,7 +1,4 @@
 using System.Collections.ObjectModel;
-using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
-using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Create;

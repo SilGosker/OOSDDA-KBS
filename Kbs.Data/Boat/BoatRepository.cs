@@ -34,8 +34,8 @@ public class BoatRepository : IBoatRepository
     
     public void Create(BoatEntity boat)
     {
-        boat.BoatID = _connection.Execute(
-            "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 0); SELECT SCOPE_IDENTITY()",
+        boat.BoatId = _connection.QueryFirst<int>(
+            "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 1); SELECT SCOPE_IDENTITY()",
             boat);
     }
 }

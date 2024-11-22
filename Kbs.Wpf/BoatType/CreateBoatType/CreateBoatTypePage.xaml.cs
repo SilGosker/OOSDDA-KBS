@@ -11,7 +11,7 @@ namespace Kbs.Wpf.BoatType.CreateBoatType;
 public partial class CreateBoatTypePage : Page
 {
     private CreateBoatTypeViewModel ViewModel => (CreateBoatTypeViewModel)DataContext;
-    private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
     public CreateBoatTypePage(INavigationManager navigationManager)
     {

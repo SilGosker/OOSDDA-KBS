@@ -1,7 +1,10 @@
-﻿namespace Kbs.Business.User;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Kbs.Business.User;
 
 public class UserEntity
 {
+    [Column("UserID")]
     public int UserId { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }

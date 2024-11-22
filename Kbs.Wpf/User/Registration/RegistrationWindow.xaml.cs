@@ -1,19 +1,17 @@
-using Kbs.Business.Session;
 using Kbs.Business.User;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Data.User;
-using Kbs.Wpf.User.Login;
+using Kbs.Wpf.Session.Login;
 
 namespace Kbs.Wpf.User.Registration;
 
 public partial class RegistrationWindow : Window
 {
-    
     private RegistrationViewModel ViewModel => (RegistrationViewModel)DataContext;
-    private readonly UserValidator _userValidator = new UserValidator();
+    private readonly UserValidator _userValidator = new();
     private readonly LoginWindow _loginWindow;
-    private readonly IUserRepository _userRepository = new UserRepository();
+    private readonly UserRepository _userRepository = new();
     public RegistrationWindow(LoginWindow loginWindow)
     {
         _loginWindow = loginWindow;

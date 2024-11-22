@@ -1,6 +1,4 @@
 ﻿
-using System.Collections;
-
 namespace Kbs.Business.Reservation;
 
 public interface IReservationRepository

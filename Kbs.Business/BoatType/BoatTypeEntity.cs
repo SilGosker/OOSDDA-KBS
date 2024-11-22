@@ -1,8 +1,11 @@
-﻿namespace Kbs.Business.BoatType;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Kbs.Business.BoatType;
 
 public class BoatTypeEntity
 {
-    public int BoatTypeID { get; set; }
+    [Column("BoatTypeID")]
+    public int BoatTypeId { get; set; }
     public string Name { get; set; }
     public BoatTypeRequiredExperience RequiredExperience { get; set; }
     public int Speed { get; set; }

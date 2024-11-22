@@ -1,4 +1,4 @@
-﻿<Page x:Class="Kbs.Wpf.Reservation.ViewReservation.ViewReservationPage"
+﻿<Page x:Class="Kbs.Wpf.Reservation.ViewReservationGeneralPage.ViewReservationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -51,10 +51,6 @@
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
                                 </StackPanel>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding BoolShowStatus}" FontSize="14" Width="800" Background="{Binding StatusColor}"/>
-                                </StackPanel> 
-                                
                             </StackPanel>
                         </Grid>
                     </Border>

@@ -12,13 +12,13 @@ public class BoatEntityTests
         var boat = new BoatEntity();
 
         // Act
-        boat.BoatID = id;
+        boat.BoatId = id;
         boat.Name = name;
         boat.BoatTypeId = boatTypeId;
         boat.Status = status;
 
         // Assert
-        Assert.Equal(id, boat.BoatID);
+        Assert.Equal(id, boat.BoatId);
         Assert.Equal(name, boat.Name);
         Assert.Equal(boatTypeId, boat.BoatTypeId);
         Assert.Equal(status, boat.Status);

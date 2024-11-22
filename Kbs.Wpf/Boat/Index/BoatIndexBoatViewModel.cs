@@ -12,7 +12,7 @@ public class BoatIndexBoatViewModel : ViewModel
         ThrowHelper.ThrowIfNull(boatType);
 
         Name = boat.Name;
-        BoatId = boat.BoatID;
+        BoatId = boat.BoatId;
         Status = boat.Status.ToDutchString();
         BoatType = boatType?.Name ?? "Onbekend";
     }

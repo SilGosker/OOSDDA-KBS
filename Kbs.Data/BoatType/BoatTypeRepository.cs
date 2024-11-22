@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Kbs.Business.BoatType;
-using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.BoatType;
@@ -32,7 +31,7 @@ public class BoatTypeRepository : IBoatTypeRepository
 
     public void Create(BoatTypeEntity boatType)
     {
-        boatType.BoatTypeID = _connection.Execute(
+        boatType.BoatTypeId = _connection.Execute(
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }

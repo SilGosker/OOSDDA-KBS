@@ -7,5 +7,7 @@ public interface IBoatTypeRepository
     void Create(BoatTypeEntity boatType);
     public List<BoatTypeEntity> GetName();
     public void Delete(BoatTypeEntity boatType);
+    public BoatTypeEntity GetByBoatTypeID(int id);
+
 
 }

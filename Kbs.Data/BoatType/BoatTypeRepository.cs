@@ -63,6 +63,7 @@ public class BoatTypeRepository : IBoatTypeRepository
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
+    
     public List<BoatTypeEntity> GetName()
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
@@ -73,6 +74,7 @@ public class BoatTypeRepository : IBoatTypeRepository
         const string query = @"SELECT * FROM Boattype WHERE Name = @Name";
         return _connection.Query<BoatTypeEntity>(query, new { Name = name }).FirstOrDefault();
     }
+    
     public BoatTypeEntity GetByBoatTypeID(int id)
     {
         const string query = @"SELECT * FROM Boattype WHERE BoattypeID = @BoattypeID";

@@ -28,7 +28,7 @@ namespace Kbs.Wpf.BoatType.DetailedPage
     public partial class DetailedPage : Page
     {
         private readonly INavigationManager _navigationManager;
-        private DetailedPageViewModel ViewModel => (DetailedPageViewModel)DataContext;
+        private ViewBoatTypesViewModel ViewModel => (ViewBoatTypesViewModel)DataContext;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
 

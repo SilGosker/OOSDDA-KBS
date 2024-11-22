@@ -12,7 +12,7 @@ using Kbs.Business.Helpers;
 
 namespace Kbs.Wpf.BoatType.DetailedPage
 {
-    public class DetailedPageViewModel : ViewModel
+    public class ViewBoatTypesViewModel : ViewModel
     {
         public string _name;
         public string Name
@@ -28,7 +28,7 @@ namespace Kbs.Wpf.BoatType.DetailedPage
 
         }
          
-        public ObservableCollection<BoatIndexBoatTypeViewModel> BoatTypes { get; } = new();
+        //public ObservableCollection<BoatIndexBoatTypeViewModel> BoatTypes { get; } = new();
         public ObservableCollection<BoatIndexBoatTypeViewModel> Items { get; } = new();
     }
 }

@@ -26,7 +26,14 @@
 
         <ListView Width="520" ItemsSource="{Binding Items}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,0">
+                  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,80">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatClicked"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Width="516" />
@@ -42,15 +49,13 @@
                         <Label Content="Naam: " FontWeight="Bold" Margin="0,20,0,0" />
                         <Label Content="Type: " FontWeight="Bold" Margin="0,40,0,0" />
                         <Label Content="Status: " FontWeight="Bold" Margin="0,60,0,0" />
-
                         <Label Content="{Binding Name}" Margin="60,20,0,0" />
                         <Label Content="{Binding BoatType}" Margin="60,40,0,0" />
                         <Label Content="{Binding Status}" Margin="60,60,0,0" />
-
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <Button Content="Nieuwe boot" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom" Height="20" Width="120" Click="CreateBoatButtonClicked"/> 
     </Grid>
 </Page>

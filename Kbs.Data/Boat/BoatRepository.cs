@@ -26,4 +26,16 @@ public class BoatRepository : IBoatRepository
     {
         return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE LOWER(Name) LIKE @name AND BoatTypeId = @boatTypeId", new { name = $"%{name.ToLower()}%", boatTypeId }).ToList();
     }
+
+    public BoatEntity GetById(int boatId)
+    {
+        return _connection.QueryFirstOrDefault<BoatEntity>("SELECT * FROM Boat WHERE BoatId = @boatId", new { boatId });
+    }
+    
+    public void Create(BoatEntity boat)
+    {
+        boat.BoatId = _connection.QueryFirst<int>(
+            "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 1); SELECT SCOPE_IDENTITY()",
+            boat);
+    }
 }

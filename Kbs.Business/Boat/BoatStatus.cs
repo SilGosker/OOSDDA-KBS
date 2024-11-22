@@ -2,7 +2,7 @@
 
 public enum BoatStatus
 {
-    Operational,
-    Maintaining,
-    Broken
+    Operational = 1,
+    Maintaining = 2,
+    Broken = 3
 }

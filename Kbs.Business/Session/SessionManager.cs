@@ -1,6 +1,5 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.User;
-using System.Threading;
 
 namespace Kbs.Business.Session;
 
@@ -77,5 +76,23 @@ public class SessionManager
         _cancellationTokenSource.Cancel();
         _cancellationTokenSource = new();
         Current = null;
+    }
+
+    public void UpdateSessionUser(string newMail, string newPassword)
+    {
+        UserEntity sessionUser = Current.User;
+        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
+        if (newUser.Email != null && !newMail.Equals(sessionUser.Email))
+        {
+            sessionUser.Email = newUser.Email;
+        }
+        if (newPassword != null)
+        {
+            newUser.Encrypt();
+            if (!newPassword.Equals(sessionUser.Password))
+            {
+                sessionUser.Password = newUser.Password;
+            }
+        }
     }
 }

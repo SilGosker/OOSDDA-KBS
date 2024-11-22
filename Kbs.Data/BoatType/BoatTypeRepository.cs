@@ -7,6 +7,7 @@ namespace Kbs.Data.BoatType;
 public class BoatTypeRepository : IBoatTypeRepository
 {
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
+
     public List<BoatTypeEntity> GetAll()
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
@@ -23,10 +24,11 @@ public class BoatTypeRepository : IBoatTypeRepository
 
         return _connection.Query<BoatTypeEntity>(query, new { ReservationID = reservationID }).FirstOrDefault();
     }
-    
+
     public BoatTypeEntity GetById(int boatTypeId)
     {
-        return _connection.QueryFirstOrDefault<BoatTypeEntity>("SELECT * FROM Boattype WHERE BoattypeID = @boatTypeId", new { boatTypeId });
+        return _connection.QueryFirstOrDefault<BoatTypeEntity>("SELECT * FROM Boattype WHERE BoattypeID = @boatTypeId",
+            new { boatTypeId });
     }
 
     public void Create(BoatTypeEntity boatType)
@@ -34,5 +36,12 @@ public class BoatTypeRepository : IBoatTypeRepository
         boatType.BoatTypeId = _connection.Execute(
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
+    }
+
+    public List<BoatTypeEntity> GetAllWithBoats()
+    {
+        return _connection
+            .Query<BoatTypeEntity>(@"SELECT * FROM Boattype WHERE BoattypeID IN (SELECT BoatTypeId FROM Boat WHERE Status = 0)")
+            .ToList();
     }
 }

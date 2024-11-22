@@ -1,0 +1,66 @@
+﻿<Page x:Class="Kbs.Wpf.Reservation.MakeReservation.SelectBoatType.SelectBoatTypePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Kbs.Wpf.Reservation.MakeReservation.SelectBoatType"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="620"
+      Background="White"
+      Title="MakeReservation">
+    <Page.DataContext>
+        <local:SelectBoatTypeViewModel />
+    </Page.DataContext>
+
+    <Grid>
+
+        <TextBlock Text="Reserveren boot" VerticalAlignment="Top" Height="50" FontSize="30"
+                   HorizontalAlignment="Center" Margin="0,40,0,0" />
+
+        <ListView
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+            ItemsSource="{Binding Items}"
+            d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,95,0,0" Width="600" Height="325">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatTypeSelected"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="580" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="60" BorderBrush="Black" BorderThickness="1" Width="280">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="20" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3" FontWeight="Bold" Content="{Binding Name}"/>
+                            <Label Grid.Column="0" Grid.Row="1" Content="{Binding Experience}"/>
+                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Seats}"/>
+                            <CheckBox IsEnabled="False" Grid.Column="2" Grid.Row="1" Content="Stuur" IsChecked="{Binding HasSteeringWheel}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+    </Grid>
+</Page>

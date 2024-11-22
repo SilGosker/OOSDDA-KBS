@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbs.Business", "Kbs.Busines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbs.Data", "Kbs.Data\Kbs.Data.csproj", "{6A7C83E0-B9A9-4D6C-AB3F-FC52A8ED12F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kbs.Business.Tests", "Kbs.Business.Tests\Kbs.Business.Tests.csproj", "{81401AF3-7407-4104-9005-29B393EA1D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbs.Business.Tests", "Kbs.Business.Tests\Kbs.Business.Tests.csproj", "{81401AF3-7407-4104-9005-29B393EA1D18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

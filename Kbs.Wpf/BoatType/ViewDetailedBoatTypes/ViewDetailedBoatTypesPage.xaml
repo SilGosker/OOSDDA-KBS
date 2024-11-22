@@ -12,25 +12,26 @@
     </Page.DataContext>
     <Grid>
         <Canvas>
-            <TextBlock Text="Boottype #" FontSize="40" FontWeight="Bold" Canvas.Left="30" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Top" Width="339"/>
-            <Button Content="Verwijderen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="84" Click="RemoveBoatType" Canvas.Left="358" Canvas.Top="47" />
+            <Button Content="Verwijderen" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Click="RemoveBoatType" Canvas.Left="400" Canvas.Top="47" />
             <Grid>
 
                 <Border BorderBrush="Black" BorderThickness="1" Height="00" Width="215" />
-                <TextBlock Text="ID: " FontWeight="Bold" Margin="30,106,-30,-86" />
-                <TextBlock Text="{Binding BoatTypeId}" Margin="136,106,-76,-86" />
-                <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,-30,-129" />
-                <TextBlock Text="{Binding Speed}" Margin="136,152,-76,-132" />
-                <TextBlock Text="Zitplaatsen: " FontWeight="Bold" Margin="30,189,-30,-169" />
-                <TextBlock Text="{Binding Seats}" Margin="137,192,-76,-172" />
-                <TextBlock Text="Ervaring: " FontWeight="Bold" Margin="30,224,-30,-204" />
-                <TextBlock Text="{Binding Experience}" Margin="137,227,-77,-207" />
-                <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,-30,-238" />
-                <TextBlock Text="{Binding HasWheel}" Margin="138,258,-77,-238" />
+                <TextBlock Text="Boottype " FontSize="40" FontWeight="Bold" Canvas.Left="29" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center" Width="185"/>
+                <TextBlock Text="{Binding Name}" Margin="190,35,69,19" FontSize="35" />
+                <TextBlock Text="ID: " FontWeight="Bold" Margin="30,106,289,-56" />
+                <TextBlock Text="{Binding BoatTypeId}" Margin="138,107,216,-52" />
+                <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,265,-102" />
+                <TextBlock Text="{Binding Speed}" Margin="136,152,171,-85" />
+                <TextBlock Text="Zitplaatsen: " FontWeight="Bold" Margin="30,189,278,-126" />
+                <TextBlock Text="{Binding Seats}" Margin="137,192,171,-116" />
+                <TextBlock Text="Ervaring: " FontWeight="Bold" Margin="30,224,265,-161" />
+                <TextBlock Text="{Binding Experience}" Margin="137,227,180,-161" />
+                <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,252,-202" />
+                <TextBlock Text="{Binding HasWheel}" Margin="138,258,193,-202" />
             </Grid>
-            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="159" ItemsSource="{Binding Items}"
+            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="160" ItemsSource="{Binding Items}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            VerticalAlignment="Center" HorizontalAlignment="Left" Height="292" Canvas.Left="283" Canvas.Top="102">
+            VerticalAlignment="Top" HorizontalAlignment="Left" Height="292" Canvas.Left="320" Canvas.Top="100">
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="80" Header="Naam"  Binding="{Binding BoatName}"/>
                     <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />

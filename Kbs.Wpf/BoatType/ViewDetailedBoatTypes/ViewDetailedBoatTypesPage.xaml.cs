@@ -37,6 +37,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             ViewModel.Experience = boatType.Experience;
             ViewModel.HasWheel = boatType.hasWheel;
             ViewModel.Seats = (int)boatType.Seats;
+            ViewModel.Name = boatType.Name;
         }
         public ViewDetailedBoatTypesPage()
         {

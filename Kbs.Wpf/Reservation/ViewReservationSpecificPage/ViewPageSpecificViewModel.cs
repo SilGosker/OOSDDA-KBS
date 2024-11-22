@@ -6,7 +6,7 @@ namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 
 public class ViewPageSpecificViewModel : ViewModel
 {
-    private int _niveau;
+    private string _experience;
     private string _seats;
     private bool _hasSteeringWheel;
     private DateTime _startTime;
@@ -14,10 +14,10 @@ public class ViewPageSpecificViewModel : ViewModel
     private int _reservationID;
     private string _status = ((ReservationStatus)0).ToDutchString();
 
-    public int Niveau
+    public string Experience
     {
-        get => _niveau;
-        set => SetField(ref _niveau, value);
+        get => _experience;
+        set => SetField(ref _experience, value);
     }
     public string Seats
     {
@@ -61,8 +61,13 @@ public class ViewPageSpecificViewModel : ViewModel
     public TimeSpan Length
     {
         get => _length;
-        set => SetField(ref _length, value);
+        set
+        {
+            SetField(ref _length, value);
+            OnPropertyChanged(nameof(LengthFormatted));
+        }
     }
+    public string LengthFormatted => Length.ToString(@"hh\:mm");
     public int ReservationID
     {
         get => _reservationID;

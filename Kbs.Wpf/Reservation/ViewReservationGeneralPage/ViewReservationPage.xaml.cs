@@ -37,6 +37,6 @@ public partial class ViewReservationPage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var item = (ViewReservationViewModel)listViewItem.DataContext;
-        _navigationManager.Navigate(() => new ViewPageSpecific(item.ReservationID));
+        _navigationManager.Navigate(() => new ViewPageSpecific(item.ReservationID, _navigationManager));
     }
 }

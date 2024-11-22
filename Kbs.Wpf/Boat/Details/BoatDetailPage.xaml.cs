@@ -48,6 +48,6 @@ public partial class BoatDetailPage : Page
 
         var dataContext = (BoatDetailReservationViewModel)row.DataContext;
 
-        _navigationManager.Navigate(() => new ViewPageSpecific(dataContext.ReservationId));
+        _navigationManager.Navigate(() => new ViewPageSpecific(dataContext.ReservationId, _navigationManager));
     }
 }

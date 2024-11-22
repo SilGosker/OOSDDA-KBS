@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 
 namespace Kbs.Wpf.User.Update;
 
@@ -79,7 +80,7 @@ public partial class AccountView : Page
     }
     private void Cancel(object sender, RoutedEventArgs e)
     {
-        _navigationManager.Navigate(() => new AccountView(_navigationManager));
+        _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
     }
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {

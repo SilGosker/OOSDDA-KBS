@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
@@ -45,7 +46,19 @@ namespace Kbs.Data.Reservation
         public List<ReservationEntity> GetByBoatIDAndDay(BoatEntity boat, DateTime day)
             {
 
-            return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatID AND StartTime Like @day  ORDER BY StartTime", new { day = $"%"+ day.Year + "-" + day.Month+"-"+ day.Day +"%", boat.BoatID }).ToList();
+            return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatID AND StartTime Like @day AND Status = 3  ORDER BY StartTime", new { day = $"%"+ day.Year + "-" + day.Month+"-"+ day.Day +"%", boat.BoatID }).ToList();
             }
+
+        public List<BoatEntity> GetAvailableBoatsByType(int boatTypeId)
+            {
+            return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatTypeId = @boatTypeId AND Status = 0", new { boatTypeId }).ToList();
+            }
+
+        public List<BoatTypeEntity> GetAllTypesWithBoats()
+            {
+            return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype  WHERE BoattypeID IN (SELECT max(BoattypeID) FROM Boat WHERE Status = 0 GROUP BY BoattypeID)").ToList();
+            }
+
+
         }
 }

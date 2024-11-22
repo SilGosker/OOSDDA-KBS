@@ -14,16 +14,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock Text="Reserveren boot" Margin="20,26,177,0" VerticalAlignment="Top" Height="50" FontSize="30" RenderTransformOrigin="0.5,0.5" >
-                <TextBlock.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="0.396"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </TextBlock.RenderTransform>
-            </TextBlock>
+            <TextBlock Text="Reserveren boot"  VerticalAlignment="Center" Height="50" FontSize="30" HorizontalAlignment="Center" />
+
         </Grid>
         <Grid Grid.Row="1">
         <ItemsControl

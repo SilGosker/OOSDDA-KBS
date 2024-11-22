@@ -37,8 +37,8 @@ namespace Kbs.Wpf.Reservation.NewFolder
             this.mainWindow = maindWindow;
 
 
-            BoatTypeRepository repo = new BoatTypeRepository();
-            types = repo.GetAll();
+            ReservationRepository repo = new ReservationRepository();
+            types = repo.GetAllTypesWithBoats();
 
             foreach (BoatTypeEntity type in types)
                 {
@@ -46,15 +46,16 @@ namespace Kbs.Wpf.Reservation.NewFolder
                 Button button = new Button()
                     {
 
-                    //Width = 220,
+                    Width = 550,
                     //Height = 120,
                     Margin = new Thickness(10),
                     Tag = type,
-                    Background = Brushes.Red,
+                    Background = Brushes.Gray,
                     BorderBrush = Brushes.Black,
                     BorderThickness = new Thickness(5),
                     FontSize = 35,
-                    Content = type.Name+"\n Snelheid: " + type.Speed + " Niveau: " + type.RequiredExperience + "\n Zitplaatsen: " + type.Seats + " Stuur: " + type.HasSteeringWheel
+                    Foreground = Brushes.White,
+                    Content = "\t" + type.Name+"\nSnelheid: " + type.Speed + " Niveau: " + type.RequiredExperience + "\nZitplaatsen: " + type.Seats + " Stuur: " + type.HasSteeringWheel
                     };
                 button.Tag = type;
                 button.Click += Button_Click;

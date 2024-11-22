@@ -12,7 +12,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
     public class ViewDetailedBoatTypesBoatViewModel : ViewModel
     {
-        private string _boatName;
+        private string _name;
         private int _boatTypeId;
         private int _speed;
         private int _experience;
@@ -21,10 +21,10 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         private string _boatTypeName;
         private int _status;
         
-        public string BoatName
+        public string Name
         {
-            get => _boatName;
-            set => SetField(ref _boatName, value);
+            get => _name;
+            set => SetField(ref _name, value);
         }
         public int BoatTypeId
         {

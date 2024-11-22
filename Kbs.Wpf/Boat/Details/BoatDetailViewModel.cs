@@ -10,6 +10,8 @@ public class BoatDetailViewModel : ViewModel
     private string _status;
     private string _boatTypeName;
     private DateTime? _deleteRequestDate;
+    private string _requestButtonText;
+    private string _waitMessage;
     public ObservableCollection<BoatDetailReservationViewModel> Reservations { get; } = new();
     public int BoatId
     {
@@ -36,5 +38,19 @@ public class BoatDetailViewModel : ViewModel
     {
         get => _deleteRequestDate;
         set => SetField(ref _deleteRequestDate, value);
+    }
+    public string RequestButtonText
+    {
+        get => _requestButtonText;
+        set => SetField(ref _requestButtonText, value);
+    }
+    public string WaitMessage
+    {
+        get => _waitMessage;
+        set => SetField(ref _waitMessage, value);
+    }
+    public int GetTimeRemaining(int targetDuration)
+    {
+        return (int)(targetDuration - (DateTime.Now - _deleteRequestDate).Value.TotalSeconds); // Change TotalDays to TotalSeconds only for testing purposes
     }
 }

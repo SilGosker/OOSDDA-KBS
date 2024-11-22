@@ -34,13 +34,13 @@ public class BoatRepository : IBoatRepository
         return _connection.QueryFirstOrDefault<BoatEntity>("SELECT * FROM Boat WHERE BoatId = @boatId", new { boatId });
     }
 
-    public void UpdateDeleteRequestDate(int boatId, DateTime? requestDate)
+    public void UpdateDeleteRequestDate(int boatId, DateTime? requestDate, BoatStatus status)
     {
-        _connection.Execute("UPDATE Boat SET DeleteRequestDate = @DeleteRequestDate WHERE BoatId = @boatId", new { boatId, requestDate });
+        _connection.Execute("UPDATE Boat SET DeleteRequestDate = @requestDate, Status = @status WHERE BoatId = @boatId", new { boatId, requestDate, status });
     }
 
     public void DeleteById(int boatId)
     {
-        _connection.Execute("DELETE WHERE BoatId = @boatId", new { boatId });
+        _connection.Execute("DELETE FROM Boat WHERE BoatId = @boatId", new { boatId });
     }
 }

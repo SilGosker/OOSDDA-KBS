@@ -29,6 +29,10 @@
         <Label Content="{Binding Name}" Margin="67,112,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding BoatTypeName}" Margin="67,135,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <TextBlock Text="{Binding WaitMessage}" Margin="15,185,0,0" Height="30" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Red" FontSize="10" TextWrapping="WrapWithOverflow"/>
+        
+        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top"/>
+        <Button Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Left" Margin="15,245,0,0" VerticalAlignment="Top" />
 
         <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -47,8 +51,6 @@
                 <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Ter verwijdering opstellen" Click="RequestDeletion" HorizontalAlignment="Center" Margin="-450,205,0,0" VerticalAlignment="Top"/>
-        <Button Name="PermanentDeletionButton" Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Center" Margin="-465,235,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
 
     </Grid>
 </Page>

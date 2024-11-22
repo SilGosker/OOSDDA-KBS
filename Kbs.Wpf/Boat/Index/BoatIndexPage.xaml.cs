@@ -1,3 +1,4 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
@@ -6,6 +7,7 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.Attributes;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Details;
 
 namespace Kbs.Wpf.Boat.Index;
@@ -13,10 +15,10 @@ namespace Kbs.Wpf.Boat.Index;
 [HasRole(Role.MaterialCommissioner)]
 public partial class BoatIndexPage : Page
 {
-    private readonly IBoatRepository _boatRepository = new BoatRepository();
-    private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
-    public BoatIndexViewModel ViewModel => (BoatIndexViewModel)DataContext;
+    private readonly BoatRepository _boatRepository = new();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
+    private BoatIndexViewModel ViewModel => (BoatIndexViewModel)DataContext;
     public BoatIndexPage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -84,5 +86,10 @@ public partial class BoatIndexPage : Page
     {
         var item = (BoatIndexBoatViewModel)((ListViewItem)sender).DataContext;
         _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, item.BoatId));
+    }
+    
+    private void CreateBoatButtonClicked(object sender, RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new CreateBoatPage(_navigationManager));
     }
 }

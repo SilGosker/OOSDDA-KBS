@@ -9,4 +9,5 @@ public interface IBoatRepository
     BoatEntity GetById(int boatId);
     void UpdateDeleteRequestDate(int boatId, DateTime? requestDate, BoatStatus status);
     void DeleteById(int boatId);
+    void Create(BoatEntity boat);
 }

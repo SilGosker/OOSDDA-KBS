@@ -5,6 +5,7 @@ using Kbs.Business.Boat;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
+using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Attributes;
@@ -16,21 +17,22 @@ namespace Kbs.Wpf.Boat.Details;
 [HasRole(Role.MaterialCommissioner)]
 public partial class BoatDetailPage : Page
 {
-    private readonly IBoatRepository _boatRepository = new BoatRepository();
-    private readonly IUserRepository _userRepository = new UserRepository();
-    private readonly IReservationRepository _registrationRepository = new ReservationRepository();
-    public BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
+    private readonly BoatRepository _boatRepository = new();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
+    private readonly UserRepository _userRepository = new();
+    private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
     private const int _daysForDeletion = 30;
+    private BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
     public BoatDetailPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
-        ViewModel.BoatId = boat.BoatID;
+        ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
-        ViewModel.BoatTypeName = "Onbekend";
+        ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
         ViewModel.DeleteRequestDate = (boat.DeleteRequestDate.Equals(DateTime.MinValue))? null : boat.DeleteRequestDate;
         string waitMessage = "";
         string requestButtonText = "Ter verwijdering opstellen";
@@ -50,7 +52,7 @@ public partial class BoatDetailPage : Page
         ViewModel.WaitMessage = waitMessage;
         ViewModel.RequestButtonText = requestButtonText;
 
-        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatID))
+        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new BoatDetailReservationViewModel(reservation, user));
@@ -67,7 +69,7 @@ public partial class BoatDetailPage : Page
 
         var dataContext = (BoatDetailReservationViewModel)row.DataContext;
 
-        _navigationManager.Navigate(() => new ViewPageSpecific(dataContext.ReservationId));
+        _navigationManager.Navigate(() => new ViewPageSpecific(dataContext.ReservationId, _navigationManager));
     }
 
     private void RequestDeletion(object sender, RoutedEventArgs e)

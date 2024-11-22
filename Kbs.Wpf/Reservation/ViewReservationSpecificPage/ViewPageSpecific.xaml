@@ -14,37 +14,39 @@
     <Grid>
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
-            <TextBlock Text="{Binding ReservationID}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="18"/>
-            <TextBlock Text="{Binding Status}" Foreground="{Binding StatusColor}" Canvas.Left="507" Canvas.Top="43" Height="24" Width="96" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="100">
-                <TextBlock Text="Zitplaatsen:" Width="71"/>
-                <TextBlock Text="{Binding Seats}" FontSize="14" Width="95" />
-                <TextBlock Text="Stuur:" Width="100">
-                    <TextBlock.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="0.508"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </TextBlock.RenderTransform>
-                </TextBlock>
-                <TextBlock Text="{Binding HasSteeringWheel}" FontSize="14" Width="93" />
-                <TextBlock Text="Niveau:" Width="98"/>
-                <TextBlock Text="{Binding Niveau}" FontSize="14" Width="239" />
+            <TextBlock Text="{Binding ReservationID}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <Grid Canvas.Left="20" Canvas.Top="100" HorizontalAlignment="Left" VerticalAlignment="Center" Width="578">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MaxWidth="80" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="25" />
+                    <RowDefinition MinHeight="25" />
+                </Grid.RowDefinitions>
+                <TextBlock FontWeight="Bold" Text="Zitplaatsen:"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Seats}" />
+                <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold" Text="Stuur:" />
+                <CheckBox Grid.Row="0" Grid.Column="3" IsEnabled="False" Content="Stuur" IsChecked="{Binding HasSteeringWheel}" />
+                <TextBlock Grid.Row="0" Grid.Column="4" FontWeight="Bold" Text="Niveau:" />
+                <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding Experience}" />
 
-            </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="0"  FontWeight="Bold" Text="Tijdstip:" />
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding StartTimeFormatted}" />
 
-            <StackPanel Orientation="Horizontal" Canvas.Left="20" Canvas.Top="140" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="Tijdstip:" Margin="0,0,10,0" Width="62"/>
-                <TextBlock Text="{Binding StartTimeFormatted}" FontSize="14" Width="193" Height="18" />
+                <TextBlock Grid.Row="1" Grid.Column="2" FontWeight="Bold" Text="Tijdsduur:"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding LengthFormatted}" />
 
-                <TextBlock Text="Tijdsduur:" Width="93" Height="16"/>
-                <TextBlock Text="{Binding Length}" FontSize="14" Width="92" />
-            </StackPanel>
+                <TextBlock Grid.Row="1" Grid.Column="4" FontWeight="Bold" Text="Status:"/>
+                <TextBlock  Grid.Row="1" Grid.Column="5" Text="{Binding Status}" Foreground="{Binding StatusColor}"/>
+            </Grid>
 
-            <Button Content="Type boot" Width="100" Canvas.Left="137" Canvas.Top="376"/>
-            <Button Content="Verwijderen" Width="100" Canvas.Left="507" Click="Annuleren" Canvas.Top="371" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button Content="Type boot" Width="100" Canvas.Left="441" Canvas.Top="33"/>
+            <Button Content="Verwijderen" Width="100" Canvas.Left="301" Click="Delete" Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </Page>

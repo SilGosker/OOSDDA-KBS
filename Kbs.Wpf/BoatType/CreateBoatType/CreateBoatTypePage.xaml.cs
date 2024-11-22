@@ -11,7 +11,7 @@ namespace Kbs.Wpf.BoatType.CreateBoatType;
 public partial class CreateBoatTypePage : Page
 {
     private CreateBoatTypeViewModel ViewModel => (CreateBoatTypeViewModel)DataContext;
-    private readonly IBoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
     public CreateBoatTypePage(INavigationManager navigationManager)
     {
@@ -39,10 +39,10 @@ public partial class CreateBoatTypePage : Page
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
-        var experience = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (experience == null) return;
+        var seats = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
+        if (seats == null) return;
 
-        ViewModel.Seats = experience.BoatTypeSeats;
+        ViewModel.Seats = seats.BoatTypeSeats;
 
     }
 

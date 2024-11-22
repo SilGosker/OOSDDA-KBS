@@ -43,4 +43,11 @@ public class BoatRepository : IBoatRepository
     {
         _connection.Execute("DELETE FROM Boat WHERE BoatId = @boatId", new { boatId });
     }
+    
+    public void Create(BoatEntity boat)
+    {
+        boat.BoatId = _connection.QueryFirst<int>(
+            "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 1); SELECT SCOPE_IDENTITY()",
+            boat);
+    }
 }

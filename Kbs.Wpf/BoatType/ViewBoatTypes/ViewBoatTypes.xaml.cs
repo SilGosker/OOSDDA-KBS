@@ -1,43 +1,28 @@
 ﻿using Kbs.Business.BoatType;
-using Kbs.Business.Reservation;
-using Kbs.Business.Session;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.BoatType.CreateBoatType;
+using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Kbs.Wpf.BoatType.DetailedPage
+namespace Kbs.Wpf.BoatType.ViewBoatTypes
 {
-    /// <summary>
-    /// Interaction logic for DetailedPage.xaml
-    /// </summary>
-    public partial class DetailedPage : Page
+    public partial class ViewBoatTypesPage : Page
     {
         private readonly INavigationManager _navigationManager;
         private ViewBoatTypesViewModel ViewModel => (ViewBoatTypesViewModel)DataContext;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
-        public DetailedPage(INavigationManager navigationManager)
+        public ViewBoatTypesPage(INavigationManager navigationManager)
         {
             _navigationManager = navigationManager;
             InitializeComponent();
             foreach (var boatType in _boatTypeRepository.GetName())
             {
-                ViewModel.Items.Add(new BoatIndexBoatTypeViewModel(boatType));
+                ViewModel.Items.Add(new ViewBoatTypeBoatTypeViewModel(boatType));
             }
         }
         private void RemoveBoatType(object sender, RoutedEventArgs e)
@@ -52,9 +37,14 @@ namespace Kbs.Wpf.BoatType.DetailedPage
         }
         private void BoatTypeSelected(object sender, RoutedEventArgs e)
         {
-            ListViewItem item = (ListViewItem)sender;
-            BoatIndexBoatTypeViewModel context = (BoatIndexBoatTypeViewModel)item.DataContext;
-            ViewModel.BoatTypeID = context.Id;
+            var listViewItem = (ListViewItem)sender;
+            var item = (ViewBoatTypeBoatTypeViewModel)listViewItem.DataContext;
+            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(item.BoatTypeID));
+        }
+
+        private void AddBoatType(object sender, RoutedEventArgs e)
+        {
+            _navigationManager.Navigate(() => new CreateBoatTypePage(_navigationManager));
         }
     }
 }

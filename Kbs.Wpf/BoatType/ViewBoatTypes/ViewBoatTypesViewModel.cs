@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kbs.Business.BoatType;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
-using Kbs.Wpf.Boat.Index;
-using Kbs.Business.Helpers;
 
-
-namespace Kbs.Wpf.BoatType.DetailedPage
+namespace Kbs.Wpf.BoatType.ViewBoatTypes
 {
     public class ViewBoatTypesViewModel : ViewModel
     {
         
+        // TODO: remove wanneer verwijderen verplaatst wordt.
         public int _boatTypeID;
         public int BoatTypeID
         {
             get => _boatTypeID;
             set => SetField(ref _boatTypeID, value);
         }         
-        public ObservableCollection<BoatIndexBoatTypeViewModel> Items { get; } = new();
+        public ObservableCollection<ViewBoatTypeBoatTypeViewModel> Items { get; } = new();
     }
 }

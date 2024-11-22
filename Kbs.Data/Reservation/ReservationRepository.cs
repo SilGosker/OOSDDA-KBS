@@ -1,6 +1,5 @@
 using Dapper;
 using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
@@ -10,12 +9,13 @@ public class ReservationRepository : IReservationRepository, IDisposable
 {
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
 
-
     public void Create(ReservationEntity res)
     {
         res.ReservationId =
-            _connection.Execute(
-                "INSERT INTO Reservation (ReservationID, UserID, BoatID, StartTime, Length, Status) VALUES (@Email, @Reservation, @UserID @BoatID, @StartTime, @Length, @Status); SELECT SCOPE_IDENTITY()",
+            _connection.QueryFirst<int>(
+                @"INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status)
+                    VALUES (@UserID, @BoatID, @StartTime, @Length, @Status);
+                    SELECT SCOPE_IDENTITY()",
                 res);
     }
 
@@ -44,16 +44,22 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day)
     {
-        string date = day.ToString("yyyy-MM-dd");
         return _connection.Query<ReservationEntity>(
             "SELECT ReservationID, UserID, BoatID, StartTime, Length, Status FROM Reservation WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) = @day AND Status = 3  ORDER BY StartTime",
-            new { day = date, boat.BoatId }).ToList();
+            new { day = day, boat.BoatId }).ToList();
     }
 
     public List<ReservationEntity> GetByUserId(int userId)
     {
         return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE UserID = @userId", new { userId })
             .ToList();
+    }
+
+    public ReservationEntity GetNearestReservation(BoatEntity boat, DateTime timeStartTime)
+    {
+        return _connection.Query<ReservationEntity>(
+            "SELECT TOP 1 * FROM Reservation WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) = @Date AND StartTime > @timeStartTime ORDER BY StartTime",
+            new { boat.BoatId, timeStartTime, timeStartTime.Date }).FirstOrDefault();
     }
 
     public ReservationEntity GetById(int id)

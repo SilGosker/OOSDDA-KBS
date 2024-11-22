@@ -40,7 +40,7 @@ public partial class SelectTimePage : Page
                      _morning,
                      _evening))
         {
-            ViewModel.PossibleTimes.Add(new SelectTimePossibleTimeViewModel(reservationTime));
+            ViewModel.PossibleTimes.Add(new SelectTimePossibleTimeViewModel(reservationTime, TimeSelected));
         }
 
         UpdateCalendar();
@@ -56,7 +56,7 @@ public partial class SelectTimePage : Page
             var times = _reservationTimeFactory.GetPossibleReservationTimes(_morning, _evening, dateTime, ViewModel.SelectedBoatId);
             foreach (ReservationTime time in times)
             {
-                dayViewModel.Times.Add(new SelectTimePossibleTimeViewModel(time));
+                dayViewModel.Times.Add(new SelectTimePossibleTimeViewModel(time, TimeSelected));
             }
             ViewModel.CurrentWeek.Add(dayViewModel);
         }
@@ -68,5 +68,10 @@ public partial class SelectTimePage : Page
         SelectTimeBoatViewModel selectedBoat = (SelectTimeBoatViewModel)comboBox.SelectedItem;
         ViewModel.SelectedBoatId = selectedBoat.BoatId;
         UpdateCalendar();
+    }
+
+    private void TimeSelected(SelectTimePossibleTimeViewModel selectedTime)
+    {
+        _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, ViewModel.SelectedBoatId, selectedTime.ReservationTime));
     }
 }

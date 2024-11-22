@@ -22,7 +22,7 @@
                   Canvas.Top="18" Height="40" />
 
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Canvas.Left="10"
-                      Canvas.Top="80" HorizontalAlignment="Left" VerticalAlignment="Center">
+                      Canvas.Top="80" MaxHeight="720" HorizontalAlignment="Left" VerticalAlignment="Center">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MinWidth="150" />
@@ -112,6 +112,8 @@
                                                         VerticalContentAlignment="Center"
                                                         HorizontalContentAlignment="Center"
                                                         FontSize="24"
+                                                        Command="{Binding Command}"
+                                                        CommandParameter="{Binding}"
                                                         Content="{Binding Path=FormattedTime}" />
                                             </Border>
                                         </DataTemplate>

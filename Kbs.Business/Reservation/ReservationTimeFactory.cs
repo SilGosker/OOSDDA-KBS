@@ -7,16 +7,43 @@ public class ReservationTimeFactory
     private readonly IReservationRepository _reservationRepository;
     private readonly IBoatRepository _boatRepository;
     private readonly TimeSpan _interval;
-
-    public ReservationTimeFactory(IReservationRepository reservationRepository, IBoatRepository boatRepository) : this(reservationRepository, boatRepository, new TimeSpan(0, 30, 0))
+    public ReservationTimeFactory(IReservationRepository reservationRepository, IBoatRepository boatRepository)
+        : this(reservationRepository, boatRepository, TimeSpan.FromMinutes(30))
     {
 
     }
+
     public ReservationTimeFactory(IReservationRepository reservationRepository, IBoatRepository boatRepository, TimeSpan interval)
     {
         _reservationRepository = reservationRepository;
         _boatRepository = boatRepository;
         _interval = interval;
+    }
+
+    public List<TimeSpan> GetPossibleReservationTimes(ReservationTime time, int boatId)
+    {
+        var boat = _boatRepository.GetById(boatId);
+        var nearestReservation = _reservationRepository.GetNearestReservation(boat, time.StartTime);
+        var maxEnd = time.StartTime.AddHours(2).TimeOfDay;
+        
+        if (nearestReservation != null)
+        {
+            maxEnd = nearestReservation.StartTime.TimeOfDay < maxEnd
+                ? nearestReservation.StartTime.TimeOfDay
+                : maxEnd;
+        }
+
+        var start = _interval;
+        var end = maxEnd - time.StartTime.TimeOfDay;
+        List<TimeSpan> reservationTimes = new();
+
+        while (start <= end)
+        {
+            reservationTimes.Add(start);
+            start += _interval;
+        }
+
+        return reservationTimes;
     }
 
     public List<ReservationTime> GetPossibleReservationTimes(DateTime date, TimeSpan start, TimeSpan end)
@@ -64,11 +91,12 @@ public class ReservationTimeFactory
 
         foreach (ReservationEntity reservation in reservations)
         {
-            foreach (ReservationTime possibleReservationTime in GetPossibleReservationTimes(date,
-                         reservation.StartTime.TimeOfDay, reservation.EndTime.TimeOfDay))
+            foreach (ReservationTime possibleReservationTime in GetPossibleReservationTimes(date, reservation.StartTime.TimeOfDay, reservation.EndTime.TimeOfDay))
             {
                 var reservationTime = reservationTimes.Single(e =>
-                    e.StartTime == possibleReservationTime.StartTime && e.EndTime == possibleReservationTime.EndTime);
+                    e.StartTime == possibleReservationTime.StartTime
+                    && e.EndTime == possibleReservationTime.EndTime);
+
                 reservationTime.CanBeReserved = false;
             }
 

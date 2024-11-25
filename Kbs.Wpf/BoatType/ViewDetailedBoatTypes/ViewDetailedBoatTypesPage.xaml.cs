@@ -2,6 +2,7 @@
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.BoatType.CreateBoatType;
+using Kbs.Wpf.BoatType.UpdateBoatType;
 using Kbs.Wpf.BoatType.ViewBoatTypes;
 using Kbs.Wpf.Components;
 using System;
@@ -66,7 +67,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         }
         private void Wijzigen(object sender, RoutedEventArgs e)
         {
-            _navigationManager.Navigate(() => new CreateBoatTypePage(_navigationManager));
+            _navigationManager.Navigate(() => new UpdateBoatTypePage(_navigationManager));
         }
     }
 }

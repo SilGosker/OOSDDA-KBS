@@ -11,7 +11,14 @@ public class BoatTypeRepository : IBoatTypeRepository
     {
         return _connection.Query<BoatTypeEntity>("SELECT * FROM Boattype").ToList();
     }
-
+    public void Delete(BoatTypeEntity boatType)
+    {
+        ThrowHelper.ThrowIfNull(boatType);
+        _connection.Execute("DELETE FROM Boat WHERE BoatTypeID = @BoatTypeID", boatType);
+        _connection.Execute("DELETE FROM boatType WHERE BoatTypeID = @BoatTypeID", boatType);
+        
+    }
+   
     public BoatTypeEntity GetByReservationId(int reservationID)
     {
         const string query = @"

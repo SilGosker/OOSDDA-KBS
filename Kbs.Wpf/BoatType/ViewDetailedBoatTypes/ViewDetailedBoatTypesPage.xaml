@@ -16,9 +16,10 @@
             <Grid>
 
                 <Border BorderBrush="Black" BorderThickness="1" Height="00" Width="215" />
-                <TextBlock Text="{Binding Name}" Margin="30,28,229,26" FontSize="35" />
-                <TextBlock Text="ID: " FontWeight="Bold" Margin="30,106,289,-56" />
-                <TextBlock Text="{Binding BoatTypeId}" Margin="138,107,216,-52" />
+                <TextBlock Text="Boottype: " FontWeight="Bold" Margin="30,40,290,10" FontSize="20"/>
+                <TextBlock Text="{Binding Name}" Margin="136,101,123,-47" FontSize="20" />
+                <TextBlock FontWeight="Bold" Margin="30,110,291,-59" ><Run Language="en-gb" Text="Naam"/><Run Text=": "/></TextBlock>
+                <TextBlock Text="{Binding BoatTypeId}" Margin="145,42,209,13" FontSize="20" RenderTransformOrigin="0.507,0.577" />
                 <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,265,-102" />
                 <TextBlock Text="{Binding Speed}" Margin="136,152,171,-85" />
                 <TextBlock Text="Zitplaatsen: " FontWeight="Bold" Margin="30,189,278,-126" />
@@ -26,15 +27,50 @@
                 <TextBlock Text="Ervaring: " FontWeight="Bold" Margin="30,224,265,-161" />
                 <TextBlock Text="{Binding Experience}" Margin="137,227,180,-161" />
                 <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,252,-202" />
-                <TextBlock Text="{Binding HasWheel}" Margin="138,258,193,-202" />
+                <TextBlock FontWeight="Bold" Margin="136,258,146,-202">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding HasWheel}" Value="True">
+                                    <Setter Property="Text" Value="Ja" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding HasWheel}" Value="False">
+                                    <Setter Property="Text" Value="Nee" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
             </Grid>
-            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="234" ItemsSource="{Binding Items}"
+            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="238" ItemsSource="{Binding Items}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            VerticalAlignment="Center" HorizontalAlignment="Left" Height="292" Canvas.Left="246" Canvas.Top="100">
+            VerticalAlignment="Center" HorizontalAlignment="Center" Height="292" Canvas.Left="246" Canvas.Top="100">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Width="80" Header="Boottype" Binding="{Binding Name}" />
                     <DataGridTextColumn Width="80" Header="ID"  Binding="{Binding BoatTypeID}"/>
-                    <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
+                    <DataGridTemplateColumn Header="Status" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="0">
+                                                    <Setter Property="Text" Value="Geen data" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="2">
+                                                    <Setter Property="Text" Value="onderhoud" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="3">
+                                                    <Setter Property="Text" Value="N.B." />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Content="Wijzigen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Click="Wijzigen" Canvas.Left="294" Canvas.Top="47" />

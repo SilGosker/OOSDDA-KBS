@@ -50,9 +50,9 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         public bool HasWheel
         {
             get => _hasWheel;
-            set => SetField(ref _hasWheel, value);
+            set => SetField(ref _hasWheel, value); 
         }
-        
-        
+
+
     }
 }

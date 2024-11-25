@@ -109,4 +109,34 @@ public class BoatTypeValidatorTests
         Assert.NotNull(validationResult);
         Assert.Empty(validationResult);
     }
+    
+    [Fact]
+    public void ValidatorForUpdate_ShouldReturnError_WhenSpeedIsZeroOrNegative()
+    {
+        // Arrange
+        var validator = new BoatTypeValidator();
+        var boatType = new BoatTypeEntity { Speed = 0 };
+
+        // Act
+        var result = validator.ValidatorForUpdate(boatType);
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.ContainsKey(nameof(boatType.Speed)));
+        Assert.Equal("Snelheid moet groter zijn dan 0", result[nameof(boatType.Speed)]);
+    }
+
+    [Fact]
+    public void ValidatorForUpdate_ShouldReturnEmptyDictionary_WhenSpeedIsPositive()
+    {
+        // Arrange
+        var validator = new BoatTypeValidator();
+        var boatType = new BoatTypeEntity { Speed = 10 };
+
+        // Act
+        var result = validator.ValidatorForUpdate(boatType);
+
+        // Assert
+        Assert.Empty(result);
+    }
 }

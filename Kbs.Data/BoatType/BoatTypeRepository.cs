@@ -35,4 +35,11 @@ public class BoatTypeRepository : IBoatTypeRepository
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
+
+    public void Update(BoatTypeEntity boatType)
+    {
+        boatType.BoatTypeId = _connection.Execute(
+            "UPDATE Boattype SET Name = @Name, HasSteeringWheel = @HasSteeringWheel, RequiredExperience = @RequiredExperience, Seats = @Seats, Speed = @Speed WHERE BoattypeID = @BoatTypeId",
+            boatType);
+    }
 }

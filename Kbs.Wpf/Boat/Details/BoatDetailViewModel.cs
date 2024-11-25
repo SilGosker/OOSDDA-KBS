@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Kbs.Wpf.Boat.Details;
 
@@ -12,7 +13,13 @@ public class BoatDetailViewModel : ViewModel
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
     private string _waitMessage;
+    private int _boatTypeId;
     public ObservableCollection<BoatDetailReservationViewModel> Reservations { get; } = new();
+    public int BoatTypeId
+    {
+        get { return _boatTypeId; }
+        set => SetField(ref _boatTypeId, value);
+    }
     public int BoatId
     {
         get => _boatId;

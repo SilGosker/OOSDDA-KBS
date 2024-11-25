@@ -29,11 +29,12 @@ public partial class BoatDetailPage : Page
         _navigationManager = navigationManager;
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
+        ViewModel.BoatTypeId = boat.BoatTypeId;
         ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
         ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
-        ViewModel.DeleteRequestDate = (boat.DeleteRequestDate.Equals(DateTime.MinValue))? null : boat.DeleteRequestDate;
+        ViewModel.DeleteRequestDate = (boat.DeleteRequestDate.Equals(null))? null : boat.DeleteRequestDate;
         string waitMessage = "";
         string requestButtonText = "Ter verwijdering opstellen";
         if (ViewModel.DeleteRequestDate != null)
@@ -88,7 +89,9 @@ public partial class BoatDetailPage : Page
         }
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
-        _boatRepository.UpdateDeleteRequestDate(ViewModel.BoatId, ViewModel.DeleteRequestDate, BoatStatus.Maintaining);
+        ViewModel.Status = BoatStatus.Maintaining.ToDutchString();
+        BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = BoatStatus.Maintaining };
+        _boatRepository.Update(newBoatValues);
         _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, ViewModel.BoatId));
     }
 

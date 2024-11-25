@@ -20,7 +20,7 @@ namespace Kbs.Wpf.BoatType.ViewBoatTypes
         {
             _navigationManager = navigationManager;
             InitializeComponent();
-            foreach (var boatType in _boatTypeRepository.GetName())
+            foreach (var boatType in _boatTypeRepository.GetAll())
             {
                 ViewModel.Items.Add(new ViewBoatTypeBoatTypeViewModel(boatType));
             }

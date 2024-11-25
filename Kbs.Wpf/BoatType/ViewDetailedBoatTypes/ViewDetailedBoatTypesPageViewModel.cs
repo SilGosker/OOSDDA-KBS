@@ -21,8 +21,8 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         public ViewDetailedBoatTypesPageViewModel(BoatTypeEntity boattype, List<BoatEntity> boatStatus)
         {
             Name = boattype.Name;
-            BoatTypeID = boattype.BoatTypeID;
-            var matchingBoat = boatStatus.FirstOrDefault(boat => boat.BoatTypeId == boattype.BoatTypeID);
+            BoatTypeID = boattype.BoatTypeId;
+            var matchingBoat = boatStatus.FirstOrDefault(boat => boat.BoatTypeId == boattype.BoatTypeId);
             if (matchingBoat != null)
             {
                 Status = (int)matchingBoat.Status; 

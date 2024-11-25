@@ -36,7 +36,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             InitializeComponent();
             var boatType = _boatTypeRepository.GetByBoatTypeID(boatTypeId);
             ViewModel.Speed = boatType.Speed;
-            ViewModel.BoatTypeId = boatType.BoatTypeID;
+            ViewModel.BoatTypeId = boatType.BoatTypeId;
             ViewModel.Experience = boatType.Experience;
             ViewModel.HasWheel = boatType.hasWheel;
             ViewModel.Seats = (int)boatType.Seats;
@@ -47,7 +47,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             {
                 //ViewModel.BoatTypes.Add(new ViewDetailedBoatTypesBoatViewModel());
                 //ViewModel.Items.Add(new ViewDetailedBoatTypesPageViewModel(boattype, boatStatus));
-                var matchingBoatStatus = boatStatus.Where(boat => boat.BoatTypeId == boattype.BoatTypeID).ToList();
+                var matchingBoatStatus = boatStatus.Where(boat => boat.BoatTypeId == boattype.BoatTypeId).ToList();
                 ViewModel.Items.Add(new ViewDetailedBoatTypesPageViewModel(boattype, matchingBoatStatus));
             }
         }

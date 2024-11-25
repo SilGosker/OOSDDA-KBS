@@ -15,12 +15,12 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         private string _name;
         private int _boatTypeId;
         private int _speed;
-        private int _experience;
-        private int _seats;
+        private string _experience;
+        private string _seats;
         private bool _hasWheel;
         private int _status;
 
-        public ObservableCollection<ViewDetailedBoatTypesPageViewModel> Items { get; } = new ObservableCollection<ViewDetailedBoatTypesPageViewModel>();
+        public ObservableCollection<ViewBoatTypeBoatViewModel> Items { get; } = new ObservableCollection<ViewBoatTypeBoatViewModel>();
 
         public string Name
         {
@@ -37,12 +37,12 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             get => _speed;
             set => SetField(ref _speed, value);
         }
-        public int Experience
+        public string Experience
         {
             get => _experience;
             set => SetField(ref _experience, value);
         }
-        public int Seats
+        public string Seats
         {
             get => _seats; 
             set => SetField(ref _seats, value);
@@ -52,7 +52,6 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             get => _hasWheel;
             set => SetField(ref _hasWheel, value); 
         }
-
-
+        public string HasWheelFormatted => HasWheel ? "Ja" : "Nee";
     }
 }

@@ -11,7 +11,4 @@ public class BoatTypeEntity
     public int Speed { get; set; }
     public BoatTypeSeats Seats { get; set; }
     public bool HasSteeringWheel { get; set; }
-    public int Experience { get; set; }
-    public bool hasWheel {get; set; }
-    public int Status { get; set; }
 }

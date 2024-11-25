@@ -30,7 +30,7 @@ namespace Kbs.Wpf.BoatType.ViewBoatTypes
         {
             var listViewItem = (ListViewItem)sender;
             var item = (ViewBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(item.Id));
+            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(this._navigationManager, item.Id));
         }
 
         private void AddBoatType(object sender, RoutedEventArgs e)

@@ -5,11 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.BoatType.ViewDetailedBoatTypes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      d:Background="White"
       Title="ViewDetailedBoatTypesPage">
     <Page.DataContext>
         <local:ViewDetailedBoatTypesBoatViewModel />
     </Page.DataContext>
+
     <Grid>
         <Canvas>
             <Button Content="Verwijderen" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Click="RemoveBoatType" Canvas.Left="400" Canvas.Top="47" />
@@ -27,50 +30,25 @@
                 <TextBlock Text="Ervaring: " FontWeight="Bold" Margin="30,224,265,-161" />
                 <TextBlock Text="{Binding Experience}" Margin="137,227,180,-161" />
                 <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,252,-202" />
-                <TextBlock FontWeight="Bold" Margin="136,258,146,-202">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding HasWheel}" Value="True">
-                                    <Setter Property="Text" Value="Ja" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding HasWheel}" Value="False">
-                                    <Setter Property="Text" Value="Nee" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
+                <TextBlock Text="{Binding HasWheelFormatted}" FontWeight="Bold" Margin="136,258,146,-202" />
+
             </Grid>
-            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="238" ItemsSource="{Binding Items}"
+            <DataGrid SelectionMode="Single" SelectionUnit="FullRow"
+                      IsReadOnly="True"
+                      AutoGenerateColumns="False"
+                      Width="238"
+                      ItemsSource="{Binding Items}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             VerticalAlignment="Center" HorizontalAlignment="Center" Height="292" Canvas.Left="246" Canvas.Top="100">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="BoatSelected"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Boottype" Binding="{Binding Name}" />
-                    <DataGridTextColumn Width="80" Header="ID"  Binding="{Binding BoatTypeID}"/>
-                    <DataGridTemplateColumn Header="Status" Width="80">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Style>
-                                        <Style TargetType="TextBlock">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Status}" Value="0">
-                                                    <Setter Property="Text" Value="Geen data" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Status}" Value="2">
-                                                    <Setter Property="Text" Value="onderhoud" />
-                                                </DataTrigger>
-                                                <DataTrigger Binding="{Binding Status}" Value="3">
-                                                    <Setter Property="Text" Value="N.B." />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </TextBlock.Style>
-                                </TextBlock>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Width="80" Header="Naam" Binding="{Binding Name}" />
+                    <DataGridTextColumn Width="80" Header="Id"  Binding="{Binding BoatId}"/>
+                    <DataGridTextColumn Width="80" Header="Status"  Binding="{Binding Status}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Button Content="Wijzigen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Click="Wijzigen" Canvas.Left="294" Canvas.Top="47" />

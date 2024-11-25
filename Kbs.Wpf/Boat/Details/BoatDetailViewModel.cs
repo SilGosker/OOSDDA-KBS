@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Kbs.Business.Boat;
 using Kbs.Wpf.Components;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
@@ -12,7 +13,6 @@ public class BoatDetailViewModel : ViewModel
     private string _boatTypeName;
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
-    private string _waitMessage;
     private int _boatTypeId;
     public ObservableCollection<BoatDetailReservationViewModel> Reservations { get; } = new();
     public int BoatTypeId
@@ -44,20 +44,36 @@ public class BoatDetailViewModel : ViewModel
     public DateTime? DeleteRequestDate
     {
         get => _deleteRequestDate;
-        set => SetField(ref _deleteRequestDate, value);
+        set {
+            SetField(ref _deleteRequestDate, value);
+            OnPropertyChanged(nameof(DeleteRequestDateMessage));
+            OnPropertyChanged(nameof(WaitDuration));
+            OnPropertyChanged(nameof(WaitDurationMessage));
+        }
     }
     public string RequestButtonText
     {
         get => _requestButtonText;
         set => SetField(ref _requestButtonText, value);
     }
-    public string WaitMessage
+    public string DeleteRequestDateMessage => _deleteRequestDate != null ?
+        _deleteRequestDate.Value.ToString("dd-MM-yyyy HH:mm")
+        :"";
+    public TimeSpan? WaitDuration
     {
-        get => _waitMessage;
-        set => SetField(ref _waitMessage, value);
+        get
+        {
+            TimeSpan? duration = null;
+            if (DeleteRequestDate != null)
+            {
+                duration = BoatValidator.RequestDeletionTime - (DateTime.Now - DeleteRequestDate);
+                duration = duration > TimeSpan.Zero ? duration : TimeSpan.Zero;
+            }
+            return duration;
+        }
     }
-    public int GetTimeRemaining(int targetDuration)
-    {
-        return (int)(targetDuration - (DateTime.Now - _deleteRequestDate).Value.TotalDays); // Change TotalDays to TotalSeconds only for testing purposes
-    }
+
+    public string WaitDurationMessage => WaitDuration != null ?
+        $"{WaitDuration.Value.Days} dagen,\n{WaitDuration.Value.Hours} uren,\n{WaitDuration.Value.Minutes} minuten"
+        : "";
 }

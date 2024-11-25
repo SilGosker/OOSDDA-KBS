@@ -22,6 +22,6 @@ public class BoatEntityTests
         Assert.Equal(name, boat.Name);
         Assert.Equal(boatTypeId, boat.BoatTypeId);
         Assert.Equal(status, boat.Status);
-        Assert.Equal(DateTime.MinValue, boat.DeleteRequestDate);
+        Assert.Null(boat.DeleteRequestDate);
     }
 }

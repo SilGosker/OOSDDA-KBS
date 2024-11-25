@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Net.Mail;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
@@ -10,6 +11,7 @@ using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 
 namespace Kbs.Wpf.Boat.Details;
@@ -22,7 +24,6 @@ public partial class BoatDetailPage : Page
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
-    private const int _daysForDeletion = 30;
     private BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
     public BoatDetailPage(INavigationManager navigationManager, int boatId)
     {
@@ -34,24 +35,8 @@ public partial class BoatDetailPage : Page
         ViewModel.Name = boat.Name;
         ViewModel.Status = boat.Status.ToDutchString();
         ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
-        ViewModel.DeleteRequestDate = (boat.DeleteRequestDate.Equals(null))? null : boat.DeleteRequestDate;
-        string waitMessage = "";
-        string requestButtonText = "Ter verwijdering opstellen";
-        if (ViewModel.DeleteRequestDate != null)
-        {
-            int timeRemaining = ViewModel.GetTimeRemaining(_daysForDeletion);
-            if (timeRemaining > 0)
-            {
-                waitMessage = $"Nog {timeRemaining} dagen voordat je de boot permanent mag verwijderen.";
-            }
-            else
-            {
-                waitMessage = "Je mag de boot permanent verwijderen.";
-            }
-            requestButtonText = "Annuleer verwijdering aanvraag";
-        }
-        ViewModel.WaitMessage = waitMessage;
-        ViewModel.RequestButtonText = requestButtonText;
+        ViewModel.DeleteRequestDate = boat.DeleteRequestDate;
+        ViewModel.RequestButtonText = (ViewModel.DeleteRequestDate == null)? "Ter verwijdering opstellen" : "Annuleer verwijdering aanvraag";
 
         foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {
@@ -80,7 +65,7 @@ public partial class BoatDetailPage : Page
         if (ViewModel.DeleteRequestDate == null)
         {
             newDeleteRequestDateValue = DateTime.Now;
-            popupMessage = $"Verwijdering is aangevraagd.\nHet duurt {_daysForDeletion} dagen voordat je deze boot permanent mag verwijderen.";
+            popupMessage = $"Verwijdering is aangevraagd.";
         }
         else
         {
@@ -92,6 +77,8 @@ public partial class BoatDetailPage : Page
         ViewModel.Status = BoatStatus.Maintaining.ToDutchString();
         BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = BoatStatus.Maintaining };
         _boatRepository.Update(newBoatValues);
+
+        //Refresh the whole page so every UI element gets updated where needed
         _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, ViewModel.BoatId));
     }
 
@@ -100,8 +87,15 @@ public partial class BoatDetailPage : Page
         string popupMessage = "";
         if (ViewModel.DeleteRequestDate != null)
         {
-            int timeRemaining = ViewModel.GetTimeRemaining(_daysForDeletion);
-            if (timeRemaining <= 0)
+            BoatEntity boat = new BoatEntity()
+            {
+                BoatId = ViewModel.BoatId,
+                BoatTypeId = ViewModel.BoatTypeId,
+                DeleteRequestDate = ViewModel.DeleteRequestDate,
+                Name = ViewModel.Name
+            };
+            var result = new BoatValidator(_boatTypeRepository).IsValidForPermanentDeletion(boat);
+            if (result.Count == 0)
             {
                 _boatRepository.DeleteById(ViewModel.BoatId);
                 popupMessage = "Succesvol verwijderd";
@@ -109,12 +103,14 @@ public partial class BoatDetailPage : Page
             }
             else
             {
-                popupMessage = $"De wacht periode is nog niet verstreken.\nJe moet nog {timeRemaining} dagen wachten.";
+                result.TryGetValue(nameof(boat.DeleteRequestDate), out string message);
+                popupMessage = message;
+                ViewModel.DeleteRequestDate = ViewModel.DeleteRequestDate;
             }
         }
         else
         {
-            popupMessage = $"De wacht periode is nog niet gestart.";
+            popupMessage = "De wacht periode is nog niet gestart.";
         }
         MessageBox.Show(popupMessage);
     }

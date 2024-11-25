@@ -25,14 +25,16 @@
         <Label Content="Type:" FontWeight="Bold" Margin="10,135,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Status:" FontWeight="Bold" Margin="10,160,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Reserveringen" FontWeight="Bold" Margin="218,110,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,185,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,210,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
         <Label Content="{Binding Name}" Margin="67,112,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding BoatTypeName}" Margin="67,135,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <TextBlock Text="{Binding WaitMessage}" Margin="15,185,0,0" Height="30" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Red" FontSize="10" TextWrapping="WrapWithOverflow"/>
-        
-        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Left" Margin="15,215,0,0" VerticalAlignment="Top"/>
-        <Button Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Left" Margin="15,245,0,0" VerticalAlignment="Top" />
+        <Label Content="{Binding DeleteRequestDateMessage}" Margin="115,185,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="{Binding WaitDurationMessage}" Margin="79,210,0,0" Height="107" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Left" Margin="216,66,0,0" VerticalAlignment="Top"/>
+        <Button Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Left" Margin="412,66,0,0" VerticalAlignment="Top" />
 
         <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"

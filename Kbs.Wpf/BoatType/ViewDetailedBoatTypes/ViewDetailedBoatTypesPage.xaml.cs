@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.BoatType;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.BoatType.ViewBoatTypes;
 using Kbs.Wpf.Components;
 using System;
@@ -62,6 +63,10 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             {
                 _boatTypeRepository.Delete(entity);
             }
+        }
+        private void Wijzigen(object sender, RoutedEventArgs e)
+        {
+            _navigationManager.Navigate(() => new CreateBoatTypePage(_navigationManager));
         }
     }
 }

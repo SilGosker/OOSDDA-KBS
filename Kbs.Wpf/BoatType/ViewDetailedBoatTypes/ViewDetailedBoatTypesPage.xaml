@@ -37,6 +37,8 @@
                     <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Content="Wijzigen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Click="Wijzigen" Canvas.Left="294" Canvas.Top="47" />
         </Canvas>
+
     </Grid>
 </Page>

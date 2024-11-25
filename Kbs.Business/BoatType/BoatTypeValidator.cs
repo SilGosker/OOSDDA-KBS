@@ -31,4 +31,17 @@ public class BoatTypeValidator
 
         return validationResult;
     }
+    
+    public Dictionary<string, string> ValidatorForUpdate(BoatTypeEntity boatType)
+    {
+        ThrowHelper.ThrowIfNull(boatType);
+        Dictionary<string, string> validationResult = new();
+
+        if (boatType.Speed <= 0)
+        {
+            validationResult.Add(nameof(boatType.Speed), "Snelheid moet groter zijn dan 0");
+        }
+
+        return validationResult;
+    }
 }

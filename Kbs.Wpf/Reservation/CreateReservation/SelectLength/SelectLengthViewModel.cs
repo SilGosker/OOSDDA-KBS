@@ -1,38 +1,58 @@
-﻿using System.Collections.ObjectModel;
+﻿using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.Components;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength;
-
-public class SelectLengthViewModel : ViewModel
-{
-    private SelectLengthLengthOptionViewModel _selectedLength;
-    private int _boatId;
-    private DateTime _selectedStartTime;
-    private string _lengthErrorMessage;
-
-    public SelectLengthLengthOptionViewModel SelectedLength
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
     {
-        get => _selectedLength;
-        set => SetField(ref _selectedLength, value);
-    }
+    public class SelectLengthViewModel : ViewModel
+        {
 
-    public ObservableCollection<SelectLengthLengthOptionViewModel> LengthOptions { get; } = new();
+        public ObservableCollection<string> AvailableStartTimes
+            {
+            get => _availableStartTimes;
+            set => SetField(ref _availableStartTimes, value);
+            }
 
-    public int BoatId
-    {
-        get => _boatId;
-        set => SetField(ref _boatId, value);
-    }
+        public string name
+            {
+            get => _name;
+            set => SetField(ref _name, value);
+            }
 
-    public DateTime SelectedStartTime
-    {
-        get => _selectedStartTime;
-        set => SetField(ref _selectedStartTime, value);
-    }
+        public string day{
+            get => _day;
+            set => SetField(ref _day, value);
+            }
 
-    public string LengthErrorMessage
-    {
-        get => _lengthErrorMessage;
-        set => SetField(ref _lengthErrorMessage, value);
+        public string date{
+            get => _date;
+            set => SetField(ref _date, value);
+            }
+
+        private string _name;
+
+        private string _day;
+
+        private string _date;
+
+        private ObservableCollection<string> _availableStartTimes;
+
+
+        public  void MakeSelectLengthViewModelGreatAgain(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
+            {
+            this.AvailableStartTimes = availableStartTimes;
+            this.name = name;
+            this.day = reservationDate.DayOfWeek.ToString();
+            this.date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
+            }
+
+        public SelectLengthViewModel()
+            {
+            }
+        }
     }
-}

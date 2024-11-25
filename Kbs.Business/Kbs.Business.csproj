@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Remove="Reservation\BoatTypeTEMPORARYIFNEEDEDMAKEANEWONEPLSTHISISFORMYSANITYANDTESTINGIFIAMCOMPETENDliefsjonathan.cs" />
     <Compile Remove="Reservation\DateEntity.cs" />
+    <Compile Remove="Reservation\ReservationTimeFactory.cs" />
   </ItemGroup>
 
   <ItemGroup>

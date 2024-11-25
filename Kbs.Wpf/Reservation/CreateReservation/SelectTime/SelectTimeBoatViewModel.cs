@@ -1,32 +1,42 @@
 ﻿using Kbs.Business.Boat;
 using Kbs.Wpf.Components;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
-
-public class SelectTimeBoatViewModel : ViewModel
-{
-    public SelectTimeBoatViewModel(BoatEntity boat)
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
     {
-        BoatId = boat.BoatId;
-        Name = boat.Name;
-    }
+    public class SelectTimeBoatViewModel : ViewModel
+        {
 
-    private string _name;
-    private int _boatId;
-    public string Name
-    {
-        get => _name;
-        set => SetField(ref _name, value);
-    }
+        public SelectTimeBoatViewModel(BoatEntity boat)
+            {
+            Boat = boat;
+            Name = boat.Name;
+            }
 
-    public int BoatId
-    {
-        get => _boatId;
-        set => SetField(ref _boatId, value);
-    }
+        private string _name;
+        public string Name
+            {
+            get => _name;
+            set => SetField(ref _name, value);
+            }
 
-    public override string ToString()
-    {
-        return Name;
+        private BoatEntity _boat;
+
+        
+
+        public BoatEntity Boat
+            {
+            get => _boat;
+            set => SetField(ref _boat, value);
+            }
+
+        public override string ToString()
+            {
+            return Name;
+            }
+        }
     }
-}

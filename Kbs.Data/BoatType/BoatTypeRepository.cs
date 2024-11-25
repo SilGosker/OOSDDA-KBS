@@ -41,7 +41,7 @@ public class BoatTypeRepository : IBoatTypeRepository
     public List<BoatTypeEntity> GetAllWithBoats()
     {
         return _connection
-            .Query<BoatTypeEntity>(@"SELECT * FROM Boattype WHERE BoattypeID IN (SELECT BoatTypeId FROM Boat WHERE Status = 0)")
+            .Query<BoatTypeEntity>(@"SELECT * FROM Boattype WHERE BoattypeID IN (SELECT BoatTypeId FROM Boat WHERE Status = 1)")
             .ToList();
     }
 

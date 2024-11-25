@@ -1,7 +1,7 @@
 ﻿using Kbs.Business.Boat;
 
 namespace Kbs.Business.Reservation;
-
+[Obsolete]
 public class ReservationTimeFactory
 {
     private readonly IReservationRepository _reservationRepository;
@@ -23,8 +23,8 @@ public class ReservationTimeFactory
     public List<TimeSpan> GetPossibleReservationTimes(ReservationTime time, int boatId)
     {
         var boat = _boatRepository.GetById(boatId);
-        var nearestReservation = _reservationRepository.GetNearestReservation(boat, time.StartTime);
-        var maxEnd = time.StartTime.AddHours(2).TimeOfDay;
+        var nearestReservation = _reservationRepository.GetNearestReservation(boat, time.startTime);
+        var maxEnd = time.startTime.AddHours(2).TimeOfDay;
         
         if (nearestReservation != null)
         {
@@ -34,7 +34,7 @@ public class ReservationTimeFactory
         }
 
         var start = _interval;
-        var end = maxEnd - time.StartTime.TimeOfDay;
+        var end = maxEnd - time.startTime.TimeOfDay;
         List<TimeSpan> reservationTimes = new();
 
         while (start <= end)
@@ -74,7 +74,6 @@ public class ReservationTimeFactory
 
         return daysOfWeek;
     }
-
     public List<ReservationTime> GetPossibleReservationTimes(TimeSpan start, TimeSpan end, DateTime date, int boatId)
     {
         date = date.Date;
@@ -94,10 +93,10 @@ public class ReservationTimeFactory
             foreach (ReservationTime possibleReservationTime in GetPossibleReservationTimes(date, reservation.StartTime.TimeOfDay, reservation.EndTime.TimeOfDay))
             {
                 var reservationTime = reservationTimes.Single(e =>
-                    e.StartTime == possibleReservationTime.StartTime
-                    && e.EndTime == possibleReservationTime.EndTime);
+                    e.startTime == possibleReservationTime.startTime
+                    && e.endTime == possibleReservationTime.endTime);
 
-                reservationTime.CanBeReserved = false;
+                //reservationTime.CanBeReserved = false;
             }
 
         }

@@ -1,20 +1,25 @@
 ﻿namespace Kbs.Business.Reservation;
 
 public class ReservationTime
-{
-    public ReservationTime()
     {
-
-    }
     public ReservationTime(DateTime startTime, DateTime endTime)
-    {
-        this.StartTime = startTime;
-        this.EndTime = endTime;
-        CanBeReserved = true;
+        {
+        this.endTime = endTime;
+        this.startTime = startTime;
+        if (endTime.Minute - startTime.Minute == 30)
+            {
+            length += 0.5;
+            }
+        else if (endTime.Minute - startTime.Minute == -30)
+            {
+            length -= 0.5;
+            }
+
+        length += endTime.Hour - startTime.Hour;
+        }
+
+
+    public DateTime startTime { get; set; }
+    public DateTime endTime { get; set; }
+    public double length { get; set; }
     }
-
-    public DateTime StartTime { get; init; }
-    public DateTime EndTime { get; init; }
-    public bool CanBeReserved { get; set; }
-
-}

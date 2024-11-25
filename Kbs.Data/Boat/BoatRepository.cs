@@ -29,7 +29,7 @@ public class BoatRepository : IBoatRepository
 
     public List<BoatEntity> GetAvailableByType(int boatTypeId)
     {
-        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatTypeId = @boatTypeId AND Status = 0",
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatTypeId = @boatTypeId AND Status = 1",
             new { boatTypeId }).ToList();
     }
 

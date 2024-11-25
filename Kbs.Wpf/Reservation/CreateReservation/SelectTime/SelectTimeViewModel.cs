@@ -1,25 +1,19 @@
-﻿using System.Collections.ObjectModel;
+﻿using Kbs.Business.Boat;
 using Kbs.Wpf.Components;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime;
-
-public class SelectTimeViewModel : ViewModel
-{
-    public ObservableCollection<SelectTimeBoatViewModel> Boats { get; } = new();
-    public ObservableCollection<SelectTimeDayOfWeek> CurrentWeek { get; } = new();
-    public ObservableCollection<SelectTimePossibleTimeViewModel> PossibleTimes { get; } = new();
-
-    private SelectTimeBoatViewModel _selectedBoat;
-    private DateTime _selectedDate = DateTime.Now;
-    public SelectTimeBoatViewModel SelectedBoat
+namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
     {
-        get => _selectedBoat;
-        set => SetField(ref _selectedBoat, value);
-    }
+    public class SelectTimeViewModel : ViewModel
+        {
+        public ObservableCollection<SelectTimeBoatViewModel> Boats { get; } = new();
 
-    public DateTime SelectedDate
-    {
-        get => _selectedDate;
-        set => SetField(ref _selectedDate, value);
+
+        public ObservableCollection<DateTime> ThisWeek { get; } = new();
+        }
     }
-}

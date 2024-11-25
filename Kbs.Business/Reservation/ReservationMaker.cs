@@ -11,80 +11,54 @@ public class ReservationMaker
         this.repo = repo;
     }
 
-    public List<IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS> MakeButtonList(DateTime requestedDay, BoatEntity boat)
+    /// <summary>
+    /// Makes a list of reservable times.
+    /// </summary>
+    /// <param name="selectedDay"> A datetime where the day is the desired one. </param>
+    /// <param name="selectedBoat"> The boat desired to be reserved. </param>
+    /// <returns> A list of ReservationTime </returns>
+    public List<ReservationTime> MakeReservableTimes(DateTime selectedDay, BoatEntity selectedBoat)
     {
-        List<IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS> result =
-            new List<IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS>();
-        List<ReservationEntity> huh = repo.GetByBoatIdAndDay(boat, requestedDay);
-        if (huh.Count == 0)
+        List<ReservationTime> result = new List<ReservationTime>();
+        List<ReservationEntity> reservations = repo.GetByBoatIdAndDay(selectedBoat, selectedDay);
+
+        DateTime selectedDayDayOnly = new DateTime();
+        selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear - 2);
+        selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year - 1);
+
+        DateTime selectedDayMorning = new DateTime();
+        selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);
+        selectedDayMorning = selectedDayMorning.AddMinutes(ReservationValidator.Morning.Minutes);
+
+        DateTime selectedDayEvening = new DateTime();
+        selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hours);
+        selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minutes);
+
+        if (reservations.Count == 0)
         {
-            DateTime temp = new DateTime();
-            temp = temp.AddDays(requestedDay.DayOfYear - 2);
-            temp = temp.AddYears(requestedDay.Year - 1);
-
-            DateTime temp2 = new DateTime();
-            temp2 = temp;
-            temp = temp.AddHours(ReservationValidator.Morning.Hours);
-            temp = temp.AddMinutes(ReservationValidator.Morning.Minutes);
-
-            temp2 = temp2.AddHours(ReservationValidator.Evening.Hours);
-            temp2 = temp2.AddMinutes(ReservationValidator.Evening.Minutes);
-
-            result.Add(new IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS(temp, temp2));
+            result.Add(new ReservationTime(selectedDayMorning, selectedDayEvening));
         }
         else
         {
-            DateTime temp = new DateTime();
-            temp = temp.AddDays(requestedDay.DayOfYear - 2);
-            temp = temp.AddYears(requestedDay.Year - 1);
-            DateTime temp2 = new DateTime();
-            temp2 = temp;
-            temp = temp.AddHours(ReservationValidator.Morning.Hours);
-            temp = temp.AddMinutes(ReservationValidator.Morning.Minutes);
-            DateTime temp3 = new DateTime();
-            temp3 = temp2;
-            temp3 = temp3.AddHours(ReservationValidator.Evening.Hours);
-            temp3 = temp3.AddMinutes(ReservationValidator.Evening.Minutes);
+            DateTime startTimeAvailable = new DateTime();
+            startTimeAvailable = selectedDayMorning;
 
-
+            DateTime endTimeAvailable = new DateTime();
                 
-            foreach (ReservationEntity t in huh)
+            foreach (ReservationEntity t in reservations)
             {
-                temp2 = t.StartTime;
+                endTimeAvailable = t.StartTime;
 
-                result.Add(new IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS(temp, temp2));
+                result.Add(new ReservationTime(startTimeAvailable, endTimeAvailable));
 
-                temp = t.EndTime;
+                startTimeAvailable = t.EndTime;
             }
 
 
-            result.Add(new IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS(temp, temp3));
+            result.Add(new ReservationTime(startTimeAvailable, selectedDayEvening));
         }
 
         return result;
     }
 }
 
-public class IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS
-{
-    public IHAVENOIDEAWHATIAMDOINGBUTTHISISFORBUTTONS(DateTime startTime, DateTime endTime)
-    {
-        this.endTime = endTime;
-        this.startTime = startTime;
-        if (endTime.Minute - startTime.Minute == 30)
-        {
-            length += 0.5;
-        }
-        else if (endTime.Minute - startTime.Minute == -30)
-        {
-            length -= 0.5;
-        }
-
-        length += endTime.Hour - startTime.Hour;
-    }
-
-
-    public DateTime startTime { get; set; }
-    public DateTime endTime { get; set; }
-    public double length { get; set; }
-}

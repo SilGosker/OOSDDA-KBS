@@ -46,7 +46,7 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
             
             // todo: delete this
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateBoatTypePage(this, null)) { Name = "Aanpassen boot 6" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateBoatTypePage(this, 6)) { Name = "Aanpassen boot 6" });
         }
     }
 

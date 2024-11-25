@@ -17,13 +17,12 @@ public partial class UpdateBoatTypePage : Page
     private UpdateBoatTypeViewModel ViewModel => (UpdateBoatTypeViewModel)DataContext;
     private readonly BoatTypeEntity _boatType;
     
-    public UpdateBoatTypePage(INavigationManager navigationManager, BoatTypeEntity BoatType)
+    public UpdateBoatTypePage(INavigationManager navigationManager, int boatTypeId)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
         
-        // replace with BoatType given by constructor once implemented
-        _boatType = _boatTypeRepository.GetById(6);
+        _boatType = _boatTypeRepository.GetById(boatTypeId);
         
         foreach (var requiredExperience in Enum.GetValues<BoatTypeRequiredExperience>())
         {

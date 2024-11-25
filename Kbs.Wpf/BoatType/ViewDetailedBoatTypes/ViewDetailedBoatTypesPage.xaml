@@ -16,8 +16,7 @@
             <Grid>
 
                 <Border BorderBrush="Black" BorderThickness="1" Height="00" Width="215" />
-                <TextBlock Text="Boottype " FontSize="40" FontWeight="Bold" Canvas.Left="29" Canvas.Top="30" HorizontalAlignment="Left" VerticalAlignment="Center" Width="185"/>
-                <TextBlock Text="{Binding Name}" Margin="190,35,69,19" FontSize="35" />
+                <TextBlock Text="{Binding Name}" Margin="30,28,229,26" FontSize="35" />
                 <TextBlock Text="ID: " FontWeight="Bold" Margin="30,106,289,-56" />
                 <TextBlock Text="{Binding BoatTypeId}" Margin="138,107,216,-52" />
                 <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,265,-102" />
@@ -33,7 +32,7 @@
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
             VerticalAlignment="Top" HorizontalAlignment="Left" Height="292" Canvas.Left="320" Canvas.Top="100">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Naam"  Binding="{Binding BoatName}"/>
+                    <DataGridTextColumn Width="80" Header="Naam"  Binding="{Binding Name}"/>
                     <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
                 </DataGrid.Columns>
             </DataGrid>

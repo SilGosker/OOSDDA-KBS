@@ -38,6 +38,8 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             ViewModel.HasWheel = boatType.hasWheel;
             ViewModel.Seats = (int)boatType.Seats;
             ViewModel.Name = boatType.Name;
+
+            ViewModel.Status = boatType.Status;
         }
         public ViewDetailedBoatTypesPage()
         {

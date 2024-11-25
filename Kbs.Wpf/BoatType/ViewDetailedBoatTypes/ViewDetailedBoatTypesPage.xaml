@@ -28,11 +28,12 @@
                 <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,252,-202" />
                 <TextBlock Text="{Binding HasWheel}" Margin="138,258,193,-202" />
             </Grid>
-            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="160" ItemsSource="{Binding Items}"
+            <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="234" ItemsSource="{Binding Items}"
             ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            VerticalAlignment="Top" HorizontalAlignment="Left" Height="292" Canvas.Left="320" Canvas.Top="100">
+            VerticalAlignment="Center" HorizontalAlignment="Left" Height="292" Canvas.Left="246" Canvas.Top="100">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Naam"  Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width="80" Header="Name" Binding="{Binding Name}" />
+                    <DataGridTextColumn Width="80" Header="ID"  Binding="{Binding BoatTypeID}"/>
                     <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
                 </DataGrid.Columns>
             </DataGrid>

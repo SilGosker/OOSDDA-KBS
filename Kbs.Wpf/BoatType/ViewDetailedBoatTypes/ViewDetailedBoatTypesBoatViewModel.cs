@@ -18,9 +18,10 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         private int _experience;
         private int _seats;
         private bool _hasWheel;
-        private string _boatTypeName;
         private int _status;
-        
+
+        public ObservableCollection<ViewDetailedBoatTypesPageViewModel> Items { get; } = new ObservableCollection<ViewDetailedBoatTypesPageViewModel>();
+
         public string Name
         {
             get => _name;
@@ -51,15 +52,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             get => _hasWheel;
             set => SetField(ref _hasWheel, value);
         }
-        public string BoatTypeName
-        {
-            get => _boatTypeName; 
-            set => SetField(ref _boatTypeName, value);
-        }
-        public int Status
-        {
-            get => _status; 
-            set => SetField(ref _status, value);
-        }
+        
+        
     }
 }

@@ -36,8 +36,16 @@ public class BoatTypeRepository : IBoatTypeRepository
             boatType);
     }
     }
-        return _connection.Query<BoatTypeEntity>(query, new { BoatTypeID = id }).FirstOrDefault();
-        const string query = @"SELECT * FROM boatType WHERE BoattypeID = @BoattypeID";
-    {
+   
+    
     public BoatTypeEntity GetByBoatTypeID(int id)
+    {
+        const string query = @"SELECT * FROM boatType WHERE BoatTypeID = @BoatTypeID";
+        return _connection.Query<BoatTypeEntity>(query, new { BoatTypeID = id }).FirstOrDefault();
+    }
+    public List<BoatTypeEntity> GetByBoatName(string name)
+    {
+        const string query = @"SELECT * FROM boatType WHERE Name = @Name";
+        return _connection.Query<BoatTypeEntity>(query, new { Name = name }).ToList();
+    }
 }

@@ -1,4 +1,4 @@
-﻿using Kbs.Business.BoatType;
+using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
 
@@ -10,7 +10,7 @@ public class BoatIndexBoatTypeViewModel : ViewModel
     {
         ThrowHelper.ThrowIfNull(boatType);
         Name = boatType.Name;
-        Id = boatType.BoatTypeId;
+        Id = boatType.BoatTypeID;
     }
     private string _name;
     private int _id;

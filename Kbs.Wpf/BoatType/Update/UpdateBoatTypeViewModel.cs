@@ -8,8 +8,6 @@ namespace Kbs.Wpf.BoatType.Update;
 public class UpdateBoatTypeViewModel : ViewModel
 {
     private string _name;
-    private BoatTypeRequiredExperience _requiredExperience;
-    private BoatTypeSeats _seats;
     private int _speed;
     private bool _hasSteeringWheel;
     private string _experienceErrorMessage;
@@ -28,22 +26,10 @@ public class UpdateBoatTypeViewModel : ViewModel
         set => SetField(ref _name, value);
     }
 
-    public BoatTypeRequiredExperience RequiredExperience
-    {
-        get => _requiredExperience;
-        set => SetField(ref _requiredExperience, value);
-    }
-
     public int Speed
     {
         get => _speed;
         set => SetField(ref _speed, value);
-    }
-
-    public BoatTypeSeats Seats
-    {
-        get => _seats;
-        set => SetField(ref _seats, value);
     }
 
     public bool HasSteeringWheel
@@ -59,6 +45,12 @@ public class UpdateBoatTypeViewModel : ViewModel
     }
 
     public string SpeedErrorMessage
+    {
+        get => _speedErrorMessage;
+        set => SetField(ref _speedErrorMessage, value);
+    }
+    
+    public string NameErrorMessage
     {
         get => _speedErrorMessage;
         set => SetField(ref _speedErrorMessage, value);

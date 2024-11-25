@@ -16,16 +16,16 @@
                VerticalAlignment="Top" />
 
         <Label Content="Naam" HorizontalAlignment="Left" Margin="38,117,0,0" VerticalAlignment="Top"/>
-        
+        <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="38,163,0,0" VerticalAlignment="Top"/>
         <TextBox Text="{Binding Name}" HorizontalAlignment="Left" Margin="38,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
 
-        <Label Content="Benodigde ervaring" HorizontalAlignment="Left" Margin="228,115,0,0" VerticalAlignment="Top"/>
+        <Label Content="Benodigde ervaring" HorizontalAlignment="Left" Margin="228,117,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding ExperienceErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="228,163,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding PossibleExperiences}" SelectionChanged="ExperienceChanged" IsEditable="True" SelectedItem="{Binding SelectedExperience}" HorizontalAlignment="Left" Margin="228,141,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox ItemsSource="{Binding PossibleExperiences}" IsEditable="True" SelectedItem="{Binding SelectedExperience}" HorizontalAlignment="Left" Margin="228,141,0,0" VerticalAlignment="Top" Width="120"/>
 
         <Label Content="Stoelen" HorizontalAlignment="Left" Margin="415,117,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding SeatsErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="415,163,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding PossibleSeats}" SelectionChanged="SeatsChanged" IsEditable="True" SelectedItem="{Binding SelectedSeats}" HorizontalAlignment="Left" Margin="420,141,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox ItemsSource="{Binding PossibleSeats}" IsEditable="True" SelectedItem="{Binding SelectedSeats}" HorizontalAlignment="Left" Margin="420,141,0,0" VerticalAlignment="Top" Width="120"/>
 
         <Label Content="Snelheid" HorizontalAlignment="Left" Margin="38,199,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding SpeedErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="38,245,0,0" VerticalAlignment="Top"/>

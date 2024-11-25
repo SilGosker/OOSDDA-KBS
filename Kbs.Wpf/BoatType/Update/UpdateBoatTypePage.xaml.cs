@@ -35,8 +35,6 @@ public partial class UpdateBoatTypePage : Page
         }
         
         ViewModel.Name = _boatType.Name;
-        ViewModel.RequiredExperience = _boatType.RequiredExperience;
-        ViewModel.Seats = _boatType.Seats;
         ViewModel.Speed = _boatType.Speed;
         ViewModel.HasSteeringWheel = _boatType.HasSteeringWheel;
         
@@ -44,38 +42,22 @@ public partial class UpdateBoatTypePage : Page
         ViewModel.SelectedSeats = ViewModel.PossibleSeats.FirstOrDefault(s => s.BoatTypeSeats == _boatType.Seats);
     }
     
-    private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var experience = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
-        if (experience == null) return;
-
-        ViewModel.RequiredExperience = experience.RequiredExperience;
-    }
-
-    private void SeatsChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var seats = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (seats == null) return;
-
-        ViewModel.Seats = seats.BoatTypeSeats;
-    }
-    
     private void Submit(object sender, RoutedEventArgs e)
     {
         if((ViewModel.Name == null || ViewModel.Name == _boatType.Name)
-           && ViewModel.RequiredExperience == _boatType.RequiredExperience 
+           && ViewModel.SelectedExperience?.RequiredExperience == _boatType.RequiredExperience 
            && ViewModel.Speed == _boatType.Speed 
-           && ViewModel.Seats == _boatType.Seats 
+           && ViewModel.SelectedSeats?.BoatTypeSeats == _boatType.Seats 
            && ViewModel.HasSteeringWheel == _boatType.HasSteeringWheel)
         {
             _navigationManager.Navigate(() => new Page()); //todo: replace with BoatTypeIndexPage or BoatTypeDetailPage
             return;
         }
         
-        _boatType.Name = ViewModel.Name ?? _boatType.Name;
-        _boatType.RequiredExperience = ViewModel.RequiredExperience;
+        _boatType.Name = ViewModel.Name;
+        _boatType.RequiredExperience = ViewModel.SelectedExperience?.RequiredExperience ?? 0;
         _boatType.Speed = ViewModel.Speed;
-        _boatType.Seats = ViewModel.Seats;
+        _boatType.Seats = ViewModel.SelectedSeats?.BoatTypeSeats ?? 0;
         _boatType.HasSteeringWheel = ViewModel.HasSteeringWheel;
         
         var validationResult = _boatTypeValidator.ValidatorForUpdate(_boatType);
@@ -84,6 +66,7 @@ public partial class UpdateBoatTypePage : Page
         ViewModel.ExperienceErrorMessage = validationResult.TryGetValue(nameof(_boatType.RequiredExperience), out string experienceError) ? experienceError : string.Empty;
         ViewModel.SeatsErrorMessage = validationResult.TryGetValue(nameof(_boatType.Seats), out string seatsErrorMessage) ? seatsErrorMessage : string.Empty;
         ViewModel.SpeedErrorMessage = validationResult.TryGetValue(nameof(_boatType.Speed), out string speedErrorMessage) ? speedErrorMessage : string.Empty;
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(_boatType.Name), out string nameErrorMessage) ? nameErrorMessage : string.Empty;
         
         // When no errors are shown
         if (validationResult.Count == 0)

@@ -27,11 +27,11 @@ public partial class UpdateBoatTypePage : Page
         
         foreach (var requiredExperience in Enum.GetValues<BoatTypeRequiredExperience>())
         {
-            ViewModel.PossibleExperiences.Add(new CreateBoatExperienceViewModel(requiredExperience));
+            ViewModel.PossibleExperiences.Add(new BoatTypeExperienceViewModel(requiredExperience));
         }
         foreach (BoatTypeSeats seats in Enum.GetValues<BoatTypeSeats>())
         {
-            ViewModel.PossibleSeats.Add(new CreateBoatSeatsViewModel(seats));
+            ViewModel.PossibleSeats.Add(new BoatTypeSeatsViewModel(seats));
         }
         
         ViewModel.Name = _boatType.Name;
@@ -46,7 +46,7 @@ public partial class UpdateBoatTypePage : Page
     
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
     {
-        var experience = (CreateBoatExperienceViewModel)((ComboBox)sender).SelectedItem;
+        var experience = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
         if (experience == null) return;
 
         ViewModel.RequiredExperience = experience.RequiredExperience;
@@ -54,7 +54,7 @@ public partial class UpdateBoatTypePage : Page
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
-        var seats = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
+        var seats = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
         if (seats == null) return;
 
         ViewModel.Seats = seats.BoatTypeSeats;
@@ -68,7 +68,7 @@ public partial class UpdateBoatTypePage : Page
            && ViewModel.Seats == _boatType.Seats 
            && ViewModel.HasSteeringWheel == _boatType.HasSteeringWheel)
         {
-            MessageBox.Show("Er zijn geen aanpassingen gemaakt.");
+            _navigationManager.Navigate(() => new Page()); //todo: replace with BoatTypeIndexPage or BoatTypeDetailPage
             return;
         }
         

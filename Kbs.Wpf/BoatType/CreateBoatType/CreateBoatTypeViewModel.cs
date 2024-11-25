@@ -16,8 +16,8 @@ public class CreateBoatTypeViewModel : ViewModel
     private string _speedErrorMessage;
     private string _seatsErrorMessage;
 
-    public ObservableCollection<CreateBoatExperienceViewModel> PossibleExperiences { get; } = new();
-    public ObservableCollection<CreateBoatSeatsViewModel> PossibleSeats { get; } = new();
+    public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = new();
+    public ObservableCollection<BoatTypeSeatsViewModel> PossibleSeats { get; } = new();
 
     public string Name
     {

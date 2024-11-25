@@ -15,12 +15,12 @@ public class UpdateBoatTypeViewModel : ViewModel
     private string _experienceErrorMessage;
     private string _speedErrorMessage;
     private string _seatsErrorMessage;
-    private CreateBoatExperienceViewModel _selectedExperience;
-    private CreateBoatSeatsViewModel _selectedSeats;
+    private BoatTypeExperienceViewModel _selectedExperience;
+    private BoatTypeSeatsViewModel _selectedSeats;
     
     
-    public ObservableCollection<CreateBoatExperienceViewModel> PossibleExperiences { get; } = [];
-    public ObservableCollection<CreateBoatSeatsViewModel> PossibleSeats { get; } = [];
+    public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = [];
+    public ObservableCollection<BoatTypeSeatsViewModel> PossibleSeats { get; } = [];
 
     public string Name
     {
@@ -70,13 +70,13 @@ public class UpdateBoatTypeViewModel : ViewModel
         set => SetField(ref _seatsErrorMessage, value);
     }
     
-    public CreateBoatExperienceViewModel SelectedExperience
+    public BoatTypeExperienceViewModel SelectedExperience
     {
         get => _selectedExperience;
         set => SetField(ref _selectedExperience, value);
     }
 
-    public CreateBoatSeatsViewModel SelectedSeats
+    public BoatTypeSeatsViewModel SelectedSeats
     {
         get => _selectedSeats;
         set => SetField(ref _selectedSeats, value);

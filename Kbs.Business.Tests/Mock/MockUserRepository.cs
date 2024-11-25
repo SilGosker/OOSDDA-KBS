@@ -37,4 +37,9 @@ public class MockUserRepository : IUserRepository
     {
         return Users.FirstOrDefault(u => u.Email == email);
     }
+
+    public UserEntity GetById(int id)
+    {
+        return Users.FirstOrDefault(u => u.UserId == id);
+    }
 }

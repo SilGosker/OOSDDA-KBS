@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kbs.Business.Reservation
+namespace Kbs.Business.Reservation;
+
+public class ReservationEntity
 {
-    internal class ReservationEntity
-    {
-        private int reservationId;
-        private DateTime startDate;
-        private ReservationStatus status;
-        private int userId;
-        //private Reservationniveau Niveau;
-        private bool isForCompetition;
-        private int tijdsduur;
-        //private DateTime EndDate;
-    }
+    [Column("ReservationID")]
+    public int ReservationId { get; set; }
+    [Column("UserID")]
+    public int UserId { get; set; }
+    [Column("BoatID")]
+    public int BoatId { get; set; }
+    public DateTime StartTime { get; set; }
+    public TimeSpan Length { get; set; }
+    public DateTime EndTime => StartTime + Length;
+    public ReservationStatus Status { get; set; }
+    public bool IsForCompetition { get; set; }
 }

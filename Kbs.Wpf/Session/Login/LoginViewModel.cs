@@ -1,6 +1,6 @@
 ﻿using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.Login;
+namespace Kbs.Wpf.Session.Login;
 
 public class LoginViewModel : ViewModel
 {
@@ -31,5 +31,5 @@ public class LoginViewModel : ViewModel
         set => SetField(ref _passwordErrorMessage, value);
     }
 
-    
+
 }

@@ -25,21 +25,12 @@ namespace Kbs.Wpf.BoatType.ViewBoatTypes
                 ViewModel.Items.Add(new ViewBoatTypeBoatTypeViewModel(boatType));
             }
         }
-        private void RemoveBoatType(object sender, RoutedEventArgs e)
-        {
-            BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeID);
-
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                _boatTypeRepository.Delete(entity);
-            }
-        }
+        
         private void BoatTypeSelected(object sender, RoutedEventArgs e)
         {
             var listViewItem = (ListViewItem)sender;
             var item = (ViewBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(item.BoatTypeID));
+            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(item.Id));
         }
 
         private void AddBoatType(object sender, RoutedEventArgs e)

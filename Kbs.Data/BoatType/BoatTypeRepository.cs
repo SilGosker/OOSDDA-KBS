@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Kbs.Business.BoatType;
 using Microsoft.Data.SqlClient;
 
@@ -35,4 +35,9 @@ public class BoatTypeRepository : IBoatTypeRepository
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
+    }
+        return _connection.Query<BoatTypeEntity>(query, new { BoatTypeID = id }).FirstOrDefault();
+        const string query = @"SELECT * FROM boatType WHERE BoattypeID = @BoattypeID";
+    {
+    public BoatTypeEntity GetByBoatTypeID(int id)
 }

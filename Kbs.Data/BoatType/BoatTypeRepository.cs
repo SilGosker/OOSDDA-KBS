@@ -16,7 +16,7 @@ public class BoatTypeRepository : IBoatTypeRepository
     public void Delete(BoatTypeEntity boatType)
     {
         ThrowHelper.ThrowIfNull(boatType);
-
+        _connection.Execute("DELETE FROM Boat WHERE BoatTypeID = @BoatTypeID", boatType);
         _connection.Execute("DELETE FROM boatType WHERE BoatTypeID = @BoatTypeID", boatType);
         
     }

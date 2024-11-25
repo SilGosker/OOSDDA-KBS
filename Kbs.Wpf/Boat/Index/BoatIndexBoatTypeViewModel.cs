@@ -10,7 +10,7 @@ public class BoatIndexBoatTypeViewModel : ViewModel
     {
         ThrowHelper.ThrowIfNull(boatType);
         Name = boatType.Name;
-        Id = boatType.BoattypeID;
+        Id = boatType.BoatTypeID;
     }
     private string _name;
     private int _id;

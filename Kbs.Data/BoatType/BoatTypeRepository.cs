@@ -26,7 +26,7 @@ public class BoatTypeRepository : IBoatTypeRepository
         const string query = @"
         SELECT bt.* 
         FROM boatType bt
-        INNER JOIN Boat b ON bt.BoattypeID = b.BoattypeID
+        INNER JOIN Boat b ON bt.BoatTypeID = b.BoatTypeID
         INNER JOIN Reservation r ON r.BoatID = b.BoatID
         WHERE r.ReservationID = @ReservationID";
 
@@ -35,7 +35,7 @@ public class BoatTypeRepository : IBoatTypeRepository
 
     public void Create(BoatTypeEntity boatType)
     {
-        boatType.BoattypeID = _connection.Execute(
+        boatType.BoatTypeID = _connection.Execute(
             "INSERT INTO boatType (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
@@ -48,7 +48,12 @@ public class BoatTypeRepository : IBoatTypeRepository
     
     public BoatTypeEntity GetByBoatTypeID(int id)
     {
-        const string query = @"SELECT * FROM boatType WHERE BoattypeID = @BoattypeID";
+        const string query = @"SELECT * FROM boatType WHERE BoatTypeID = @BoatTypeID";
         return _connection.Query<BoatTypeEntity>(query, new { BoatTypeID = id }).FirstOrDefault();
+    }
+    public List<BoatTypeEntity> GetByBoatName(string name)
+    {
+        const string query = @"SELECT * FROM boatType WHERE Name = @Name";
+        return _connection.Query<BoatTypeEntity>(query, new { Name = name }).ToList();
     }
 }

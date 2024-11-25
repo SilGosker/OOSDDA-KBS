@@ -10,7 +10,7 @@ namespace Kbs.Wpf.BoatType.ViewBoatTypes
         public ViewBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
         {
             this.Name = boatType.Name;
-            this.Id = boatType.BoattypeID;
+            this.Id = boatType.BoatTypeID;
         }
 
         public string Name

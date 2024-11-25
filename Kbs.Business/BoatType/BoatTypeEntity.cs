@@ -2,7 +2,7 @@
 
 public class BoatTypeEntity
 {
-    public int BoattypeID { get; set; }
+    public int BoatTypeID { get; set; } 
     public string Name { get; set; }
     public BoatTypeRequiredExperience RequiredExperience { get; set; }
     public int Speed { get; set; }

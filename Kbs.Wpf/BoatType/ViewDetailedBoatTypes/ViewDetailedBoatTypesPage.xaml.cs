@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.BoatType.ViewBoatTypes;
 using Kbs.Wpf.Components;
@@ -26,20 +27,27 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
     {
         private readonly INavigationManager _navigationManager;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
+        private readonly BoatRepository _boatRepository = new BoatRepository();
         private ViewDetailedBoatTypesBoatViewModel ViewModel => (ViewDetailedBoatTypesBoatViewModel)DataContext;
-
         public ViewDetailedBoatTypesPage(int boatTypeId)
         {
             InitializeComponent();
             var boatType = _boatTypeRepository.GetByBoatTypeID(boatTypeId);
             ViewModel.Speed = boatType.Speed;
-            ViewModel.BoatTypeId = boatType.BoattypeID;
+            ViewModel.BoatTypeId = boatType.BoatTypeID;
             ViewModel.Experience = boatType.Experience;
             ViewModel.HasWheel = boatType.hasWheel;
             ViewModel.Seats = (int)boatType.Seats;
             ViewModel.Name = boatType.Name;
-
-            ViewModel.Status = boatType.Status;
+            var boatTypes = _boatTypeRepository.GetByBoatName(boatType.Name);
+            var boatStatus = _boatRepository.GetManyByType(boatTypeId);
+            foreach (var boattype in boatTypes)
+            {
+                //ViewModel.BoatTypes.Add(new ViewDetailedBoatTypesBoatViewModel());
+                //ViewModel.Items.Add(new ViewDetailedBoatTypesPageViewModel(boattype, boatStatus));
+                var matchingBoatStatus = boatStatus.Where(boat => boat.BoatTypeId == boattype.BoatTypeID).ToList();
+                ViewModel.Items.Add(new ViewDetailedBoatTypesPageViewModel(boattype, matchingBoatStatus));
+            }
         }
         public ViewDetailedBoatTypesPage()
         {

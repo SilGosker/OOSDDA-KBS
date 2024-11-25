@@ -46,7 +46,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             lenghtSelected = 30;
             InitializeComponent();
-            ViewModel.MakeSelectLengthViewModelGreatAgain(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.startTime);
+            ViewModel.MakeSelectLengthViewModelGreatAgain(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.StartTime);
             }
 
         private void RadioButton30_Checked(object sender, RoutedEventArgs e)
@@ -76,7 +76,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         private ObservableCollection<string> MakeComboboxAvailableTimes()
             {
             ObservableCollection<string> availableTimes = new ObservableCollection<string>();
-            for (DateTime i = chosenTimeAndBoat.Item1.startTime; i <= chosenTimeAndBoat.Item1.endTime.AddMinutes(-lenghtSelected); i = i.AddMinutes(30))
+            for (DateTime i = chosenTimeAndBoat.Item1.StartTime; i <= chosenTimeAndBoat.Item1.EndTime.AddMinutes(-lenghtSelected); i = i.AddMinutes(30))
                 {
                 availableTimes.Add(i.ToShortTimeString());
 
@@ -114,8 +114,8 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             string[] selectedtime = selected.Split(":");
 
             DateTime selectedDate = new DateTime();
-            selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.startTime.DayOfYear - 2);
-            selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.startTime.Year - 1);
+            selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.DayOfYear - 2);
+            selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.StartTime.Year - 1);
 
             selectedDate = selectedDate.AddHours(Int32.Parse(selectedtime[0]));
 

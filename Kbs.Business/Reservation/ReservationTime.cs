@@ -4,22 +4,22 @@ public class ReservationTime
     {
     public ReservationTime(DateTime startTime, DateTime endTime)
         {
-        this.endTime = endTime;
-        this.startTime = startTime;
+        this.EndTime = endTime;
+        this.StartTime = startTime;
         if (endTime.Minute - startTime.Minute == 30)
             {
-            length += 0.5;
+            Length += 0.5;
             }
         else if (endTime.Minute - startTime.Minute == -30)
             {
-            length -= 0.5;
+            Length -= 0.5;
             }
 
-        length += endTime.Hour - startTime.Hour;
+        Length += endTime.Hour - startTime.Hour;
         }
 
 
-    public DateTime startTime { get; set; }
-    public DateTime endTime { get; set; }
-    public double length { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
+    public double Length { get; set; }
     }

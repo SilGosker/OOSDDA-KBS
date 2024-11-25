@@ -104,13 +104,13 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
                     {
 
                     Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = new Tuple<ReservationTime, BoatEntity>(j, boatSelected);
-                    if (!(j.length == 0))
+                    if (!(j.Length == 0))
                         {
                         Button button = new Button()
                             {
 
                             Width = 150,
-                            Height = (j.length * 42),
+                            Height = (j.Length * 42),
                             Tag = chosenTimeAndBoat,
                             Background = Brushes.Red,
                             BorderBrush = Brushes.Black,
@@ -124,13 +124,13 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
 
                         double compare = 0;
 
-                        if (j.startTime.Minute == 30)
+                        if (j.StartTime.Minute == 30)
                             {
                             compare += 0.5;
                             }
 
-                        compare += j.startTime.Hour;
-                        int rowspan = Convert.ToInt32(j.length + j.length);
+                        compare += j.StartTime.Hour;
+                        int rowspan = Convert.ToInt32(j.Length + j.Length);
 
 
                         Grid.SetRow(button, checklist.IndexOf(compare));

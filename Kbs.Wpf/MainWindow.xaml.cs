@@ -37,7 +37,6 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
-                
         }
 
         if (user.IsMaterialCommissioner())
@@ -46,9 +45,6 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage(this)) { Name = "Overzicht boten" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
-            
-            // todo: delete this
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateBoatTypePage(this, 6)) { Name = "Aanpassen boot 6" });
         }
     }
 

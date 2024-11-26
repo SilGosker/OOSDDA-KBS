@@ -1,4 +1,4 @@
-﻿using Kbs.Business.BoatType;
+using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
 

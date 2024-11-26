@@ -21,7 +21,7 @@ public class BoatTypeValidator
 
         if (!Enum.IsDefined(boatType.Seats))
         {
-            validationResult.Add(nameof(boatType.Seats), "Stoelen zijn verplicht");
+            validationResult.Add(nameof(boatType.Seats), "Stoelen zijn verplicht");    
         }
 
         if (boatType.Speed <= 0)

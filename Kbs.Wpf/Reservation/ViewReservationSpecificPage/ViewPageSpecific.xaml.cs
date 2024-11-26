@@ -1,4 +1,4 @@
-﻿using Kbs.Business.BoatType;
+using Kbs.Business.BoatType;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using System.Windows;
@@ -32,7 +32,6 @@ public partial class ViewPageSpecific : Page
         ViewModel.Status = reservation.Status.ToDutchString();
 
     }
-
     public void Delete(object sender, RoutedEventArgs e)
     {
         var entity = _reservationRepository.GetById(ViewModel.ReservationID);

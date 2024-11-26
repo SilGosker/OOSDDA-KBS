@@ -6,16 +6,8 @@ public class ReservationTime
         {
         this.EndTime = endTime;
         this.StartTime = startTime;
-        if (endTime.Minute - startTime.Minute == 30)
-            {
-            Length += 0.5;
-            }
-        else if (endTime.Minute - startTime.Minute == -30)
-            {
-            Length -= 0.5;
-            }
-
-        Length += endTime.Hour - startTime.Hour;
+        TimeSpan difference = endTime - startTime;
+        Length = difference.TotalHours;
         }
 
 

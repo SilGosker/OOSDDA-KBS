@@ -34,30 +34,25 @@ public class ReservationMaker
         selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hours);
         selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minutes);
 
+        //if there are no reservations on the day, creates the full block of reservable time
         if (reservations.Count == 0)
         {
             result.Add(new ReservationTime(selectedDayMorning, selectedDayEvening));
         }
+        //if there are reservations on the day removes reservations out of the reservable time
         else
         {
             DateTime startTimeAvailable = new DateTime();
             startTimeAvailable = selectedDayMorning;
-
             DateTime endTimeAvailable = new DateTime();
-                
             foreach (ReservationEntity t in reservations)
             {
                 endTimeAvailable = t.StartTime;
-
                 result.Add(new ReservationTime(startTimeAvailable, endTimeAvailable));
-
                 startTimeAvailable = t.EndTime;
             }
-
-
             result.Add(new ReservationTime(startTimeAvailable, selectedDayEvening));
         }
-
         return result;
     }
 }

@@ -52,11 +52,6 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
             }
         }
 
-        public ViewDetailedBoatTypesPage()
-        {
-            InitializeComponent();
-        }
-
         private void RemoveBoatType(object sender, RoutedEventArgs e)
         {
             BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeId);

@@ -5,7 +5,7 @@ using Kbs.Data.BoatType;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Details;
 using Kbs.Wpf.BoatType.CreateBoatType;
-using Kbs.Wpf.BoatType.UpdateBoatType;
+using Kbs.Wpf.BoatType.Update;
 using Kbs.Wpf.BoatType.ViewBoatTypes;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
@@ -23,6 +23,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
@@ -65,7 +66,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 
         private void Wijzigen(object sender, RoutedEventArgs e)
         {
-            _navigationManager.Navigate(() => new UpdateBoatTypePage(_navigationManager));
+            _navigationManager.Navigate(() => new UpdateBoatTypePage(_navigationManager, ViewModel.BoatTypeId));
         }
         private void BoatSelected(object sender, MouseButtonEventArgs e)
         {

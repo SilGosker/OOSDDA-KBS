@@ -109,6 +109,48 @@ public class BoatTypeValidatorTests
         Assert.NotNull(validationResult);
         Assert.Empty(validationResult);
     }
+    
+    [Fact]
+    public void ValidatorForUpdate_ShouldReturnError_WhenSpeedIsZeroOrNegative()
+    {
+        // Arrange
+        var validator = new BoatTypeValidator();
+        var boatType = new BoatTypeEntity
+        {
+            Name = "Speedboat",
+            Speed = 0,
+            RequiredExperience = BoatTypeRequiredExperience.Beginner,
+            Seats = BoatTypeSeats.One
+        };
+
+        // Act
+        var result = validator.ValidatorForUpdate(boatType);
+
+        // Assert
+        Assert.True(result.ContainsKey(nameof(boatType.Speed)));
+        Assert.Equal("Snelheid moet groter zijn dan 0", result[nameof(boatType.Speed)]);
+    }
+
+    [Fact]
+    public void ValidatorForUpdate_ShouldReturnEmptyDictionary_WhenValuesAreValid()
+    {
+        // Arrange
+        var validator = new BoatTypeValidator();
+        var boatType = new BoatTypeEntity
+        {
+            Name = "Speedboat",
+            Speed = 10,
+            RequiredExperience = BoatTypeRequiredExperience.Beginner,
+            Seats = BoatTypeSeats.One
+        };
+
+        // Act
+        var result = validator.ValidatorForUpdate(boatType);
+
+        // Assert
+        Assert.Empty(result);
+    }
+
     [Fact]
     public void ValidateForCreate_ShouldReturnError_WhenNameIsNullOrWhitespace()
     {

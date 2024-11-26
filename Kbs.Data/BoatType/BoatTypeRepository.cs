@@ -43,7 +43,14 @@ public class BoatTypeRepository : IBoatTypeRepository
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
-   
+
+    public void Update(BoatTypeEntity boatType)
+    {
+        boatType.BoatTypeId = _connection.Execute(
+            "UPDATE Boattype SET Name = @Name, HasSteeringWheel = @HasSteeringWheel, RequiredExperience = @RequiredExperience, Seats = @Seats, Speed = @Speed WHERE BoattypeID = @BoatTypeId",
+            boatType);
+    }
+
     public BoatTypeEntity GetByBoatTypeID(int id)
     {
         const string query = @"SELECT * FROM boatType WHERE BoatTypeID = @BoatTypeID";
@@ -53,5 +60,6 @@ public class BoatTypeRepository : IBoatTypeRepository
     {
         const string query = @"SELECT * FROM boatType WHERE Name = @Name";
         return _connection.Query<BoatTypeEntity>(query, new { Name = name }).ToList();
+
     }
 }

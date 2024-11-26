@@ -3,9 +3,9 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.CreateBoatType;
 
-public class CreateBoatExperienceViewModel : ViewModel
+public class BoatTypeExperienceViewModel : ViewModel
 {
-    public CreateBoatExperienceViewModel(BoatTypeRequiredExperience requiredExperience)
+    public BoatTypeExperienceViewModel(BoatTypeRequiredExperience requiredExperience)
     {
         RequiredExperience = requiredExperience;
     }

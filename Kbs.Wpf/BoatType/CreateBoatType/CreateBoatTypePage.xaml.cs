@@ -20,18 +20,18 @@ public partial class CreateBoatTypePage : Page
 
         foreach (var requiredExperience in Enum.GetValues<BoatTypeRequiredExperience>())
         {
-            ViewModel.PossibleExperiences.Add(new CreateBoatExperienceViewModel(requiredExperience));
+            ViewModel.PossibleExperiences.Add(new BoatTypeExperienceViewModel(requiredExperience));
         }
 
         foreach (BoatTypeSeats seats in Enum.GetValues<BoatTypeSeats>())
         {
-            ViewModel.PossibleSeats.Add(new CreateBoatSeatsViewModel(seats));
+            ViewModel.PossibleSeats.Add(new BoatTypeSeatsViewModel(seats));
         }
     }
 
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
     {
-        var experience = (CreateBoatExperienceViewModel)((ComboBox)sender).SelectedItem;
+        var experience = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
         if (experience == null) return;
 
         ViewModel.RequiredExperience = experience.RequiredExperience;
@@ -39,7 +39,7 @@ public partial class CreateBoatTypePage : Page
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
-        var seats = (CreateBoatSeatsViewModel)((ComboBox)sender).SelectedItem;
+        var seats = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
         if (seats == null) return;
 
         ViewModel.Seats = seats.BoatTypeSeats;

@@ -53,13 +53,6 @@ public class ReservationRepository : IReservationRepository, IDisposable
             .ToList();
     }
 
-    public ReservationEntity GetNearestReservation(BoatEntity boat, DateTime timeStartTime)
-    {
-        return _connection.Query<ReservationEntity>(
-            "SELECT TOP 1 * FROM Reservation WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) = @Date AND StartTime > @timeStartTime ORDER BY StartTime",
-            new { boat.BoatId, timeStartTime, timeStartTime.Date }).FirstOrDefault();
-    }
-
     public ReservationEntity GetById(int id)
     {
         return _connection.Query<ReservationEntity>("SELECT * FROM Reservation WHERE ReservationID = @id", new { id })

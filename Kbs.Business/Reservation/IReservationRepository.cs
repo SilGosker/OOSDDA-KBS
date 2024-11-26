@@ -15,5 +15,4 @@ public interface IReservationRepository
     public List<ReservationEntity> GetByBoatId(int boatBoatId);
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day);
     public List<ReservationEntity> GetByUserId(int userId);
-    ReservationEntity GetNearestReservation(BoatEntity boat, DateTime timeStartTime);
 }

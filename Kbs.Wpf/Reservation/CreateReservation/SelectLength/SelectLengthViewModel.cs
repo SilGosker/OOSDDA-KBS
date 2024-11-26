@@ -41,6 +41,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         private string _date;
 
         private ObservableCollection<string> _availableStartTimes;
+        public ObservableCollection<SelectLengthLengthViewModel> RadioButtons { get; } = new();
 
 
         public  void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)

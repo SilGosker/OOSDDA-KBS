@@ -36,35 +36,29 @@
             </Grid.ColumnDefinitions>
             <TextBlock Text="Selecteer de lengte"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center"  />
             <TextBlock Text="van de reservering"  VerticalAlignment="Bottom" Height="40" FontSize="30" HorizontalAlignment="Center"  />
-            <Grid Grid.RowSpan="6" Grid.Column="0" Grid.Row="1" >
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="160"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Viewbox Height="30" Grid.Row="0" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
-                        <RadioButton GroupName="length" IsChecked="True" Checked="RadioButton30_Checked" />
-                </Viewbox>
-                <Label Content="30 minuten" Grid.Row="0" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
-                <Viewbox Height="30" Grid.Row="1" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
-                    <RadioButton GroupName="length" Checked="RadioButton60_Checked"  />
-                </Viewbox>
-                <Label Content="60 minuten" Grid.Row="1" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
-                <Viewbox Height="30" Grid.Row="2" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
-                    <RadioButton GroupName="length" Checked="RadioButton90_Checked"  />
-                </Viewbox>
-                <Label Content="90 minuten" Grid.Row="2" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
-                <Viewbox Height="30" Grid.Row="3" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
-                    <RadioButton GroupName="length" Checked="RadioButton120_Checked" />
-                </Viewbox>
-                <Label Content="120 minuten" Grid.Row="3" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
-            </Grid>
+                <ListView Grid.RowSpan="6" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding RadioButtons}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Height="30" Grid.Row="0" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
+                                    <RadioButton GroupName="length" IsChecked="{Binding ischecked}" IsEnabled="{Binding checkable}" Checked="RadioButton_Checked" />
+                                </Viewbox>
+                                <Label Content="{Binding Content}" Grid.Row="0" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    
+                </ListView>
+                
 
                 <TextBlock Text="Selecteer de Starttijd"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" />
                 <TextBlock Text="van de reservering"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="1" Margin="0 55 0 0"/>

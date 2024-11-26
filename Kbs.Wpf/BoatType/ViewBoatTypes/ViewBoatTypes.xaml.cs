@@ -1,6 +1,8 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Attributes;
 using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
@@ -10,14 +12,17 @@ using System.Windows.Controls;
 
 namespace Kbs.Wpf.BoatType.ViewBoatTypes
 {
+    [HasRole(Role.GameCommissioner)]
     public partial class ViewBoatTypesPage : Page
     {
+
         private readonly INavigationManager _navigationManager;
         private ViewBoatTypesViewModel ViewModel => (ViewBoatTypesViewModel)DataContext;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
         public ViewBoatTypesPage(INavigationManager navigationManager)
         {
+
             _navigationManager = navigationManager;
             InitializeComponent();
             foreach (var boatType in _boatTypeRepository.GetAll())

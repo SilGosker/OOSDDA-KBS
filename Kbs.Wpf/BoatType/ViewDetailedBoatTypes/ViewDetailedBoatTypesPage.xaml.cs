@@ -1,6 +1,8 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Details;
 using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.BoatType.UpdateBoatType;
@@ -24,9 +26,7 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
-    /// <summary>
-    /// Interaction logic for ViewDetailedBoatTypesPage.xaml
-    /// </summary>
+    [HasRole(Role.GameCommissioner)]
     public partial class ViewDetailedBoatTypesPage : Page
     {
         private readonly INavigationManager _navigationManager;

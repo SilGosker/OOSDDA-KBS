@@ -8,31 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
-    {
+{
     public class SelectLengthViewModel : ViewModel
-        {
+    {
 
         public ObservableCollection<string> AvailableStartTimes
-            {
+        {
             get => _availableStartTimes;
             set => SetField(ref _availableStartTimes, value);
-            }
+        }
 
-        public string name
-            {
+        public string Name
+        {
             get => _name;
             set => SetField(ref _name, value);
-            }
+        }
 
-        public string day{
+        public string Day
+        {
             get => _day;
             set => SetField(ref _day, value);
-            }
+        }
 
-        public string date{
+        public string Date
+        {
             get => _date;
             set => SetField(ref _date, value);
-            }
+        }
 
         private string _name;
 
@@ -44,13 +46,13 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         public ObservableCollection<SelectLengthLengthViewModel> RadioButtons { get; } = new();
 
 
-        public  void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
-            {
+        public void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
+        {
             this.AvailableStartTimes = availableStartTimes;
-            this.name = name;
-            this.day = reservationDate.DayOfWeek.ToString();
-            this.date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
-            }
-
+            this.Name = name;
+            this.Day = reservationDate.DayOfWeek.ToString();
+            this.Date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
         }
+
     }
+}

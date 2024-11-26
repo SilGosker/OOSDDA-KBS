@@ -74,10 +74,10 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Reservering voor boot:" FontSize="35" Grid.Row="0" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding name}" FontSize="35" Grid.Row="1" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Name}" FontSize="35" Grid.Row="1" HorizontalAlignment="Center"/>
                     <TextBlock Text="Op:" FontSize="35" Grid.Row="2" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding day}" FontSize="35" Grid.Row="3" HorizontalAlignment="Center"/>
-                    <TextBlock Text="{Binding date}" FontSize="35" Grid.Row="4" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Day}" FontSize="35" Grid.Row="3" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding Date}" FontSize="35" Grid.Row="4" HorizontalAlignment="Center"/>
                 </Grid>
                 
         </Grid>

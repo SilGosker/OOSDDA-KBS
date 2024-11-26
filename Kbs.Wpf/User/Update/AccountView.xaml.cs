@@ -74,7 +74,7 @@ public partial class AccountView : Page
                 _userRepository.Update(sessionUser);
             }
             MessageBox.Show(successMessage);
-            _navigationManager.Navigate(() => new AccountView(_navigationManager));
+            _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
             return;
         }
     }

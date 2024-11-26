@@ -10,4 +10,5 @@ public class BoatEntity
     [Column("BoatTypeID")]
     public int BoatTypeId { get; set; }
     public BoatStatus Status { get; set; }
+    public DateTime? DeleteRequestDate { get; set; }
 }

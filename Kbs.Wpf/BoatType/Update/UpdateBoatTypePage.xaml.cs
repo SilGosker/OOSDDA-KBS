@@ -5,6 +5,7 @@ using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.BoatType.CreateBoatType;
+using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
 
 namespace Kbs.Wpf.BoatType.Update;
 
@@ -49,7 +50,7 @@ public partial class UpdateBoatTypePage : Page
            && ViewModel.SelectedSeats?.BoatTypeSeats == _boatType.Seats 
            && ViewModel.HasSteeringWheel == _boatType.HasSteeringWheel)
         {
-            _navigationManager.Navigate(() => new Page()); //todo: replace with BoatTypeIndexPage or BoatTypeDetailPage
+            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(_navigationManager, _boatType.BoatTypeId));
             return;
         }
         
@@ -72,7 +73,7 @@ public partial class UpdateBoatTypePage : Page
         {
             _boatTypeRepository.Update(_boatType);
             MessageBox.Show("Boottype succesvol aangepast.");
-            _navigationManager.Navigate(() => new Page()); //todo: replace with BoatTypeIndexPage or BoatTypeDetailPage
+            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(_navigationManager, _boatType.BoatTypeId));
         }
     }
 }

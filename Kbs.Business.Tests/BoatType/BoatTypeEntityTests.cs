@@ -1,4 +1,4 @@
-﻿namespace Kbs.Business.BoatType;
+namespace Kbs.Business.BoatType;
 
 public class BoatTypeEntityTests
 {

@@ -32,7 +32,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
     /// <summary>
     /// Interaction logic for SelectLength.xaml
     /// </summary>
-    public partial class SelectLength : Page
+    public partial class SelectLengthPage : Page
         {
         private readonly INavigationManager _navigationManager;
         private readonly BoatRepository _boatRepository = new();
@@ -42,7 +42,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat;
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);
         public DateTime selectedStartTime = new DateTime();
-        public SelectLength(INavigationManager navigationManager, Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat)
+        public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat)
             {
             _navigationManager = navigationManager;
             this.chosenTimeAndBoat = chosenTimeAndBoat;

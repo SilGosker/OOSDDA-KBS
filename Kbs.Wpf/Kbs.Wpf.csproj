@@ -7,20 +7,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Reservation\CreateReservation\SelectLength\Class1.cs" />
-    <Compile Remove="Reservation\CreateReservation\SelectLength\SelectLengthLengthOptionViewModel.cs" />
-    <Compile Remove="Reservation\CreateReservation\SelectLength\SelectLengthPage.xaml.cs" />
-    <Compile Remove="Reservation\CreateReservation\SelectTime\SelectTimeDayOfWeek.cs" />
-    <Compile Remove="Reservation\CreateReservation\SelectTime\SelectTimePossibleTimeViewModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Remove="Reservation\CreateReservation\SelectLength\SelectLengthPage.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
+	</ItemGroup>
+  
 </Project>

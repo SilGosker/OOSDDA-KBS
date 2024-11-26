@@ -74,7 +74,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
 
             Button send = (Button)sender;
             Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = (Tuple<ReservationTime, BoatEntity>)send.Tag;
-            _navigationManager.Navigate(() => new SelectLength.SelectLength(_navigationManager, chosenTimeAndBoat));
+            _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
             }
 
         private void ComboBoxBoats_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -46,7 +46,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             lenghtSelected = 30;
             InitializeComponent();
-            ViewModel.MakeSelectLengthViewModelGreatAgain(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.StartTime);
+            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.StartTime);
             }
 
         private void RadioButton30_Checked(object sender, RoutedEventArgs e)

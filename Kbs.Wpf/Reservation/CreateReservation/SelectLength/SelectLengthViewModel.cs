@@ -43,7 +43,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         private ObservableCollection<string> _availableStartTimes;
 
 
-        public  void MakeSelectLengthViewModelGreatAgain(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
+        public  void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
             {
             this.AvailableStartTimes = availableStartTimes;
             this.name = name;
@@ -51,8 +51,5 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             this.date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
             }
 
-        public SelectLengthViewModel()
-            {
-            }
         }
     }

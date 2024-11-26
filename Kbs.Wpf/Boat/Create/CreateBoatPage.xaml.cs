@@ -1,12 +1,14 @@
 using System.Windows.Controls;
 using Kbs.Business.Boat;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Details;
-using Kbs.Wpf.Boat.Index;
 
 namespace Kbs.Wpf.Boat.Create;
 
+[HasRole(Role.MaterialCommissioner)]
 public partial class CreateBoatPage : Page
 {
     private CreateBoatViewModel ViewModel => (CreateBoatViewModel)DataContext;

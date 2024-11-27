@@ -15,4 +15,5 @@ public class ReservationEntity
     public DateTime EndTime => StartTime + Length;
     public ReservationStatus Status { get; set; }
     public bool IsForCompetition { get; set; }
+
 }

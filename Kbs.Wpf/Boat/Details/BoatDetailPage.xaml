@@ -47,7 +47,7 @@
             </DataGrid.Resources>
 
             <DataGrid.Columns>
-                <DataGridTextColumn Width="80" Header="Gebruiker"  Binding="{Binding UserName}"/>
+                <DataGridTextColumn Width="80" Header="Gebruiker"  Binding="{Binding Name}"/>
                 <DataGridTextColumn Width="80" Header="Startdatum" Binding="{Binding StartDate}" />
                 <DataGridTextColumn Width="80" Header="Eindtijd" Binding="{Binding EndDate}" />
                 <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />

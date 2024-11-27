@@ -27,7 +27,7 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
-    [HasRole(Role.GameCommissioner)]
+    [HasRole(Role.MaterialCommissioner)]
     public partial class ViewDetailedBoatTypesPage : Page
     {
         private readonly INavigationManager _navigationManager;

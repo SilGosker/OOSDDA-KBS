@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Business.User;
+using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.User.Registration;
 
 namespace Kbs.Wpf.Session.Login;
@@ -65,6 +67,17 @@ public partial class LoginWindow : Window
         _registrationWindow.Close();
         var window = new MainWindow();
         window.Show();
+        // MaterialCommissioner: Navigate to boat index page.
+        if (user.Role == Role.MaterialCommissioner)
+        {
+            window.Navigate(() =>new BoatIndexPage(window));
+        }
+        // Member and other people: Navigate to reservation index page.
+        else
+        {
+            window.Navigate(() => new ViewReservationPage(window));
+        }
+
         Close();
     }
     

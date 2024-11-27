@@ -51,6 +51,9 @@
                                     <TextBlock Text="Tijdsduur:" FontSize="14" Width="263" />
                                     <TextBlock Text="{Binding TijdsduurFormatted}" FontSize="14" Width="749" />
                                 </StackPanel>
+                                <StackPanel >
+                                    <TextBlock   FontSize="1" Width="749" Background="{Binding StatusColor}" ></TextBlock>
+                                </StackPanel>
                             </StackPanel>
                         </Grid>
                     </Border>

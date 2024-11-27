@@ -59,11 +59,11 @@ public class ReservationRepository : IReservationRepository, IDisposable
             .FirstOrDefault();
     }
 
-    public List<ReservationEntity> OrderByStatus(List<ReservationEntity> reservations)
+    public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
     {
         return reservations
             .OrderByDescending(r => r.Status)
-            .ThenBy(e => e.ReservationId)
+            .ThenBy(r => r.StartTime)
             .ToList();
     }
 

@@ -16,6 +16,7 @@ public class BoatTypeRepository : IBoatTypeRepository
     public void Delete(BoatTypeEntity boatType)
     {
         ThrowHelper.ThrowIfNull(boatType);
+        _connection.Execute("DELETE FROM Reservation WHERE BoatID IN (SELECT BoatID FROM Boat WHERE BoatTypeID = @BoatTypeID)", boatType);
         _connection.Execute("DELETE FROM Boat WHERE BoatTypeID = @BoatTypeID", boatType);
         _connection.Execute("DELETE FROM boatType WHERE BoatTypeID = @BoatTypeID", boatType);
         
@@ -38,17 +39,17 @@ public class BoatTypeRepository : IBoatTypeRepository
         return _connection.QueryFirstOrDefault<BoatTypeEntity>("SELECT * FROM Boattype WHERE BoattypeID = @boatTypeId",
             new { boatTypeId });
     }
-
+    
     public void Create(BoatTypeEntity boatType)
     {
-        boatType.BoatTypeId = _connection.Execute(
+        boatType.BoatTypeId = _connection.QueryFirst<int>(
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }
 
     public void Update(BoatTypeEntity boatType)
     {
-        boatType.BoatTypeId = _connection.Execute(
+      _connection.Execute(
             "UPDATE Boattype SET Name = @Name, HasSteeringWheel = @HasSteeringWheel, RequiredExperience = @RequiredExperience, Seats = @Seats, Speed = @Speed WHERE BoattypeID = @BoatTypeId",
             boatType);
     }

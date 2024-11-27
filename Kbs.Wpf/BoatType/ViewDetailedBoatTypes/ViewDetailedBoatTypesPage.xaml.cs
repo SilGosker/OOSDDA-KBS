@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -12,6 +13,7 @@ using Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,12 +29,13 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
 {
-    [HasRole(Role.GameCommissioner)]
+    [HasRole(Role.MaterialCommissioner)]
     public partial class ViewDetailedBoatTypesPage : Page
     {
         private readonly INavigationManager _navigationManager;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly BoatRepository _boatRepository = new BoatRepository();
+        private readonly ReservationEntity _reservationEntity = new ReservationEntity();
         private ViewDetailedBoatTypesBoatViewModel ViewModel => (ViewDetailedBoatTypesBoatViewModel)DataContext;
         public ViewDetailedBoatTypesPage(INavigationManager navigationManager, int boatTypeId)
         {
@@ -52,16 +55,21 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
                 ViewModel.Items.Add(new ViewBoatTypeBoatViewModel(boattype));
             }
         }
+        public void Refresh()
+        {
+            _navigationManager.Navigate(() => new ViewBoatTypesPage(_navigationManager));
+        }
 
         private void RemoveBoatType(object sender, RoutedEventArgs e)
         {
             BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeId);
-
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 _boatTypeRepository.Delete(entity);
+                this.Refresh();
             }
+            
         }
 
         private void Wijzigen(object sender, RoutedEventArgs e)

@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace Kbs.Wpf.BoatType.ViewBoatTypes
 {
-    [HasRole(Role.GameCommissioner)]
+    [HasRole(Role.MaterialCommissioner)]
     public partial class ViewBoatTypesPage : Page
     {
 

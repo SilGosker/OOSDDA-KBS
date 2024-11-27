@@ -1,34 +1,29 @@
-﻿using System.Collections.ObjectModel;
+using System.Collections.ObjectModel;
 using Kbs.Business.BoatType;
+using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.BoatType.CreateBoatType;
+namespace Kbs.Wpf.BoatType.Update;
 
-public class CreateBoatTypeViewModel : ViewModel
+public class UpdateBoatTypeViewModel : ViewModel
 {
     private string _name;
-    private BoatTypeRequiredExperience _requiredExperience;
-    private BoatTypeSeats _seats;
     private int _speed;
     private bool _hasSteeringWheel;
-    private string _nameErrorMessage;
     private string _experienceErrorMessage;
     private string _speedErrorMessage;
     private string _seatsErrorMessage;
-
-    public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = new();
-    public ObservableCollection<BoatTypeSeatsViewModel> PossibleSeats { get; } = new();
+    private BoatTypeExperienceViewModel _selectedExperience;
+    private BoatTypeSeatsViewModel _selectedSeats;
+    
+    
+    public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = [];
+    public ObservableCollection<BoatTypeSeatsViewModel> PossibleSeats { get; } = [];
 
     public string Name
     {
         get => _name;
         set => SetField(ref _name, value);
-    }
-
-    public BoatTypeRequiredExperience RequiredExperience
-    {
-        get => _requiredExperience;
-        set => SetField(ref _requiredExperience, value);
     }
 
     public int Speed
@@ -37,22 +32,10 @@ public class CreateBoatTypeViewModel : ViewModel
         set => SetField(ref _speed, value);
     }
 
-    public BoatTypeSeats Seats
-    {
-        get => _seats;
-        set => SetField(ref _seats, value);
-    }
-
     public bool HasSteeringWheel
     {
         get => _hasSteeringWheel;
         set => SetField(ref _hasSteeringWheel, value);
-    }
-
-    public string NameErrorMessage
-    {
-        get => _nameErrorMessage;
-        set => SetField(ref _nameErrorMessage, value);
     }
 
     public string ExperienceErrorMessage
@@ -66,10 +49,28 @@ public class CreateBoatTypeViewModel : ViewModel
         get => _speedErrorMessage;
         set => SetField(ref _speedErrorMessage, value);
     }
+    
+    public string NameErrorMessage
+    {
+        get => _speedErrorMessage;
+        set => SetField(ref _speedErrorMessage, value);
+    }
 
     public string SeatsErrorMessage
     {
         get => _seatsErrorMessage;
         set => SetField(ref _seatsErrorMessage, value);
+    }
+    
+    public BoatTypeExperienceViewModel SelectedExperience
+    {
+        get => _selectedExperience;
+        set => SetField(ref _selectedExperience, value);
+    }
+
+    public BoatTypeSeatsViewModel SelectedSeats
+    {
+        get => _selectedSeats;
+        set => SetField(ref _selectedSeats, value);
     }
 }

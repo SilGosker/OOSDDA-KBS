@@ -46,7 +46,7 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <Viewbox Height="30" Grid.Row="0" HorizontalAlignment="Right" Grid.Column="0" VerticalAlignment="Center">
-                                    <RadioButton GroupName="length" IsChecked="{Binding ischecked}" IsEnabled="{Binding checkable}" Checked="RadioButton_Checked" />
+                                    <RadioButton GroupName="length" IsChecked="{Binding IsChecked}" IsEnabled="{Binding Checkable}" Checked="RadioButtLength_Checked" />
                                 </Viewbox>
                                 <Label Content="{Binding Content}" Grid.Row="0" FontSize="28" Grid.Column="1" VerticalAlignment="Center" />
                             </Grid>

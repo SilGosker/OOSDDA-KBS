@@ -72,4 +72,60 @@ public class BoatValidatorTests
         // Assert
         Assert.Empty(result);
     }
+
+    [Fact]
+    public void IsValidForPermanentDeletion_ShouldReturnError_WhenRequestDateIsNull()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            DeleteRequestDate = null
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.IsValidForPermanentDeletion(boat);
+
+        // Assert
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void IsValidForPermanentDeletion_ShouldReturnError_WhenRequestDateIsNotDue()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            DeleteRequestDate = DateTime.Now
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.IsValidForPermanentDeletion(boat);
+
+        // Assert
+        Assert.Single(result);
+    }
+
+    [Fact]
+    public void IsValidForPermanentDeletion_ShouldReturnNoErrors_WhenWaitTimeExpired()
+    {
+        // Arrange
+        BoatValidator.RequestDeletionTime = TimeSpan.FromSeconds(1);
+        var boat = new BoatEntity
+        {
+            DeleteRequestDate = DateTime.Now
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        Thread.Sleep(1001);
+        var result = validator.IsValidForPermanentDeletion(boat);
+
+        // Assert
+        Assert.Empty(result);
+
+        // Reset
+        BoatValidator.RequestDeletionTime = TimeSpan.FromMinutes(30);
+    }
 }

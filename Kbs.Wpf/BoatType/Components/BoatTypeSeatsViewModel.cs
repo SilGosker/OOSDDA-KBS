@@ -2,9 +2,9 @@
 
 namespace Kbs.Wpf.BoatType.CreateBoatType;
 
-public class CreateBoatSeatsViewModel
+public class BoatTypeSeatsViewModel
 {
-    public CreateBoatSeatsViewModel(BoatTypeSeats seats)
+    public BoatTypeSeatsViewModel(BoatTypeSeats seats)
     {
         BoatTypeSeats = seats;
     }

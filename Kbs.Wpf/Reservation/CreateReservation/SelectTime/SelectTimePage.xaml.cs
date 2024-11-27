@@ -128,14 +128,20 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
 
         private void NextWeekButton_Click(object sender, RoutedEventArgs e)
         {
-            daysFromToday += 7;
-            RefreshCalander();
+            if (daysFromToday <= 7)
+            {
+                daysFromToday += 7;
+                RefreshCalander();
+            }
         }
 
         private void BackWeekButton_Click(object sender, RoutedEventArgs e)
         {
-            daysFromToday -= 7;
-            RefreshCalander();
+            if (daysFromToday >= 7)
+            {
+                daysFromToday -= 7;
+                RefreshCalander();
+            }
         }
     }
 }

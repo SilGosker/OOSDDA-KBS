@@ -68,7 +68,7 @@ public partial class LoginWindow : Window
         var window = new MainWindow();
         window.Show();
         // MaterialCommissioner: Navigate to boat index page.
-        if (user.Role == Role.MaterialCommissioner)
+        if (session.User.Role == Role.MaterialCommissioner)
         {
             window.Navigate(() =>new BoatIndexPage(window));
         }

@@ -6,23 +6,24 @@ namespace Kbs.Wpf.Boat.Details;
 
 public class BoatDetailReservationViewModel : ViewModel
 {
-    private string _userName;
+    private string _name;
     private string _startDate;
     private string _endDate;
     private string _status;
     private int _reservationId;
     public BoatDetailReservationViewModel(ReservationEntity reservation, UserEntity user)
     {
+        Name = user.Name;
         StartDate = reservation.StartTime.ToString("dd-MM-yyyy HH:mm");
         EndDate = reservation.EndTime.ToString("dd-MM-yyyy HH:mm");
         ReservationId = reservation.ReservationId;
         Status = reservation.Status.ToDutchString();
     }
 
-    public string UserName
+    public string Name
     {
-        get => _userName;
-        set => SetField(ref _userName, value);
+        get => _name;
+        set => SetField(ref _name, value);
     }
     public string StartDate
     {

@@ -22,9 +22,12 @@ public class ReservationMaker
         List<ReservationTime> result = new List<ReservationTime>();
         List<ReservationEntity> reservations = repo.GetByBoatIdAndDay(selectedBoat, selectedDay);
 
+        selectedDay = selectedDay.AddDays(-1);
+        selectedDay = selectedDay.AddYears(-1);
+
         DateTime selectedDayDayOnly = new DateTime();
-        selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear - 2);
-        selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year - 1);
+        selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear);
+        selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year);
 
         DateTime selectedDayMorning = new DateTime();
         selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);

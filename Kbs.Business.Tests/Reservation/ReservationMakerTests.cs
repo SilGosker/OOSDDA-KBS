@@ -38,6 +38,12 @@ namespace Kbs.Business.Reservation
         {
             DateTime day = new DateTime(2024, 11, 27);
             Assert.Equal("Woensdag", ReservationMaker.ConvertDayOfWeekToDutch(day));
+            Assert.Equal("Donderdag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(1)));
+            Assert.Equal("Vrijdag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(2)));
+            Assert.Equal("Zaterdag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(3)));
+            Assert.Equal("Zondag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(4)));
+            Assert.Equal("Maandag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(5)));
+            Assert.Equal("Dinsdag", ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(6)));
         }
 
     }

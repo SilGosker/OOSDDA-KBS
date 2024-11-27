@@ -15,12 +15,12 @@ public partial class CreateBoatPage : Page
     private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
-    
+
     public CreateBoatPage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
-        
+
         foreach (var boatType in _boatTypeRepository.GetAll())
         {
             ViewModel.PossibleBoatTypes.Add(new CreateBoatBoatTypeViewModel(boatType));
@@ -30,11 +30,16 @@ public partial class CreateBoatPage : Page
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
         var type = (CreateBoatBoatTypeViewModel)((ComboBox)sender).SelectedItem;
-        if (type == null) return;
-        
-        ViewModel.BoatTypeId = type.BoatTypeId;
+        if (type == null)
+        {
+            ViewModel.BoatTypeId = 0;
+        }
+        else
+        {
+            ViewModel.BoatTypeId = type.BoatTypeId;
+        }
     }
-    
+
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
     {
         var boat = new BoatEntity()
@@ -63,7 +68,7 @@ public partial class CreateBoatPage : Page
         {
             ViewModel.BoatTypeErrorMessage = string.Empty;
         }
-        
+
         if (validationResult.Count != 0)
         {
             return;

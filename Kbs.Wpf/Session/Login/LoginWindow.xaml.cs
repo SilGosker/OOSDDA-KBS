@@ -80,7 +80,20 @@ public partial class LoginWindow : Window
 
         Close();
     }
-    
+
+    protected override void OnClosed(EventArgs e)
+    {
+        try
+        {
+            _registrationWindow.Close();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+        base.OnClosed(e);
+    }
+
     private void RegistrationButtonClicked(object sender, RoutedEventArgs e)
     {
         _registrationWindow.Show();

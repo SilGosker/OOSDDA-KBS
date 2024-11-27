@@ -45,7 +45,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day)
     {
         return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatId AND StartTime Like @day AND Status = 3  ORDER BY StartTime", new { day = $"%" + day.Year + "-" + day.Month + "-" + day.Day + "%", boat.BoatId }).ToList();
-        }
+    }
 
     public List<ReservationEntity> GetByUserId(int userId)
     {

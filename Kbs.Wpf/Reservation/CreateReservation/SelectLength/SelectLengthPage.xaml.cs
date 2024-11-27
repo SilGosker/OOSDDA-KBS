@@ -12,12 +12,12 @@ using System.Windows;
 using System.Windows.Controls;
 
 namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
-    {
+{
     /// <summary>
     /// Interaction logic for SelectLength.xaml
     /// </summary>
     public partial class SelectLengthPage : Page
-        {
+    {
         private readonly INavigationManager _navigationManager;
         private readonly BoatTypeRepository _boatTypeRepository = new();
         private readonly ReservationRepository _reservationRepository = new();
@@ -26,14 +26,14 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);
         public DateTime selectedStartTime = new DateTime();
         public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat)
-            {
+        {
             _navigationManager = navigationManager;
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             InitializeComponent();
-            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.StartTime);
-            
+            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), chosenTimeAndBoat.Item2.Name, chosenTimeAndBoat.Item1.StartTime);
+
             double unCheckablebuttonLength = 0.5;
-            for (int i = 30; i <= 120; i += 30) 
+            for (int i = 30; i <= 120; i += 30)
             {
                 TimeSpan length = TimeSpan.FromMinutes(i);
                 if (i == 30)
@@ -48,29 +48,29 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, length, false));
                 }
-                
+
                 unCheckablebuttonLength += 0.5;
             }
-            }
+        }
 
         private ObservableCollection<string> MakeComboboxAvailableTimes()
-            {
+        {
             ObservableCollection<string> availableTimes = new ObservableCollection<string>();
             for (DateTime i = chosenTimeAndBoat.Item1.StartTime; i <= chosenTimeAndBoat.Item1.EndTime.Subtract(lenghtSelected); i = i.AddMinutes(30))
-                {
+            {
                 availableTimes.Add(i.ToString("HH:mm"));
 
-                }
-            return availableTimes;
             }
+            return availableTimes;
+        }
 
         private void ButtonReservation_Click(object sender, RoutedEventArgs e)
-            {
+        {
             ReservationEntity res = new ReservationEntity();
             res.BoatId = chosenTimeAndBoat.Item2.BoatId;
             res.Status = ReservationStatus.Active;
             res.StartTime = selectedStartTime;
-            
+
             res.Length = lenghtSelected;
 
             UserEntity user = SessionManager.Instance.Current.User;
@@ -80,10 +80,10 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             _reservationRepository.Create(res);
 
             _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
-            }
+        }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-            {
+        private void ComboBoxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
 
             var comboBox = (ComboBox)sender;
             string selected = (string)comboBox.SelectedItem;
@@ -100,15 +100,15 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             selectedDate = selectedDate.Add(timespan);
 
             selectedStartTime = selectedDate;
-            }
+        }
         private void PreviousStep(object sender, RoutedEventArgs e)
-            {
+        {
             var boatType = _boatTypeRepository.GetByBoatId(chosenTimeAndBoat.Item2.BoatId);
 
             _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
-            }
+        }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        private void RadioButtLength_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton button = (RadioButton)sender;
             SelectLengthLengthViewModel dataContext = (SelectLengthLengthViewModel)button.DataContext;
@@ -117,4 +117,4 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         }
     }
 
-    }
+}

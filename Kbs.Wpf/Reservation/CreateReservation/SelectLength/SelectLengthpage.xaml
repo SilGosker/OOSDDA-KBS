@@ -63,7 +63,7 @@
 
                 <TextBlock Text="Selecteer de Starttijd"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" />
                 <TextBlock Text="van de reservering"  VerticalAlignment="Center" Height="40" FontSize="30" HorizontalAlignment="Center" Grid.Column="1"  Grid.Row="1" Margin="0 55 0 0"/>
-                <ComboBox Text="kies een starttijd"   Grid.Row="2" Grid.Column="1" ItemsSource="{Binding AvailableStartTimes}" FontSize="35" Height="55" Width="200" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged" />
+                <ComboBox Text="kies een starttijd"   Grid.Row="2" Grid.Column="1" ItemsSource="{Binding AvailableStartTimes}" FontSize="35" Height="55" Width="200" SelectedIndex="0" SelectionChanged="ComboBoxStartTime_SelectionChanged" />
                 
                 <Grid Grid.Column="2" Grid.RowSpan="6" VerticalAlignment="Center" Background="LightGray" >
                     <Grid.RowDefinitions>

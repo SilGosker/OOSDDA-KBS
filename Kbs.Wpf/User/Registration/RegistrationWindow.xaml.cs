@@ -91,7 +91,13 @@ public partial class RegistrationWindow : Window
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
     }
-    
+
+    protected override void OnClosed(EventArgs e)
+    {
+        _loginWindow.RegistrationClosed();
+        base.OnClosed(e);
+    }
+
     private void PasswordConfirmationChanged(object sender, RoutedEventArgs e)
     {
         ViewModel.PasswordConfirmation = ((PasswordBox)sender).Password;

@@ -4,6 +4,7 @@ using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.Attributes;
 using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
 
 namespace Kbs.Wpf.BoatType.CreateBoatType;
 
@@ -101,8 +102,7 @@ public partial class CreateBoatTypePage : Page
         }
 
         _boatTypeRepository.Create(boatType);
-
-        // TODO: navigate to details page
-        _navigationManager.Navigate(() => new BoatIndexPage(_navigationManager));
+        
+        _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(_navigationManager, boatType.BoatTypeId));
     }
 }

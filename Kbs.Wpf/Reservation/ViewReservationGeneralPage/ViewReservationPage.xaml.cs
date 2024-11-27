@@ -17,7 +17,7 @@ public partial class ViewReservationPage : Page
         _navigationManager = navigationManager;
         InitializeComponent();
         var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
-        var sortedReservations = _reservationRepository.OrderByStatus(reservations);
+        var sortedReservations = _reservationRepository.OrderByStatusAndTime(reservations);
 
         foreach (var reservation in sortedReservations)
         {

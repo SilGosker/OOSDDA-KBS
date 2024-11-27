@@ -41,7 +41,7 @@ namespace Kbs.Business.Mock
             return Reservations.Where(e => e.UserId == userId).ToList();
         }
 
-        public List<ReservationEntity> OrderByStatus(List<ReservationEntity> reservations)
+        public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
         {
             return reservations.OrderBy(e => e.Status).ToList();
         }

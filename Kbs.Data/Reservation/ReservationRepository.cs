@@ -59,9 +59,9 @@ public class ReservationRepository : IReservationRepository, IDisposable
             .FirstOrDefault();
     }
 
-    public List<ReservationEntity> OrderByStatus(List<ReservationEntity> reservations)
+    public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
     {
-        return reservations.OrderByDescending(r => r.Status).ToList();
+        return reservations.OrderBy(r => r.StartTime).OrderByDescending(r => r.Status).ToList();
     }
 
     public List<ReservationEntity> GetByBoatId(int boatBoatId)

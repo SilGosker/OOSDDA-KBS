@@ -31,21 +31,20 @@ public partial class MainWindow : Window, INavigationManager
         SessionManager.Instance.SessionTimeExpired += SessionExpired;
 
         var user = SessionManager.Instance.Current.User;
-
-        // todo: add navigation items
-        if (user.IsMember() || user.IsGameCommissioner())
-        {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
-        }
-
+        
         if (user.IsMaterialCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Overzicht boottypen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage(this)) { Name = "Overzicht boten" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
+        }
+        
+        if (user.IsMember() || user.IsGameCommissioner())
+        {
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
         }
     }
 

@@ -31,5 +31,14 @@ namespace Kbs.Business.Reservation
             Assert.Equal(res[1].StartTime, res2.StartTime);
             Assert.Equal(res[1].EndTime, res2.EndTime);
         }
+
+        [Fact]
+
+        public void ConvertDayOfWeekToDutchTests()
+        {
+            DateTime day = new DateTime(2024, 11, 27);
+            Assert.Equal("Woensdag", ReservationMaker.ConvertDayOfWeekToDutch(day));
+        }
+
     }
 }

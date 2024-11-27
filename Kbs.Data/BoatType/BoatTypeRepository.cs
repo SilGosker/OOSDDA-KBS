@@ -39,10 +39,10 @@ public class BoatTypeRepository : IBoatTypeRepository
         return _connection.QueryFirstOrDefault<BoatTypeEntity>("SELECT * FROM Boattype WHERE BoattypeID = @boatTypeId",
             new { boatTypeId });
     }
-
+    
     public void Create(BoatTypeEntity boatType)
     {
-        boatType.BoatTypeId = _connection.Execute(
+        boatType.BoatTypeId = _connection.QueryFirst<int>(
             "INSERT INTO Boattype (Name, HasSteeringWheel, RequiredExperience, Seats, Speed) VALUES (@Name, @HasSteeringWheel, @RequiredExperience, @Seats, @Speed); SELECT SCOPE_IDENTITY()",
             boatType);
     }

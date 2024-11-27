@@ -35,12 +35,17 @@ public partial class ViewPageSpecific : Page
     public void Delete(object sender, RoutedEventArgs e)
     {
         var entity = _reservationRepository.GetById(ViewModel.ReservationID);
-
-        MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (MessageBoxResult.Yes == result) {
-            _reservationRepository.Delete(entity);
-            _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
+        if (ViewModel.Status != ReservationStatus.Active.ToDutchString())
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
+            {
+                _reservationRepository.Delete(entity);
+                _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
+            }
+        } else
+        {
+            return;
         }
-
     }
 }

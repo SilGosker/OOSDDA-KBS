@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -34,6 +35,7 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         private readonly INavigationManager _navigationManager;
         private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
         private readonly BoatRepository _boatRepository = new BoatRepository();
+        private readonly ReservationEntity _reservationEntity = new ReservationEntity();
         private ViewDetailedBoatTypesBoatViewModel ViewModel => (ViewDetailedBoatTypesBoatViewModel)DataContext;
         public ViewDetailedBoatTypesPage(INavigationManager navigationManager, int boatTypeId)
         {
@@ -61,13 +63,13 @@ namespace Kbs.Wpf.BoatType.ViewDetailedBoatTypes
         private void RemoveBoatType(object sender, RoutedEventArgs e)
         {
             BoatTypeEntity entity = _boatTypeRepository.GetByBoatTypeID(ViewModel.BoatTypeId);
-
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 _boatTypeRepository.Delete(entity);
                 this.Refresh();
             }
+            
         }
 
         private void Wijzigen(object sender, RoutedEventArgs e)

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Windows.Controls;
 using Kbs.Business.BoatType;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
@@ -32,17 +33,29 @@ public partial class CreateBoatTypePage : Page
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
     {
         var experience = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
-        if (experience == null) return;
+        if (experience == null)
+        {
+            ViewModel.RequiredExperience = 0;
+        }
+        else
+        {
+            ViewModel.RequiredExperience = experience.RequiredExperience;
+        }
 
-        ViewModel.RequiredExperience = experience.RequiredExperience;
     }
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
         var seats = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (seats == null) return;
+        if (seats == null)
+        {
+        ViewModel.Seats = 0;
+        }
+        else
+        {
+            ViewModel.Seats = seats.BoatTypeSeats;
+        }
 
-        ViewModel.Seats = seats.BoatTypeSeats;
 
     }
 

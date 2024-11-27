@@ -18,6 +18,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Reserveren boot" Margin="5" VerticalAlignment="Top" Height="40" FontSize="30" HorizontalAlignment="Center"  />
+        <Button FontSize="24" Content="Vorige stap"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Click="PreviousStep"  Grid.Row="0"  />
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" >
             <Grid>

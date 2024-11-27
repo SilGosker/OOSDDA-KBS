@@ -9,18 +9,18 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
 {
     public class SelectLengthLengthViewModel : ViewModel
     {
-        public bool checkable
+        public bool Checkable
         {
             get => _checkable;
             set => SetField(ref _checkable, value);
         }
 
-        public TimeSpan length
+        public TimeSpan Length
         {
             get => _length;
             set => SetField(ref _length, value);
         }
-        public bool ischecked
+        public bool IsChecked
         {
             get => _ischecked;
             set => SetField(ref _ischecked, value);
@@ -41,9 +41,9 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
 
         public SelectLengthLengthViewModel(bool checkable, TimeSpan length, bool ischecked)
         {
-            this.checkable = checkable;
-            this.length = length;
-            this.ischecked = ischecked;
+            this.Checkable = checkable;
+            this.Length = length;
+            this.IsChecked = ischecked;
             Content = length.TotalMinutes.ToString() + " minuten";
         }
     }

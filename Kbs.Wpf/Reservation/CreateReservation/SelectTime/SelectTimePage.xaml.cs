@@ -2,26 +2,11 @@
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Data.Boat;
-using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
-using Kbs.Wpf.Reservation.CreateReservation.SelectLength;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 
 namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
@@ -31,17 +16,11 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
     /// </summary>
     public partial class SelectTimePage : Page
         {
-
         private readonly INavigationManager _navigationManager;
-        BoatTypeEntity boatType;
-        BoatRepository boatRepository = new BoatRepository();
-        ReservationRepository reservationRepository = new ReservationRepository();
         ReservationMaker maker = new ReservationMaker(new ReservationRepository());
         BoatEntity boatSelected;
         int daysFromToday = 0;
         private readonly BoatRepository _boatRepository = new();
-        private readonly BoatTypeRepository _boatTypeRepository = new();
-        private readonly ReservationRepository _reservationRepository = new();
         private SelectTimeViewModel ViewModel => (SelectTimeViewModel)DataContext;
         List<double> checklist = new List<double>();
         public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType)
@@ -56,7 +35,6 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
                 }
 
             InitializeComponent();
-            this.boatType = boatType;
             _navigationManager = navigationManager;
             //change this
 

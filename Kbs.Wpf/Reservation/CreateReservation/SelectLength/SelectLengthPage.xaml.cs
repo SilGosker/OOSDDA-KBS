@@ -2,30 +2,14 @@
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
-using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Index;
-using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 using Kbs.Wpf.Reservation.CreateReservation.SelectTime;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
-using Kbs.Wpf.User;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
     {
@@ -35,7 +19,6 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
     public partial class SelectLengthPage : Page
         {
         private readonly INavigationManager _navigationManager;
-        private readonly BoatRepository _boatRepository = new();
         private readonly BoatTypeRepository _boatTypeRepository = new();
         private readonly ReservationRepository _reservationRepository = new();
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
@@ -48,7 +31,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             InitializeComponent();
             ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(),chosenTimeAndBoat.Item2.Name,chosenTimeAndBoat.Item1.StartTime);
-            int unCheckablebuttons = 30;
+            
             double unCheckablebuttonLength = 0.5;
             for (int i = 30; i <= 120; i += 30) 
             {
@@ -57,7 +40,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, length, true));
                 }
-                else if ((i == unCheckablebuttons) && (chosenTimeAndBoat.Item1.Length <= unCheckablebuttonLength))
+                else if ((chosenTimeAndBoat.Item1.Length < unCheckablebuttonLength))
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(false, length, false));
                 }
@@ -65,7 +48,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, length, false));
                 }
-                unCheckablebuttons += 30;
+                
                 unCheckablebuttonLength += 0.5;
             }
             }
@@ -129,7 +112,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         {
             RadioButton button = (RadioButton)sender;
             SelectLengthLengthViewModel dataContext = (SelectLengthLengthViewModel)button.DataContext;
-            lenghtSelected = dataContext.length;
+            lenghtSelected = dataContext.Length;
             ViewModel.AvailableStartTimes = MakeComboboxAvailableTimes();
         }
     }

@@ -18,9 +18,11 @@
         <TextBox HorizontalAlignment="Left" Margin="463,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"
                  KeyUp="NameChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Height="22" />
 
+
         <Label Content="Naam" HorizontalAlignment="Left" Margin="463,47,0,0" VerticalAlignment="Top" Width="120" />
         <ComboBox Text="Alle boottypes" IsEditable="True" HorizontalAlignment="Left" Margin="322,74,0,0" VerticalAlignment="Top" Width="120"
                   SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypes}" />
+
 
         <Label Content="Boot type" HorizontalAlignment="Left" Margin="322,47,0,0" VerticalAlignment="Top" Width="120" />
 

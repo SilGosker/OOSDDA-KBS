@@ -10,4 +10,5 @@ public interface IBoatRepository
     void Update(BoatEntity boat);
     void DeleteById(int boatId);
     void Create(BoatEntity boat);
+    List<BoatEntity> GetAvailableByType(int boatTypeId);
 }

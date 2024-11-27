@@ -9,6 +9,7 @@ using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.BoatType.Update;
 using Kbs.Wpf.BoatType.ViewBoatTypes;
+using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 using Kbs.Wpf.Session.Login;
 
@@ -35,7 +36,7 @@ public partial class MainWindow : Window, INavigationManager
         if (user.IsMember() || user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new Page()) {Name = "Plaatsen reservering"});
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
         }
 

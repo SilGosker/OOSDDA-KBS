@@ -1,4 +1,4 @@
-﻿namespace Kbs.Business.Reservation;
+namespace Kbs.Business.Reservation;
 
 public class ReservationEntityTests
 {

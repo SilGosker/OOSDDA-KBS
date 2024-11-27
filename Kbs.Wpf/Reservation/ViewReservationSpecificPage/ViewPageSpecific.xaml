@@ -14,7 +14,7 @@
     <Grid>
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
-            <TextBlock Text="{Binding ReservationID}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding ReservationId}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <Grid Canvas.Left="20" Canvas.Top="100" HorizontalAlignment="Left" VerticalAlignment="Center" Width="578">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" MaxWidth="80" />
@@ -25,6 +25,7 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                 </Grid.RowDefinitions>
@@ -43,10 +44,15 @@
 
                 <TextBlock Grid.Row="1" Grid.Column="4" FontWeight="Bold" Text="Status:"/>
                 <TextBlock  Grid.Row="1" Grid.Column="5" Text="{Binding Status}" Foreground="{Binding StatusColor}"/>
+                
+                <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold" Text="Boot:"/>
+                <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding BoatEntity.Name}" />
+                
+                <TextBlock Grid.Row="2" Grid.Column="2" FontWeight="Bold" Text="Snelheid:"/>
+                <TextBlock Grid.Row="2" Grid.Column="3" Text="{Binding Speed}" />
             </Grid>
-
-            <Button Content="Type boot" Width="100" Canvas.Left="441" Canvas.Top="33"/>
-            <Button Content="Verwijderen" Width="100" Canvas.Left="301" Click="Delete" Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            
+            <Button Content="Verwijderen" Width="100" Canvas.Left="475" Click="Delete" Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center"/>
         </Canvas>
     </Grid>
 </Page>

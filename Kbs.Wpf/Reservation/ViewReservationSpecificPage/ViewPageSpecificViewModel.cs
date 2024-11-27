@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 using System.Windows.Media;
+using Kbs.Business.Boat;
 
 namespace Kbs.Wpf.Reservation.ViewReservationSpecificPage;
 
@@ -11,8 +12,10 @@ public class ViewPageSpecificViewModel : ViewModel
     private bool _hasSteeringWheel;
     private DateTime _startTime;
     private TimeSpan _length;
-    private int _reservationID;
+    private int _reservationId;
     private string _status = ((ReservationStatus)0).ToDutchString();
+    private BoatEntity _boatEntity;
+    private int _speed;
 
     public string Experience
     {
@@ -68,9 +71,22 @@ public class ViewPageSpecificViewModel : ViewModel
         }
     }
     public string LengthFormatted => Length.ToString(@"hh\:mm");
-    public int ReservationID
+    public int ReservationId
     {
-        get => _reservationID;
-        set => SetField(ref _reservationID, value);
+        get => _reservationId;
+        set => SetField(ref _reservationId, value);
+    }
+    
+    public BoatEntity BoatEntity
+    {
+        get => _boatEntity;
+        set => SetField(ref _boatEntity, value);
+    }
+    
+    public int Speed
+    {
+        get => _speed;
+        set => SetField(ref _speed, value);
     }
 }
+

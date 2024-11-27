@@ -21,6 +21,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         private readonly INavigationManager _navigationManager;
         private readonly BoatTypeRepository _boatTypeRepository = new();
         private readonly ReservationRepository _reservationRepository = new();
+        private ComboBox _starttimecombobox;
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
         Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat;
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);
@@ -85,8 +86,8 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
         private void ComboBoxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            var comboBox = (ComboBox)sender;
-            string selected = (string)comboBox.SelectedItem;
+            _starttimecombobox = (ComboBox)sender;
+            string selected = (string)_starttimecombobox.SelectedItem;
             if (selected.IsNullOrEmpty())
             {
                 return;
@@ -114,6 +115,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectLength
             SelectLengthLengthViewModel dataContext = (SelectLengthLengthViewModel)button.DataContext;
             lenghtSelected = dataContext.Length;
             ViewModel.AvailableStartTimes = MakeComboboxAvailableTimes();
+            _starttimecombobox.SelectedIndex = 0;
         }
     }
 

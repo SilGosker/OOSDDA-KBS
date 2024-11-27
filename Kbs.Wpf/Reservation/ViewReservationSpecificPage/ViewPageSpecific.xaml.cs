@@ -4,7 +4,9 @@ using Kbs.Data.Reservation;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Data.Boat;
+using Kbs.Wpf.Boat.Index;
 using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
 using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
 
@@ -39,17 +41,25 @@ public partial class ViewPageSpecific : Page
     public void Delete(object sender, RoutedEventArgs e)
     {
         var entity = _reservationRepository.GetById(ViewModel.ReservationId);
-        if (ViewModel.Status != ReservationStatus.Active.ToDutchString())
+        if (ViewModel.Status == ReservationStatus.Active.ToDutchString())
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == result)
             {
                 _reservationRepository.Delete(entity);
-                _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
+
+                if (SessionManager.Instance.Current.User.IsMaterialCommissioner())
+                {
+                    _navigationManager.Navigate(() => new BoatIndexPage(_navigationManager));
+                }
+                else
+                {
+                    _navigationManager.Navigate(() => new ViewReservationPage(_navigationManager));
+                }
             }
         } else
         {
-            return;
+            MessageBox.Show("Reservering kan niet verwijderd worden, omdat deze al is afgelopen.");
         }
     }
 }

@@ -15,5 +15,6 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
 
 
         public ObservableCollection<DateTime> ThisWeek { get; } = new();
+        public ObservableCollection<string> DayOfWeek { get; } = new();
     }
 }

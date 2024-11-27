@@ -174,7 +174,7 @@
             <ItemsControl
 HorizontalAlignment="Center"
 VerticalAlignment="Bottom"
-    ItemsSource="{Binding ThisWeek}"
+    ItemsSource="{Binding DayOfWeek}"
     Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7"
             Height="47">
                 <ItemsControl.ItemsPanel>
@@ -184,7 +184,7 @@ VerticalAlignment="Bottom"
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Label FontFamily="Comic Sans MS" FontSize="25" Content="{Binding DayOfWeek}" Width="150" HorizontalContentAlignment="Center"  />
+                            <Label FontFamily="Comic Sans MS" FontSize="25" Content="{Binding}" Width="150" HorizontalContentAlignment="Center"  />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
 

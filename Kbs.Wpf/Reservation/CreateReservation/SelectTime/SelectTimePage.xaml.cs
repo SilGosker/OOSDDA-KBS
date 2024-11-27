@@ -77,6 +77,7 @@ namespace Kbs.Wpf.Reservation.CreateReservation.SelectTime
                 weekday = DateTime.Now;
                 weekday = weekday.AddDays(i);
                 ViewModel.ThisWeek.Add(weekday);
+                ViewModel.DayOfWeek.Add(ReservationMaker.ConvertDayOfWeekToDutch(weekday));
 
                 foreach (ReservationTime j in maker.MakeReservableTimes(weekday, boatSelected))
                 {

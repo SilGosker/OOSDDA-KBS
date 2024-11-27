@@ -11,5 +11,4 @@ public class BoatEntity
     public int BoatTypeId { get; set; }
     public BoatStatus Status { get; set; }
     public DateTime? DeleteRequestDate { get; set; }
-    public string UserName { get; set; }
 }

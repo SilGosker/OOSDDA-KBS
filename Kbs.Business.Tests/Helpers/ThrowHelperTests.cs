@@ -6,7 +6,7 @@ public class ThrowHelperTests
     public void ThrowIfNull_WhenObjectIsNull_ThrowsArgumentNullException()
     {
         // Arrange
-        object? obj = null;
+        object obj = null;
 
         // Act
         Action act = () => ThrowHelper.ThrowIfNull(obj);

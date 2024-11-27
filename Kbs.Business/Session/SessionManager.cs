@@ -6,6 +6,8 @@ namespace Kbs.Business.Session;
 public class SessionManager
 {
     private readonly IUserRepository _userRepository;
+    private readonly TimeSpan _sessionTime;
+    private CancellationTokenSource _cancellationTokenSource = new();
     private static SessionManager _instance;
     public static SessionManager Instance
     {
@@ -21,15 +23,18 @@ public class SessionManager
         }
     }
     public Session Current { get; private set; }
-    public SessionManager(IUserRepository userRepository)
+    public event EventHandler<SessionTimeExpiredEventArgs> SessionTimeExpired;
+    public SessionManager(IUserRepository userRepository, TimeSpan sessionTime)
     {
         ThrowHelper.ThrowIfNull(userRepository);
         _userRepository = userRepository;
+        _sessionTime = sessionTime;
     }
 
     public bool TryCreate(UserEntity user, out Session session)
     {
-        session = default;
+        session =  default;
+
         var userFromDb = _userRepository.GetByCredentials(user.Email, user.Password);
         if (userFromDb == null)
         {
@@ -38,6 +43,56 @@ public class SessionManager
 
         session = new Session(userFromDb);
         Current = session;
+        TrackSessionTime();
         return true;
+    }
+
+    private async void TrackSessionTime()
+    {
+        try
+        {
+            var current = Current;
+            await Task.Delay(_sessionTime, _cancellationTokenSource.Token);
+            if (Current != null && current == Current)
+            {
+                SessionTimeExpired?.Invoke(this, new SessionTimeExpiredEventArgs(Current));
+            }
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    public void ExtendSession()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
+        TrackSessionTime();
+    }
+
+    public void Logout()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new();
+        Current = null;
+    }
+
+    public void UpdateSessionUser(string newMail, string newPassword)
+    {
+        UserEntity sessionUser = Current.User;
+        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
+        if (newUser.Email != null && !newMail.Equals(sessionUser.Email))
+        {
+            sessionUser.Email = newUser.Email;
+        }
+        if (newPassword != null)
+        {
+            newUser.Encrypt();
+            if (!newPassword.Equals(sessionUser.Password))
+            {
+                sessionUser.Password = newUser.Password;
+            }
+        }
     }
 }

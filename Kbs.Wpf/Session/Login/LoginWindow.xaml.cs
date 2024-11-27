@@ -1,18 +1,22 @@
-﻿using Kbs.Business.Session;
-using Kbs.Business.User;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Session;
+using Kbs.Business.User;
+using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
+using Kbs.Wpf.User.Registration;
 
-namespace Kbs.Wpf.User.Login;
+namespace Kbs.Wpf.Session.Login;
 
 public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
-    public LoginViewModel ViewModel => (LoginViewModel)DataContext;
-
+    private RegistrationWindow _registrationWindow;
+    private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {
         InitializeComponent();
+        _registrationWindow = new(this);
     }
 
     private void SubmitButtonClicked(object sender, RoutedEventArgs e)
@@ -48,15 +52,51 @@ public partial class LoginWindow : Window
             return;
         }
 
+        Login(user);
+    }
+
+
+    public void Login(UserEntity user)
+    {
         if (!SessionManager.Instance.TryCreate(user, out var session))
         {
             MessageBox.Show(this, "Email/wachtwoord combinatie niet gevonden", "Kon niet inloggen", MessageBoxButton.OK);
             return;
         }
 
+        _registrationWindow.Close();
         var window = new MainWindow();
         window.Show();
+        // MaterialCommissioner: Navigate to boat index page.
+        if (session.User.Role == Role.MaterialCommissioner)
+        {
+            window.Navigate(() =>new BoatIndexPage(window));
+        }
+        // Member and other people: Navigate to reservation index page.
+        else
+        {
+            window.Navigate(() => new ViewReservationPage(window));
+        }
+
         Close();
+    }
+
+    protected override void OnClosed(EventArgs e)
+    {
+        try
+        {
+            _registrationWindow.Close();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+        base.OnClosed(e);
+    }
+
+    private void RegistrationButtonClicked(object sender, RoutedEventArgs e)
+    {
+        _registrationWindow.Show();
     }
 
     // have to use a event handler because PasswordBox doesn't support binding
@@ -64,5 +104,10 @@ public partial class LoginWindow : Window
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
 
+    }
+    
+    public void RegistrationClosed()
+    {
+        _registrationWindow = new(this);
     }
 }

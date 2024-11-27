@@ -1,14 +1,16 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.Login;
+namespace Kbs.Wpf.User.Registration;
 
-public class LoginViewModel : INotifyPropertyChanged
+public class RegistrationViewModel : ViewModel
 {
     private string _email;
+    private string _name;
     private string _password;
+    private string _passwordConfirmation;
     private string _emailErrorMessage;
     private string _passwordErrorMessage;
+    private string _passwordConfirmationErrorMessage;
 
     public string Email
     {
@@ -19,6 +21,12 @@ public class LoginViewModel : INotifyPropertyChanged
     {
         get => _emailErrorMessage;
         set => SetField(ref _emailErrorMessage, value);
+    }
+    
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
     }
 
     public string Password
@@ -31,19 +39,14 @@ public class LoginViewModel : INotifyPropertyChanged
         get => _passwordErrorMessage;
         set => SetField(ref _passwordErrorMessage, value);
     }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    public string PasswordConfirmation
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        get => _passwordConfirmation;
+        set => SetField(ref _passwordConfirmation, value);
     }
-
-    protected bool SetField<T>(ref T field, T value, [CallerMemberName] string? propertyName = null)
+    public string PasswordConfirmationErrorMessage
     {
-        if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-        field = value;
-        OnPropertyChanged(propertyName);
-        return true;
+        get => _passwordConfirmationErrorMessage;
+        set => SetField(ref _passwordConfirmationErrorMessage, value);
     }
 }

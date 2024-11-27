@@ -32,4 +32,14 @@ public class MockUserRepository : IUserRepository
     {
         return Users.FirstOrDefault(u => u.Email == email && u.Password == password);
     }
+
+    public UserEntity GetByEmail(string email)
+    {
+        return Users.FirstOrDefault(u => u.Email == email);
+    }
+
+    public UserEntity GetById(int id)
+    {
+        return Users.FirstOrDefault(u => u.UserId == id);
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using Kbs.Business.BoatType;
 
-namespace Kbs.Wpf.BoatType.CreateBoatType;
+namespace Kbs.Wpf.BoatType.Components;
 
 public class BoatTypeSeatsViewModel
 {

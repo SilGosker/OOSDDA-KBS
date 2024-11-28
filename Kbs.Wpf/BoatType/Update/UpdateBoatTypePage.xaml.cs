@@ -3,13 +3,12 @@ using System.Windows.Controls;
 using Kbs.Business.BoatType;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
-using Kbs.Wpf.Attributes;
-using Kbs.Wpf.BoatType.CreateBoatType;
-using Kbs.Wpf.BoatType.ViewDetailedBoatTypes;
+using Kbs.Wpf.BoatType.Components;
+using Kbs.Wpf.BoatType.Read.Details;
 
 namespace Kbs.Wpf.BoatType.Update;
 
-[HasRole(Role.MaterialCommissioner)]
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class UpdateBoatTypePage : Page
 {
     private readonly BoatTypeValidator _boatTypeValidator = new();
@@ -50,7 +49,7 @@ public partial class UpdateBoatTypePage : Page
            && ViewModel.SelectedSeats?.BoatTypeSeats == _boatType.Seats 
            && ViewModel.HasSteeringWheel == _boatType.HasSteeringWheel)
         {
-            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(_navigationManager, _boatType.BoatTypeId));
+            _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, _boatType.BoatTypeId));
             return;
         }
         
@@ -73,7 +72,7 @@ public partial class UpdateBoatTypePage : Page
         {
             _boatTypeRepository.Update(_boatType);
             MessageBox.Show("Boottype succesvol aangepast.");
-            _navigationManager.Navigate(() => new ViewDetailedBoatTypesPage(_navigationManager, _boatType.BoatTypeId));
+            _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, _boatType.BoatTypeId));
         }
     }
 }

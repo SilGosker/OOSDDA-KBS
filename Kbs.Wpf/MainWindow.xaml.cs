@@ -2,15 +2,15 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Session;
-using Kbs.Wpf.Attributes;
+using Kbs.Business.User;
 using Kbs.Wpf.Boat.Create;
+using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.BoatType.Create;
+using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.User.Update;
-using Kbs.Wpf.Boat.Index;
-using Kbs.Wpf.BoatType.CreateBoatType;
 using Kbs.Wpf.BoatType.Update;
-using Kbs.Wpf.BoatType.ViewBoatTypes;
-using Kbs.Wpf.Reservation.CreateReservation.SelectBoatType;
-using Kbs.Wpf.Reservation.ViewReservationGeneralPage;
+using Kbs.Wpf.Reservation.Create.SelectBoatType;
+using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
 
 namespace Kbs.Wpf;
@@ -36,15 +36,15 @@ public partial class MainWindow : Window, INavigationManager
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Overzicht boottypen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new BoatIndexPage(this)) { Name = "Overzicht boten" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Overzicht boten" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
         }
         
         if (user.IsMember() || user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewReservationPage(this)) { Name = "Mijn reserveringen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new AccountView(this)) {Name = "Instellingen"});
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) {Name = "Instellingen"});
         }
     }
 
@@ -92,7 +92,7 @@ public partial class MainWindow : Window, INavigationManager
                 return;
             }
 
-            if (attributes.Any(e => user.Is(e.Role)))
+            if (attributes.Any(e => user.Is(e.UserRole)))
             { 
                 page = creator();
                 NavigationFrame.Navigate(page);

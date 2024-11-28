@@ -14,8 +14,6 @@
         <Setter Property="Background" Value="#2C2F33" />
     </Style>
     
-    
-    
     <Style TargetType="Label">
         <Setter Property="Foreground" Value="#DCDDDE" />
         <Setter Property="FontSize" Value="14" />

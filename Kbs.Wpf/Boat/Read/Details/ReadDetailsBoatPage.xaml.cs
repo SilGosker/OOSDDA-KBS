@@ -21,8 +21,8 @@ public partial class ReadDetailsBoatPage : Page
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
-    private BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
-    public BoatDetailPage(INavigationManager navigationManager, int boatId)
+    private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
+    public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
         _boatValidator = new(this._boatTypeRepository);

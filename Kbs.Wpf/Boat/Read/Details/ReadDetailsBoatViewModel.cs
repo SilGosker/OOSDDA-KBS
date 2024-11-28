@@ -14,7 +14,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     private string _requestButtonText;
     private int _boatTypeId;
     private bool _enableDeletion;
-    public ObservableCollection<BoatDetailReservationViewModel> Reservations { get; } = new();
+    public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
     public int BoatTypeId
     {
         get { return _boatTypeId; }

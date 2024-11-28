@@ -4,11 +4,11 @@ namespace Kbs.Business.Reservation;
 
 public class ReservationMaker
 {
-    public IReservationRepository repo;
+    private readonly IReservationRepository _repository;
 
     public ReservationMaker(IReservationRepository repo)
     {
-        this.repo = repo;
+        this._repository = repo;
     }
 
     /// <summary>
@@ -20,7 +20,7 @@ public class ReservationMaker
     public List<ReservationTime> MakeReservableTimes(DateTime selectedDay, BoatEntity selectedBoat)
     {
         List<ReservationTime> result = new List<ReservationTime>();
-        List<ReservationEntity> reservations = repo.GetByBoatIdAndDay(selectedBoat, selectedDay);
+        List<ReservationEntity> reservations = _repository.GetByBoatIdAndDay(selectedBoat, selectedDay);
 
         selectedDay = selectedDay.AddDays(-1);
         selectedDay = selectedDay.AddYears(-1);

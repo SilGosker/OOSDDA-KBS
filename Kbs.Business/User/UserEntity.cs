@@ -9,26 +9,26 @@ public class UserEntity
     public string Email { get; set; }
     public string Password { get; set; }
     public string Name { get; set; }
-    public Role Role { get; set; }
+    public UserRole Role { get; set; }
 
     public bool IsMember()
     {
-        return Is(Role.Member);
+        return Is(UserRole.Member);
     }
 
     public bool IsGameCommissioner()
     {
-        return Is(Role.GameCommissioner);
+        return Is(UserRole.GameCommissioner);
     }
 
     public bool IsMaterialCommissioner()
     {
-        return Is(Role.MaterialCommissioner);
+        return Is(UserRole.MaterialCommissioner);
     }
 
-    public bool Is(Role role)
+    public bool Is(UserRole userRole)
     {
-        return (Role & role) != 0;
+        return (Role & userRole) != 0;
     }
 
     public void Encrypt()

@@ -39,7 +39,7 @@ public partial class ReadDetailsBoatPage : Page
             : "Annuleer verwijdering aanvraag";
 
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
-        ViewModel.EnableDeletion = result.Count == 0;
+        ViewModel.DeleteButtonEnabled = result.Count == 0;
 
         foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {

@@ -13,7 +13,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
     private int _boatTypeId;
-    private bool _enableDeletion;
+    private bool _deleteButtonEnabled;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
     public int BoatTypeId
     {
@@ -57,10 +57,10 @@ public class ReadDetailsBoatViewModel : ViewModel
         set => SetField(ref _requestButtonText, value);
     }
 
-    public bool EnableDeletion
+    public bool DeleteButtonEnabled
     {
-        get => _enableDeletion;
-        set => SetField(ref _enableDeletion, value);
+        get => _deleteButtonEnabled;
+        set => SetField(ref _deleteButtonEnabled, value);
     }
 
     public string DeleteRequestDateMessage => _deleteRequestDate != null ?

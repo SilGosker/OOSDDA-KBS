@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.Boat.Details"
-      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="620"
       Background="White"
@@ -42,8 +41,9 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
+
         <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Left" Margin="216,66,0,0" VerticalAlignment="Top"/>
-        <Button Content="Permanent verwijderen" Click="PermanentDeletion" HorizontalAlignment="Left" Margin="412,66,0,0" VerticalAlignment="Top" />
+        <Button Content="Permanent verwijderen" Click="PermanentDeletion" IsEnabled="{Binding EnableDeletion}" HorizontalAlignment="Left" Margin="412,66,0,0" VerticalAlignment="Top" />
 
         <DataGrid SelectionMode="Single" SelectionUnit="FullRow" IsReadOnly="True" AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"

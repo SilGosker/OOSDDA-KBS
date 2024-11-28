@@ -24,10 +24,12 @@ public partial class BoatDetailPage : Page
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
+    private readonly BoatValidator _boatValidator;
     private BoatDetailViewModel ViewModel => (BoatDetailViewModel)DataContext;
     public BoatDetailPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
+        _boatValidator = new(this._boatTypeRepository);
         InitializeComponent();
         var boat = _boatRepository.GetById(boatId);
         ViewModel.BoatTypeId = boat.BoatTypeId;
@@ -36,7 +38,12 @@ public partial class BoatDetailPage : Page
         ViewModel.Status = boat.Status.ToDutchString();
         ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
         ViewModel.DeleteRequestDate = boat.DeleteRequestDate;
-        ViewModel.RequestButtonText = (ViewModel.DeleteRequestDate == null)? "Ter verwijdering opstellen" : "Annuleer verwijdering aanvraag";
+        ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
+            ? "Ter verwijdering opstellen"
+            : "Annuleer verwijdering aanvraag";
+
+        var result = _boatValidator.IsValidForPermanentDeletion(boat);
+        ViewModel.EnableDeletion = result.Count == 0;
 
         foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
         {
@@ -94,7 +101,8 @@ public partial class BoatDetailPage : Page
                 DeleteRequestDate = ViewModel.DeleteRequestDate,
                 Name = ViewModel.Name
             };
-            var result = new BoatValidator(_boatTypeRepository).IsValidForPermanentDeletion(boat);
+            var result = _boatValidator.IsValidForPermanentDeletion(boat);
+
             if (result.Count == 0)
             {
                 _boatRepository.DeleteById(ViewModel.BoatId);
@@ -112,6 +120,7 @@ public partial class BoatDetailPage : Page
         {
             popupMessage = "De wacht periode is nog niet gestart.";
         }
+
         MessageBox.Show(popupMessage);
     }
 }

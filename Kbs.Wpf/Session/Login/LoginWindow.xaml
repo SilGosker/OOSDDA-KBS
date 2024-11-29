@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Kbs.Wpf.Session.Login"
         mc:Ignorable="d"
         Title="LoginWindow" 
-        d:DesignWidth="1740" d:DesignHeight="1080">
+        d:DesignWidth="1740" d:DesignHeight="1080"
+        Style="{StaticResource MainWindow}">
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>

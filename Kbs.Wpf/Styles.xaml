@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-    
+
     <Brush x:Key="ColorPrimaryBackground">#2C2F33</Brush> <!-- Soft Slate Gray -->
     <Brush x:Key="ColorSecondaryBackground">#23272A</Brush> <!-- Darker Slate Gray -->
     <Brush x:Key="ColorPrimaryText">#DCDDDE</Brush> <!-- Off-White -->
@@ -12,25 +12,36 @@
     <Brush x:Key="ColorButtonHoverBackground">#3B4048</Brush> <!-- Charcoal Gray -->
     <Brush x:Key="ColorButtonPressedBorder">#72767D</Brush> <!-- Gray -->
     
-    <Style TargetType="Window">
-        <Setter Property="Background" Value="{StaticResource ColorPrimaryBackground}" />
+    <Brush x:Key="ColorEmptySpace">#33373D</Brush>
+
+    <Style x:Key="MainWindow" TargetType="Window">
+        <Setter Property="Background" Value="{StaticResource ColorEmptySpace}" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
     </Style>
-    
+
     <Style x:Key="PageGrid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource ColorPrimaryBackground}" />
-        <Setter Property="Width" Value="870"/>
+        <Setter Property="Width" Value="870" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
-    
+
     <Style x:Key="ListViewItemGrid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
     </Style>
+
+    <!-- <Style TargetType="Grid"> -->
+    <!--     <Setter Property="Background" Value="{StaticResource ColorPrimaryBackground}" /> -->
+    <!-- </Style> -->
     
-    <Style TargetType="Grid">
-        <Setter Property="Background" Value="{StaticResource ColorPrimaryBackground}" />
+    <Style x:Key="TitleLabel" TargetType="Label">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0, 50, 0, 0" />
     </Style>
-    
+
     <Style TargetType="Label">
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
         <Setter Property="FontSize" Value="14" />
@@ -40,7 +51,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0,5,0,5" />
     </Style>
-    
+
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
@@ -65,7 +76,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style TargetType="PasswordBox">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
@@ -91,13 +102,15 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    <Style TargetType="Button">
+
+    <Style x:Key="FormButton" TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Width" Value="100" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -107,7 +120,7 @@
                         <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"
                                           Content="{TemplateBinding Content}"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -123,7 +136,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style TargetType="TextBlock" x:Key="HyperlinkStyle">
         <Setter Property="TextDecorations" Value="Underline" />
         <Setter Property="Foreground" Value="{StaticResource ColorHyperlink}" />
@@ -147,78 +160,78 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    <Style TargetType="ComboBox">
-    <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
-    <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
-    <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" /> 
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="Padding" Value="5,2,5,2" />
-    <Setter Property="FontSize" Value="14" />
-    <Setter Property="HorizontalContentAlignment" Value="Left" />
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="ComboBox">
-                <Grid>
-                    <!-- TextBox for displaying selected item -->
-                    <ToggleButton Name="ToggleButton"
-                                  Background="{TemplateBinding Background}"
-                                  Foreground="{TemplateBinding Foreground}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
-                                  ClickMode="Press">
-                        <ContentPresenter Content="{TemplateBinding Text}" />
-                        <ToggleButton.Style>
-                            <Style TargetType="ToggleButton">
-                                <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
-                                <!-- <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" /> -->
-                                <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
-                                <Setter Property="BorderThickness" Value="1" />
-                                <Setter Property="Padding" Value="8, 5, 0, 5" />
-                                <Setter Property="HorizontalContentAlignment" Value="Left" />
-                            </Style>
-                        </ToggleButton.Style>
-                    </ToggleButton>
 
-                    <!-- Dropdown menu -->
-                    <Popup Name="Popup"
-                           IsOpen="{TemplateBinding IsDropDownOpen}"
-                           Placement="Bottom"
-                           AllowsTransparency="True"
-                           Focusable="False"
-                           Width="{TemplateBinding Width}">
-                        <Border Background="{StaticResource ColorSecondaryBackground}"
-                                BorderBrush="{StaticResource ColorBorder}"
-                                BorderThickness="1">
-                            <ScrollViewer Margin="4,0,4,4">
-                                <ItemsPresenter />
-                            </ScrollViewer>
-                        </Border>
-                    </Popup>
-                </Grid>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-    <Style.Resources>
-        <Style TargetType="ComboBoxItem">
-            <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
-            <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
-            <Setter Property="Padding" Value="4,2" />
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
-                    <Setter Property="Foreground" Value="#FFFFFF" />
-                </Trigger>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="{StaticResource ColorCaretBrush}" />
-                    <Setter Property="Foreground" Value="#FFFFFF" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Style.Resources>
-</Style>
-    
+    <Style TargetType="ComboBox">
+        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="5,2,5,2" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <!-- TextBox for displaying selected item -->
+                        <ToggleButton Name="ToggleButton"
+                                      Background="{TemplateBinding Background}"
+                                      Foreground="{TemplateBinding Foreground}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
+                            <ContentPresenter Content="{TemplateBinding Text}" />
+                            <ToggleButton.Style>
+                                <Style TargetType="ToggleButton">
+                                    <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+                                    <!-- <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" /> -->
+                                    <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+                                    <Setter Property="BorderThickness" Value="1" />
+                                    <Setter Property="Padding" Value="8, 5, 8, 5" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                </Style>
+                            </ToggleButton.Style>
+                        </ToggleButton>
+
+                        <!-- Dropdown menu -->
+                        <Popup Name="Popup"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               Placement="Bottom"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               Width="{TemplateBinding Width}">
+                            <Border Background="{StaticResource ColorSecondaryBackground}"
+                                    BorderBrush="{StaticResource ColorBorder}"
+                                    BorderThickness="1">
+                                <ScrollViewer Margin="4,0,4,4">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Resources>
+            <Style TargetType="ComboBoxItem">
+                <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+                <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+                <Setter Property="Padding" Value="4,2" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+                        <Setter Property="Foreground" Value="#FFFFFF" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ColorCaretBrush}" />
+                        <Setter Property="Foreground" Value="#FFFFFF" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Style.Resources>
+    </Style>
+
     <Style TargetType="ListView">
         <Setter Property="Background" Value="#2C2F33" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
@@ -272,15 +285,14 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
+    
     <Style TargetType="Border">
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
-    
+
     <Style x:Key="TitleLabelStyle" TargetType="Label">
         <Setter Property="FontSize" Value="32" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -288,5 +300,5 @@
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
-    
+
 </ResourceDictionary>

@@ -21,6 +21,7 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
     private bool _hasSteeringWheel;
     private string _name;
     private int _boatTypeId;
+    private int _userId;
     public string Seats
     {
         get => _seats;
@@ -46,5 +47,10 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
     {
         get => _boatTypeId;
         set => SetField(ref _boatTypeId, value);
+    }
+    public int UserId
+    {
+        get => _userId;
+        set => SetField(ref _userId, value);
     }
 }

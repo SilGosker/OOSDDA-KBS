@@ -1,19 +1,25 @@
 ﻿using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
+using Kbs.Business.User;
+using Kbs.Data.User;
 using Kbs.Wpf.Components;
+using System.Windows;
 
 namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 
 public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {
-    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
+    UserRepository _userRepository = new UserRepository();
+    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType, UserEntity user)
     {
+        
         ThrowHelper.ThrowIfNull(boatType);
         Seats = boatType.Seats.ToDutchString();
         Experience = boatType.RequiredExperience.ToDutchString();
         HasSteeringWheel = boatType.HasSteeringWheel;
         Name = boatType.Name;
         BoatTypeId = boatType.BoatTypeId;
+        UserId = user.UserId; 
     }
 
     private string _seats;

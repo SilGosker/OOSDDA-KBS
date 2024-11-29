@@ -29,7 +29,12 @@ public partial class SelectBoatTypePage : Page
         var types = _boatTypeRepository.GetAllWithBoats();
         foreach (BoatTypeEntity type in types)
         {
-            ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
+            var user = _userRepository.GetById(type.UserId);
+            //Hij ziet user als null.............................
+            if (user != null)
+            {
+                ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type, user));
+            }
         }
     }
 
@@ -37,6 +42,7 @@ public partial class SelectBoatTypePage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
+        MessageBox.Show("UserId: " + dataContext.UserId); 
         var userId = dataContext.UserId;
         var count = _reservationRepository.GetTotalReservations(userId);
         if (count > 1)
@@ -50,10 +56,9 @@ public partial class SelectBoatTypePage : Page
         }
         else
         {
-            ListViewItem item2 = (ListViewItem)sender;
-            var dataContext2 = (SelectBoatTypeBoatTypeViewModel)item2.DataContext;
-            var boatType2 = _boatTypeRepository.GetById(dataContext2.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType2));
+            ListViewItem item = (ListViewItem)sender;
+            var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
         }
     }
 }

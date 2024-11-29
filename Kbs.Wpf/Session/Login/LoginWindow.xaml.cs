@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using Kbs.Business.Session;
 using Kbs.Business.User;
+using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.User.Registration;
 
 namespace Kbs.Wpf.Session.Login;
@@ -9,7 +11,7 @@ namespace Kbs.Wpf.Session.Login;
 public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
-    private readonly RegistrationWindow _registrationWindow;
+    private RegistrationWindow _registrationWindow;
     private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {
@@ -65,9 +67,33 @@ public partial class LoginWindow : Window
         _registrationWindow.Close();
         var window = new MainWindow();
         window.Show();
+        // MaterialCommissioner: Navigate to boat index page.
+        if (session.User.Role == UserRole.MaterialCommissioner)
+        {
+            window.Navigate(() =>new ReadIndexBoatPage(window));
+        }
+        // Member and other people: Navigate to reservation index page.
+        else
+        {
+            window.Navigate(() => new ReadIndexReservationPage(window));
+        }
+
         Close();
     }
-    
+
+    protected override void OnClosed(EventArgs e)
+    {
+        try
+        {
+            _registrationWindow.Close();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+        base.OnClosed(e);
+    }
+
     private void RegistrationButtonClicked(object sender, RoutedEventArgs e)
     {
         _registrationWindow.Show();
@@ -79,6 +105,9 @@ public partial class LoginWindow : Window
         ViewModel.Password = ((PasswordBox)sender).Password;
 
     }
-
     
+    public void RegistrationClosed()
+    {
+        _registrationWindow = new(this);
+    }
 }

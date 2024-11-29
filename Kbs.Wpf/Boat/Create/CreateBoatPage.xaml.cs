@@ -1,24 +1,25 @@
 using System.Windows.Controls;
 using Kbs.Business.Boat;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
-using Kbs.Wpf.Boat.Details;
-using Kbs.Wpf.Boat.Index;
+using Kbs.Wpf.Boat.Read.Details;
 
 namespace Kbs.Wpf.Boat.Create;
 
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class CreateBoatPage : Page
 {
     private CreateBoatViewModel ViewModel => (CreateBoatViewModel)DataContext;
     private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
-    
+
     public CreateBoatPage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
-        
+
         foreach (var boatType in _boatTypeRepository.GetAll())
         {
             ViewModel.PossibleBoatTypes.Add(new CreateBoatBoatTypeViewModel(boatType));
@@ -28,11 +29,16 @@ public partial class CreateBoatPage : Page
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
         var type = (CreateBoatBoatTypeViewModel)((ComboBox)sender).SelectedItem;
-        if (type == null) return;
-        
-        ViewModel.BoatTypeId = type.BoatTypeId;
+        if (type == null)
+        {
+            ViewModel.BoatTypeId = 0;
+        }
+        else
+        {
+            ViewModel.BoatTypeId = type.BoatTypeId;
+        }
     }
-    
+
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
     {
         var boat = new BoatEntity()
@@ -61,7 +67,7 @@ public partial class CreateBoatPage : Page
         {
             ViewModel.BoatTypeErrorMessage = string.Empty;
         }
-        
+
         if (validationResult.Count != 0)
         {
             return;
@@ -69,6 +75,6 @@ public partial class CreateBoatPage : Page
 
         _boatRepository.Create(boat);
 
-        _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, boat.BoatId));
+        _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, boat.BoatId));
     }
 }

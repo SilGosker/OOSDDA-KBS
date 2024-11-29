@@ -24,6 +24,16 @@ public class MockBoatTypeRepository : IBoatTypeRepository
         return BoatTypeEntities.FirstOrDefault(x => x.BoatTypeId == boatTypeId);
     }
 
+    public List<BoatTypeEntity> GetAllWithBoats()
+    {
+        throw new NotImplementedException();
+    }
+
+    public BoatTypeEntity GetByBoatId(int boatId)
+    {
+        throw new NotImplementedException();
+    }
+
     public void Create(BoatTypeEntity boatType)
     {
         throw new NotImplementedException();

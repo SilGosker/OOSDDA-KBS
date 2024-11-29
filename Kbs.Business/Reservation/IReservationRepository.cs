@@ -1,4 +1,6 @@
-﻿
+
+using Kbs.Business.Boat;
+
 namespace Kbs.Business.Reservation;
 
 public interface IReservationRepository
@@ -9,6 +11,8 @@ public interface IReservationRepository
     public ReservationEntity GetById(int id);
 
     public List<ReservationEntity> Get();
-    public List<ReservationEntity> OrderByStatus(List<ReservationEntity> reservations);
-    List<ReservationEntity> GetByBoatId(int boatBoatId);
+    public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations);
+    public List<ReservationEntity> GetByBoatId(int boatBoatId);
+    public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day);
+    public List<ReservationEntity> GetByUserId(int userId);
 }

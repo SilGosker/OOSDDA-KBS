@@ -7,8 +7,42 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="BoatType\Read\" />
+	  <Folder Include="Boat\Read\" />
+	  <Folder Include="Reservation\Read\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Boat\Read\Index\ReadIndexBoatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Boat\Read\Details\ReadDetailsBoatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\ViewBoatTypes\ViewBoatTypes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\ViewDetailedBoatTypes\ViewDetailedBoatTypesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Reservation\Read\ViewReservationGeneralPage\ViewReservationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Reservation\Read\ViewReservationSpecificPage\ViewPageSpecific.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Index\ReadBoatTypeIndexPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\Index\ReadBoatTypeIndexPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\Details\ReadDetailsBoatTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
+  
 </Project>

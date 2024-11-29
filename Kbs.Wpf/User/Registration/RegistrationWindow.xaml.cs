@@ -25,7 +25,7 @@ public partial class RegistrationWindow : Window
             Email = ViewModel.Email,
             Name = ViewModel.Name ?? string.Empty,
             Password = ViewModel.Password,
-            Role = Role.Member
+            Role = UserRole.Member
         };
         
         var validationResult = _userValidator.ValidatorForRegistration(user, ViewModel.PasswordConfirmation);
@@ -91,7 +91,13 @@ public partial class RegistrationWindow : Window
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
     }
-    
+
+    protected override void OnClosed(EventArgs e)
+    {
+        _loginWindow.RegistrationClosed();
+        base.OnClosed(e);
+    }
+
     private void PasswordConfirmationChanged(object sender, RoutedEventArgs e)
     {
         ViewModel.PasswordConfirmation = ((PasswordBox)sender).Password;

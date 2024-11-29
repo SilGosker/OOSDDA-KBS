@@ -10,7 +10,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {
     UserRepository _userRepository = new UserRepository();
-    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType, UserEntity user)
+    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
     {
         
         ThrowHelper.ThrowIfNull(boatType);
@@ -19,7 +19,6 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         HasSteeringWheel = boatType.HasSteeringWheel;
         Name = boatType.Name;
         BoatTypeId = boatType.BoatTypeId;
-        UserId = user.UserId; 
     }
 
     private string _seats;
@@ -27,7 +26,6 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
     private bool _hasSteeringWheel;
     private string _name;
     private int _boatTypeId;
-    private int _userId;
     public string Seats
     {
         get => _seats;
@@ -53,10 +51,5 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
     {
         get => _boatTypeId;
         set => SetField(ref _boatTypeId, value);
-    }
-    public int UserId
-    {
-        get => _userId;
-        set => SetField(ref _userId, value);
     }
 }

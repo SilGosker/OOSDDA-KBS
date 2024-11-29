@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
+using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
@@ -31,42 +33,29 @@ public partial class SelectBoatTypePage : Page
         var types = _boatTypeRepository.GetAllWithBoats();
         foreach (BoatTypeEntity type in types)
         {
-            var user = _userRepository.GetUserIdByBoatTypeId(type.BoatTypeId);
-            if (user != null)
+            int userId = SessionManager.Instance.Current.User.UserId;
+            if (userId != null)
             {
-                ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type, user));
+                ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
             }
         }
     }
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
-        var listViewItem = (ListViewItem)sender;
-        var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-        var types = _boatTypeRepository.GetAllWithBoats();
-        //var user = _userRepository.GetUserIdByBoatTypeId(_boatTypeEntity.BoatTypeId);  
-        var userId = dataContext.UserId;
-        var count = _reservationRepository.GetTotalReservations(userId);
-
-        if (count != null)
+        int userID = SessionManager.Instance.Current.User.UserId;
+        int totalReservations = _reservationRepository.GetTotalReservations(userID);
+        if (totalReservations > 1)
         {
-            int totalReservations = _reservationRepository.GetTotalReservations(userId);
-            if (totalReservations > 1)
-            {
-                MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
-                if (result == MessageBoxResult.Yes)
-                {
-                    return;
-                }
-                return;
-            }
-            else
-            {
-                
-                ListViewItem item = (ListViewItem)sender;
-                var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
-        
-            }
+            MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
+            return;
+        }
+        else
+        {
+            var listViewItem = (ListViewItem)sender;
+            var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
+            ListViewItem item = (ListViewItem)sender;
+            var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
         }
     }
 }

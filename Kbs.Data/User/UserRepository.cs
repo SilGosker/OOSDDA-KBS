@@ -56,11 +56,23 @@ public class UserRepository : IUserRepository, IDisposable
 
         return user;
     }
+    public UserEntity GetUserIdByBoatTypeId(int boatTypeId)
+    {
+        const string query = @"
+        SELECT r.UserID
+        FROM BoatType bt
+        INNER JOIN Boat b ON bt.BoatTypeID = b.BoatTypeID
+        INNER JOIN Reservation r ON b.BoatID = r.BoatID
+        WHERE bt.BoatTypeID = @BoatTypeID";
+
+        return _connection.Query<UserEntity>(query, new { BoatTypeId = boatTypeId }).FirstOrDefault();
+    }
 
     public UserEntity GetById(int id)
     {
         return _connection.Query<UserEntity>("SELECT * FROM Users WHERE UserId = @UserId", new { UserId = id }).FirstOrDefault();
     }
+
 
     public void Dispose()
     {

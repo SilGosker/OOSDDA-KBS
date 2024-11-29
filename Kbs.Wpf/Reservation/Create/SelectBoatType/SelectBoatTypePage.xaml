@@ -58,6 +58,7 @@
                             <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="35" Content="{Binding Name}"/>
                             <Label Grid.Column="0" Grid.Row="1" Content="{Binding Experience}" FontSize="30"/>
                             <Label Grid.Column="1" Grid.Row="1" Content="{Binding Seats}" FontSize="30"/>
+                            
                             <Grid  Grid.Row="1" Grid.Column="2" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>

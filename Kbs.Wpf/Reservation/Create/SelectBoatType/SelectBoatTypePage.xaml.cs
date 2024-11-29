@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
+using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
@@ -20,17 +21,16 @@ public partial class SelectBoatTypePage : Page
     private readonly UserRepository _userRepository = new();
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
+    private readonly BoatRepository _boatRepository = new();
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
-
         var types = _boatTypeRepository.GetAllWithBoats();
         foreach (BoatTypeEntity type in types)
         {
-            var user = _userRepository.GetById(type.UserId);
-            //Hij ziet user als null.............................
+            var user = _userRepository.GetUserIdByBoatTypeId(type.BoatTypeId);
             if (user != null)
             {
                 ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type, user));
@@ -42,12 +42,11 @@ public partial class SelectBoatTypePage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-        MessageBox.Show("UserId: " + dataContext.UserId); 
         var userId = dataContext.UserId;
         var count = _reservationRepository.GetTotalReservations(userId);
         if (count > 1)
         {
-            MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
             if (result == MessageBoxResult.Yes)
             {
                 return;

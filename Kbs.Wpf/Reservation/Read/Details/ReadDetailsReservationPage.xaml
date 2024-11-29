@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Reservation.Read.Details"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="620"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Background="White"
       Title="ReadDetailsReservationPage">
     <Page.DataContext>
         <details:ReadDetailsReservationViewModel />
     </Page.DataContext>
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Canvas>
             <TextBlock Text="Reservering #" FontSize="35" FontWeight="Bold" Canvas.Left="20" Canvas.Top="20"/>
             <TextBlock Text="{Binding ReservationId}" FontSize="35" FontWeight="Bold" Canvas.Left="245" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>

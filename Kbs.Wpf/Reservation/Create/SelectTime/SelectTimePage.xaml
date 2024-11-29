@@ -6,12 +6,12 @@
       xmlns:selectTime="clr-namespace:Kbs.Wpf.Reservation.Create.SelectTime"
       mc:Ignorable="d" 
       Background="White"
-      d:DesignHeight="700" d:DesignWidth="1350"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="SelectTime">
     <Page.DataContext>
         <selectTime:SelectTimeViewModel />
     </Page.DataContext>
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition/>

@@ -5,15 +5,14 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.BoatType.Read.Details"
       mc:Ignorable="d" 
-      d:DesignHeight="450"
-      d:DesignWidth="800"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       d:Background="White"
       Title="ReadDetailsBoatTypePage">
     <Page.DataContext>
         <details:ReadDetailsBoatTypeViewModel />
     </Page.DataContext>
 
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Canvas>
             <Button Content="Verwijderen" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Click="RemoveBoatType" Canvas.Left="400" Canvas.Top="47" />
             <Grid>

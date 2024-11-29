@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:index="clr-namespace:Kbs.Wpf.BoatType.Read.Index"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="620"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="Index.Details"
       Background="White">
     <Page.DataContext>
         <index:ReadBoatTypeIndexViewModel />
     </Page.DataContext>
-    <Grid HorizontalAlignment="Center">
+    <Grid Style="{StaticResource PageGrid}">
         <Label FontSize="32" Content="Boottypen" HorizontalAlignment="Left" Margin="38,50,0,0"
                VerticalAlignment="Top" />
         <Label  />

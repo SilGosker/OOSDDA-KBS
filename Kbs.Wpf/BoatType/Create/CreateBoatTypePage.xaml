@@ -6,12 +6,12 @@
       xmlns:create="clr-namespace:Kbs.Wpf.BoatType.Create"
       mc:Ignorable="d"
       Background="White"
-      d:DesignHeight="450" d:DesignWidth="620"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="CreateBoatTypePage">
     <Page.DataContext>
         <create:CreateBoatTypeViewModel/>
     </Page.DataContext>
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Label FontSize="24" Content="Aanmaken boottype" HorizontalAlignment="Left" Margin="175,47,0,0"
                VerticalAlignment="Top" />
 

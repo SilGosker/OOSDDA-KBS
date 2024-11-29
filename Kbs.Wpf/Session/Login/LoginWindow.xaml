@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf.Session.Login"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="500" Width="800">
+        Title="LoginWindow" 
+        d:DesignWidth="1740" d:DesignHeight="1080">
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>
 
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Label Content="Inloggen" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
 

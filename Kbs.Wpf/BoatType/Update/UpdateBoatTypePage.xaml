@@ -5,11 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kbs.Wpf.BoatType.Update"
       mc:Ignorable="d"
-      Title="UpdateBoatTypePage" Height="450" Width="800">
+      Title="UpdateBoatTypePage" 
+      d:DesignWidth="1740" d:DesignHeight="1080">
     <Page.DataContext>
         <local:UpdateBoatTypeViewModel/>
     </Page.DataContext>
-    <Grid>
+    <Grid Style="{StaticResource PageGrid}">
         <Label FontSize="24" Content="Aanpassen" HorizontalAlignment="Left" Margin="38,47,0,0"
                VerticalAlignment="Top" />
         <Label FontSize="24" Content="{Binding Name}" HorizontalAlignment="Left" Margin="158,47,0,0"

@@ -5,14 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:selectLength="clr-namespace:Kbs.Wpf.Reservation.Create.SelectLength"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="SelectLength" >
     <Page.DataContext>
         <selectLength:SelectLengthViewModel />
     </Page.DataContext>
-
-
-    <Grid>
+    
+    <Grid Style="{StaticResource PageGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition/>

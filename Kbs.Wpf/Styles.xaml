@@ -6,6 +6,12 @@
         <Setter Property="Foreground" Value="#DCDDDE" />
     </Style>
     
+    <Style x:Key="PageGrid" TargetType="Grid">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Width" Value="870"/>
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+    
     <Style x:Key="ListViewItemGrid" TargetType="Grid">
         <Setter Property="Background" Value="#23272A" />
     </Style>

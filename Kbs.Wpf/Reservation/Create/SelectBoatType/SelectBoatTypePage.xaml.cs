@@ -22,6 +22,7 @@ public partial class SelectBoatTypePage : Page
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
     private readonly BoatRepository _boatRepository = new();
+    private readonly BoatTypeEntity _boatTypeEntity = new();
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
@@ -37,27 +38,35 @@ public partial class SelectBoatTypePage : Page
             }
         }
     }
-
-    private void BoatTypeSelected(object sender, MouseButtonEventArgs e)
+    public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
         var listViewItem = (ListViewItem)sender;
         var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
+        var types = _boatTypeRepository.GetAllWithBoats();
+        //var user = _userRepository.GetUserIdByBoatTypeId(_boatTypeEntity.BoatTypeId);  
         var userId = dataContext.UserId;
         var count = _reservationRepository.GetTotalReservations(userId);
-        if (count > 1)
+
+        if (count != null)
         {
-            MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
-            if (result == MessageBoxResult.Yes)
+            int totalReservations = _reservationRepository.GetTotalReservations(userId);
+            if (totalReservations > 1)
             {
+                MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
+                if (result == MessageBoxResult.Yes)
+                {
+                    return;
+                }
                 return;
             }
-            return;
-        }
-        else
-        {
-            ListViewItem item = (ListViewItem)sender;
-            var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            else
+            {
+                
+                ListViewItem item = (ListViewItem)sender;
+                var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+        
+            }
         }
     }
 }

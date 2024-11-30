@@ -6,54 +6,94 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Boat.Read.Index"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
-      Title="Boten">
+      Title="ReadIndexBoatPage">
     <Page.DataContext>
         <index:ReadIndexBoatViewModel />
     </Page.DataContext>
+
     <Grid Style="{StaticResource PageGrid}">
-        <Label FontSize="32" Content="Boten" HorizontalAlignment="Left" Margin="38,50,0,0"
-               VerticalAlignment="Top" />
-        
-        <Label Content="Naam" HorizontalAlignment="Left" Margin="434,43,0,0" VerticalAlignment="Top" Width="128" />
-        <TextBox HorizontalAlignment="Left" Margin="434,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
+        <Label Style="{StaticResource TitleLabel}" Content="Boten" />
+
+        <Label Content="Naam" HorizontalAlignment="Left" Margin="152,63,0,0" VerticalAlignment="Top" Width="128" />
+        <TextBox HorizontalAlignment="Left" Margin="152,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
                  KeyUp="NameChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-        
-        <Label Content="Boot type" HorizontalAlignment="Left" Margin="302,43,0,0" VerticalAlignment="Top" Width="128" />
-        <ComboBox Text="Alle boottypes" IsEditable="True" HorizontalAlignment="Left" Margin="302,70,0,0" VerticalAlignment="Top" Width="128"
+
+        <Label Content="Boot type" HorizontalAlignment="Left" Margin="20,63,0,0" VerticalAlignment="Top" Width="128" />
+        <ComboBox Text="Alle boottypes" IsEditable="True" HorizontalAlignment="Left" Margin="20,90,0,0"
+                  VerticalAlignment="Top" Width="128"
                   SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypes}" />
-        
-        <ListView Width="520" ItemsSource="{Binding Items}"
+
+        <ListView ItemsSource="{Binding Items}"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  VerticalAlignment="Top" HorizontalAlignment="Center" Margin="40,108,40,80">
+                  Margin="20,132,20,20">
 
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatClicked"/>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatClicked" />
                 </Style>
             </ListView.ItemContainerStyle>
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Width="516" />
+                    <WrapPanel Width="830" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
 
                 <DataTemplate DataType="{x:Type index:ReadIndexBoatBoatViewModel}">
-                    <Grid Style="{StaticResource ListViewItemGrid}" Height="100" Width="244">
-                        <Border BorderBrush="Black" BorderThickness="1" Height="100" Width="215" />
-                        
-                        <Label Content="{Binding BoatNumber}" VerticalAlignment="Top"/>
-                        <Label Content="Naam: " FontWeight="Bold" Margin="0,25,0,0" VerticalAlignment="Top" />
-                        <Label Content="Type: " FontWeight="Bold" Margin="0,45,0,0" VerticalAlignment="Top" />
-                        <Label Content="Status: " FontWeight="Bold" Margin="0,65,0,0" VerticalAlignment="Top" />
-                        <Label Content="{Binding Name}" Margin="60,25,0,0" VerticalAlignment="Top" />
-                        <Label Content="{Binding BoatType}" Margin="60,45,0,0" VerticalAlignment="Top" />
-                        <Label Content="{Binding Status}" Margin="60,65,0,0" VerticalAlignment="Top" />
+                    <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding BoatIdString}" Style="{StaticResource ListItemTextBlockStyle}"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Top" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Naam: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Type: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding BoatType}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Status: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Status}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Nieuwe boot" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom" Height="20" Width="120" Click="CreateBoatButtonClicked"/> 
+        <Button Content="Nieuwe boot" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom"
+                Height="20" Width="120" Click="CreateBoatButtonClicked" />
     </Grid>
 </Page>

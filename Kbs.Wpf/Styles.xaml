@@ -24,6 +24,21 @@
         <Setter Property="Width" Value="870" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
+    
+    
+    <Style x:Key="ContentGrid" TargetType="Grid">
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+    
+    <Style x:Key="ContentBorder" TargetType="Border">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="830" />
+        <Setter Property="Margin" Value="20,132,20,20" />
+    </Style>
+    
 
     <Style x:Key="ListViewItemGrid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
@@ -54,7 +69,15 @@
         <Setter Property="Margin" Value="0,5,0,5" />
     </Style>
     
-    
+    <Style TargetType="CheckBox">
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,5,0,5" />
+    </Style>
 
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />

@@ -35,8 +35,8 @@
 
             </Grid>
         </Grid>
-        <Button IsDefault="True" Content="Registreren" HorizontalAlignment="Center" Margin="0,420,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Submit" />
+        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Click="Submit" />
     
-        <Button IsCancel="True" Content="Annuleren" HorizontalAlignment="Center" Margin="0,526,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="Cancel"/>
+        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,380,0,0" VerticalAlignment="Top" Click="Cancel"/>
     </Grid>
 </Page>

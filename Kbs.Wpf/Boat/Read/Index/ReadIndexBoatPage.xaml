@@ -14,12 +14,12 @@
     <Grid Style="{StaticResource PageGrid}">
         <Label Style="{StaticResource TitleLabel}" Content="Boten" />
 
-        <Label Content="Naam" HorizontalAlignment="Left" Margin="152,63,0,0" VerticalAlignment="Top" Width="128" />
-        <TextBox HorizontalAlignment="Left" Margin="152,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
+        <Label Content="Naam" HorizontalAlignment="Right" Margin="152,63,20,0" VerticalAlignment="Top" Width="128" />
+        <TextBox HorizontalAlignment="Right" Margin="0,90,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
                  KeyUp="NameChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
 
-        <Label Content="Boot type" HorizontalAlignment="Left" Margin="20,63,0,0" VerticalAlignment="Top" Width="128" />
-        <ComboBox Text="Alle boottypes" IsEditable="True" HorizontalAlignment="Left" Margin="20,90,0,0"
+        <Label Content="Boot type" HorizontalAlignment="Right" Margin="20,63,152,0" VerticalAlignment="Top" Width="128" />
+        <ComboBox Text="Alle boottypes" IsEditable="True" HorizontalAlignment="Right" Margin="20,90,152,0"
                   VerticalAlignment="Top" Width="128"
                   SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypes}" />
 
@@ -87,6 +87,9 @@
                                     <TextBlock Grid.Column="1" Text="{Binding Status}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Background="{Binding StatusColor}" Height="2" Margin="0,2,0,0"></TextBlock>
                             </StackPanel>
                         </StackPanel>
                     </Grid>

@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Wpf.Components;
 
@@ -25,6 +26,7 @@ public class ReadDetailsBoatViewModel : ViewModel
         get => _boatId;
         set => SetField(ref _boatId, value);
     }
+    public string BoatIdString => $"Boot #{BoatId}";
     public string Name
     {
         get => _name;
@@ -34,6 +36,18 @@ public class ReadDetailsBoatViewModel : ViewModel
     {
         get => _status;
         set => SetField(ref _status, value);
+    }
+    
+    public Brush StatusColor
+    {
+        get
+        {
+            if (Status == BoatStatus.Operational.ToDutchString())
+            {
+                return Brushes.Green;
+            }
+            return Brushes.Red;
+        }
     }
     public string BoatTypeName
     {

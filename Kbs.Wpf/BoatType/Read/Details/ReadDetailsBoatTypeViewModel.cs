@@ -11,7 +11,6 @@ namespace Kbs.Wpf.BoatType.Read.Details
         private string _experience;
         private string _seats;
         private bool _hasWheel;
-        private int _status;
 
         public ObservableCollection<ReadDetailsBoatTypeBoatViewModel> Items { get; } = new ObservableCollection<ReadDetailsBoatTypeBoatViewModel>();
 
@@ -25,6 +24,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             get => _boatTypeId;
             set => SetField(ref _boatTypeId, value);    
         }
+        public string BoatTypeNameString => $"Boottype: {Name}";
         public int Speed
         {
             get => _speed;
@@ -45,6 +45,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             get => _hasWheel;
             set => SetField(ref _hasWheel, value); 
         }
-        public string HasWheelFormatted => HasWheel ? "Ja" : "Nee";
+        public string HasWheelString => HasWheel ? "Ja" : "Nee";
+        
     }
 }

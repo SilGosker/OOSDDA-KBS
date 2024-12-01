@@ -33,12 +33,12 @@
                    Margin="195,143,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.45,0.224" />
         </Grid>
         
-        <Button IsDefault="True"  Content="Bevestig" HorizontalAlignment="Center" Margin="0,260,0,0" VerticalAlignment="Top" Height="30"
-                Width="100" Click="SubmitButtonClicked" />
+        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Bevestig" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top"
+                Click="SubmitButtonClicked" />
         
         <Label Content="Nog geen account?" HorizontalAlignment="Center" Margin="0,345,0,0"
                VerticalAlignment="Top" />
-        <Button Content="Registreren" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top" Height="30"
-                Width="100" Click="RegistrationButtonClicked"/>
+        <Button Content="Registreren" Style="{StaticResource FormButton}" HorizontalAlignment="Center" Margin="0,376,0,0" VerticalAlignment="Top"
+                Click="RegistrationButtonClicked"/>
     </Grid>
 </Window>

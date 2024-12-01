@@ -16,7 +16,7 @@
         <Label Content="Registreren" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
         
-        <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="320" VerticalAlignment="Top">
+        <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" VerticalAlignment="Top">
             
             <Label Content="Email" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="200,43,0,0" VerticalAlignment="Top"
@@ -40,12 +40,11 @@
                 <PasswordBox HorizontalAlignment="Right" PasswordChanged="PasswordConfirmationChanged" Margin="0,26,200,0" VerticalAlignment="Top"
                          Width="190" />
             </Grid>
+            
+            <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,251,0,0" VerticalAlignment="Top" Height="30"
+                    Click="SubmitButtonClicked" />
+            <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Height="30"
+                    Click="CancelButtonClicked"/>
         </Grid>
-        
-        <Button IsDefault="True" Content="Registreren" HorizontalAlignment="Center" Margin="0,420,0,0" VerticalAlignment="Top" Height="30"
-                Width="80" Click="SubmitButtonClicked" />
-        
-        <Button IsCancel="True" Content="Annuleren" HorizontalAlignment="Center" Margin="0,526,0,0" VerticalAlignment="Top" Height="30"
-                Width="80" Click="CancelButtonClicked"/>
     </Grid>
 </Window>

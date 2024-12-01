@@ -26,7 +26,7 @@
         <ListView ItemsSource="{Binding Items}"
                   d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Margin="20,132,20,20">
+                  Margin="20,132,20,90">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
@@ -39,6 +39,7 @@
                     <WrapPanel Width="830" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
+            
             <ListView.ItemTemplate>
 
                 <DataTemplate DataType="{x:Type index:ReadIndexBoatBoatViewModel}">
@@ -96,7 +97,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Nieuwe boot" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom"
-                Height="20" Width="120" Click="CreateBoatButtonClicked" />
+        <Button Style="{StaticResource FormButton}" Content="Nieuwe boot" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom"
+                Click="CreateBoatButtonClicked" />
     </Grid>
 </Page>

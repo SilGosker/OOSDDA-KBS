@@ -32,15 +32,13 @@
         <TextBox HorizontalAlignment="Left" Margin="67,116,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="120"/>
         <Label Content="{Binding BoatTypeName}" Margin="67,135,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <ComboBox ItemsSource="{Binding PossibleBoatStatuses}" SelectionChanged="TypeChanged" IsEditable="True" HorizontalAlignment="Left" Margin="67,165,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedBoatStatus}" />
-        <Label Content="{Binding Name}" Margin="67,112,0,0" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" />
-
+        
         <TextBlock Margin="72,140,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Hyperlink Click="NavigateToBoatTypePage">
                 <Run Text="{Binding BoatTypeName}" />
             </Hyperlink>
         </TextBlock>
 
-        <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="{Binding DeleteRequestDateMessage}" Margin="122,323,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72" />
         <Label Content="{Binding WaitDurationMessage}" Margin="119,355,0,0" Height="107" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
 

@@ -181,7 +181,7 @@ public partial class ReadDetailsBoatPage : Page
         else
         {
             _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol ge�pdatet");
+            MessageBox.Show($"{boat.Name} succesvol geupdatet");
         }
     }
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)

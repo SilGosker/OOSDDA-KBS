@@ -26,7 +26,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-            <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
+            <Button Style="{StaticResource FormButton}" Content="Log uit" Margin="0,0,0,20" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 
         <DockPanel Margin="180,0,0,0" >

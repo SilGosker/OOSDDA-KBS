@@ -22,7 +22,7 @@
                 <TextBlock Text="Boottype: " FontWeight="Bold" Margin="30,40,290,10" FontSize="20"/>
                 <TextBlock Text="{Binding Name}" Margin="136,101,123,-47" FontSize="20" />
                 <TextBlock FontWeight="Bold" Margin="30,110,291,-59" ><Run Language="en-gb" Text="Naam"/><Run Text=": "/></TextBlock>
-                <TextBlock Text="{Binding BoatTypeId}" Margin="145,42,209,13" FontSize="20" RenderTransformOrigin="0.507,0.577" />
+                <TextBlock Text="{Binding BoatTypeId}" Margin="145,42,209,13" FontSize="20" />
                 <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,265,-102" />
                 <TextBlock Text="{Binding Speed}" Margin="136,152,171,-85" />
                 <TextBlock Text="Zitplaatsen: " FontWeight="Bold" Margin="30,189,278,-126" />

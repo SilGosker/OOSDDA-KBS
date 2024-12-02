@@ -74,7 +74,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
             .ToList();
     }
 
-    public int GetTotalReservations(int userId)
+    public int CountByUser(int userId)
     {
         return _connection.QuerySingleOrDefault<int>(
             "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId",

@@ -22,6 +22,7 @@ public class ReservationValidator
             return false;
         }
     }
+
     public bool IsWithinDaylightHours(ReservationEntity reservation)
     {
         var StartTime = TimeOnly.FromDateTime(reservation.StartTime);

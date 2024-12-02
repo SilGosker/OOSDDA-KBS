@@ -6,6 +6,7 @@ using Kbs.Business.BoatType;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Data.Damage;
 using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Details;
 
@@ -17,6 +18,7 @@ public partial class ReadIndexBoatPage : Page
     private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly INavigationManager _navigationManager;
+    private readonly DamageRepository _damageRepository = new();
     private ReadIndexBoatViewModel ViewModel => (ReadIndexBoatViewModel)DataContext;
     public ReadIndexBoatPage(INavigationManager navigationManager)
     {
@@ -77,7 +79,7 @@ public partial class ReadIndexBoatPage : Page
         foreach (var boat in boats)
         {
             var boatType = ViewModel.BoatTypes.SingleOrDefault(e => e.Id == boat.BoatTypeId);
-            ViewModel.Items.Add(new ReadIndexBoatBoatViewModel(boat, boatType));
+            ViewModel.Items.Add(new ReadIndexBoatBoatViewModel(boat, boatType, _damageRepository.HasDamage(boat)));
         }
     }
 

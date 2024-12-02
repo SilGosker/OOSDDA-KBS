@@ -5,54 +5,65 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.BoatType.Read.Details"
       mc:Ignorable="d" 
-      d:DesignHeight="450"
-      d:DesignWidth="800"
-      d:Background="White"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="ReadDetailsBoatTypePage">
     <Page.DataContext>
         <details:ReadDetailsBoatTypeViewModel />
     </Page.DataContext>
-
-    <Grid>
-        <Canvas>
-            <Button Content="Verwijderen" HorizontalAlignment="Left" VerticalAlignment="Center" Width="84" Click="RemoveBoatType" Canvas.Left="400" Canvas.Top="47" />
-            <Grid>
-
-                <Border BorderBrush="Black" BorderThickness="1" Height="00" Width="215" />
-                <TextBlock Text="Boottype: " FontWeight="Bold" Margin="30,40,290,10" FontSize="20"/>
-                <TextBlock Text="{Binding Name}" Margin="136,101,123,-47" FontSize="20" />
-                <TextBlock FontWeight="Bold" Margin="30,110,291,-59" ><Run Language="en-gb" Text="Naam"/><Run Text=": "/></TextBlock>
-                <TextBlock Text="{Binding BoatTypeId}" Margin="145,42,209,13" FontSize="20" />
-                <TextBlock Text="Snelheid: " FontWeight="Bold" Margin="30,149,265,-102" />
-                <TextBlock Text="{Binding Speed}" Margin="136,152,171,-85" />
-                <TextBlock Text="Zitplaatsen: " FontWeight="Bold" Margin="30,189,278,-126" />
-                <TextBlock Text="{Binding Seats}" Margin="137,192,171,-116" />
-                <TextBlock Text="Ervaring: " FontWeight="Bold" Margin="30,224,265,-161" />
-                <TextBlock Text="{Binding Experience}" Margin="137,227,180,-161" />
-                <TextBlock Text="Stuur: " FontWeight="Bold" Margin="30,258,252,-202" />
-                <TextBlock Text="{Binding HasWheelFormatted}" FontWeight="Bold" Margin="136,258,146,-202" />
-
+    <Grid Style="{StaticResource PageGrid}">
+        
+        <Label Content="{Binding BoatTypeNameString}" Style="{StaticResource TitleLabel}" />
+        <Button Content="Verwijderen" Click="RemoveBoatType"
+                HorizontalAlignment="Right" Margin="412,90,20,0" VerticalAlignment="Top"
+                Style="{StaticResource FormButton}" />
+        <Button Content="Wijzigen" Click="Wijzigen" 
+                HorizontalAlignment="Right" Margin="412,90,130,0" VerticalAlignment="Top"
+                Style="{StaticResource FormButton}" />
+        
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+            
+                   <Label Content="Boten" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top"
+                          HorizontalAlignment="Left" />
+                <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="Snelheid:" FontWeight="Bold" Margin="10,85,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="Zitplaatsen:" FontWeight="Bold" Margin="10,120,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="Ervaring:" FontWeight="Bold" Margin="10,155,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="Stuur:" FontWeight="Bold" Margin="10,190,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="{Binding Name}" Margin="100,50,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="{Binding Speed}" Margin="100,85,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="{Binding Seats}" Margin="100,120,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="{Binding Experience}" Margin="100,155,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                <Label Content="{Binding HasWheelString}" Margin="100,190,0,0" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" />
+                
+                <DataGrid
+                       Style="{StaticResource DefaultDataGridStyle}"
+                       ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                       ItemsSource="{Binding Items}"
+                       Margin="387,50,10,10">
+    
+                       <DataGrid.RowStyle>
+                              <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                                     <EventSetter Event="MouseDoubleClick" Handler="BoatSelected" />
+                              </Style>
+                       </DataGrid.RowStyle>
+                       <DataGrid.Columns>
+                              <DataGridTextColumn Width="165" Header="Naam" Binding="{Binding Name}" />
+                              <DataGridTextColumn Width="80" Header="ID" Binding="{Binding BoatId}"/> 
+                              <DataGridTextColumn Width="165" Header="Status"  Binding="{Binding Status}"/>
+                       </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            <DataGrid SelectionMode="Single" SelectionUnit="FullRow"
-                      IsReadOnly="True"
-                      AutoGenerateColumns="False"
-                      Width="238"
-                      ItemsSource="{Binding Items}"
-            ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-            VerticalAlignment="Center" HorizontalAlignment="Center" Height="292" Canvas.Left="246" Canvas.Top="100">
-                <DataGrid.Resources>
-                    <Style TargetType="DataGridRow">
-                        <EventSetter Event="MouseDoubleClick" Handler="BoatSelected"/>
-                    </Style>
-                </DataGrid.Resources>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Naam" Binding="{Binding Name}" />
-                    <DataGridTextColumn Width="80" Header="Id"  Binding="{Binding BoatId}"/>
-                    <DataGridTextColumn Width="80" Header="Status"  Binding="{Binding Status}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Wijzigen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="83" Click="Wijzigen" Canvas.Left="294" Canvas.Top="47" />
-        </Canvas>
-
+        </Border> 
     </Grid>
 </Page>

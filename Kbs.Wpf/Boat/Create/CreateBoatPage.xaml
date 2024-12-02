@@ -5,22 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kbs.Wpf.Boat.Create"
       mc:Ignorable="d"
-      Title="CreateBoatPage" d:DesignHeight="450" d:DesignWidth="620">
+      Title="CreateBoatPage" d:DesignWidth="1740" d:DesignHeight="1080">
     <Page.DataContext>
         <local:CreateBoatViewModel />
     </Page.DataContext>
-    <Grid>
-        <Label FontSize="24" Content="Aanmaken boot" HorizontalAlignment="Left" Margin="175,47,0,0"
-               VerticalAlignment="Top" />
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Aanmaken boot"/>
         
-        <Label Content="Naam" HorizontalAlignment="Left" Margin="38,117,0,0" VerticalAlignment="Top"/>
-        <TextBox Text="{Binding Name}" HorizontalAlignment="Left" Margin="38,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="20"/>
-        <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="38,163,0,0" VerticalAlignment="Top"/>
+        <Label Content="Naam" HorizontalAlignment="Center" Margin="0,117,200,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Margin="0,143,200,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="0,179,200,0" VerticalAlignment="Top"/>
         
-        <Label Content="Boot type" HorizontalAlignment="Left" Margin="228,117,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding PossibleBoatTypes}" SelectionChanged="TypeChanged" IsEditable="True" Text="Selecteer boot type" HorizontalAlignment="Left" Margin="228,141,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="{Binding BoatTypeErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="228,163,0,0" VerticalAlignment="Top"/>
+        <Label Content="Boottype" HorizontalAlignment="Center" Margin="200,117,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding PossibleBoatTypes}" SelectionChanged="TypeChanged" IsEditable="True" Text="Selecteer boot type" HorizontalAlignment="Center" Margin="200,143,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding BoatTypeErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="200,179,0,0" VerticalAlignment="Top"/>
         
-        <Button Content="Opslaan" HorizontalAlignment="Left" Margin="415,225,0,0" VerticalAlignment="Top" Height="20" Width="120" Click="Submit"/>
+        <Button Style="{StaticResource FormButton}" Content="Opslaan" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" Click="Submit"/>
     </Grid>
 </Page>

@@ -4,41 +4,39 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Kbs.Wpf.User.Update"
-      mc:Ignorable="d" 
-      Background="White"
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignWidth="1740" d:DesignHeight="1080"
       Title="UpdateUserPage">
     <Page.DataContext>
         <local:UpdateUserViewModel />
     </Page.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <!-- Vaste positie voor de linkerkant -->
-            <ColumnDefinition Width="*" />
-            <!-- Flexibele ruimte voor groei -->
-        </Grid.ColumnDefinitions>
-        <Label Content="Instellingen" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="22"/>
+    
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Content="Instellingen" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" />
 
-        <Label Content="Email:" HorizontalAlignment="Center" Margin="-250,96,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <TextBox HorizontalAlignment="Left" Margin="108,122,0,0" VerticalAlignment="Top" Width="180" Text="{Binding InputEmail}" />
-        <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="102,140,0,0" VerticalAlignment="Top" />
+        <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="320" VerticalAlignment="Top">
+        
+            <Label Content="Email" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding InputEmail}" Margin="200,43,0,0" VerticalAlignment="Top" Width="400" />
+            <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,70,0,0" VerticalAlignment="Top" />
 
-        <Label Content="Nieuw wachtwoord:" HorizontalAlignment="Left" Margin="102,161,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
-        <Label Width="200" Margin="200,176,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
-            <TextBlock Text="Wachtwoord moet voldoen aan: (bevat 1 kleine letter, 1 hoofdletter, 1 cijfer, 1 leesteken, minimaal 8 karakters)" 
-               TextWrapping="Wrap" FontSize="9" />
-        </Label>
-        <PasswordBox PasswordChanged="PasswordChanged" HorizontalAlignment="Left" Margin="108,191,0,0" VerticalAlignment="Top" Width="120"/>
+            <Grid HorizontalAlignment="Center" Width="800" Margin="0,87,0,0" Height="160" VerticalAlignment="Top">
+                
+                <Label Content="Nieuw wachtwoord" HorizontalAlignment="Left" Margin="195,0,0,0" VerticalAlignment="Top" />
+                
+                <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="200,26,0,0" VerticalAlignment="Top"
+                             Width="190" />
+                <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,53,0,0"
+                       VerticalAlignment="Top" />
+                
+                <Label Content="Nieuw wachtwoord (herhaling)" HorizontalAlignment="Left" Margin="405,0,0,0" VerticalAlignment="Top" />
+                <PasswordBox HorizontalAlignment="Right" PasswordChanged="PasswordConfirmationChanged" Margin="0,26,200,0" VerticalAlignment="Top"
+                             Width="190" />
 
-        <Label Content="Nieuw wachtwoord bevestiging:" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="101,214,0,0"/>
-        <PasswordBox PasswordChanged="PasswordConfirmationChanged" HorizontalAlignment="Left" Margin="106,239,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Width="400" Margin="100,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock Text="{Binding PasswordErrorMessage}" TextWrapping="Wrap" Foreground="Red" />
-        </Label>
-
-        <Button IsDefault="True" Content="Bevestig" HorizontalAlignment="Center" Margin="-200,351,0,0" VerticalAlignment="Top" Click="Submit"/>
-        <Button IsCancel="True" Content="Annuleer" HorizontalAlignment="Center" Margin="200,351,0,0" VerticalAlignment="Top" Click="Cancel"/>
-
+            </Grid>
+        </Grid>
+        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Click="Submit" />
+    
+        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,380,0,0" VerticalAlignment="Top" Click="Cancel"/>
     </Grid>
 </Page>

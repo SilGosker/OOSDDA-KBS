@@ -8,6 +8,7 @@ using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Boat.Read.Details;
@@ -118,5 +119,10 @@ public partial class ReadDetailsBoatPage : Page
         }
 
         MessageBox.Show(popupMessage);
+    }
+
+    private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, ViewModel.BoatTypeId));
     }
 }

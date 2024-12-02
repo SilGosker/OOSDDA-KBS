@@ -23,6 +23,7 @@ public class DamageRepository : IDamageRepository
     {
         return _connection.QueryFirstOrDefault<DamageEntity>("SELECT * FROM Damage WHERE DamageId = @Id", new { Id = id });
     }
+    
 
     public bool HasDamage(BoatEntity boat)
     {
@@ -30,8 +31,6 @@ public class DamageRepository : IDamageRepository
     }
     public void Delete(DamageEntity damage)
     {
-        if (damage.BoatId == 0) return;
-
-        _connection.Execute("DELETE FROM Damage WHERE damage = @DamageID", damage);
+        _connection.Execute("DELETE FROM Damage WHERE DamageID = @DamageId", new { DamageId = damage.DamageId });
     }
 }

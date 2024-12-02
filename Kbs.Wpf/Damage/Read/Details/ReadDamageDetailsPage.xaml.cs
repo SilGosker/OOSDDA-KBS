@@ -53,7 +53,7 @@ public partial class ReadDamageDetailsPage : Page
     
     private void RemoveDamage(object sender, RoutedEventArgs e)
     {
-        DamageEntity entity = _damageRepository.GetById(ViewModel.BoatId);
+        var entity = _damageRepository.GetById(ViewModel.DamageId);
         MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result == MessageBoxResult.Yes)
         {

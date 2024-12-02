@@ -5,6 +5,7 @@ using Kbs.Business.Boat;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Read.Index;
@@ -18,6 +19,7 @@ public partial class ReadDetailsBoatPage : Page
 {
     private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeRepository _boatTypeRepository = new();
+    private readonly DamageRepository _damageRepository = new();
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
@@ -46,6 +48,11 @@ public partial class ReadDetailsBoatPage : Page
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new ReadDetailsBoatReservationViewModel(reservation, user));
+        }
+
+        foreach (var damage in _damageRepository.GetByBoat(boat))
+        {
+            ViewModel.Damages.Add(new ReadDetailsBoatDamageViewModel(damage));
         }
     }
 
@@ -124,5 +131,34 @@ public partial class ReadDetailsBoatPage : Page
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)
     {
         _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, ViewModel.BoatTypeId));
+    }
+
+    private void NavigateToDamage(object sender, MouseButtonEventArgs e)
+    {
+        var listViewItem = (ListViewItem)sender;
+        var dataContext = (ReadDetailsBoatDamageViewModel)listViewItem.DataContext;
+        _navigationManager.Navigate(() => new ReadDamageDetailsPage(dataContext.DamageId, _navigationManager));
+    }
+
+    private void ShowSolvedDamages_Changed(object sender, RoutedEventArgs e)
+    {
+        var checkBox = (CheckBox)sender;
+
+        ViewModel.Damages.Clear();
+
+        if (checkBox.IsChecked == true)
+        {
+            foreach (var damage in _damageRepository.GetSolvedByBoat(new BoatEntity() { BoatId = ViewModel.BoatId }))
+            {
+                ViewModel.Damages.Add(new ReadDetailsBoatDamageViewModel(damage));
+            }
+        }
+        else
+        {
+            foreach (var damage in _damageRepository.GetByBoat(new BoatEntity() { BoatId = ViewModel.BoatId }))
+            {
+                ViewModel.Damages.Add(new ReadDetailsBoatDamageViewModel(damage));
+            }
+        }
     }
 }

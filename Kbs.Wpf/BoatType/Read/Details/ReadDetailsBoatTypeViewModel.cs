@@ -11,7 +11,6 @@ namespace Kbs.Wpf.BoatType.Read.Details
         private string _experience;
         private string _seats;
         private bool _hasWheel;
-        private int _status;
 
         public ObservableCollection<ReadDetailsBoatTypeBoatViewModel> Items { get; } = new ObservableCollection<ReadDetailsBoatTypeBoatViewModel>();
 

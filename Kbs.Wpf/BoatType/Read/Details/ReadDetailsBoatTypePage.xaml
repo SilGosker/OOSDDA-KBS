@@ -15,7 +15,11 @@
         <Label Content="{Binding BoatTypeNameString}" Style="{StaticResource TitleLabel}" />
         <Button Content="Verwijderen" Click="RemoveBoatType"
                 HorizontalAlignment="Right" Margin="412,90,20,0" VerticalAlignment="Top"
-                Style="{StaticResource FormButton}" Width="150" />
+                Style="{StaticResource FormButton}" />
+        <Button Content="Wijzigen" Click="Wijzigen" 
+                HorizontalAlignment="Right" Margin="412,90,130,0" VerticalAlignment="Top"
+                Style="{StaticResource FormButton}" />
+        
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
             

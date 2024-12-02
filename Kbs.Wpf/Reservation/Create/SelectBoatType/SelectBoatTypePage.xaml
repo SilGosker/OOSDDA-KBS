@@ -17,7 +17,7 @@
         <ListView ItemsSource="{Binding Items}"
                   d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Margin="20,132,20,90">
+                  Margin="20,132,20,20">
 
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">

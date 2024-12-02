@@ -2,6 +2,7 @@
 using System.Windows.Input;
 using Kbs.Business.Session;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Reservation.Read.Index;
@@ -32,5 +33,10 @@ public partial class ReadIndexReservationPage : Page
         var listViewItem = (ListViewItem)sender;
         var item = (ReadIndexReservationReservationViewModel)listViewItem.DataContext;
         _navigationManager.Navigate(() => new ReadDetailsReservationPage(item.ReservationId, _navigationManager));
+    }
+
+    private void NavigateToCreateReservationPage(object sender, System.Windows.RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager));
     }
 }

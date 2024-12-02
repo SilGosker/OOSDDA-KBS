@@ -41,17 +41,14 @@
             </ListView.ItemsPanel>
             
             <ListView.ItemTemplate>
-
                 <DataTemplate DataType="{x:Type index:ReadIndexBoatBoatViewModel}">
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
-
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding BoatIdString}" Style="{StaticResource ListItemTextBlockStyle}"
                                         FontSize="20"
                                         FontWeight="Bold"
                                         VerticalAlignment="Top" />
                         </StackPanel>
-
                         <StackPanel Orientation="Vertical" Margin="0,40,0,0">
                             <StackPanel>
                                 <Grid>

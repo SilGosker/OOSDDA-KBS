@@ -57,7 +57,6 @@
                                      <EventSetter Event="MouseDoubleClick" Handler="BoatSelected" />
                               </Style>
                        </DataGrid.RowStyle>
-
                        <DataGrid.Columns>
                               <DataGridTextColumn Width="165" Header="Naam" Binding="{Binding Name}" />
                               <DataGridTextColumn Width="80" Header="ID" Binding="{Binding BoatId}"/> 

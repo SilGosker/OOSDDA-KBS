@@ -9,6 +9,7 @@ using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.BoatType.Update;
+using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;

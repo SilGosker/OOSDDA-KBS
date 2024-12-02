@@ -44,13 +44,19 @@ public partial class ReadDamageDetailsPage : Page
     {
         _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
     }
-    public void Refresh()
+
+    private void SolveDamage(object sender, RoutedEventArgs e)
     {
-        _navigationManager.Navigate(() => new ViewBoatTypesPage(_navigationManager));
+        var entity = _damageRepository.GetById(ViewModel.DamageId);
+        MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (result == MessageBoxResult.Yes)
+        {
+            _damageRepository.Solve(entity);
+            _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
+        }
     }
 
-        
-    
+
     private void RemoveDamage(object sender, RoutedEventArgs e)
     {
         var entity = _damageRepository.GetById(ViewModel.DamageId);

@@ -33,4 +33,8 @@ public class DamageRepository : IDamageRepository
     {
         _connection.Execute("DELETE FROM Damage WHERE DamageID = @DamageId", new { DamageId = damage.DamageId });
     }
+    public void Solve(DamageEntity damage) 
+    {
+        _connection.Execute("UPDATE Damage SET Status = 1 WHERE DamageID = @DamageId", new { DamageId = damage.DamageId });
+    }
 }

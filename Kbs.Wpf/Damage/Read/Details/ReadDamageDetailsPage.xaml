@@ -43,7 +43,8 @@
             </Hyperlink>
         </TextBlock>
         <Label Grid.Column="0" Grid.Row="3" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
-        <Button Content="Verwijderen" Width="100" Canvas.Left="475" Click="RemoveDamage"  Canvas.Top="33" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <Button Content="Verwijderen" Width="100" Canvas.Left="475" Click="RemoveDamage"  Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="76,0,0,0"/>
+        <Button Content="Oplossen" Width="100" Canvas.Left="475" Click="SolveDamage"  Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="52,0,0,0"/>
         <Label Grid.Column="1" Grid.Row="3" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
                FontWeight="Bold" />
         <Label Grid.Column="0" Grid.Row="4" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />

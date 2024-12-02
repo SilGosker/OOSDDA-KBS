@@ -11,9 +11,10 @@
 		<ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Folder Include="BoatType\Read\" />
-	  <Folder Include="Boat\Read\" />
-	  <Folder Include="Reservation\Read\" />
+		<Content Include="Resources\**\*.*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 	<ItemGroup>
 	  <Page Update="Boat\Read\Index\ReadIndexBoatPage.xaml">

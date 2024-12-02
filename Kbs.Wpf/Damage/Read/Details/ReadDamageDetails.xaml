@@ -7,6 +7,8 @@
       mc:Ignorable="d"
       d:Background="White"
       d:DesignHeight="600" d:DesignWidth="450"
+      HorizontalAlignment="Center"
+      MinWidth="400"
       Title="ReadDamageDetails">
 
     <Page.DataContext>

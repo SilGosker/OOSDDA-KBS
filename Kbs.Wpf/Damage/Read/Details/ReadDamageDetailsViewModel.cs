@@ -1,5 +1,4 @@
 ﻿using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using Kbs.Business.Damage;
 using Kbs.Wpf.Components;
 

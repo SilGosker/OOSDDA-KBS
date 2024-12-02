@@ -15,16 +15,16 @@ public class DamageEntityTests
         damage.DamageId = id;
         damage.BoatId = boatId;
         damage.Status = status;
-        damage.DamageDescription = description;
-        damage.DateReported = dateReported;
+        damage.Description = description;
+        damage.Date = dateReported;
         damage.Image = image;
         
         // Assert
         Assert.Equal(id, damage.DamageId);
         Assert.Equal(boatId, damage.BoatId);
         Assert.Equal(status, damage.Status);
-        Assert.Equal(description, damage.DamageDescription);
-        Assert.Equal(dateReported, damage.DateReported);
+        Assert.Equal(description, damage.Description);
+        Assert.Equal(dateReported, damage.Date);
         Assert.Equal(image, damage.Image);
     }
 }

@@ -42,7 +42,7 @@
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
-                <DataTemplate DataType="{x:Type index:ReadIndexBoatBoatViewModel}">
+                <DataTemplate>
                     <Grid>
                         <Border BorderBrush="Black" BorderThickness="1" Height="120" Width="215" />
 

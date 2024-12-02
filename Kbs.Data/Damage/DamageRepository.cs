@@ -10,12 +10,12 @@ public class DamageRepository : IDamageRepository
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
     public List<DamageEntity> GetByBoat(BoatEntity boat)
     {
-       return  _connection.Query<DamageEntity>("SELECT * FROM Damage WHERE BoatID = @BoatId AND Status = 1", boat).ToList();
+       return  _connection.Query<DamageEntity>("SELECT * FROM Damage WHERE BoatID = @BoatId AND Status = 2", boat).ToList();
     }
 
     public List<DamageEntity> GetSolvedByBoat(BoatEntity boat)
     {
-        return _connection.Query<DamageEntity>("SELECT * FROM Damage WHERE BoatID = @BoatId AND Status = 2", boat).ToList();
+        return _connection.Query<DamageEntity>("SELECT * FROM Damage WHERE BoatID = @BoatId AND Status = 1", boat).ToList();
     }
 
     public DamageEntity GetById(int id)
@@ -25,6 +25,6 @@ public class DamageRepository : IDamageRepository
 
     public bool HasDamage(BoatEntity boat)
     {
-        return _connection.QueryFirstOrDefault<int>("SELECT COUNT(*) FROM Damage WHERE BoatID = @BoatId AND Status = 1", boat) > 0;
+        return _connection.QueryFirstOrDefault<int>("SELECT COUNT(*) FROM Damage WHERE BoatID = @BoatId AND Status = 2", boat) > 0;
     }
 }

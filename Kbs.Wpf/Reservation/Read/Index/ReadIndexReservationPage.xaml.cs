@@ -10,7 +10,7 @@ namespace Kbs.Wpf.Reservation.Read.Index;
 public partial class ReadIndexReservationPage : Page
 {
     private ReadIndexReservationViewModel ReadIndexReservationViewModel => (ReadIndexReservationViewModel)DataContext;
-    public ReservationRepository _reservationRepository = new();
+    private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly ReservationValidator _reservationValidator;
     private readonly ReservationTime _reservationTime;

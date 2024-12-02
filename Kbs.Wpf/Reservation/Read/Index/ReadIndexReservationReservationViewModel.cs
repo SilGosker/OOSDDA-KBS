@@ -1,12 +1,17 @@
+﻿using System;
 ﻿using System.Windows.Media;
 using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
+using Kbs.Data.Reservation;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Reservation.Read.Index;
 
 public class ReadIndexReservationReservationViewModel : ViewModel
 {
+    private DateTime _startTime;
+    private TimeSpan _length;
+
     
     public ReadIndexReservationReservationViewModel(ReservationEntity reservation)
     {
@@ -17,9 +22,7 @@ public class ReadIndexReservationReservationViewModel : ViewModel
         ReservationId = reservation.ReservationId;
         Status = reservation.Status;
     }
-    
-    private DateTime _startTime;
-    private TimeSpan _duration;
+
     private int _reservationId;
     private ReservationStatus _status;
     
@@ -43,7 +46,7 @@ public class ReadIndexReservationReservationViewModel : ViewModel
             return Brushes.Red;
         }
     }
-    
+
     public DateTime StartTime
     {
         get => _startTime;
@@ -56,12 +59,13 @@ public class ReadIndexReservationReservationViewModel : ViewModel
 
     public TimeSpan Length
     {
-        get => _duration;
-        set => SetField(ref _duration, value);
+        get => _length;
+        set => SetField(ref _length, value);
     }
     public int ReservationId
     {
         get => _reservationId;
         set => SetField(ref _reservationId, value);
     }
+    
 }

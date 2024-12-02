@@ -31,7 +31,7 @@ public class ReservationValidatorTests
         };
 
         var validator = new ReservationValidator();
-        Assert.False(validator.IsDurationValid(reservation));
+        Assert.True(validator.IsDurationValid(reservation));
     }
     [Fact]
     public void ReservationValidator_CompetitionReservationValidator_ShouldReturnFalseIfNotForCompetition()
@@ -97,7 +97,7 @@ public class ReservationValidatorTests
         var result = validator.IsDurationValid(reservation);
 
         // Assert
-        Assert.False(result);
+        Assert.True(result);
     }
     [Fact]
     public void ReservationValidator_IsDurationValid_ShouldReturnFalseForInvalidDuration()

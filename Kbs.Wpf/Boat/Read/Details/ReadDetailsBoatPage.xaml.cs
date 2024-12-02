@@ -12,6 +12,7 @@ using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Boat.Read.Details;

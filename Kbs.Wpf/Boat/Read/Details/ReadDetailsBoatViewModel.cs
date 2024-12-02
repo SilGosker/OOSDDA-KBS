@@ -19,6 +19,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     private bool _deleteButtonEnabled;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
     public ObservableCollection<BoatStatusesViewModel> PossibleBoatStatuses { get; } = new();
+    public ObservableCollection<ReadDetailsBoatDamageViewModel> Damages { get; } = new();
     public int BoatTypeId
     {
         get { return _boatTypeId; }

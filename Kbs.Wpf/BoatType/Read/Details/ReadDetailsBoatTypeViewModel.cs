@@ -15,7 +15,6 @@ namespace Kbs.Wpf.BoatType.Read.Details
         private BoatTypeExperienceViewModel _selectedExperience;
         private BoatTypeSeatsViewModel _selectedSeats;
         private bool _hasWheel;
-        private int _status;
 
         public ObservableCollection<ReadDetailsBoatTypeBoatViewModel> Items { get; } = new ObservableCollection<ReadDetailsBoatTypeBoatViewModel>();
         public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = new();

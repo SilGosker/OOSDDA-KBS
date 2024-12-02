@@ -8,6 +8,7 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {
     public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
     {
+        
         ThrowHelper.ThrowIfNull(boatType);
         Seats = boatType.Seats.ToDutchString();
         Experience = boatType.RequiredExperience.ToDutchString();

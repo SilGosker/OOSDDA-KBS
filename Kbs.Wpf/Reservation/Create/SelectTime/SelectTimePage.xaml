@@ -22,7 +22,7 @@
                   SelectionChanged="ComboBoxBoats_SelectionChanged"
                   ItemsSource="{Binding Boats}" />
         
-        <Border Background="Transparent" VerticalAlignment="Top" Width="1340" Margin="20,132,20,20">
+        <Border  VerticalAlignment="Top" Width="1340" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="8">
                 <Grid>
                     <Grid.ColumnDefinitions>

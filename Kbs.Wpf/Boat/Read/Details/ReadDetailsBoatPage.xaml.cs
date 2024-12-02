@@ -7,6 +7,8 @@ using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Components;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Reservation.Read.Details;
 
@@ -31,7 +33,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.BoatTypeId = boat.BoatTypeId;
         ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
-        ViewModel.Status = boat.Status.ToDutchString();
+        ViewModel.Status = boat.Status;
         ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
         ViewModel.DeleteRequestDate = boat.DeleteRequestDate;
         ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
@@ -45,6 +47,31 @@ public partial class ReadDetailsBoatPage : Page
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new ReadDetailsBoatReservationViewModel(reservation, user));
+        }
+
+        foreach (var boatStatus in Enum.GetValues<BoatStatus>())
+        {
+            var statusViewModel = new BoatStatusesViewModel(boatStatus);
+            ViewModel.PossibleBoatStatuses.Add(statusViewModel);
+
+            // Controleer of dit de huidige status is
+            if (boatStatus == ViewModel.Status)
+            {
+                ViewModel.SelectedBoatStatus = statusViewModel;
+            }
+        }
+    }
+
+    private void TypeChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var type = (BoatStatusesViewModel)((ComboBox)sender).SelectedItem;
+        if (type == null)
+        {
+            ViewModel.Status = BoatStatus.Operational;
+        }
+        else
+        {
+            ViewModel.Status = type.BoatStatuses;
         }
     }
 
@@ -77,8 +104,8 @@ public partial class ReadDetailsBoatPage : Page
         }
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
-        ViewModel.Status = BoatStatus.Maintaining.ToDutchString();
-        BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = BoatStatus.Maintaining };
+        ViewModel.Status = BoatStatus.Maintaining;
+        BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status };
         _boatRepository.Update(newBoatValues);
 
         //Refresh the whole page so every UI element gets updated where needed
@@ -118,5 +145,34 @@ public partial class ReadDetailsBoatPage : Page
         }
 
         MessageBox.Show(popupMessage);
+    }
+
+    private void UpdateData(object sender, RoutedEventArgs e)
+    {
+        BoatEntity boat = new BoatEntity()
+        {
+            BoatId = ViewModel.BoatId,
+            BoatTypeId = ViewModel.BoatTypeId,
+            DeleteRequestDate = ViewModel.DeleteRequestDate,
+            Name = ViewModel.Name,
+            Status = ViewModel.Status
+        };
+        var validationResult = _boatValidator.ValidateForUpdate(boat);
+        if (validationResult.Count > 0)
+        {
+            if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
+            {
+                MessageBox.Show(nameErrorMessage);
+            }
+            if (validationResult.TryGetValue(nameof(boat.Status), out string statusErrorMessage))
+            {
+                MessageBox.Show(statusErrorMessage);
+            }
+        }
+        else
+        {
+            _boatRepository.Update(boat);
+            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+        }
     }
 }

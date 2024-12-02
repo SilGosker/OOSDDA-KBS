@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using Kbs.Business.Boat;
+using Kbs.Wpf.Boat.Components;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Read.Details;
@@ -8,13 +10,15 @@ public class ReadDetailsBoatViewModel : ViewModel
 {
     private int _boatId;
     private string _name;
-    private string _status;
+    private BoatStatus _status;
+    private BoatStatusesViewModel _selectedBoatStatus;
     private string _boatTypeName;
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
     private int _boatTypeId;
     private bool _deleteButtonEnabled;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
+    public ObservableCollection<BoatStatusesViewModel> PossibleBoatStatuses { get; } = new();
     public int BoatTypeId
     {
         get { return _boatTypeId; }
@@ -30,10 +34,15 @@ public class ReadDetailsBoatViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
-    public string Status
+    public BoatStatus Status
     {
         get => _status;
         set => SetField(ref _status, value);
+    }
+    public BoatStatusesViewModel SelectedBoatStatus
+    {
+        get => _selectedBoatStatus;
+        set => SetField(ref _selectedBoatStatus, value);
     }
     public string BoatTypeName
     {

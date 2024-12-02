@@ -41,6 +41,11 @@ namespace Kbs.Business.Mock
             return Reservations.Where(e => e.UserId == userId).ToList();
         }
 
+        public int CountByUser(int userid)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
         {
             return reservations.OrderByDescending(e => e.Status).ThenBy(e => e.StartTime).ToList();

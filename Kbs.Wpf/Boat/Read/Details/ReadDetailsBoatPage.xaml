@@ -23,11 +23,11 @@
             <Separator Margin="10,108,0,0" Height="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600"/>
 
         <Label Content="Naam:" FontWeight="Bold" Margin="10,110,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
-        <Label Content="{Binding NameError}" Foreground="Red" FontWeight="Bold" Margin="64,126,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
+        <Label Content="{Binding NameError}" Foreground="Red" Margin="64,126,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Type:" FontWeight="Bold" Margin="10,144,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Status:" FontWeight="Bold" Margin="10,167,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <!--Label Content="{Binding StatusError}" Foreground="Red" FontWeight="Bold" Margin="64,193,0,0" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" /-->
-        <TextBlock Text="{Binding StatusError}" TextWrapping="Wrap" Foreground="Red" FontWeight="Bold" Margin="64,193,0,0" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left" Width="123" />
+        <TextBlock Text="{Binding StatusError}" TextWrapping="Wrap" Foreground="Red" Margin="64,193,0,0" Height="89" VerticalAlignment="Top" HorizontalAlignment="Left" Width="123" />
         <Label Content="Reserveringen" FontWeight="Bold" Margin="218,110,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,323,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />
         <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,355,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" />

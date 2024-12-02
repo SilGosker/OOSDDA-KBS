@@ -26,7 +26,6 @@ public partial class SelectBoatTypePage : Page
         var types = _boatTypeRepository.GetAllWithBoats();
         foreach (BoatTypeEntity type in types)
         {
-            int userId = SessionManager.Instance.Current.User.UserId;
             ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
         }
     }

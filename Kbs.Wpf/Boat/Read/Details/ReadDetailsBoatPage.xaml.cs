@@ -114,7 +114,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
         ViewModel.Status = BoatStatus.Maintaining;
-        BoatEntity newBoatValues = new BoatEntity() { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status };
+        BoatEntity newBoatValues = new BoatEntity() { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status, BoatId = ViewModel.BoatId };
         _boatRepository.UpdateDeletionStatus(newBoatValues);
 
         //Refresh the whole page so every UI element gets updated where needed

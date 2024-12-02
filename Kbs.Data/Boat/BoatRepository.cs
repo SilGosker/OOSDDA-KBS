@@ -47,7 +47,7 @@ public class BoatRepository : IBoatRepository
 
     public void UpdateDeletionStatus(BoatEntity boat)
     {
-        _connection.Execute("UPDATE Boat DeleteRequestDate = @DeleteRequestDate, Status = @Status WHERE BoatId = @BoatId", boat);
+        _connection.Execute("UPDATE Boat SET DeleteRequestDate = @DeleteRequestDate, Status = @Status WHERE BoatId = @BoatId", boat);
 
     }
     public void DeleteById(int boatId)

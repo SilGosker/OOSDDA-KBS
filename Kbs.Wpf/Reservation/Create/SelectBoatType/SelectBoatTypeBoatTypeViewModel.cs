@@ -1,15 +1,11 @@
 ﻿using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
-using Kbs.Business.User;
-using Kbs.Data.User;
 using Kbs.Wpf.Components;
-using System.Windows;
 
 namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 
 public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {
-    UserRepository _userRepository = new UserRepository();
     public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
     {
         

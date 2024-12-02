@@ -4,13 +4,9 @@ using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
-using Kbs.Business.User;
-using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
-using Kbs.Data.User;
-using Kbs.Wpf.BoatType.Read.Details;
-using Kbs.Wpf.BoatType.Read.Index;
+
 using Kbs.Wpf.Reservation.Create.SelectTime;
 using static Dapper.SqlMapper;
 
@@ -20,11 +16,8 @@ public partial class SelectBoatTypePage : Page
 {
     private readonly INavigationManager _navigationManager;
     private readonly BoatTypeRepository _boatTypeRepository = new();
-    private readonly UserRepository _userRepository = new();
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
-    private readonly BoatRepository _boatRepository = new();
-    private readonly BoatTypeEntity _boatTypeEntity = new();
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
@@ -34,16 +27,13 @@ public partial class SelectBoatTypePage : Page
         foreach (BoatTypeEntity type in types)
         {
             int userId = SessionManager.Instance.Current.User.UserId;
-            if (userId != null)
-            {
-                ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
-            }
+            ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
         }
     }
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
         int userID = SessionManager.Instance.Current.User.UserId;
-        int totalReservations = _reservationRepository.GetTotalReservations(userID);
+        int totalReservations = _reservationRepository.CountByUser(userID);
         if (_reservationValidator.IsReservationLimitReached(totalReservations))
         {
             MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
@@ -53,7 +43,6 @@ public partial class SelectBoatTypePage : Page
         {
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            ListViewItem item = (ListViewItem)sender;
             var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
             _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
         }

@@ -3,73 +3,92 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:selectBoatType="clr-namespace:Kbs.Wpf.Reservation.Create.SelectBoatType"
+      xmlns:index="clr-namespace:Kbs.Wpf.Reservation.Create.SelectBoatType"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
-      Background="White"
       Title="MakeReservation">
     <Page.DataContext>
-        <selectBoatType:SelectBoatTypeViewModel />
+        <index:SelectBoatTypeViewModel />
     </Page.DataContext>
-    
+
     <Grid Style="{StaticResource PageGrid}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="Reserveren boot" VerticalAlignment="Top" Height="50" FontSize="30"
-                   HorizontalAlignment="Center"  Grid.Row="0" />
-        
-        <ListView
-            HorizontalAlignment="Center"
-            ItemsSource="{Binding Items}" 
-            Grid.Row="1" Grid.Column="0" >
+        <Label Style="{StaticResource TitleLabel}" Content="Selecteer een boottype" />
+
+        <ListView ItemsSource="{Binding Items}"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  Margin="20,132,20,90">
 
             <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatTypeSelected"/>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="BoatTypeSelected" />
                 </Style>
             </ListView.ItemContainerStyle>
 
-            <ListView.ItemsPanel >
+            <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Width="1120"  />
+                    <WrapPanel Width="830" />
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
 
-            <ListView.ItemTemplate >
-                <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Width="550" >
-                        <Grid >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition MinHeight="20" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+            <ListView.ItemTemplate>
 
-                            <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" Grid.ColumnSpan="3" FontWeight="Bold" FontSize="35" Content="{Binding Name}"/>
-                            <Label Grid.Column="0" Grid.Row="1" Content="{Binding Experience}" FontSize="30"/>
-                            <Label Grid.Column="1" Grid.Row="1" Content="{Binding Seats}" FontSize="30"/>
-                            <Grid  Grid.Row="1" Grid.Column="2" >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Viewbox Grid.Column="0" Height="25" >
-                                    <CheckBox IsEnabled="False" IsChecked="{Binding HasSteeringWheel}" />
-                                </Viewbox>
-                                <Label Grid.Column="1"  Content="Stuur" FontSize="30" />
-                            </Grid>
+                <DataTemplate DataType="{x:Type index:SelectBoatTypeBoatTypeViewModel}">
+                    <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextBlockStyle}"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Top" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Moeilijkeid: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Experience}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Zitplaatsen: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Seats}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Stuur: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding HasSteeringWheelString}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Background="{StaticResource ColorHyperlink}" Height="2" Margin="0,2,0,0"></TextBlock>
+                            </StackPanel>
+                                <!-- <Viewbox Grid.Column="0" Height="25"> -->
+                                <!--     <CheckBox IsEnabled="False" IsChecked="{Binding HasSteeringWheel}" /> -->
+                                <!-- </Viewbox> -->
                             
-                        </Grid>
-                    </Border>
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
 

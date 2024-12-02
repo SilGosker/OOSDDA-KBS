@@ -1,24 +1,19 @@
-﻿using System.IO;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Kbs.Business.BoatType;
-using Kbs.Business.Damage;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
-using Kbs.Data.BoatType;
 using Kbs.Data.Damage;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Boat.Read.Index;
-using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Damage.Read.Details;
 
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class ReadDamageDetailsPage : Page
 {
     private readonly DamageRepository _damageRepository = new();
-    private DamageEntity _damageEntity;
     private readonly BoatRepository _boatRepository = new();
     private readonly INavigationManager _navigationManager;
     private ReadDamageDetailsViewModel ViewModel => (ReadDamageDetailsViewModel)DataContext;

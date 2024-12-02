@@ -1,4 +1,5 @@
 using Kbs.Business.User;
+using System;
 
 namespace Kbs.Business.Reservation;
 
@@ -39,18 +40,6 @@ public class ReservationValidator
         if (!reservation.IsForCompetition)
         {
             IsDurationValid(reservation);
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
-    public bool ReservationTimeHasPassed(DateTime time)
-    {
-        DateTime datetime = DateTime.Now;
-        if (time < datetime)
-        {
             return false;
         }
         else

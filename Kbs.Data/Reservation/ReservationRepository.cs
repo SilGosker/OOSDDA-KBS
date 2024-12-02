@@ -81,6 +81,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
             new { userId }
         );
     }
+
     public DateTime GetDate(int reservationId)
     {
         return _connection.QuerySingle<DateTime>("SELECT StartTime FROM Reservation WHERE ReservationID = @reservationId", new { reservationId });
@@ -88,5 +89,11 @@ public class ReservationRepository : IReservationRepository, IDisposable
     public void ChangeStatus(int reservationid)
     {
         _connection.Query("UPDATE Reservation SET Status = 2 WHERE ReservationID = @reservationid", new { reservationid });
+    }
+
+    public async Task ChangeStatusAsync()
+    {
+        await _connection.ExecuteAsync(
+            "UPDATE Reservation\r\nSET Status = 2\r\nWHERE DATEADD(MINUTE, DATEDIFF(MINUTE, '00:00:00', Length), StartTime) < GETDATE() AND Status = 3;");
     }
 }

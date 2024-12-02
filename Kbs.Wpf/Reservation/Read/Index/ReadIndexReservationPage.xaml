@@ -17,7 +17,7 @@
         <ListView ItemsSource="{Binding Items}" 
                   d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Margin="20,132,20,20">
+                  Margin="20,132,20,90">
             
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
@@ -32,6 +32,7 @@
             </ListView.ItemsPanel>
 
             <ListView.ItemTemplate>
+
                 <DataTemplate>
 
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
@@ -72,6 +73,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Content="Reservering aanmaken" HorizontalAlignment="Left" Margin="349,42,0,0" VerticalAlignment="Top" Height="25" Width="130" Click="NavigateToCreateReservationPage"/>
+        <Button Style="{StaticResource FormButton}" Content="Reservering aanmaken" HorizontalAlignment="Center" Margin="0,0,0,20" VerticalAlignment="Bottom" Width="150" Click="NavigateToCreateReservationPage"/>
     </Grid>
 </Page>

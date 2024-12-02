@@ -15,6 +15,10 @@ namespace Kbs.Wpf.BoatType.Read.Details
         private BoatTypeExperienceViewModel _selectedExperience;
         private BoatTypeSeatsViewModel _selectedSeats;
         private bool _hasWheel;
+        private string _nameError;
+        private string _speedError;
+        private string _experienceError;
+        private string _seatsError;
 
         public ObservableCollection<ReadDetailsBoatTypeBoatViewModel> Items { get; } = new ObservableCollection<ReadDetailsBoatTypeBoatViewModel>();
         public ObservableCollection<BoatTypeExperienceViewModel> PossibleExperiences { get; } = new();
@@ -64,5 +68,26 @@ namespace Kbs.Wpf.BoatType.Read.Details
             set => SetField(ref _hasWheel, value); 
         }
         public string HasWheelFormatted => HasWheel ? "Ja" : "Nee";
+
+        public string NameError 
+        { 
+            get => _nameError; 
+            set => SetField(ref _nameError, value); 
+        }
+        public string SpeedError 
+        { 
+            get => _speedError;
+            set => SetField(ref _speedError, value);
+        }
+        public string ExperienceError 
+        { 
+            get => _experienceError;
+            set => SetField(ref _experienceError, value);
+        }
+        public string SeatsError 
+        { 
+            get => _seatsError;
+            set => SetField(ref _seatsError, value);
+        }
     }
 }

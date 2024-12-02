@@ -114,8 +114,8 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
         ViewModel.Status = BoatStatus.Maintaining;
-        BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status };
-        _boatRepository.Update(newBoatValues);
+        BoatEntity newBoatValues = new BoatEntity() { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status };
+        _boatRepository.UpdateDeletionStatus(newBoatValues);
 
         //Refresh the whole page so every UI element gets updated where needed
         _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
@@ -171,17 +171,24 @@ public partial class ReadDetailsBoatPage : Page
         {
             if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
             {
-                MessageBox.Show(nameErrorMessage);
+                ViewModel.NameError = nameErrorMessage;
+            }
+            else
+            {
+                ViewModel.NameError = "";
             }
             if (validationResult.TryGetValue(nameof(boat.Status), out string statusErrorMessage))
             {
-                MessageBox.Show(statusErrorMessage);
+                ViewModel.StatusError = statusErrorMessage;
+            } else
+            {
+                ViewModel.StatusError = "";
             }
         }
         else
         {
             _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol geupdatet");
+            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
         }
     }
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)

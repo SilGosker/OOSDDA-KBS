@@ -17,6 +17,8 @@ public class ReadDetailsBoatViewModel : ViewModel
     private string _requestButtonText;
     private int _boatTypeId;
     private bool _deleteButtonEnabled;
+    private string _nameError;
+    private string _statusError;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
     public ObservableCollection<BoatStatusesViewModel> PossibleBoatStatuses { get; } = new();
     public ObservableCollection<ReadDetailsBoatDamageViewModel> Damages { get; } = new();
@@ -49,6 +51,16 @@ public class ReadDetailsBoatViewModel : ViewModel
     {
         get => _boatTypeName;
         set => SetField(ref _boatTypeName, value);
+    }
+    public string NameError
+    {
+        get => _nameError;
+        set => SetField(ref _nameError, value);
+    }
+    public string StatusError
+    {
+        get => _statusError;
+        set => SetField(ref _statusError, value);
     }
 
     public DateTime? DeleteRequestDate

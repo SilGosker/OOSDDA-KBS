@@ -11,7 +11,6 @@ using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.BoatType.Components;
 using Kbs.Wpf.BoatType.Read.Index;
-using Kbs.Wpf.BoatType.Update;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.Read.Details
@@ -93,9 +92,36 @@ namespace Kbs.Wpf.BoatType.Read.Details
             var validationResult = _boatTypeValidator.ValidatorForUpdate(boatType);
             if (validationResult.Count > 0)
             {
-                foreach (var item in validationResult)
+                if (validationResult.TryGetValue(nameof(boatType.Name), out string nameError))
                 {
-                    MessageBox.Show(item.Value);
+                    ReadDetailsBoatTypeViewModel.NameError = nameError;
+                } else
+                {
+                    ReadDetailsBoatTypeViewModel.NameError = "";
+                }
+                if (validationResult.TryGetValue(nameof(boatType.Seats), out string seatsError))
+                {
+                    ReadDetailsBoatTypeViewModel.SeatsError = seatsError;
+                }
+                else
+                {
+                    ReadDetailsBoatTypeViewModel.SeatsError = "";
+                }
+                if (validationResult.TryGetValue(nameof(boatType.RequiredExperience), out string experienceError))
+                {
+                    ReadDetailsBoatTypeViewModel.ExperienceError = experienceError;
+                }
+                else
+                {
+                    ReadDetailsBoatTypeViewModel.ExperienceError = "";
+                }
+                if (validationResult.TryGetValue(nameof(boatType.Speed), out string speedError))
+                {
+                    ReadDetailsBoatTypeViewModel.SpeedError = speedError;
+                }
+                else
+                {
+                    ReadDetailsBoatTypeViewModel.SpeedError = "";
                 }
             }
             else

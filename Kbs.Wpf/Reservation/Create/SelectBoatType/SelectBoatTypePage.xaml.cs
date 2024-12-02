@@ -44,7 +44,7 @@ public partial class SelectBoatTypePage : Page
     {
         int userID = SessionManager.Instance.Current.User.UserId;
         int totalReservations = _reservationRepository.GetTotalReservations(userID);
-        if (totalReservations > 1)
+        if (_reservationValidator.IsReservationLimitReached(totalReservations))
         {
             MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
             return;

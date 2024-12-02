@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Damage.Read.Details"
       mc:Ignorable="d"
-      d:Background="White"
       d:DesignHeight="600" d:DesignWidth="450"
       HorizontalAlignment="Center"
       MinWidth="400"
@@ -23,27 +22,30 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="34" />
-            <RowDefinition Height="10" />
-            <RowDefinition Height="25" />
-            <RowDefinition Height="25" />
-            <RowDefinition Height="25" />
-            <RowDefinition Height="25" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="50" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Label Grid.ColumnSpan="2" Content="{Binding DamageIdFormatted}" HorizontalContentAlignment="Center"
                HorizontalAlignment="Center" VerticalAlignment="Top" />
-        <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,500" />
+        <Separator Grid.Column="0"  BorderBrush="White" Grid.Row="1" Grid.ColumnSpan="2" />
+
         <Label Grid.Column="0" Grid.Row="2" Content="Boot:" HorizontalAlignment="Left" FontWeight="Bold" />
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" FontWeight="Bold" >
+        <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" >
             <Hyperlink Click="NavigateToBoatPage">
                 <Run Text="{Binding BoatName}" />
             </Hyperlink>
         </TextBlock>
+
         <Label Grid.Column="0" Grid.Row="3" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
-        <Button Content="Verwijderen" Width="100" Canvas.Left="475" Click="RemoveDamage"  Canvas.Top="33" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <Button Content="Verwijderen" Width="100" Canvas.Left="475" Click="RemoveDamage"  Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Margin="76,0,0,0"/>
+        <Button Content="Oplossen" Width="100" Canvas.Left="475" Click="SolveDamage"  Canvas.Top="33" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="52,0,0,0"/>
         <Label Grid.Column="1" Grid.Row="3" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
                FontWeight="Bold" />
         <Label Grid.Column="0" Grid.Row="4" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />

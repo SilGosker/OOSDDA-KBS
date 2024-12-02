@@ -25,6 +25,8 @@ public class UpdateBoatTypeViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
+    
+    public string BoatTypeNameString => $"Boottype: {Name}";
 
     public int Speed
     {

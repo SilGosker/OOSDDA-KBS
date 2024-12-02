@@ -81,4 +81,8 @@ public class ReservationRepository : IReservationRepository, IDisposable
             new { userId }
         );
     }
+    public IEnumerable<ReservationEntity> GetDate(int reservationId)
+    {
+        return _connection.Query<ReservationEntity>("SELECT StartTime FROM Reservation WHERE ReservationID = @reservationId", new { reservationId });
+    }
 }

@@ -6,11 +6,8 @@ namespace Kbs.Wpf.Reservation.Read.Index;
 
 public class ReadIndexReservationReservationViewModel : ViewModel
 {
-    private int _niveau;
-    private int _zitplaatsen;
-    private bool _stuur;
     private DateTime _startTime;
-    private TimeSpan _tijdsduur;
+    private TimeSpan _length;
     private int _reservationId;
     private ReservationStatus _status;
     public ReservationStatus Status
@@ -34,21 +31,6 @@ public class ReadIndexReservationReservationViewModel : ViewModel
         }
     }
 
-    public int Niveau
-    {
-        get => _niveau;
-        set => SetField(ref _niveau, value);
-    }
-    public int Seats
-    {
-        get => _zitplaatsen;
-        set => SetField(ref _zitplaatsen, value);
-    }
-    public bool HasSteeringWheel
-    {
-        get => _stuur;
-        set => SetField(ref _stuur, value);
-    }
     public DateTime StartTime
     {
         get => _startTime;
@@ -59,8 +41,8 @@ public class ReadIndexReservationReservationViewModel : ViewModel
 
     public TimeSpan Length
     {
-        get => _tijdsduur;
-        set => SetField(ref _tijdsduur, value);
+        get => _length;
+        set => SetField(ref _length, value);
     }
     public int ReservationID
     {

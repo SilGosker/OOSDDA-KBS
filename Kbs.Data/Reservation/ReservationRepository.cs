@@ -73,4 +73,12 @@ public class ReservationRepository : IReservationRepository, IDisposable
             .Query<ReservationEntity>("SELECT * FROM Reservation WHERE BoatID = @boatBoatId", new { boatBoatId })
             .ToList();
     }
+
+    public int CountByUser(int userId)
+    {
+        return _connection.QuerySingleOrDefault<int>(
+            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId",
+            new { userId }
+        );
+    }
 }

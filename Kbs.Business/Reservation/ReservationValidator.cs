@@ -9,11 +9,20 @@ public class ReservationValidator
 
     public Dictionary<string, string> ValidForCreation(ReservationEntity reservation) { return new Dictionary<string, string>(); }
     public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation){ return new Dictionary<string, string>(); }
-    public bool IsReservationLimitReached(UserEntity user, ReservationEntity reservation)
+    public bool IsReservationLimitReached(int totalreservations)
     {
-        return false;
+        if (totalreservations > 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    public bool IsWithinDaylightHours(ReservationEntity reservation) 
+
+
+    public bool IsWithinDaylightHours(ReservationEntity reservation)
     {
         var StartTime = TimeOnly.FromDateTime(reservation.StartTime);
         var EndTime = TimeOnly.FromDateTime(reservation.EndTime);
@@ -23,7 +32,8 @@ public class ReservationValidator
     }
     public bool IsDurationValid(ReservationEntity reservation) 
     {
-        return reservation.Length.TotalMinutes <= 120;
+        return reservation.Length.
+            Minutes <= 120;
     }
     public bool CompetitionReservationValidator(ReservationEntity reservation) 
     {

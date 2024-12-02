@@ -1,6 +1,7 @@
 using Dapper;
 using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
+using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.BoatType;
@@ -33,6 +34,7 @@ public class BoatTypeRepository : IBoatTypeRepository
 
         return _connection.Query<BoatTypeEntity>(query, new { ReservationID = reservationID }).FirstOrDefault();
     }
+    
 
     public BoatTypeEntity GetById(int boatTypeId)
     {

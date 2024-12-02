@@ -12,6 +12,7 @@ using Kbs.Wpf.Reservation.Read.Index;
 
 namespace Kbs.Wpf.Reservation.Read.Details;
 
+[HasRole(UserRole.Member)]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();
@@ -38,7 +39,6 @@ public partial class ReadDetailsReservationPage : Page
         ViewModel.Speed = boatType.Speed;
 
     }
-    //[HasRole(UserRole.Member)]
 
     public void Delete(object sender, RoutedEventArgs e)
     {

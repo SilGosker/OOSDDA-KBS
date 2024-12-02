@@ -81,8 +81,12 @@ public class ReservationRepository : IReservationRepository, IDisposable
             new { userId }
         );
     }
-    public IEnumerable<ReservationEntity> GetDate(int reservationId)
+    public DateTime GetDate(int reservationId)
     {
-        return _connection.Query<ReservationEntity>("SELECT StartTime FROM Reservation WHERE ReservationID = @reservationId", new { reservationId });
+        return _connection.QuerySingle<DateTime>("SELECT StartTime FROM Reservation WHERE ReservationID = @reservationId", new { reservationId });
+    }
+    public void ChangeStatus(int reservationid)
+    {
+        _connection.Query("UPDATE Reservation SET Status = 2 WHERE ReservationID = @reservationid", new { reservationid });
     }
 }

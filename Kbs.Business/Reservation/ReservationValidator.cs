@@ -10,7 +10,6 @@ public class ReservationValidator
     public Dictionary<string, string> ValidForCreation(ReservationEntity reservation) { return new Dictionary<string, string>(); }
     public Dictionary<string, string> ValidForUpdates(ReservationEntity reservation) { return new Dictionary<string, string>(); }
 
-    //Gebruik ik op t moment niet
     public bool IsReservationLimitReached(int totalreservations)
     {
         if (totalreservations > 1)
@@ -47,9 +46,10 @@ public class ReservationValidator
             return true;
         }
     }
-    public bool ReservationTimeHasPassed(int time)
+    public bool ReservationTimeHasPassed(DateTime time)
     {
-        if (time < 0)
+        DateTime datetime = DateTime.Now;
+        if (time < datetime)
         {
             return false;
         }

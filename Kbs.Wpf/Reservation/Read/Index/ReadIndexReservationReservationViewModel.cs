@@ -49,4 +49,5 @@ public class ReadIndexReservationReservationViewModel : ViewModel
         get => _reservationId;
         set => SetField(ref _reservationId, value);
     }
+    
 }

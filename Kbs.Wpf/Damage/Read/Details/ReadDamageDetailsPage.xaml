@@ -44,7 +44,7 @@
         </TextBlock>
 
         <Label Grid.Column="0" Grid.Row="3" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
-        <Button Grid.Row="0" Content="Verwijderen" Width="100" Click="RemoveDamage"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <Button Style="{StaticResource FormButton}" Grid.Row="0" Content="Verwijderen" Width="100" Click="RemoveDamage"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
         <Label Grid.Column="1" Grid.Row="3" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
                FontWeight="Bold" />
         <Label Grid.Column="0" Grid.Row="4" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />

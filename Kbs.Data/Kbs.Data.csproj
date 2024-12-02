@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Kbs.Business\Kbs.Business.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Damage\" />
-  </ItemGroup>
-
 </Project>

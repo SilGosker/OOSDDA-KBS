@@ -3,10 +3,10 @@
 public class DamageEntityTests
 {
     [Theory]
-    [InlineData(1, 1, DamageStatus.Solved, "Test Description", "2022-01-01", new byte[] { 0x20, 0x21, 0x22 })]
-    [InlineData(0, 0, DamageStatus.UnSolved, "", "", new byte[] { })]
-    [InlineData(int.MinValue, int.MinValue, (DamageStatus)0, null, null, null)]
-    public void Properties_ShouldSetValues(int id, int boatId, DamageStatus status, string description, DateTime dateReported, byte[] image)
+    [InlineData(1, 1, DamageStatus.Solved, "Test Description", new byte[] { 0x20, 0x21, 0x22 })]
+    [InlineData(0, 0, DamageStatus.UnSolved, "", new byte[] { })]
+    [InlineData(int.MinValue, int.MinValue, (DamageStatus)0, null, null)]
+    public void Properties_ShouldSetValues(int id, int boatId, DamageStatus status, string description, byte[] image)
     {
         // Arrange
         var damage = new DamageEntity();
@@ -16,7 +16,6 @@ public class DamageEntityTests
         damage.BoatId = boatId;
         damage.Status = status;
         damage.Description = description;
-        damage.Date = dateReported;
         damage.Image = image;
         
         // Assert
@@ -24,7 +23,6 @@ public class DamageEntityTests
         Assert.Equal(boatId, damage.BoatId);
         Assert.Equal(status, damage.Status);
         Assert.Equal(description, damage.Description);
-        Assert.Equal(dateReported, damage.Date);
         Assert.Equal(image, damage.Image);
     }
 }

@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 
@@ -32,19 +33,30 @@ public partial class SelectBoatTypePage : Page
     }
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
-        int userID = SessionManager.Instance.Current.User.UserId;
-        int totalReservations = _reservationRepository.CountByUser(userID);
-        if (_reservationValidator.IsReservationLimitReached(totalReservations))
+        UserRole waarde = SessionManager.Instance.Current.User.Role;
+        if (waarde == UserRole.Member)
         {
-            MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
-            return;
-        }
-        else
+            int userID = SessionManager.Instance.Current.User.UserId;
+            int totalReservations = _reservationRepository.CountByUser(userID);
+            if (_reservationValidator.IsReservationLimitReached(totalReservations))
+            {
+                MessageBoxResult result = MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
+                return;
+            }
+            else
+            {
+                var listViewItem = (ListViewItem)sender;
+                var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
+                var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            }
+        } else
         {
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
             var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
             _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
         }
+        
     }
 }

@@ -23,13 +23,7 @@ public partial class ReadIndexReservationPage : Page
         foreach (var reservation in sortedReservations)
         {
             {
-                ReadIndexReservationViewModel.Items.Add(new ReadIndexReservationReservationViewModel()
-                {
-                    ReservationID = reservation.ReservationId,
-                    Length = reservation.Length,
-                    StartTime = reservation.StartTime,
-                    Status = reservation.Status,
-                });
+                ReadIndexReservationViewModel.Items.Add(new ReadIndexReservationReservationViewModel(reservation));
             }
         }
     }
@@ -38,7 +32,7 @@ public partial class ReadIndexReservationPage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var item = (ReadIndexReservationReservationViewModel)listViewItem.DataContext;
-        _navigationManager.Navigate(() => new ReadDetailsReservationPage(item.ReservationID, _navigationManager));
+        _navigationManager.Navigate(() => new ReadDetailsReservationPage(item.ReservationId, _navigationManager));
     }
 
     private void NavigateToCreateReservationPage(object sender, System.Windows.RoutedEventArgs e)

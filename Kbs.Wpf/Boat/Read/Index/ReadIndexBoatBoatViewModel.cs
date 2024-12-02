@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Boat;
+﻿using System.Windows.Media;
+using Kbs.Business.Boat;
 using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
 
@@ -36,11 +37,22 @@ public class ReadIndexBoatBoatViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
-    public string BoatNumber => "Boot nr. " + BoatId;
+    public string BoatIdString => "Boot nr. " + BoatId;
     public string Status
     {
         get => _status;
         set => SetField(ref _status, value);
+    }
+    public Brush StatusColor
+    {
+        get
+        {
+            if (Status == BoatStatus.Operational.ToDutchString())
+            {
+                return Brushes.Green;
+            }
+            return Brushes.Red;
+        }
     }
     public string BoatType
     {

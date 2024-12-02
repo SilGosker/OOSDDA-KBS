@@ -40,7 +40,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.DeleteRequestDate = boat.DeleteRequestDate;
         ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
             ? "Ter verwijdering opstellen"
-            : "Annuleer verwijdering aanvraag";
+            : "Annuleren verwijdering";
 
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
         ViewModel.DeleteButtonEnabled = result.Count == 0;

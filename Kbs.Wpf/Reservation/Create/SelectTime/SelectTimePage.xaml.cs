@@ -68,7 +68,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
         private void RefreshCalander()
         {
             ViewModel.ThisWeek.Clear();
-            buttons.Children.Clear();
+            Buttons.Children.Clear();
             int countVar = 0;
             for (int i = daysFromToday; countVar < 7; i++)
             {
@@ -87,17 +87,18 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
                         {
 
                             Width = 150,
-                            Height = (j.Length * 42),
+                            Height = (j.Length * 34),
                             Tag = chosenTimeAndBoat,
-                            Background = Brushes.Red,
-                            BorderBrush = Brushes.Black,
+                            Foreground = (Brush)TryFindResource("ColorPrimaryText"),
+                            Background = (Brush)TryFindResource("ColorSecondaryBackground"),
+                            BorderBrush = (Brush)TryFindResource("ColorCaretBrush"),
                             FontSize = 28,
                             Content = "Reserveer"
                         };
                         button.Tag = chosenTimeAndBoat;
                         button.Click += TimeSlotButton_Click;
 
-                        buttons.Children.Add(button);
+                        Buttons.Children.Add(button);
 
                         double compare = 0;
 

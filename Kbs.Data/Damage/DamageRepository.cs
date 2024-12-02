@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Kbs.Business.Boat;
 using Kbs.Business.Damage;
+using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Damage;
@@ -26,5 +27,11 @@ public class DamageRepository : IDamageRepository
     public bool HasDamage(BoatEntity boat)
     {
         return _connection.QueryFirstOrDefault<int>("SELECT COUNT(*) FROM Damage WHERE BoatID = @BoatId AND Status = 2", boat) > 0;
+    }
+    public void Delete(DamageEntity damage)
+    {
+        if (damage.BoatId == 0) return;
+
+        _connection.Execute("DELETE FROM Damage WHERE damage = @DamageID", damage);
     }
 }

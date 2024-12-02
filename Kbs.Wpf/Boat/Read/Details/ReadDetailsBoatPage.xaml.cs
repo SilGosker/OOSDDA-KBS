@@ -132,7 +132,7 @@ public partial class ReadDetailsBoatPage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var dataContext = (ReadDetailsBoatDamageViewModel)listViewItem.DataContext;
-        _navigationManager.Navigate(() => new ReadDamageDetails(dataContext.DamageId, _navigationManager));
+        _navigationManager.Navigate(() => new ReadDamageDetailsPage(dataContext.DamageId, _navigationManager));
     }
 
     private void ShowSolvedDamages_Changed(object sender, RoutedEventArgs e)

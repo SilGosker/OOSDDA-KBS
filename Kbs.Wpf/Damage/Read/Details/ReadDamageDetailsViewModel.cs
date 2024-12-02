@@ -59,8 +59,12 @@ public class ReadDamageDetailsViewModel : ViewModel
     public int DamageId
     {
         get => _damageId;
-        set => SetField(ref _damageId, value);
+        set
+        {
+            SetField(ref _damageId, value);
+            OnPropertyChanged(nameof(DamageIdFormatted));
+        }
     }
 
-    public string DamageIdFormatted => $"Schade #{DamageId}";
+    public string DamageIdFormatted => $"Beschadiging #{DamageId}";
 }

@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
@@ -11,6 +12,7 @@ using Kbs.Wpf.Reservation.Read.Index;
 
 namespace Kbs.Wpf.Reservation.Read.Details;
 
+[HasRole(UserRole.Member)]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();
@@ -37,8 +39,10 @@ public partial class ReadDetailsReservationPage : Page
         ViewModel.Speed = boatType.Speed;
 
     }
+
     public void Delete(object sender, RoutedEventArgs e)
     {
+        
         var entity = _reservationRepository.GetById(ViewModel.ReservationId);
         if (ViewModel.Status == ReservationStatus.Active.ToDutchString())
         {

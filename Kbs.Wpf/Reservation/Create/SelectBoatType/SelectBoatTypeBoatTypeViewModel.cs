@@ -37,6 +37,7 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         get => _hasSteeringWheel;
         set => SetField(ref _hasSteeringWheel, value);
     }
+    public string HasSteeringWheelString => HasSteeringWheel ? "Ja" : "Nee";
     public string Name
     {
         get => _name;

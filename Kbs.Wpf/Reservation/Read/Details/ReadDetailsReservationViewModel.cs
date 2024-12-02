@@ -57,20 +57,20 @@ public class ReadDetailsReservationViewModel : ViewModel
         set
         {
             SetField(ref _startTime, value);
-            OnPropertyChanged(nameof(StartTimeFormatted));
+            OnPropertyChanged(nameof(StartTimeString));
         }
     }
-    public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
+    
     public TimeSpan Length
     {
         get => _length;
         set
         {
             SetField(ref _length, value);
-            OnPropertyChanged(nameof(LengthFormatted));
+            OnPropertyChanged(nameof(LengthString));
         }
     }
-    public string LengthFormatted => Length.ToString(@"hh\:mm");
+    
     public int ReservationId
     {
         get => _reservationId;
@@ -88,5 +88,10 @@ public class ReadDetailsReservationViewModel : ViewModel
         get => _speed;
         set => SetField(ref _speed, value);
     }
+    
+    public string ReservationIdString => $"Reservering #{ReservationId}";
+    public string LengthString => Length.ToString(@"hh\:mm");
+    public string StartTimeString => StartTime.ToString("dd-MM-yyyy HH:mm");
+    public string HasSteeringWheelString => HasSteeringWheel ? "Ja" : "Nee";
 }
 

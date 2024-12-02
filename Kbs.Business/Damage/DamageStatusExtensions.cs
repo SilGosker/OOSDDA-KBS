@@ -6,8 +6,8 @@ public static class DamageStatusExtensions
     {
         return status switch
         {
-            DamageStatus.UnSolved => "Open",
-            DamageStatus.Solved => "Gesloten",
+            DamageStatus.UnSolved => "Onopgelost",
+            DamageStatus.Solved => "Opgelost",
             _ => "Onbekend"
         };
     }

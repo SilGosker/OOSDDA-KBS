@@ -1,4 +1,5 @@
-﻿using System.Windows.Media.Imaging;
+﻿using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Kbs.Business.Damage;
 using Kbs.Wpf.Components;
 
@@ -7,19 +8,19 @@ namespace Kbs.Wpf.Damage.Read.Details;
 public class ReadDamageDetailsViewModel : ViewModel
 {
     private string _description;
-    private BitmapImage _image;
+    private ImageSource _image;
     private DamageStatus _status;
     private int _boatId;
     private string _boatName;
     private DateTime _date;
-
+    private int _damageId;
     public string Description
     {
         get => _description;
         set => SetField(ref _description, value);
     }
 
-    public BitmapImage Image
+    public ImageSource Image
     {
         get => _image;
         set => SetField(ref _image, value);
@@ -56,4 +57,11 @@ public class ReadDamageDetailsViewModel : ViewModel
 
     public string DateFormatted => Date.ToString("yyyy-MM-dd");
     public string StatusFormatted => Status.ToDutchString();
+    public int DamageId
+    {
+        get => _damageId;
+        set => SetField(ref _damageId, value);
+    }
+
+    public string DamageIdFormatted => $"Schade #{DamageId}";
 }

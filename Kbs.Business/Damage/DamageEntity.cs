@@ -9,7 +9,8 @@ public class DamageEntity
     public DamageStatus Status { get; set; }
     [Column("BoatID")]
     public int BoatId {  get; set; }
-    public string DamageDescription { get; set; }
-    public DateTime? DateReported { get; set; }
+    public string Description { get; set; }
+    [Column("Date")]
+    public DateTime DateReported { get; set; }
     public byte[] Image { get; set; }
 }

@@ -31,7 +31,11 @@ public class ReadDetailsBoatViewModel : ViewModel
     public int BoatId
     {
         get => _boatId;
-        set => SetField(ref _boatId, value);
+        set
+        {
+            SetField(ref _boatId, value);
+            OnPropertyChanged(nameof(BoatIdString));
+        }
     }
     public string BoatIdString => $"Boot #{BoatId}";
     public string Name
@@ -54,7 +58,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     {
         get
         {
-            if (Status == BoatStatus.Operational.ToDutchString())
+            if (Status == BoatStatus.Operational)
             {
                 return Brushes.Green;
             }

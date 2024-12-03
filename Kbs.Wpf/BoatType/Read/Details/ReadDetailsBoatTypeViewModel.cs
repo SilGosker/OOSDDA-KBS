@@ -27,7 +27,11 @@ namespace Kbs.Wpf.BoatType.Read.Details
         public string Name
         {
             get => _name;
-            set => SetField(ref _name, value);
+            set
+            {
+                SetField(ref _name, value);
+                OnPropertyChanged(nameof(BoatTypeNameString));
+            }
         }
         public int BoatTypeId
         {
@@ -68,7 +72,6 @@ namespace Kbs.Wpf.BoatType.Read.Details
             get => _hasWheel;
             set => SetField(ref _hasWheel, value); 
         }
-        public string HasWheelString => HasWheel ? "Ja" : "Nee";
 
         public string NameError 
         { 

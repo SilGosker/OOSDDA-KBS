@@ -37,4 +37,10 @@ public class DamageRepository : IDamageRepository
     {
         _connection.Execute("UPDATE Damage SET Status = 1 WHERE DamageID = @DamageId", new { DamageId = damage.DamageId });
     }
+
+    public void Create(DamageEntity damage)
+    {
+        damage.DamageId = _connection.QuerySingle<int>("INSERT INTO Damage (BoatID, Date, Status, Description, Image) VALUES (@BoatId, @Date, @Status, @Description, @Image); SELECT SCOPE_IDENTITY()", damage);
+
+    }
 }

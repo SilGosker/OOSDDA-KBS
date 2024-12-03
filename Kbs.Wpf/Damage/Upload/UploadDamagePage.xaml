@@ -1,50 +1,60 @@
 ﻿<Page x:Class="Kbs.Wpf.Damage.Upload.UploadDamagePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:upload="clr-namespace:Kbs.Wpf.Damage.Upload"
       mc:Ignorable="d"
-      d:DesignHeight="450" d:DesignWidth="600"
+      d:DesignHeight="450" d:DesignWidth="900"
       Title="UploadDamagePage">
     <Page.DataContext>
         <upload:UploadDamageViewModel />
     </Page.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="20" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid Style="{StaticResource PageGrid}">
+        <Border Background="Transparent " VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <Label Grid.ColumnSpan="2" Style="{StaticResource TitleLabel}" Content="Uploaden beschadiging" HorizontalAlignment="Center" Margin="0,10,0,0" />
+                <Label Grid.ColumnSpan="2" Style="{StaticResource TitleLabel}" Content="Uploaden beschadiging" />
 
-        <Separator Grid.Column="0"  Grid.Row="1" Grid.ColumnSpan="2" />
-        <Label Grid.Column="0" Grid.Row="2" Content="Selecteer bestand" FontWeight="Bold"/>
-        <Label Grid.Column="1" Grid.Row="2" Content="Afbeelding preview" FontWeight="Bold"/>
+                <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+                <Label Grid.Column="0" Grid.Row="2" Content="Selecteer bestand" FontWeight="Bold" />
+                <Label Grid.Column="1" Grid.Row="2" Content="Afbeelding preview" FontWeight="Bold" />
 
-        <Image Grid.Column="1" Grid.Row="3" Grid.RowSpan="5" Source="{Binding ImagePath}" />
+                <Image Grid.Column="1" Grid.Row="3" Grid.RowSpan="5" Source="{Binding Image}" />
 
-        <StackPanel Grid.Column="0" Grid.Row="3"  Orientation="Horizontal">
-            <Button Style="{StaticResource FormButton}" HorizontalAlignment="Left" Margin="5" VerticalAlignment="Top" Content="Kies bestand" />
-            <CheckBox VerticalAlignment="Top" Content="Boot is nog reserveerbaar" Height="31" Margin="5" VerticalContentAlignment="Center" />
-        </StackPanel>
+                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                    <Button Style="{StaticResource FormButton}" HorizontalAlignment="Left" Margin="5"
+                            VerticalAlignment="Top" Content="Kies bestand" Click="SelectFileButtonClick" />
+                    <CheckBox IsChecked="{Binding BoatIsFine}" VerticalAlignment="Top"
+                              Content="Boot is nog reserveerbaar" Height="31" Margin="5"
+                              VerticalContentAlignment="Center" />
+                </StackPanel>
 
-        <Label Grid.Column="0" Grid.Row="4" Content="{Binding FileErrorMessage}" Foreground="Red" />
+                <Label Grid.Column="0" Grid.Row="4" Content="{Binding FileErrorMessage}" Foreground="Red" />
 
-        <TextBox Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Description}" TextWrapping="Wrap" AcceptsReturn="True" />
+                <TextBox Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Description}" TextWrapping="Wrap"
+                         AcceptsReturn="True" />
 
-        <StackPanel Grid.Column="0" Grid.Row="7"  Orientation="Horizontal">
-
-        </StackPanel>
+                <Label Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                       Content="{Binding DescriptionErrorMessage}" Foreground="Red" />
+                <Button Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
+                        Content="Bevestigen" Click="Submit" />
+            </Grid>
+        </Border>
     </Grid>
+
 </Page>

@@ -33,6 +33,30 @@ public class BoatValidator
         return validationResult;
     }
 
+    public Dictionary<string, string> ValidateForUpdate(BoatEntity boat)
+    {
+        ThrowHelper.ThrowIfNull(boat);
+        Dictionary<string, string> validationResult = new();
+
+        // Validate Name
+        if (string.IsNullOrWhiteSpace(boat.Name))
+        {
+            validationResult.Add(nameof(boat.Name), "Naam is verplicht");
+        }
+
+        if (!Enum.IsDefined(boat.Status))
+        {
+            validationResult.Add(nameof(boat.Status), "Geldige status is verplicht");
+        }
+
+        if (boat.Status == BoatStatus.Operational && boat.DeleteRequestDate != null)
+        {
+            validationResult.Add(nameof(boat.Status), "Status mag niet aangepast worden vanwege de verwijdering aanvraag");
+        }
+
+        return validationResult;
+    }
+
     public Dictionary<string, string> IsValidForPermanentDeletion(BoatEntity boat)
     {
         ThrowHelper.ThrowIfNull(boat);

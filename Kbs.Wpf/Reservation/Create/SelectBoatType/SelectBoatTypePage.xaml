@@ -11,9 +11,13 @@
         <index:SelectBoatTypeViewModel />
     </Page.DataContext>
 
-    <Grid Style="{StaticResource PageGrid}">
-        <Label Style="{StaticResource TitleLabel}" Content="Selecteer een boottype" />
 
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Content="Hoeveelheid boten" HorizontalAlignment="Left" Margin="20,63,20,0" VerticalAlignment="Top" Width="128" Visibility="{Binding ComboboxVisability}" />
+        <ComboBox ItemsSource="{Binding Amount}" x:Name="AmountComboBox" Visibility="{Binding ComboboxVisability}" Width="150" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top" SelectionChanged="ComboBoxAmount_SelectionChanged"/>
+
+        <Button HorizontalAlignment="Right" Margin="0,90,20,0" Content="Selecteer tijdsblok" VerticalAlignment="Top" Width="128" Style="{StaticResource FormButton}" Visibility="{Binding ComboboxVisability}" Click="ButtonTimeBlock_Click" IsEnabled="False" x:Name="TimeBLockButton" />
+        <Label Style="{StaticResource TitleLabel}" Content="Selecteer een boottype" />
         <ListView ItemsSource="{Binding Items}"
                   d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
@@ -81,12 +85,9 @@
                                 </Grid>
                             </StackPanel>
                             <StackPanel>
-                                <TextBlock Background="{StaticResource ColorHyperlink}" Height="2" Margin="0,2,0,0"></TextBlock>
+                                <TextBlock Background="{StaticResource ColorHyperlink}" Height="2" Margin="0,2,0,0" Visibility="{Binding SelectionLineVisability}"></TextBlock>
                             </StackPanel>
-                                <!-- <Viewbox Grid.Column="0" Height="25"> -->
-                                <!--     <CheckBox IsEnabled="False" IsChecked="{Binding HasSteeringWheel}" /> -->
-                                <!-- </Viewbox> -->
-                            
+
                         </StackPanel>
                     </Grid>
                 </DataTemplate>
@@ -94,4 +95,5 @@
 
         </ListView>
     </Grid>
+    
 </Page>

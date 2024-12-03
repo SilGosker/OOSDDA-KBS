@@ -7,4 +7,11 @@ public class SelectBoatTypeViewModel : ViewModel
 {
     public ObservableCollection<SelectBoatTypeBoatTypeViewModel> Items { get; } = new();
     public ObservableCollection<int> Amount { get; } = new();
+    private string _comboboxVisability;
+    public string ComboboxVisability
+    {
+        get => _comboboxVisability;
+        set => SetField(ref _comboboxVisability, value);
+    }
+    
 }

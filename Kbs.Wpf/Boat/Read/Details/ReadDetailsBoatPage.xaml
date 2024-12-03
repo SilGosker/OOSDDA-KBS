@@ -16,11 +16,15 @@
         <Grid Style="{StaticResource PageGrid}" HorizontalAlignment="Center" Width="620">
             <Label Content="{Binding BoatIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
             <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Right"
-                Margin="0,75,320,0" VerticalAlignment="Top" Style="{StaticResource FormButton}" Width="170" />
+                Margin="0,71,378,0" VerticalAlignment="Top" Style="{StaticResource FormButton}" Width="170" />
             <Button Content="Permanent verwijderen" Click="PermanentDeletion"
                 IsEnabled="{Binding DeleteButtonEnabled}"
-                HorizontalAlignment="Right" Margin="0,75,160,0" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Margin="0,71,218,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" Width="150" />
+
+            <Button Content="Beschadidging uploaden" Click="UploadDamage"
+                    HorizontalAlignment="Right" Margin="0,71,63,0" VerticalAlignment="Top"
+                    Style="{StaticResource FormButton}" Width="150" />
 
             <Label Content="Naam:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
             <Label Content="Type:" FontWeight="Bold" Margin="10,135,0,0" VerticalAlignment="Top" />
@@ -93,6 +97,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+          
 
         </Grid>
     </ScrollViewer>

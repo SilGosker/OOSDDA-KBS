@@ -13,10 +13,6 @@
 
 
     <Grid Style="{StaticResource PageGrid}">
-        <Label Content="Hoeveelheid boten" HorizontalAlignment="Left" Margin="20,63,20,0" VerticalAlignment="Top" Width="128" Visibility="{Binding ComboboxVisability}" />
-        <ComboBox ItemsSource="{Binding Amount}" x:Name="AmountComboBox" Visibility="{Binding ComboboxVisability}" Width="150" HorizontalAlignment="Left" Margin="20,90,0,0" VerticalAlignment="Top" SelectionChanged="ComboBoxAmount_SelectionChanged"/>
-
-        <Button HorizontalAlignment="Right" Margin="0,90,20,0" Content="Selecteer tijdsblok" VerticalAlignment="Top" Width="128" Style="{StaticResource FormButton}" Visibility="{Binding ComboboxVisability}" Click="ButtonTimeBlock_Click" IsEnabled="False" x:Name="TimeBLockButton" />
         <Label Style="{StaticResource TitleLabel}" Content="Selecteer een boottype" />
         <ListView ItemsSource="{Binding Items}"
                   d:ItemsSource="{d:SampleData ItemCount=5}"

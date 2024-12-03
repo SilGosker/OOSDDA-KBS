@@ -6,7 +6,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 
 public class SelectBoatTypeBoatTypeViewModel : ViewModel
 {
-    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType, bool isGameCommisioner)
+    public SelectBoatTypeBoatTypeViewModel(BoatTypeEntity boatType)
     {
         
         ThrowHelper.ThrowIfNull(boatType);
@@ -15,17 +15,9 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         HasSteeringWheel = boatType.HasSteeringWheel;
         Name = boatType.Name;
         BoatTypeId = boatType.BoatTypeId;
-        if (isGameCommisioner)
-        {
-            SelectionLineVisability = "Hidden";
-        } else
-        {
-            SelectionLineVisability = "Visible";
-        }
         
     }
 
-    private string _selectionLineVisability;
     private string _seats;
     private string _experience;
     private bool _hasSteeringWheel;
@@ -59,9 +51,4 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         set => SetField(ref _boatTypeId, value);
     }
 
-    public string SelectionLineVisability
-    {
-        get => _selectionLineVisability;
-        set => SetField(ref _selectionLineVisability, value);
-    }
 }

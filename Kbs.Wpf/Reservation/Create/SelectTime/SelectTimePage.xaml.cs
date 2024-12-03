@@ -22,7 +22,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
         private readonly BoatRepository _boatRepository = new();
         private SelectTimeViewModel ViewModel => (SelectTimeViewModel)DataContext;
         List<double> checklist = new List<double>();
-        public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType, int amountOfBoats)
+        public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType)
         {
 
             checklist.Add(256);

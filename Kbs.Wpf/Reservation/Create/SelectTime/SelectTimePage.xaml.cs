@@ -50,7 +50,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
         {
 
             Button send = (Button)sender;
-            Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = (Tuple<ReservationTime, BoatEntity>)send.Tag;
+            Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat = (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
             _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
         }
 
@@ -80,7 +80,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
                 foreach (ReservationTime j in maker.MakeReservableTimes(weekday, boatSelected))
                 {
 
-                    Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = new Tuple<ReservationTime, BoatEntity>(j, boatSelected);
+                    Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat = new Tuple<ReservationTime, List<BoatEntity>>(j, new List<BoatEntity> { (boatSelected) });
                     if (!(j.Length == 0))
                     {
                         Button button = new Button()

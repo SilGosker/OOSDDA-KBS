@@ -23,15 +23,15 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private readonly ReservationRepository _reservationRepository = new();
         private ComboBox _starttimecombobox;
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
-        Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat;
+        Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat;
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);
         public DateTime selectedStartTime = new DateTime();
-        public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat)
+        public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat)
         {
             _navigationManager = navigationManager;
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             InitializeComponent();
-            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), chosenTimeAndBoat.Item2.Name, chosenTimeAndBoat.Item1.StartTime);
+            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), chosenTimeAndBoat.Item2[0].Name, chosenTimeAndBoat.Item1.StartTime);
 
             double unCheckablebuttonLength = 0.5;
             for (int i = 30; i <= 120; i += 30)
@@ -68,7 +68,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private void ButtonReservation_Click(object sender, RoutedEventArgs e)
         {
             ReservationEntity res = new ReservationEntity();
-            res.BoatId = chosenTimeAndBoat.Item2.BoatId;
+            res.BoatId = chosenTimeAndBoat.Item2[0].BoatId;
             res.Status = ReservationStatus.Active;
             res.StartTime = selectedStartTime;
 
@@ -104,7 +104,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         }
         private void PreviousStep(object sender, RoutedEventArgs e)
         {
-            var boatType = _boatTypeRepository.GetByBoatId(chosenTimeAndBoat.Item2.BoatId);
+            var boatType = _boatTypeRepository.GetByBoatId(chosenTimeAndBoat.Item2[0].BoatId);
 
             _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
         }

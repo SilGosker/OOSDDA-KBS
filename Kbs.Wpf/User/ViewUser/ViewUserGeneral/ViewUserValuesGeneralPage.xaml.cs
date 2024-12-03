@@ -1,5 +1,9 @@
-﻿using Kbs.Business.Session;
+﻿using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
+using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
 using Kbs.Wpf.Reservation.Read.Index;
@@ -27,27 +31,41 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
     {
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
-        private ViewUserValuesGeneralViewModel ViewModel => (ViewUserValuesGeneralViewModel)DataContext;
+        private ViewUserValuesValuesGeneralViewModel ViewUserValuesValuesGeneralViewModel => (ViewUserValuesValuesGeneralViewModel)DataContext;
+        private ViewUserValuesGeneralViewModel ViewUserValuesGeneralViewModel => (ViewUserValuesGeneralViewModel)DataContext;
+
 
         public ViewUserValuesGeneralPage(INavigationManager navigationManager)
         {
+            _userRepository = new UserRepository();
             _navigationManager = navigationManager;
             InitializeComponent();
-            //var users = _userRepository.GetByIdList(SessionManager.Instance.Current.User.UserId);
-            /*
-            foreach (var user in users)
+            var userrep = _userRepository.Get();
+            foreach (UserEntity user in userrep)
             {
                 {
-                    ViewModel.Name = user.Name;
-                    ViewModel.UserId = user.UserId;
-                    //ViewModel.Role = (string)user.Role;
+                    ViewUserValuesGeneralViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
                 }
             }
-            */
         }
         public void ClickUser(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void NameChanged(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                UpdateItems();
+            }
+        }
+        private void TypeChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateItems();
+        }
+
+        private void UpdateItems()
+        {
         }
     }
 }

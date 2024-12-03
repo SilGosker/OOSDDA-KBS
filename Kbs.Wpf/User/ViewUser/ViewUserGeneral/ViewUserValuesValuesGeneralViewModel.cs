@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,40 @@ using System.Threading.Tasks;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
-    public class ViewUserValuesValuesGeneralViewModel
+    public class ViewUserValuesValuesGeneralViewModel : ViewModel
     {
-        public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new();
-        
+
+        private string _name;
+        private int _userId;
+        private string _role = ((ReservationStatus)0).ToDutchString();
+
+        public string Name
+        {
+            get { return _name; }
+            set { SetField(ref _name, value); }
+        }
+        public int UserId
+        {
+            get { return _userId; }
+            set { SetField(ref _userId, value); }
+        }
+        public string Role
+        {
+            get { return _role; }
+            set { SetField(ref _role, value); }
+        }
+
+        public ViewUserValuesValuesGeneralViewModel(UserEntity user)
+        {
+            ThrowHelper.ThrowIfNull(user);
+            Name = user.Name;
+            UserId = user.UserId;
+            Role = user.Role.ToDutchString();
+        }
+        public ViewUserValuesValuesGeneralViewModel()
+        {
+
+        }
+
     }
 }

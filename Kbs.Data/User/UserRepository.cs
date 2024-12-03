@@ -61,10 +61,6 @@ public class UserRepository : IUserRepository, IDisposable
     {
         return _connection.Query<UserEntity>("SELECT * FROM Users WHERE UserId = @UserId", new { UserId = id }).FirstOrDefault();
     }
-    public List<UserEntity> GetByIdList(int id)
-    {
-        return _connection.Query<UserEntity>("SELECT * FROM Users Where UserId = @UserId", new { UserId = id}).ToList();
-    }
 
 
     public void Dispose()

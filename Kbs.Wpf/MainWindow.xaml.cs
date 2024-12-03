@@ -31,7 +31,7 @@ public partial class MainWindow : Window, INavigationManager
         SessionManager.Instance.SessionTimeExpired += SessionExpired;
 
         var user = SessionManager.Instance.Current.User;
-        
+
         if (user.IsMaterialCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Overzicht boottypen" });

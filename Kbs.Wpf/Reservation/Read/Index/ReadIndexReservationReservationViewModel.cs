@@ -1,18 +1,31 @@
+﻿using System;
 ﻿using System.Windows.Media;
+using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
+using Kbs.Data.Reservation;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Reservation.Read.Index;
 
 public class ReadIndexReservationReservationViewModel : ViewModel
 {
-    private int _niveau;
-    private int _zitplaatsen;
-    private bool _stuur;
     private DateTime _startTime;
-    private TimeSpan _tijdsduur;
+    private TimeSpan _length;
+
+    
+    public ReadIndexReservationReservationViewModel(ReservationEntity reservation)
+    {
+        ThrowHelper.ThrowIfNull(reservation);
+        
+        StartTime = reservation.StartTime;
+        Length = reservation.Length;
+        ReservationId = reservation.ReservationId;
+        Status = reservation.Status;
+    }
+
     private int _reservationId;
     private ReservationStatus _status;
+    
     public ReservationStatus Status
     {
         get => _status;
@@ -34,37 +47,25 @@ public class ReadIndexReservationReservationViewModel : ViewModel
         }
     }
 
-    public int Niveau
-    {
-        get => _niveau;
-        set => SetField(ref _niveau, value);
-    }
-    public int Seats
-    {
-        get => _zitplaatsen;
-        set => SetField(ref _zitplaatsen, value);
-    }
-    public bool HasSteeringWheel
-    {
-        get => _stuur;
-        set => SetField(ref _stuur, value);
-    }
     public DateTime StartTime
     {
         get => _startTime;
         set => SetField(ref _startTime, value);
     }
-    public string StartTimeFormatted => StartTime.ToString("dd-MM-yyyy HH:mm");
-    public string TijdsduurFormatted => $"{Length.TotalMinutes:F0} min";
+    
+    public string ReservationIdString => $"Reservering #{ReservationId}";
+    public string StartTimeString => StartTime.ToString("dd-MM-yyyy HH:mm");
+    public string DurationString => $"{Length.TotalMinutes:F0} min";
 
     public TimeSpan Length
     {
-        get => _tijdsduur;
-        set => SetField(ref _tijdsduur, value);
+        get => _length;
+        set => SetField(ref _length, value);
     }
-    public int ReservationID
+    public int ReservationId
     {
         get => _reservationId;
         set => SetField(ref _reservationId, value);
     }
+    
 }

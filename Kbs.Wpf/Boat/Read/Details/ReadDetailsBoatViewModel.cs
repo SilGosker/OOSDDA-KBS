@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Create;
@@ -32,6 +33,7 @@ public class ReadDetailsBoatViewModel : ViewModel
         get => _boatId;
         set => SetField(ref _boatId, value);
     }
+    public string BoatIdString => $"Boot #{BoatId}";
     public string Name
     {
         get => _name;
@@ -46,6 +48,18 @@ public class ReadDetailsBoatViewModel : ViewModel
     {
         get => _selectedBoatStatus;
         set => SetField(ref _selectedBoatStatus, value);
+    }
+    
+    public Brush StatusColor
+    {
+        get
+        {
+            if (Status == BoatStatus.Operational.ToDutchString())
+            {
+                return Brushes.Green;
+            }
+            return Brushes.Red;
+        }
     }
     public string BoatTypeName
     {

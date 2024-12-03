@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
@@ -12,6 +13,9 @@ public partial class ReadIndexReservationPage : Page
     private ReadIndexReservationViewModel ReadIndexReservationViewModel => (ReadIndexReservationViewModel)DataContext;
     private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
+    private readonly ReservationValidator _reservationValidator;
+    private readonly ReservationTime _reservationTime;
+    private ReadIndexReservationReservationViewModel _readIndexReservationReservationViewModel;
 
     public ReadIndexReservationPage(INavigationManager navigationManager)
     {
@@ -19,17 +23,10 @@ public partial class ReadIndexReservationPage : Page
         InitializeComponent();
         var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
         var sortedReservations = _reservationRepository.OrderByStatusAndTime(reservations);
-
         foreach (var reservation in sortedReservations)
         {
             {
-                ReadIndexReservationViewModel.Items.Add(new ReadIndexReservationReservationViewModel()
-                {
-                    ReservationID = reservation.ReservationId,
-                    Length = reservation.Length,
-                    StartTime = reservation.StartTime,
-                    Status = reservation.Status,
-                });
+                ReadIndexReservationViewModel.Items.Add(new ReadIndexReservationReservationViewModel(reservation));
             }
         }
     }
@@ -38,7 +35,7 @@ public partial class ReadIndexReservationPage : Page
     {
         var listViewItem = (ListViewItem)sender;
         var item = (ReadIndexReservationReservationViewModel)listViewItem.DataContext;
-        _navigationManager.Navigate(() => new ReadDetailsReservationPage(item.ReservationID, _navigationManager));
+        _navigationManager.Navigate(() => new ReadDetailsReservationPage(item.ReservationId, _navigationManager));
     }
 
     private void NavigateToCreateReservationPage(object sender, System.Windows.RoutedEventArgs e)

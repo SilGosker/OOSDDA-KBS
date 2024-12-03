@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" WindowState="Maximized"
+        Style="{StaticResource MainWindow}">
+
     <Window.DataContext>
         <local:MainViewModel/>
     </Window.DataContext>
     <Grid>
-        <Grid HorizontalAlignment="Left" Width="180" Background="Orange">
+        <Grid HorizontalAlignment="Left" Width="180" Background="#23272A">
             <StackPanel>
                 <ItemsControl ItemsSource="{Binding NavigationItems}">
                     <ItemsControl.ItemTemplate>
@@ -24,11 +26,10 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </StackPanel>
-            
-            <Button Content="Log uit" Width="80" Height="24" Margin="50,0,50,10" Click="LogOut" VerticalAlignment="Bottom" />
+            <Button Style="{StaticResource FormButton}" Content="Log uit" Margin="0,0,0,20" Click="LogOut" VerticalAlignment="Bottom" />
         </Grid>
 
-        <DockPanel Background="White" Margin="180,0,0,0" >
+        <DockPanel Margin="180,0,0,0" >
             <Frame x:Name="NavigationFrame" NavigationUIVisibility="Hidden" />
         </DockPanel>
 

@@ -73,13 +73,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             UpdateItems();
         }
 
-        
+
         private void UpdateItems()
         {
-            var filteredUsers = _userRepository.GetUsersByName(ViewModel.Name)
-                .Where(u => string.IsNullOrEmpty(ViewModel.SelectedRole) || u.Role.ToDutchString() == ViewModel.SelectedRole)
-                .ToList();
-
+            var filteredUsers = _userRepository.GetUsersByNameAndRole(
+                ViewModel.Name,
+                ViewModel.SelectedRole
+            );
             ViewModel.Items.Clear();
             foreach (var user in filteredUsers)
             {

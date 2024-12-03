@@ -73,13 +73,16 @@ public class UserRepository : IUserRepository, IDisposable
         {
             return _connection.Query<UserEntity>("SELECT * FROM Users");
         }
-
-        return _connection.Query<UserEntity>(
-            "SELECT * FROM Users WHERE Name LIKE @Name",
-            new { Name = name });
+        return _connection.Query<UserEntity>("SELECT * FROM Users WHERE Name LIKE @Name", new { Name = name });
     }
     public IEnumerable<string> GetAllRoles()
     {
         return _connection.Query<string>("SELECT DISTINCT Role FROM Users");
     }
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, string? role)
+    {
+        var sql = @"SELECT * FROM Users WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%') AND (@Role IS NULL OR Role = @Role)";
+        return _connection.Query<UserEntity>(sql, new { Name = name, Role = role });
+    }
+
 }

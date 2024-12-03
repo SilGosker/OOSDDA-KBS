@@ -77,7 +77,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             
         }
 
-        private void Wijzigen(object sender, RoutedEventArgs e)
+        private void UpdateData(object sender, RoutedEventArgs e)
         {
             BoatTypeEntity boatType = new BoatTypeEntity()
             {
@@ -156,7 +156,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             }
         }
 
-        private void ExperiencChanged(object sender, SelectionChangedEventArgs e)
+        private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
         {
             var type = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
             if (type == null)

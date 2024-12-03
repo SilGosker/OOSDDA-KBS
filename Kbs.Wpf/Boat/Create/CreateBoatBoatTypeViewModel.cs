@@ -1,8 +1,9 @@
 using Kbs.Business.BoatType;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Create;
 
-public class CreateBoatBoatTypeViewModel
+public class CreateBoatBoatTypeViewModel : ViewModel
 {
     private readonly string _name;
     

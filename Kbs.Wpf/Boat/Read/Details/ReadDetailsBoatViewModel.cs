@@ -11,7 +11,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     private int _boatId;
     private string _name;
     private BoatStatus _status;
-    private BoatStatusesViewModel _selectedBoatStatus;
+    private BoatStatusViewModel _selectedBoatStatus;
     private string _boatTypeName;
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
@@ -20,7 +20,7 @@ public class ReadDetailsBoatViewModel : ViewModel
     private string _nameError;
     private string _statusError;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
-    public ObservableCollection<BoatStatusesViewModel> PossibleBoatStatuses { get; } = new();
+    public ObservableCollection<BoatStatusViewModel> PossibleBoatStatuses { get; } = new();
     public ObservableCollection<ReadDetailsBoatDamageViewModel> Damages { get; } = new();
     public int BoatTypeId
     {
@@ -42,7 +42,7 @@ public class ReadDetailsBoatViewModel : ViewModel
         get => _status;
         set => SetField(ref _status, value);
     }
-    public BoatStatusesViewModel SelectedBoatStatus
+    public BoatStatusViewModel SelectedBoatStatus
     {
         get => _selectedBoatStatus;
         set => SetField(ref _selectedBoatStatus, value);

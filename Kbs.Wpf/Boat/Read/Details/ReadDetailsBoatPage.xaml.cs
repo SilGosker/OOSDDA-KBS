@@ -60,10 +60,10 @@ public partial class ReadDetailsBoatPage : Page
 
         foreach (var boatStatus in Enum.GetValues<BoatStatus>())
         {
-            var statusViewModel = new BoatStatusesViewModel(boatStatus);
+            var statusViewModel = new BoatStatusViewModel(boatStatus);
             ViewModel.PossibleBoatStatuses.Add(statusViewModel);
 
-            // Controleer of dit de huidige status is
+            // Check if this is the current Status
             if (boatStatus == ViewModel.Status)
             {
                 ViewModel.SelectedBoatStatus = statusViewModel;
@@ -73,14 +73,14 @@ public partial class ReadDetailsBoatPage : Page
 
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
-        var type = (BoatStatusesViewModel)((ComboBox)sender).SelectedItem;
+        var type = (BoatStatusViewModel)((ComboBox)sender).SelectedItem;
         if (type == null)
         {
             ViewModel.Status = BoatStatus.Operational;
         }
         else
         {
-            ViewModel.Status = type.BoatStatuses;
+            ViewModel.Status = type.BoatStatus;
         }
     }
 
@@ -104,7 +104,7 @@ public partial class ReadDetailsBoatPage : Page
         if (ViewModel.DeleteRequestDate == null)
         {
             newDeleteRequestDateValue = DateTime.Now;
-            popupMessage = $"Verwijdering is aangevraagd.";
+            popupMessage = "Verwijdering is aangevraagd.";
         }
         else
         {

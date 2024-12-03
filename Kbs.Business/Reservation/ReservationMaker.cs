@@ -61,14 +61,7 @@ public class ReservationMaker
 
     public static string ConvertDayOfWeekToDutch (DateTime dayofweek)
     {
-        if (dayofweek.DayOfWeek.ToString() == "Monday") { return "Maandag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Tuesday") { return "Dinsdag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Wednesday") { return "Woensdag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Thursday") { return "Donderdag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Friday") { return "Vrijdag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Saturday") { return "Zaterdag"; }
-        else if (dayofweek.DayOfWeek.ToString() == "Sunday") { return "Zondag"; }
-        else { return "geen dag gevonden"; }
+        switch (dayofweek.DayOfWeek.ToString()) { case "Monday": return "Maandag"; case "Tuesday": return "Dinsdag"; case "Wednesday": return "Woensdag"; case "Thursday": return "Donderdag"; case "Friday": return "Vrijdag"; case "Saturday": return "Zaterdag"; case "Sunday": return "Zondag"; default: return "geen dag gevonden"; }
     }
 
 

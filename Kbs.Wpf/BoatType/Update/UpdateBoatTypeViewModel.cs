@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using Kbs.Business.BoatType;
-using Kbs.Wpf.BoatType.CreateBoatType;
+using Kbs.Wpf.BoatType.Components;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.Update;
@@ -25,6 +25,8 @@ public class UpdateBoatTypeViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
+    
+    public string BoatTypeNameString => $"Boottype: {Name}";
 
     public int Speed
     {

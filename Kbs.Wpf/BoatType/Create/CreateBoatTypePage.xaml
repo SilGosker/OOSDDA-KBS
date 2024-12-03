@@ -1,0 +1,36 @@
+﻿<Page x:Class="Kbs.Wpf.BoatType.Create.CreateBoatTypePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:create="clr-namespace:Kbs.Wpf.BoatType.Create"
+      mc:Ignorable="d"
+      d:DesignWidth="1740" d:DesignHeight="1080"
+      Title="CreateBoatTypePage">
+    <Page.DataContext>
+        <create:CreateBoatTypeViewModel/>
+    </Page.DataContext>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Aanmaken boottype" />
+
+        <Label Content="Naam" HorizontalAlignment="Center" Margin="0,130,400,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Name}" HorizontalAlignment="Center" Margin="0,158,400,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130"/>
+        <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="0,194,400,0" VerticalAlignment="Top"/>
+        
+        <Label Content="Benodigde ervaring" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding ExperienceErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="0,194,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding PossibleExperiences}" SelectionChanged="ExperienceChanged" IsEditable="True" Text="Selecteer ervaring" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Width="130"/>
+
+        <Label Content="Stoelen" HorizontalAlignment="Center" Margin="400,130,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding SeatsErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="400,194,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding PossibleSeats}" SelectionChanged="SeatsChanged" IsEditable="True" Text="Selecteer stoelen" HorizontalAlignment="Center" Margin="400,158,0,0" VerticalAlignment="Top" Width="130"/>
+
+        <Label Content="Snelheid" HorizontalAlignment="Center" Margin="0,230,200,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding SpeedErrorMessage}" Foreground="Red" HorizontalAlignment="Center" Margin="0,294,200,0" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Speed}" HorizontalAlignment="Center" Margin="0,258,200,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+
+        <CheckBox IsChecked="{Binding HasSteeringWheel}" Content="Heeft een stuur" HorizontalAlignment="Center" Margin="200,263,0,0" VerticalAlignment="Top"/>
+
+        <Button Style="{StaticResource FormButton}" Content="Opslaan" HorizontalAlignment="Center" Margin="0,350,0,0" VerticalAlignment="Top" Click="Submit"/>
+    </Grid>
+</Page>

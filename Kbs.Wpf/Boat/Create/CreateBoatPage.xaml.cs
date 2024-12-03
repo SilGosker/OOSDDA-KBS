@@ -3,12 +3,11 @@ using Kbs.Business.Boat;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
-using Kbs.Wpf.Attributes;
-using Kbs.Wpf.Boat.Details;
+using Kbs.Wpf.Boat.Read.Details;
 
 namespace Kbs.Wpf.Boat.Create;
 
-[HasRole(Role.MaterialCommissioner)]
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class CreateBoatPage : Page
 {
     private CreateBoatViewModel ViewModel => (CreateBoatViewModel)DataContext;
@@ -76,6 +75,6 @@ public partial class CreateBoatPage : Page
 
         _boatRepository.Create(boat);
 
-        _navigationManager.Navigate(() => new BoatDetailPage(_navigationManager, boat.BoatId));
+        _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, boat.BoatId));
     }
 }

@@ -56,11 +56,12 @@ public class UserRepository : IUserRepository, IDisposable
 
         return user;
     }
-
+    
     public UserEntity GetById(int id)
     {
         return _connection.Query<UserEntity>("SELECT * FROM Users WHERE UserId = @UserId", new { UserId = id }).FirstOrDefault();
     }
+
 
     public void Dispose()
     {

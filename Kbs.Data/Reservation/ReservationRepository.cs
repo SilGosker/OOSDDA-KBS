@@ -44,7 +44,9 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day)
     {
-        return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatId AND StartTime Like @day AND Status = 3  ORDER BY StartTime", new { day = $"%" + day.Year + "-" + day.Month + "-" + day.Day + "%", boat.BoatId }).ToList();
+        string daystring;
+        if (day.Day < 10) { daystring = "0" + day.Day; } else { daystring = day.Day.ToString(); }
+        return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatId AND StartTime Like @day AND Status = 3  ORDER BY StartTime", new { day = "%" + day.Year + "-" + day.Month + "-" + daystring + "%", boat.BoatId }).ToList();
     }
 
     public List<ReservationEntity> GetByUserId(int userId)
@@ -72,5 +74,19 @@ public class ReservationRepository : IReservationRepository, IDisposable
         return _connection
             .Query<ReservationEntity>("SELECT * FROM Reservation WHERE BoatID = @boatBoatId", new { boatBoatId })
             .ToList();
+    }
+
+    public int CountByUser(int userId)
+    {
+        return _connection.QuerySingleOrDefault<int>(
+            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId",
+            new { userId }
+        );
+    }
+
+    public async Task ChangeStatusAsync()
+    {
+        await _connection.ExecuteAsync(
+            "UPDATE Reservation\r\nSET Status = 2\r\nWHERE DATEADD(MINUTE, DATEDIFF(MINUTE, '00:00:00', Length), StartTime) < GETDATE() AND Status = 3;");
     }
 }

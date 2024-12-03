@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:upload="clr-namespace:Kbs.Wpf.Damage.Upload"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="900"
+      d:DesignHeight="6800" d:DesignWidth="900"
       Title="UploadDamagePage">
     <Page.DataContext>
         <upload:UploadDamageViewModel />
@@ -23,6 +23,8 @@
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
                     <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -32,10 +34,12 @@
 
                 <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
                 <Label Grid.Column="0" Grid.Row="2" Content="Selecteer bestand" FontWeight="Bold" />
-                <Label Grid.Column="0" Grid.Row="4" Content="Beschrijving" FontWeight="Bold" />
+                <Label Grid.Column="0" Grid.Row="4" Content="{Binding FileErrorMessage}" Foreground="Red" />
+
+                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving" FontWeight="Bold" />
                 <Label Grid.Column="1" Grid.Row="2" Content="Afbeelding preview" FontWeight="Bold" />
 
-                <Image Grid.Column="1" Grid.Row="5" Grid.RowSpan="2" Source="{Binding Image}" />
+                <Image Grid.Column="1" Grid.Row="3" Grid.RowSpan="5" Source="{Binding Image}" />
 
                 <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
                     <Button Style="{StaticResource FormButton}" HorizontalAlignment="Left" Margin="5"
@@ -45,14 +49,12 @@
                               VerticalContentAlignment="Center" />
                 </StackPanel>
 
-                <Label Grid.Column="0" Grid.Row="4" Content="{Binding FileErrorMessage}" Foreground="Red" />
-
-                <TextBox MinHeight="200" Margin="0,0,10,0" Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Description}" TextWrapping="Wrap"
+                <TextBox MinHeight="200" Margin="0,0,10,0" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Text="{Binding Description}" TextWrapping="Wrap"
                          AcceptsReturn="True" />
 
-                <Label Margin="0,0,10,0" Grid.Column="0" Grid.Row="7" VerticalAlignment="Top" VerticalContentAlignment="Center"
+                <Label Margin="0,0,10,0" Grid.Column="0" Grid.Row="9" VerticalAlignment="Top" VerticalContentAlignment="Center"
                        Content="{Binding DescriptionErrorMessage}" Foreground="Red" />
-                <Button Margin="10" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
+                <Button Margin="10" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
                         Content="Bevestigen" Click="Submit" />
             </Grid>
         </Border>

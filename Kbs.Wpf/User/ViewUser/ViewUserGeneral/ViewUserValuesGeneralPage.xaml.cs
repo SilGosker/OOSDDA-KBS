@@ -2,6 +2,7 @@
 using Kbs.Business.BoatType;
 using Kbs.Business.Session;
 using Kbs.Business.User;
+using Kbs.Data.Boat;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Boat.Read.Index;
@@ -34,7 +35,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
         private ViewUserValuesValuesGeneralViewModel ViewUserValuesValuesGeneralViewModel => (ViewUserValuesValuesGeneralViewModel)DataContext;
-        private ViewUserValuesGeneralViewModel ViewUserValuesGeneralViewModel => (ViewUserValuesGeneralViewModel)DataContext;
+        private ViewUserValuesGeneralViewModel ViewModel => (ViewUserValuesGeneralViewModel)DataContext;
 
 
         public ViewUserValuesGeneralPage(INavigationManager navigationManager)
@@ -42,12 +43,17 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             _userRepository = new UserRepository();
             _navigationManager = navigationManager;
             InitializeComponent();
+
+            var roles = _userRepository.GetAllRoles();
+            foreach (var role in roles)
+            {
+                ViewModel.Roles.Add(role);
+            }
+
             var userrep = _userRepository.Get();
             foreach (UserEntity user in userrep)
             {
-                {
-                    ViewUserValuesGeneralViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
-                }
+                ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
         }
         public void ClickUser(object sender, RoutedEventArgs e)
@@ -67,8 +73,18 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             UpdateItems();
         }
 
+        
         private void UpdateItems()
         {
+            var filteredUsers = _userRepository.GetUsersByName(ViewModel.Name)
+                .Where(u => string.IsNullOrEmpty(ViewModel.SelectedRole) || u.Role.ToDutchString() == ViewModel.SelectedRole)
+                .ToList();
+
+            ViewModel.Items.Clear();
+            foreach (var user in filteredUsers)
+            {
+                ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
+            }
         }
     }
 }

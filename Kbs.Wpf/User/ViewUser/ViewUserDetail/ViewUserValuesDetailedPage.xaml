@@ -7,10 +7,39 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewUserValuesDetailedPage">
+    <Page.DataContext>
+        <local:ViewUserVa_uesDetailedViewModel />
+    </Page.DataContext>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="258">
+            <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="238">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90*" MaxWidth="90" />
+                    <ColumnDefinition Width="51*" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="90*" MaxWidth="90" />
+                    <ColumnDefinition Width="179*" />
+                    <ColumnDefinition Width="90*" MaxWidth="90" />
+                    <ColumnDefinition Width="179*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition MinHeight="25" />
+                    <RowDefinition MinHeight="25" />
+                    <RowDefinition MinHeight="25" />
+                </Grid.RowDefinitions>
 
-    <Grid>
-        
-        <Label Style="{StaticResource TitleLabel}" Content="Leden" />
+                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="5,45,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                <Label Grid.Column="3" Content="{Binding Email}" Margin="10,45,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="28" Width="134" />
+                <Label Grid.Row="1" FontWeight="Bold" Content="Role:" HorizontalAlignment="Center" />
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Role}" Height="29" Width="46" />
+                <Label FontWeight="Bold" Content="UserId:" Margin="0,52,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
+                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="5,56,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="23" Width="73" />
+                <Label Grid.Row="0" FontWeight="Bold" Content="Name:" Margin="63,-90,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                <Label Content="{Binding Name}" Margin="63,-61,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="19" Width="87" />
 
+
+            </Grid>
+        </Border>
     </Grid>
 </Page>

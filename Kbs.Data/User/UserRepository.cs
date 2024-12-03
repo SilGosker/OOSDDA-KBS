@@ -67,4 +67,19 @@ public class UserRepository : IUserRepository, IDisposable
     {
         _connection?.Dispose();
     }
+    public IEnumerable<UserEntity> GetUsersByName(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return _connection.Query<UserEntity>("SELECT * FROM Users");
+        }
+
+        return _connection.Query<UserEntity>(
+            "SELECT * FROM Users WHERE Name LIKE @Name",
+            new { Name = name });
+    }
+    public IEnumerable<string> GetAllRoles()
+    {
+        return _connection.Query<string>("SELECT DISTINCT Role FROM Users");
+    }
 }

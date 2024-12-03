@@ -1,4 +1,6 @@
 ﻿using Kbs.Business.User;
+using Kbs.Data.User;
+using Kbs.Wpf.User.ViewUser.ViewUserGeneral;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,33 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
     /// </summary>
     public partial class ViewUserValuesDetailedPage : Page
     {
-        public ViewUserValuesDetailedPage(INavigationManager nav, int user )
+        private readonly UserRepository _userRepository;
+        private readonly INavigationManager _navigationManager;
+        private ViewUserVa_uesDetailedViewModel ViewModel => (ViewUserVa_uesDetailedViewModel)DataContext;
+
+
+        public ViewUserValuesDetailedPage(INavigationManager nav, int id)
         {
+            _userRepository = new UserRepository();
             InitializeComponent();
+            var userrep = _userRepository.GetById(id);
+            if (userrep != null) 
+            {
+                ViewModel.Email = userrep.Email;
+                ViewModel.UserId = userrep.UserId;
+                ViewModel.Role = userrep.Role.ToDutchString();
+                ViewModel.Name = userrep.Name;
+            }
+            
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+        public void Update(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -15,7 +15,7 @@
         <Label Content="Rol" HorizontalAlignment="Right" Margin="20,63,152,0" VerticalAlignment="Top" Width="128" />
         <ComboBox Text="Alle rollen" IsEditable="True" HorizontalAlignment="Right" Margin="20,90,152,0"
           VerticalAlignment="Top" Width="128"
-          SelectionChanged="TypeChanged" ItemsSource="{Binding BoatTypes}" />
+          SelectionChanged="TypeChanged" ItemsSource="{Binding Role}" />
         <Label Content="Naam" HorizontalAlignment="Right" Margin="152,63,20,0" VerticalAlignment="Top" Width="128" />
         <TextBox HorizontalAlignment="Right" Margin="0,90,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
          KeyUp="NameChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />

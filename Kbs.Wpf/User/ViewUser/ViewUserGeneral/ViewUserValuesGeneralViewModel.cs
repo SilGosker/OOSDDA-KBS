@@ -2,6 +2,7 @@
 using Kbs.Business.Helpers;
 using Kbs.Business.User;
 using Kbs.Wpf.Boat.Create;
+using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Components;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,27 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
     public class ViewUserValuesGeneralViewModel : ViewModel
     {
         public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new();
+        public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Dropdown { get; } = new();
+
+        private string _name;
+        private string _role;
+        public string Name
+        {
+            get => _name;
+            set => SetField(ref _name, value);
+        }
+        public string Role
+        {
+            get => _role;
+            set => SetField(ref _role, value);
+        }
+        /*
+        public ViewUserValuesGeneralViewModel(UserEntity user)
+        {
+            ThrowHelper.ThrowIfNull(user);
+            Name = user.Name;
+            Role = user.Role.ToDutchString();
+        }
+        */
     }
 }

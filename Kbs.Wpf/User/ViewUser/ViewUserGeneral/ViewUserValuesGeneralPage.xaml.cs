@@ -3,10 +3,12 @@ using Kbs.Business.BoatType;
 using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
 using Kbs.Wpf.Reservation.Read.Index;
+using Kbs.Wpf.User.ViewUser.ViewUserDetail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +52,8 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
         }
         public void ClickUser(object sender, RoutedEventArgs e)
         {
-
+            var item = (ViewUserValuesValuesGeneralViewModel)((ListViewItem)sender).DataContext;
+            _navigationManager.Navigate(() => new ViewUserValuesDetailedPage(_navigationManager, item.UserId));
         }
         private void NameChanged(object sender, KeyEventArgs e)
         {

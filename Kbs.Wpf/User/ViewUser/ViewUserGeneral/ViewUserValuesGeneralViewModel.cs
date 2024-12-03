@@ -30,13 +30,6 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             get => _role;
             set => SetField(ref _role, value);
         }
-        /*
-        public ViewUserValuesGeneralViewModel(UserEntity user)
-        {
-            ThrowHelper.ThrowIfNull(user);
-            Name = user.Name;
-            Role = user.Role.ToDutchString();
-        }
-        */
+        
     }
 }

@@ -41,6 +41,8 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             Name = user.Name;
             UserId = user.UserId;
             Role = user.Role.ToDutchString();
+            Name = user.Name;
+            Role = user.Role.ToDutchString() ?? Role;
         }
         public ViewUserValuesValuesGeneralViewModel()
         {

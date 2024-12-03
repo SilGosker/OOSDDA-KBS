@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kbs.Business.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,7 +21,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
     /// </summary>
     public partial class ViewUserValuesDetailedPage : Page
     {
-        public ViewUserValuesDetailedPage()
+        public ViewUserValuesDetailedPage(INavigationManager nav, int user )
         {
             InitializeComponent();
         }

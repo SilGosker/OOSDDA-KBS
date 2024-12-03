@@ -17,7 +17,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 
         private string _name;
         private int _userId;
-        private string _role = ((ReservationStatus)0).ToDutchString();
+        private string _role = ((UserRole)0).ToDutchString();
 
         public string Name
         {

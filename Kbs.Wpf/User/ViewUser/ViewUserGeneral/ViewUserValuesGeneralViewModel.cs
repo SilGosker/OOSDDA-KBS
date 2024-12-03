@@ -41,6 +41,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 
         private void OnRoleChanged()
         {
+            
         }
     }
 }

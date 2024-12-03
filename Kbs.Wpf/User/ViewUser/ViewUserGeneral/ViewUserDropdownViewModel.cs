@@ -15,11 +15,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
         {
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;
-            Id = user.UserId;
+            Role = user.Role.ToDutchString();
         }
 
         private string _name;
-        private int _id;
+        private string _role;
+        //private string _role = ((UserRole)0).ToDutchString();
+
 
         public string Name
         {
@@ -27,10 +29,10 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             set => SetField(ref _name, value);
         }
 
-        public int Id
+        public string Role
         {
-            get => _id;
-            set => SetField(ref _id, value);
+            get => _role;
+            set => SetField(ref _role, value);
         }
         public override string ToString()
         {

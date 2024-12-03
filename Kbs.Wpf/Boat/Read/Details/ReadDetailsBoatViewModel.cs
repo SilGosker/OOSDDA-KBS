@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Kbs.Business.Boat;
+using Kbs.Wpf.Boat.Components;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Read.Details;
@@ -9,13 +11,17 @@ public class ReadDetailsBoatViewModel : ViewModel
 {
     private int _boatId;
     private string _name;
-    private string _status;
+    private BoatStatus _status;
+    private BoatStatusViewModel _selectedBoatStatus;
     private string _boatTypeName;
     private DateTime? _deleteRequestDate;
     private string _requestButtonText;
     private int _boatTypeId;
     private bool _deleteButtonEnabled;
+    private string _nameError;
+    private string _statusError;
     public ObservableCollection<ReadDetailsBoatReservationViewModel> Reservations { get; } = new();
+    public ObservableCollection<BoatStatusViewModel> PossibleBoatStatuses { get; } = new();
     public ObservableCollection<ReadDetailsBoatDamageViewModel> Damages { get; } = new();
     public int BoatTypeId
     {
@@ -25,7 +31,11 @@ public class ReadDetailsBoatViewModel : ViewModel
     public int BoatId
     {
         get => _boatId;
-        set => SetField(ref _boatId, value);
+        set
+        {
+            SetField(ref _boatId, value);
+            OnPropertyChanged(nameof(BoatIdString));
+        }
     }
     public string BoatIdString => $"Boot #{BoatId}";
     public string Name
@@ -33,17 +43,22 @@ public class ReadDetailsBoatViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
-    public string Status
+    public BoatStatus Status
     {
         get => _status;
         set => SetField(ref _status, value);
+    }
+    public BoatStatusViewModel SelectedBoatStatus
+    {
+        get => _selectedBoatStatus;
+        set => SetField(ref _selectedBoatStatus, value);
     }
     
     public Brush StatusColor
     {
         get
         {
-            if (Status == BoatStatus.Operational.ToDutchString())
+            if (Status == BoatStatus.Operational)
             {
                 return Brushes.Green;
             }
@@ -54,6 +69,16 @@ public class ReadDetailsBoatViewModel : ViewModel
     {
         get => _boatTypeName;
         set => SetField(ref _boatTypeName, value);
+    }
+    public string NameError
+    {
+        get => _nameError;
+        set => SetField(ref _nameError, value);
+    }
+    public string StatusError
+    {
+        get => _statusError;
+        set => SetField(ref _statusError, value);
     }
 
     public DateTime? DeleteRequestDate

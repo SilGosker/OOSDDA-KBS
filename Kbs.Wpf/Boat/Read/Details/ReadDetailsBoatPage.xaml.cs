@@ -8,6 +8,8 @@ using Kbs.Data.BoatType;
 using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Components;
+using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
@@ -36,7 +38,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.BoatTypeId = boat.BoatTypeId;
         ViewModel.BoatId = boat.BoatId;
         ViewModel.Name = boat.Name;
-        ViewModel.Status = boat.Status.ToDutchString();
+        ViewModel.Status = boat.Status;
         ViewModel.BoatTypeName = _boatTypeRepository.GetById(boat.BoatTypeId).Name;
         ViewModel.DeleteRequestDate = boat.DeleteRequestDate;
         ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
@@ -55,6 +57,31 @@ public partial class ReadDetailsBoatPage : Page
         foreach (var damage in _damageRepository.GetByBoat(boat))
         {
             ViewModel.Damages.Add(new ReadDetailsBoatDamageViewModel(damage));
+        }
+
+        foreach (var boatStatus in Enum.GetValues<BoatStatus>())
+        {
+            var statusViewModel = new BoatStatusViewModel(boatStatus);
+            ViewModel.PossibleBoatStatuses.Add(statusViewModel);
+
+            // Check if this is the current Status
+            if (boatStatus == ViewModel.Status)
+            {
+                ViewModel.SelectedBoatStatus = statusViewModel;
+            }
+        }
+    }
+
+    private void TypeChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var type = (BoatStatusViewModel)((ComboBox)sender).SelectedItem;
+        if (type == null)
+        {
+            ViewModel.Status = BoatStatus.Operational;
+        }
+        else
+        {
+            ViewModel.Status = type.BoatStatus;
         }
     }
 
@@ -78,7 +105,7 @@ public partial class ReadDetailsBoatPage : Page
         if (ViewModel.DeleteRequestDate == null)
         {
             newDeleteRequestDateValue = DateTime.Now;
-            popupMessage = $"Verwijdering is aangevraagd.";
+            popupMessage = "Verwijdering is aangevraagd.";
         }
         else
         {
@@ -87,9 +114,9 @@ public partial class ReadDetailsBoatPage : Page
         }
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
-        ViewModel.Status = BoatStatus.Maintaining.ToDutchString();
-        BoatEntity newBoatValues = new BoatEntity() { BoatId = ViewModel.BoatId, BoatTypeId = ViewModel.BoatTypeId, Name = ViewModel.Name, DeleteRequestDate = ViewModel.DeleteRequestDate, Status = BoatStatus.Maintaining };
-        _boatRepository.Update(newBoatValues);
+        ViewModel.Status = BoatStatus.Maintaining;
+        BoatEntity newBoatValues = new BoatEntity() { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status, BoatId = ViewModel.BoatId };
+        _boatRepository.UpdateDeletionStatus(newBoatValues);
 
         //Refresh the whole page so every UI element gets updated where needed
         _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
@@ -130,6 +157,41 @@ public partial class ReadDetailsBoatPage : Page
         MessageBox.Show(popupMessage);
     }
 
+    private void UpdateData(object sender, RoutedEventArgs e)
+    {
+        BoatEntity boat = new BoatEntity()
+        {
+            BoatId = ViewModel.BoatId,
+            BoatTypeId = ViewModel.BoatTypeId,
+            DeleteRequestDate = ViewModel.DeleteRequestDate,
+            Name = ViewModel.Name,
+            Status = ViewModel.Status
+        };
+        var validationResult = _boatValidator.ValidateForUpdate(boat);
+        if (validationResult.Count > 0)
+        {
+            if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
+            {
+                ViewModel.NameError = nameErrorMessage;
+            }
+            else
+            {
+                ViewModel.NameError = "";
+            }
+            if (validationResult.TryGetValue(nameof(boat.Status), out string statusErrorMessage))
+            {
+                ViewModel.StatusError = statusErrorMessage;
+            } else
+            {
+                ViewModel.StatusError = "";
+            }
+        }
+        else
+        {
+            _boatRepository.Update(boat);
+            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+        }
+    }
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)
     {
         _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, ViewModel.BoatTypeId));

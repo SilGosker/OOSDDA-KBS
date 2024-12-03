@@ -1,8 +1,9 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.Components;
 
-public class BoatTypeSeatsViewModel
+public class BoatTypeSeatsViewModel : ViewModel
 {
     public BoatTypeSeatsViewModel(BoatTypeSeats seats)
     {

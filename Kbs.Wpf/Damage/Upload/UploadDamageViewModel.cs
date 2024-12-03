@@ -43,11 +43,7 @@ public class UploadDamageViewModel : ViewModel
                 return null;
             }
 
-            var image = new BitmapImage();
-            image.BeginInit();
-            image.UriSource = new Uri(ImagePath);
-            image.EndInit();
-            return image;
+            return new BitmapImage(new Uri(ImagePath));
 
         }
     }

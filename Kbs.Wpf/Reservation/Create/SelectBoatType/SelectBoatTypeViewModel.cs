@@ -6,4 +6,5 @@ namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 public class SelectBoatTypeViewModel : ViewModel
 {
     public ObservableCollection<SelectBoatTypeBoatTypeViewModel> Items { get; } = new();
+    public ObservableCollection<int> Amount { get; } = new();
 }

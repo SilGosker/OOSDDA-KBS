@@ -106,7 +106,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         {
             var boatType = _boatTypeRepository.GetByBoatId(chosenTimeAndBoat.Item2.BoatId);
 
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType, 0));
         }
 
         private void RadioButtLength_Checked(object sender, RoutedEventArgs e)

@@ -47,7 +47,7 @@ public partial class SelectBoatTypePage : Page
                 var listViewItem = (ListViewItem)sender;
                 var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
                 var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType, 0));
             }
         }
         else
@@ -55,7 +55,7 @@ public partial class SelectBoatTypePage : Page
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
             var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType, 0));
         }
     }
 }

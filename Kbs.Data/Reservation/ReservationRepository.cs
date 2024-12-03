@@ -83,4 +83,10 @@ public class ReservationRepository : IReservationRepository, IDisposable
             new { userId }
         );
     }
+
+    public async Task ChangeStatusAsync()
+    {
+        await _connection.ExecuteAsync(
+            "UPDATE Reservation\r\nSET Status = 2\r\nWHERE DATEADD(MINUTE, DATEDIFF(MINUTE, '00:00:00', Length), StartTime) < GETDATE() AND Status = 3;");
+    }
 }

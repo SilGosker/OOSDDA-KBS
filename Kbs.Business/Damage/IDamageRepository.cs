@@ -7,4 +7,6 @@ public interface IDamageRepository
     List<DamageEntity> GetByBoat(BoatEntity boat);
     List<DamageEntity> GetSolvedByBoat(BoatEntity boat);
     DamageEntity GetById(int id);
+    public void Solve(DamageEntity damage);
+
 }

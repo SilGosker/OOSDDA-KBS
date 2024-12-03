@@ -27,6 +27,10 @@
                 Style="{StaticResource FormButton}" Width="150" />
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid>
+                <Button Content="Beschadidging uploaden" Click="UploadDamage"
+                        HorizontalAlignment="Right" Margin="0,71,63,0" VerticalAlignment="Top"
+                        Style="{StaticResource FormButton}" Width="150" />
+
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,116,0,0" VerticalAlignment="Top" />
                 <Label Content="Type:" FontWeight="Bold" Margin="10,160,0,0" VerticalAlignment="Top" />
                 <Label Content="Status:" FontWeight="Bold" Margin="10,190,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />

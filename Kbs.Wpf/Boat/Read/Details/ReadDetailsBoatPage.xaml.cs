@@ -13,6 +13,7 @@ using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
+using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Boat.Read.Details;
@@ -223,5 +224,10 @@ public partial class ReadDetailsBoatPage : Page
                 ViewModel.Damages.Add(new ReadDetailsBoatDamageViewModel(damage));
             }
         }
+    }
+
+    private void UploadDamage(object sender, RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new UploadDamagePage(ViewModel.BoatId, _navigationManager));
     }
 }

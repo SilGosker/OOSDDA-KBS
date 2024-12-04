@@ -76,5 +76,15 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         {
 
         }
+        private void DataGrid_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is DataGrid dataGrid)
+            {
+                if (e.Delta > 0)
+                    dataGrid.ScrollIntoView(dataGrid.Items[0]); 
+                else
+                    dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
+            }
+        }
     }
 }

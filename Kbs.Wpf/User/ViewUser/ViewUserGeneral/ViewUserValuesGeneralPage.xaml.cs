@@ -1,10 +1,10 @@
 ﻿using Kbs.Business.User;
-using Kbs.Data.User;
 using Kbs.Wpf.User.ViewUser.ViewUserDetail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Collections.Generic;
+using Kbs.Data.User;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
@@ -12,9 +12,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
     {
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
-        private ViewUserValuesValuesGeneralViewModel ViewUserValuesValuesGeneralViewModel => (ViewUserValuesValuesGeneralViewModel)DataContext;
         private ViewUserValuesGeneralViewModel ViewModel => (ViewUserValuesGeneralViewModel)DataContext;
-
 
         public ViewUserValuesGeneralPage(INavigationManager navigationManager)
         {
@@ -27,11 +25,10 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             foreach (var role in roles)
             {
                 ViewModel.Roles.Add(role);
-                //ViewModel.Roles.Add(((UserRole)role).ToDutchString());      Stel dit actief zetten dan methoden aanpassen van <UserRole> naar <string>
             }
 
-            var userentity = _userRepository.Get();
-            foreach (UserEntity user in userentity)
+            var userEntities = _userRepository.Get();
+            foreach (var user in userEntities)
             {
                 ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
@@ -42,6 +39,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             var item = (ViewUserValuesValuesGeneralViewModel)((ListViewItem)sender).DataContext;
             _navigationManager.Navigate(() => new ViewUserValuesDetailedPage(_navigationManager, item.UserId));
         }
+
         private void NameChanged(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -49,12 +47,11 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
                 UpdateItems();
             }
         }
-      
+
         private void RoleChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateItems();
         }
-
 
         private void UpdateItems()
         {
@@ -69,13 +66,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             {
                 filteredUsers = _userRepository.GetUsersByNameAndRole(ViewModel.Name, selectedRole);
             }
-            ViewModel.Items.Clear(); 
 
+            ViewModel.Items.Clear();
             foreach (var user in filteredUsers)
             {
                 ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
         }
-
     }
 }
+

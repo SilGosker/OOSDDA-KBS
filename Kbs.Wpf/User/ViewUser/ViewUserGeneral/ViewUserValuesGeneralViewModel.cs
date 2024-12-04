@@ -1,17 +1,16 @@
-﻿using Kbs.Wpf.Components;
+﻿using Kbs.Business.Helpers;
+using Kbs.Wpf.Components;
 using System.Collections.ObjectModel;
-
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
     public class ViewUserValuesGeneralViewModel : ViewModel
     {
-        public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new();
+        public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new ObservableCollection<ViewUserValuesValuesGeneralViewModel>();
         public ObservableCollection<string> Roles { get; } = new ObservableCollection<string>();
 
         private string _name;
         private string _role;
-
 
         public string Name
         {
@@ -26,14 +25,14 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             {
                 if (SetField(ref _role, value))
                 {
-                    OnRoleChanged(); 
+                    OnRoleChanged();
                 }
             }
         }
 
         private void OnRoleChanged()
         {
-            
         }
     }
 }
+

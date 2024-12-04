@@ -22,6 +22,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private readonly BoatTypeRepository _boatTypeRepository = new();
         private readonly ReservationRepository _reservationRepository = new();
         private ComboBox _starttimecombobox;
+        public UserEntity User = SessionManager.Instance.Current.User;
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
         Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat;
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);

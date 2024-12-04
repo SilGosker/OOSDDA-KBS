@@ -39,7 +39,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
             this.Checkable = checkable;
             this.Length = length;
             this.IsChecked = ischecked;
-            Content = length.TotalMinutes.ToString() + " minuten";
+            Content = length.TotalHours.ToString() + " uur";
         }
     }
 }

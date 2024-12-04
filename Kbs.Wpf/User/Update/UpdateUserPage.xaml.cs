@@ -53,19 +53,10 @@ public partial class UpdateUserPage : Page
         // When no errors are shown
         if (validationResult.Count == 0)
         {
-            bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(sessionUser.Email);
-            bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(sessionUser.Password);
-            bool nameUpdated = !user.Name.Equals(sessionUser.Name);
-
-            string successMessage = "Er zijn geen aanpassingen gemaakt.";
-               
-            if (emailUpdated || passwordUpdated || nameUpdated)
-            {
-                successMessage = "Gegevens zijn aangepast.";
-                SessionManager.Instance.UpdateSessionUser(((emailUpdated) ? user.Email : null), ((passwordUpdated) ? user.Password : null), user.Name);
-                _userRepository.Update(sessionUser);
-            }
-            MessageBox.Show(successMessage);
+            bool passwordUpdated = !string.IsNullOrEmpty(user.Password);
+            SessionManager.Instance.UpdateSessionUser(user.Email, ((passwordUpdated) ? user.Password : null), user.Name);
+            _userRepository.Update(sessionUser);
+            MessageBox.Show("Gegevens zijn aangepast.");
             _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
             return;
         }

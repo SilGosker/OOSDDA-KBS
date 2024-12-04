@@ -56,7 +56,7 @@ public partial class SelectTimePage : Page
     private void TimeSlotButton_Click(object sender, RoutedEventArgs e)
     {
         Button send = (Button)sender;
-        Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = (Tuple<ReservationTime, BoatEntity>)send.Tag;
+        Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat = (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
         _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
     }
 
@@ -129,6 +129,10 @@ public partial class SelectTimePage : Page
             }
             else if(SessionManager.Instance.Current.User.IsGameCommissioner())
             {
+                _boatsSelected = ViewModel.Boats
+                    .Where(e => e.IsSelected)
+                    .Select(e => e.Boat)
+                    .ToList();
                 foreach (var j in _maker.MakeReservableTimes(weekday, ViewModel.Boats
                              .Where(e => e.IsSelected)
                              .Select(e => e.Boat)

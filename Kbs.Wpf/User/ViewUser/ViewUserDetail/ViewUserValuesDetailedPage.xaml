@@ -40,11 +40,9 @@
                     Style="{StaticResource DefaultDataGridStyle}"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                     ItemsSource="{Binding Reservations}"
-                    Background="White"
                     Foreground="Black"
                     SelectionChanged="DataGrid_SelectionChanged"
                     PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" Width="397">
-
                         <DataGrid.Columns>
                             <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
                             <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
@@ -57,3 +55,4 @@
         </Border>
     </Grid>
 </Page>
+

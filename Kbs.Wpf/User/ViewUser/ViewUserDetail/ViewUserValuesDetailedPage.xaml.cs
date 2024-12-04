@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 {
-    /// <summary>
-    /// Interaction logic for ViewUserValuesDetailedPage.xaml
-    /// </summary>
     public partial class ViewUserValuesDetailedPage : Page
     {
         private readonly UserRepository _userRepository;
@@ -32,15 +29,14 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         {
             _userRepository = new UserRepository();
             InitializeComponent();
-            var userrep = _userRepository.GetById(id);
-            if (userrep != null) 
+            UserEntity userrep = _userRepository.GetById(id);
+            if (userrep != null)
             {
                 ViewModel.Email = userrep.Email;
                 ViewModel.UserId = userrep.UserId;
                 ViewModel.Role = userrep.Role.ToDutchString();
                 ViewModel.Name = userrep.Name;
             }
-            
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)

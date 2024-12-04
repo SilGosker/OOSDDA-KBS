@@ -44,5 +44,6 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             Name = user.Name;
             Role = user.Role.ToDutchString() ?? Role;
         }
+        public ViewUserVa_uesDetailedViewModel() { }
     }
 }

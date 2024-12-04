@@ -27,9 +27,6 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
-    /// <summary>
-    /// Interaction logic for ViewUserValuesGeneralPage.xaml
-    /// </summary>
     public partial class ViewUserValuesGeneralPage : Page
     {
         private readonly UserRepository _userRepository;

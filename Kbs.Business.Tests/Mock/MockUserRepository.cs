@@ -42,4 +42,19 @@ public class MockUserRepository : IUserRepository
     {
         return Users.FirstOrDefault(u => u.UserId == id);
     }
+
+    public IEnumerable<UserEntity> GetUsersByName(string name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<string> GetAllRoles()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, string role)
+    {
+        throw new NotImplementedException();
+    }
 }

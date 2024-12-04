@@ -19,8 +19,8 @@ public partial class SelectBoatTypePage : Page
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
-    public UserEntity User = SessionManager.Instance.Current.User;
-    public BoatTypeEntity SelectedBoatType;
+    private UserEntity _user = SessionManager.Instance.Current.User;
+    private BoatTypeEntity _selectedBoatType;
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -36,7 +36,7 @@ public partial class SelectBoatTypePage : Page
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
 
-        if (User.Role == UserRole.Member)
+        if (_user.Role == UserRole.Member)
         {
             int userID = SessionManager.Instance.Current.User.UserId;
             int totalReservations = _reservationRepository.CountByUser(userID);
@@ -57,8 +57,8 @@ public partial class SelectBoatTypePage : Page
         {
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            SelectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, SelectedBoatType));
+            _selectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
         }
     }
 }

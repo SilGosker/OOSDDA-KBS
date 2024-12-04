@@ -26,7 +26,6 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private double _unCheckablebuttonLength;
         private int _reservationLengthIncrementMinutes;
         private int _maxReservationLength;
-        public UserEntity User = SessionManager.Instance.Current.User;
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
         Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat;
         public TimeSpan lenghtSelected = TimeSpan.FromMinutes(30);
@@ -126,6 +125,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
             var timespan = TimeSpan.Parse(selected);
 
             DateTime selectedDate = new DateTime();
+            //2025 is speciel in its days an needs a diffrent - value
             if (chosenTimeAndBoat.Item1.StartTime.Year == 2025)
             {
                 selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.AddDays(-1).DayOfYear);
@@ -136,7 +136,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
                 selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.AddDays(-2).DayOfYear);
             }
             
-            
+            //if the year is 2 its 1 to high so needs a diffrent value
             if (selectedDate.Year == 2)
             {
                 selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.StartTime.AddYears(-2).Year);

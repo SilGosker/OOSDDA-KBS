@@ -6,7 +6,6 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
 {
     public class SelectLengthViewModel : ViewModel
     {
-
         public ObservableCollection<string> AvailableStartTimes
         {
             get => _availableStartTimes;
@@ -41,13 +40,13 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         public ObservableCollection<SelectLengthLengthViewModel> RadioButtons { get; } = new();
 
 
-        public void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name, DateTime reservationDate)
+        public void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name,
+            DateTime reservationDate)
         {
             this.AvailableStartTimes = availableStartTimes;
             this.Name = name;
             this.Day = ReservationMaker.ConvertDayOfWeekToDutch(reservationDate);
             this.Date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
         }
-
     }
 }

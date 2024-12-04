@@ -36,7 +36,16 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
             _navigationManager = navigationManager;
             this.chosenTimeAndBoat = chosenTimeAndBoat;
             InitializeComponent();
-            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), chosenTimeAndBoat.Item2[0].Name, chosenTimeAndBoat.Item1.StartTime);
+            string boatName;
+            if (chosenTimeAndBoat.Item2.Count == 1)
+            {
+                boatName = chosenTimeAndBoat.Item2[0].Name;
+            }
+            else
+            {
+                boatName = chosenTimeAndBoat.Item2.Count + " boten";
+            }
+            ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), boatName, chosenTimeAndBoat.Item1.StartTime);
 
             if (SessionManager.Instance.Current.User.IsMember())
             {

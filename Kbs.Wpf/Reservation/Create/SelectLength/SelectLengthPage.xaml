@@ -88,7 +88,7 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Label Content="Reservering voor boot:" 
+                    <Label Content="Reservering voor:" 
                            FontSize="25"
                            Grid.Row="0" 
                            Margin="0,0,0,20"

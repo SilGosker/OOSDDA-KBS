@@ -24,7 +24,7 @@ public class ReservationMaker
 
         selectedDay = selectedDay.AddDays(-1);
         selectedDay = selectedDay.AddYears(-1);
-        
+
         DateTime selectedDayDayOnly = new DateTime();
         selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear);
         selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year);
@@ -59,9 +59,19 @@ public class ReservationMaker
         return result;
     }
 
-    public static string ConvertDayOfWeekToDutch (DateTime dayofweek)
+    public static string ConvertDayOfWeekToDutch(DateTime dayofweek)
     {
-        switch (dayofweek.DayOfWeek.ToString()) { case "Monday": return "Maandag"; case "Tuesday": return "Dinsdag"; case "Wednesday": return "Woensdag"; case "Thursday": return "Donderdag"; case "Friday": return "Vrijdag"; case "Saturday": return "Zaterdag"; case "Sunday": return "Zondag"; default: return "geen dag gevonden"; }
+        switch (dayofweek.DayOfWeek.ToString())
+        {
+            case "Monday": return "Maandag";
+            case "Tuesday": return "Dinsdag";
+            case "Wednesday": return "Woensdag";
+            case "Thursday": return "Donderdag";
+            case "Friday": return "Vrijdag";
+            case "Saturday": return "Zaterdag";
+            case "Sunday": return "Zondag";
+            default: return "geen dag gevonden";
+        }
     }
 
 

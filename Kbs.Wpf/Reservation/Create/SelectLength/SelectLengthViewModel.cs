@@ -1,5 +1,4 @@
 ﻿using Kbs.Business.Reservation;
-using Kbs.Wpf.Boat.Index;
 ﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
 

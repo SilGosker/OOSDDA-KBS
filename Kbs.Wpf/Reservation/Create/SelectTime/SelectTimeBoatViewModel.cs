@@ -21,7 +21,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
             set
             {
                 _selectedBoats = value;
-                OnPropertyChanged(nameof(SelectedBoats));
+                OnPropertyChanged();
             }
         }
         public string Name

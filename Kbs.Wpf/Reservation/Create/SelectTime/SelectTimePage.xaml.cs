@@ -50,10 +50,10 @@ public partial class SelectTimePage : Page
         {
             ViewModel.GameCommissionerComboBoxVisibility = Visibility.Visible;
         }
-        RefreshCalander();
+        RefreshCalendar();
     }
 
-    public void TimeSlotButton_Click(object sender, RoutedEventArgs e)
+    private void TimeSlotButton_Click(object sender, RoutedEventArgs e)
     {
         Button send = (Button)sender;
         Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = (Tuple<ReservationTime, BoatEntity>)send.Tag;
@@ -65,24 +65,25 @@ public partial class SelectTimePage : Page
         var comboBox = (ComboBox)sender;
         var selected = (SelectTimeBoatViewModel)comboBox.SelectedItem;
         _boatSelected = selected.Boat;
-
-        RefreshCalander();
+        RefreshCalendar();
     }
 
     private void ListBoxBoats_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        RefreshCalander();
+        var comboBox = (ComboBox)sender;
+        var selected = (SelectTimeBoatViewModel)comboBox.SelectedItem;
+        _boatsSelected = selected.SelectedBoats;
+        RefreshCalendar();
     }
 
-    private void RefreshCalander()
+    private void RefreshCalendar()
     {
         ViewModel.ThisWeek.Clear();
         Buttons.Children.Clear();
-        int countVar = 0;
-        for (int i = _daysFromToday; countVar < 7; i++)
+        var countVar = 0;
+        for (var i = _daysFromToday; countVar < 7; i++)
         {
-            DateTime weekday = new DateTime();
-            weekday = DateTime.Now;
+            var weekday = DateTime.Now;
             weekday = weekday.AddDays(i);
             ViewModel.ThisWeek.Add(weekday);
 
@@ -91,89 +92,84 @@ public partial class SelectTimePage : Page
                 foreach (ReservationTime j in _maker.MakeReservableTimes(weekday, _boatSelected))
                 {
 
-                    Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = new Tuple<ReservationTime, BoatEntity>(j, _boatSelected);
-                    if (!(j.Length == 0))
+                    var chosenTimeAndBoat = new Tuple<ReservationTime, BoatEntity>(j, _boatSelected);
+                    if (j.Length == 0) continue;
+                    var button = new Button()
                     {
-                        Button button = new Button()
-                        {
 
-                            Width = 150,
-                            Height = (j.Length * 34),
-                            Tag = chosenTimeAndBoat,
-                            Foreground = (Brush)TryFindResource("ColorPrimaryText"),
-                            Background = (Brush)TryFindResource("ColorSecondaryBackground"),
-                            BorderBrush = (Brush)TryFindResource("ColorCaretBrush"),
-                            FontSize = 28,
-                            Content = "Reserveer"
-                        };
-                        button.Tag = chosenTimeAndBoat;
-                        button.Click += TimeSlotButton_Click;
+                        Width = 150,
+                        Height = (j.Length * 34),
+                        Tag = chosenTimeAndBoat,
+                        Foreground = (Brush)TryFindResource("ColorPrimaryText"),
+                        Background = (Brush)TryFindResource("ColorSecondaryBackground"),
+                        BorderBrush = (Brush)TryFindResource("ColorCaretBrush"),
+                        FontSize = 28,
+                        Content = "Reserveer"
+                    };
+                    button.Tag = chosenTimeAndBoat;
+                    button.Click += TimeSlotButton_Click;
 
-                        Buttons.Children.Add(button);
+                    Buttons.Children.Add(button);
 
-                        double compare = 0;
+                    double compare = 0;
 
-                        if (j.StartTime.Minute == 30)
-                        {
-                            compare += 0.5;
-                        }
-
-                        compare += j.StartTime.Hour;
-                        int rowspan = Convert.ToInt32(j.Length + j.Length);
-
-
-                        Grid.SetRow(button, _checklist.IndexOf(compare));
-                        Grid.SetColumn(button, countVar);
-                        Grid.SetRowSpan(button, rowspan);
+                    if (j.StartTime.Minute == 30)
+                    {
+                        compare += 0.5;
                     }
+
+                    compare += j.StartTime.Hour;
+                    var rowspan = Convert.ToInt32(j.Length + j.Length);
+
+
+                    Grid.SetRow(button, _checklist.IndexOf(compare));
+                    Grid.SetColumn(button, countVar);
+                    Grid.SetRowSpan(button, rowspan);
                 }
             }
             else if(SessionManager.Instance.Current.User.IsGameCommissioner())
             {
-                foreach (ReservationTime j in _maker.MakeReservableTimes(weekday, ViewModel.Boats
+                foreach (var j in _maker.MakeReservableTimes(weekday, ViewModel.Boats
                              .Where(e => e.IsSelected)
                              .Select(e => e.Boat)
                              .ToList()))
                 {
-                    Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoats = new Tuple<ReservationTime, List<BoatEntity>>(j, _boatsSelected);
-                    if (!(j.Length == 0))
+                    var chosenTimeAndBoats = new Tuple<ReservationTime, List<BoatEntity>>(j, _boatsSelected);
+                    if (j.Length == 0) continue;
+                    var button = new Button()
                     {
-                        Button button = new Button()
-                        {
-                            Width = 150,
-                            Height = (j.Length * 34),
-                            Tag = chosenTimeAndBoats,
-                            Foreground = (Brush)TryFindResource("ColorPrimaryText"),
-                            Background = (Brush)TryFindResource("ColorSecondaryBackground"),
-                            BorderBrush = (Brush)TryFindResource("ColorCaretBrush"),
-                            FontSize = 28,
-                            Content = "Reserveer"
-                        };
-                        button.Tag = chosenTimeAndBoats;
-                        button.Click += TimeSlotButton_Click;
+                        Width = 150,
+                        Height = (j.Length * 34),
+                        Tag = chosenTimeAndBoats,
+                        Foreground = (Brush)TryFindResource("ColorPrimaryText"),
+                        Background = (Brush)TryFindResource("ColorSecondaryBackground"),
+                        BorderBrush = (Brush)TryFindResource("ColorCaretBrush"),
+                        FontSize = 28,
+                        Content = "Reserveer"
+                    };
+                    button.Tag = chosenTimeAndBoats;
+                    button.Click += TimeSlotButton_Click;
 
-                        Buttons.Children.Add(button);
+                    Buttons.Children.Add(button);
 
-                        double compare = 0;
+                    double compare = 0;
 
-                        if (j.StartTime.Minute == 30)
-                        {
-                            compare += 0.5;
-                        }
-
-                        compare += j.StartTime.Hour;
-                        int rowspan = Convert.ToInt32(j.Length + j.Length);
-                            
-                        Grid.SetRow(button, _checklist.IndexOf(compare));
-                        Grid.SetColumn(button, countVar);
-                        Grid.SetRowSpan(button, rowspan);
+                    if (j.StartTime.Minute == 30)
+                    {
+                        compare += 0.5;
                     }
+
+                    compare += j.StartTime.Hour;
+                    var rowspan = Convert.ToInt32(j.Length + j.Length);
+                            
+                    Grid.SetRow(button, _checklist.IndexOf(compare));
+                    Grid.SetColumn(button, countVar);
+                    Grid.SetRowSpan(button, rowspan);
                 }
             }
             countVar++;
         }
     }
-
 
     private void PreviousStep(object sender, System.Windows.RoutedEventArgs e)
     {
@@ -182,24 +178,20 @@ public partial class SelectTimePage : Page
 
     private void NextWeekButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_daysFromToday <= 7)
-        {
-            _daysFromToday += 7;
-            RefreshCalander();
-        }
+        if (_daysFromToday > 7) return;
+        _daysFromToday += 7;
+        RefreshCalendar();
     }
 
     private void BackWeekButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_daysFromToday >= 7)
-        {
-            _daysFromToday -= 7;
-            RefreshCalander();
-        }
+        if (_daysFromToday < 7) return;
+        _daysFromToday -= 7;
+        RefreshCalendar();
     }
 
     private void GameCommissionerComboBoxChanged(object sender, RoutedEventArgs e)
     {
-        RefreshCalander();
+        RefreshCalendar();
     }
 }

@@ -1,0 +1,71 @@
+﻿<Page x:Class="Kbs.Wpf.Parcours.Read.Index.ReadParcoursIndexPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Kbs.Wpf.Parcours.Read.Index"
+      mc:Ignorable="d"
+      d:DesignHeight="1200" d:DesignWidth="900"
+      Title="ReadParcoursIndexPage">
+    <Page.DataContext>
+        <local:ReadParcoursIndexViewModel />
+    </Page.DataContext>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Parcours" />
+        <ListView ItemsSource="{Binding Items}"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  Margin="20,132,20,10">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ParcourClicked" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="830" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Id}" Style="{StaticResource ListItemTextBlockStyle}"
+                                       FontSize="20"
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Top" />
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Naam: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Type: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Difficulty}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>

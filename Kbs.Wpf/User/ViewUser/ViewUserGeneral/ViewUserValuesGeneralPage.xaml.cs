@@ -47,8 +47,8 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             ViewModel.Roles.Add("Alle rollen");
             foreach (var role in roles)
             {
-                //ViewModel.Roles.Add(role); Stel dit actief zetten dan methoden aanpassen van <UserRole> naar <string>
-                ViewModel.Roles.Add(((UserRole)role).ToDutchString());
+                ViewModel.Roles.Add(role);
+                //ViewModel.Roles.Add(((UserRole)role).ToDutchString());      Stel dit actief zetten dan methoden aanpassen van <UserRole> naar <string>
             }
 
             var userentity = _userRepository.Get();
@@ -56,8 +56,8 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             {
                 ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
-            
         }
+
         public void ClickUser(object sender, RoutedEventArgs e)
         {
             var item = (ViewUserValuesValuesGeneralViewModel)((ListViewItem)sender).DataContext;

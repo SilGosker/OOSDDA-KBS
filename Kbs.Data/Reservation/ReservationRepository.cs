@@ -54,7 +54,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
                   AND StartTime Like @day 
                   AND Status = 3 
                 ORDER BY StartTime",
-            new { day = "%" + day.Year + "-" + day.Month + "-" + daystring + "%", boat.BoatId }).ToList();
+            new { day = "%" + day.Year + "-" + monthstring + "-" + daystring + "%", boat.BoatId }).ToList();
     }
 
     public List<ReservationEntity> GetByUserId(int userId)

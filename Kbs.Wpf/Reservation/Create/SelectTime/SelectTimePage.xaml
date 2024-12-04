@@ -30,7 +30,8 @@
                   Width="150"
                   SelectionChanged="ComboBoxBoats_SelectionChanged"
                   ItemsSource="{Binding Boats}" />
-
+        <Label Content="{Binding NoBoatsSelectedError}" Foreground="Red" HorizontalAlignment="Right" Margin="0,60,20,0"
+       VerticalAlignment="Top" />
         <ComboBox
             Text="Selecteer boten"
             Visibility="{Binding GameCommissionerComboBoxVisibility}"

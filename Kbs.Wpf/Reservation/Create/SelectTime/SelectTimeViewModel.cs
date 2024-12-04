@@ -9,6 +9,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
     {
         private Visibility _gameCommissionerComboBoxVisibility;
         private Visibility _memberComboBoxVisibility;
+        private string _noBoatsSelectedError;
         public ObservableCollection<SelectTimeBoatViewModel> Boats { get; } = new();
         public ObservableCollection<DateTime> ThisWeek { get; } = new();
 
@@ -21,6 +22,12 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
         {
             get => _memberComboBoxVisibility;
             set => SetField(ref _memberComboBoxVisibility, value);
+        }
+
+        public string NoBoatsSelectedError
+        {
+            get => _noBoatsSelectedError;
+            set => SetField(ref _noBoatsSelectedError, value);
         }
     }
 }

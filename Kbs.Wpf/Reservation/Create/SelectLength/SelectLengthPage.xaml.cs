@@ -9,6 +9,7 @@ using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.Create.SelectTime;
 using Kbs.Wpf.Reservation.Read.Index;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kbs.Wpf.Reservation.Create.SelectLength
@@ -22,6 +23,9 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private readonly BoatTypeRepository _boatTypeRepository = new();
         private readonly ReservationRepository _reservationRepository = new();
         private ComboBox _starttimecombobox;
+        private double _unCheckablebuttonLength;
+        private int _reservationLengthIncrementMinutes;
+        private int _maxReservationLength;
         public UserEntity User = SessionManager.Instance.Current.User;
         private SelectLengthViewModel ViewModel => (SelectLengthViewModel)DataContext;
         Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat;
@@ -34,15 +38,29 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
             InitializeComponent();
             ViewModel.MakeSelectLengthViewModel(MakeComboboxAvailableTimes(), chosenTimeAndBoat.Item2[0].Name, chosenTimeAndBoat.Item1.StartTime);
 
-            double unCheckablebuttonLength = 0.5;
-            for (int i = 30; i <= 120; i += 30)
+            if (SessionManager.Instance.Current.User.IsMember())
+            {
+                _unCheckablebuttonLength = 0.5;
+                _reservationLengthIncrementMinutes = 30;
+                _maxReservationLength = 120;
+            } else
+            {
+                _unCheckablebuttonLength = 1;
+                _reservationLengthIncrementMinutes = 60;
+                _maxReservationLength = 480;
+                ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, TimeSpan.FromMinutes(30), true));
+            }
+
+            double unCheckableButtonLength = _unCheckablebuttonLength;
+
+            for (int i = _reservationLengthIncrementMinutes; i <= _maxReservationLength; i += _reservationLengthIncrementMinutes)
             {
                 TimeSpan length = TimeSpan.FromMinutes(i);
                 if (i == 30)
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, length, true));
                 }
-                else if ((chosenTimeAndBoat.Item1.Length < unCheckablebuttonLength))
+                else if ((chosenTimeAndBoat.Item1.Length < unCheckableButtonLength))
                 {
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(false, length, false));
                 }
@@ -51,7 +69,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
                     ViewModel.RadioButtons.Add(new SelectLengthLengthViewModel(true, length, false));
                 }
 
-                unCheckablebuttonLength += 0.5;
+                unCheckableButtonLength += _unCheckablebuttonLength;
             }
         }
 
@@ -68,18 +86,21 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
 
         private void ButtonReservation_Click(object sender, RoutedEventArgs e)
         {
-            ReservationEntity res = new ReservationEntity();
-            res.BoatId = chosenTimeAndBoat.Item2[0].BoatId;
-            res.Status = ReservationStatus.Active;
-            res.StartTime = selectedStartTime;
+            foreach (BoatEntity boat in chosenTimeAndBoat.Item2)
+            {
+                ReservationEntity res = new ReservationEntity();
+                res.BoatId = boat.BoatId;
+                res.Status = ReservationStatus.Active;
+                res.StartTime = selectedStartTime;
 
-            res.Length = lenghtSelected;
+                res.Length = lenghtSelected;
 
-            UserEntity user = SessionManager.Instance.Current.User;
+                UserEntity user = SessionManager.Instance.Current.User;
 
-            res.UserId = user.UserId;
+                res.UserId = user.UserId;
 
-            _reservationRepository.Create(res);
+                _reservationRepository.Create(res);
+            }
 
             _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
         }
@@ -96,8 +117,24 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
             var timespan = TimeSpan.Parse(selected);
 
             DateTime selectedDate = new DateTime();
-            selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.DayOfYear - 2);
-            selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.StartTime.Year - 1);
+            if (chosenTimeAndBoat.Item1.StartTime.Year == 2025)
+            {
+                selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.AddDays(-1).DayOfYear);
+                
+            }
+            else
+            {
+                selectedDate = selectedDate.AddDays(chosenTimeAndBoat.Item1.StartTime.AddDays(-2).DayOfYear);
+            }
+            
+            
+            if (selectedDate.Year == 2)
+            {
+                selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.StartTime.AddYears(-2).Year);
+            }else
+            {
+                selectedDate = selectedDate.AddYears(chosenTimeAndBoat.Item1.StartTime.AddYears(-1).Year);
+            }
 
             selectedDate = selectedDate.Add(timespan);
 

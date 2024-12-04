@@ -28,7 +28,9 @@ public class ReservationMaker
 
         DateTime selectedDayDayOnly = new DateTime();
         selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear);
+
         selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year);
+
 
         DateTime selectedDayMorning = new DateTime();
         selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);
@@ -59,7 +61,7 @@ public class ReservationMaker
         }
         return result;
     }
-    
+
     public List<ReservationTime> MakeReservableTimes(DateTime selectedDay, List<BoatEntity> selectedBoats)
     {
         List<ReservationTime> result = new List<ReservationTime>();
@@ -69,7 +71,7 @@ public class ReservationMaker
         {
             allReservations.AddRange(_repository.GetByBoatIdAndDay(boat, selectedDay));
         }
-        
+
         allReservations = allReservations.OrderBy(r => r.StartTime).ToList();
 
         selectedDay = selectedDay.AddDays(-1);
@@ -77,7 +79,9 @@ public class ReservationMaker
 
         DateTime selectedDayDayOnly = new DateTime();
         selectedDayDayOnly = selectedDayDayOnly.AddDays(selectedDay.DayOfYear);
+
         selectedDayDayOnly = selectedDayDayOnly.AddYears(selectedDay.Year);
+
 
         DateTime selectedDayMorning = new DateTime();
         selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);

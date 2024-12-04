@@ -41,6 +41,7 @@ public partial class SelectTimePage : Page
         
         ViewModel.GameCommissionerComboBoxVisibility = Visibility.Hidden;
         ViewModel.MemberComboBoxVisibility = Visibility.Hidden;
+        ViewModel.NoBoatsSelectedError = "";
         
         if (SessionManager.Instance.Current.User.IsMember())
         {
@@ -55,9 +56,24 @@ public partial class SelectTimePage : Page
 
     private void TimeSlotButton_Click(object sender, RoutedEventArgs e)
     {
-        Button send = (Button)sender;
-        Tuple<ReservationTime, BoatEntity> chosenTimeAndBoat = (Tuple<ReservationTime, BoatEntity>)send.Tag;
-        _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+        if (SessionManager.Instance.Current.User.IsGameCommissioner())
+        {
+            if (_boatsSelected.Count > 0)
+            {
+                Button send = (Button)sender;
+                Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat = (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
+                _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+            } else
+            {
+                ViewModel.NoBoatsSelectedError = "Selecteer een of meerdere boten";
+            }
+        }
+        else
+        {
+            Button send = (Button)sender;
+            Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat = (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
+            _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+        }
     }
 
     private void ComboBoxBoats_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,8 +108,8 @@ public partial class SelectTimePage : Page
                 foreach (ReservationTime j in _maker.MakeReservableTimes(weekday, _boatSelected))
                 {
 
-                    var chosenTimeAndBoat = new Tuple<ReservationTime, BoatEntity>(j, _boatSelected);
-                    if (j.Length == 0) continue;
+                    var chosenTimeAndBoat = new Tuple<ReservationTime, List<BoatEntity>>(j, new List<BoatEntity> { _boatSelected });
+                    if (j.Length <= 0) continue;
                     var button = new Button()
                     {
 
@@ -129,13 +145,17 @@ public partial class SelectTimePage : Page
             }
             else if(SessionManager.Instance.Current.User.IsGameCommissioner())
             {
+                _boatsSelected = ViewModel.Boats
+                    .Where(e => e.IsSelected)
+                    .Select(e => e.Boat)
+                    .ToList();
                 foreach (var j in _maker.MakeReservableTimes(weekday, ViewModel.Boats
                              .Where(e => e.IsSelected)
                              .Select(e => e.Boat)
                              .ToList()))
                 {
                     var chosenTimeAndBoats = new Tuple<ReservationTime, List<BoatEntity>>(j, _boatsSelected);
-                    if (j.Length == 0) continue;
+                    if (j.Length <= 0) continue;
                     var button = new Button()
                     {
                         Width = 150,
@@ -178,14 +198,14 @@ public partial class SelectTimePage : Page
 
     private void NextWeekButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_daysFromToday > 7) return;
+        if (_daysFromToday > 7 && SessionManager.Instance.Current.User.IsMember()) return;
         _daysFromToday += 7;
         RefreshCalendar();
     }
 
     private void BackWeekButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_daysFromToday < 7) return;
+        if (_daysFromToday < 7 && SessionManager.Instance.Current.User.IsMember()) return;
         _daysFromToday -= 7;
         RefreshCalendar();
     }

@@ -16,10 +16,11 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
     public class ViewUserValuesGeneralViewModel : ViewModel
     {
         public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new();
-        public ObservableCollection<string> Roles { get; } = new();
+        public ObservableCollection<string> Roles { get; } = new ObservableCollection<string>();
 
         private string _name;
-        private string _selectedRole;
+        private string _role;
+
 
         public string Name
         {
@@ -27,12 +28,12 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             set => SetField(ref _name, value);
         }
 
-        public string SelectedRole
+        public string Role
         {
-            get => _selectedRole;
+            get => _role;
             set
             {
-                if (SetField(ref _selectedRole, value))
+                if (SetField(ref _role, value))
                 {
                     OnRoleChanged(); 
                 }

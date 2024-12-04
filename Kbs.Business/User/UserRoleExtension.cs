@@ -16,7 +16,7 @@ namespace Kbs.Business.User
                 UserRole.MaterialCommissioner => "Materiaalcommissaris",
                 UserRole.GameCommissioner => "Wedstrijdcommissaris",
                 UserRole.Member => "Member",
-                _ => "Onbekend"
+                _ => "Administrator"
             };
         }
     }

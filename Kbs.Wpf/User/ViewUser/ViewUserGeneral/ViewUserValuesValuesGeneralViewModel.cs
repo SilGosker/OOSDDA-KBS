@@ -40,7 +40,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;
             UserId = user.UserId;
-            Role = user.Role.ToDutchString();
+            //Role = user.Role.ToDutchString();
             Name = user.Name;
             Role = user.Role.ToDutchString() ?? Role;
         }

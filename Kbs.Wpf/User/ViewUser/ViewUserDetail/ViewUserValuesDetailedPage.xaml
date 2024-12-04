@@ -13,7 +13,7 @@
     <Grid Style="{StaticResource PageGrid}">
         
         <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="373">
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="384">
             <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="238">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="90*" MaxWidth="90" />
@@ -41,7 +41,7 @@
             Style="{StaticResource DefaultDataGridStyle}"
             ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
             ItemsSource="{Binding Reservations}"
-            Margin="435,123,20,-48"
+            Margin="435,123,20,239"
                 Background="White"
                 Foreground="Black"
             SelectionChanged="DataGrid_SelectionChanged"

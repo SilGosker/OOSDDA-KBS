@@ -46,7 +46,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             var roles = _userRepository.GetAllRoles();
             foreach (var role in roles)
             {
-                ViewModel.Roles.Add(role);
+                ViewModel.Roles.Add(((UserRole)role).ToDutchString());
             }
 
             var userentity = _userRepository.Get();
@@ -78,7 +78,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
         {
             var filteredUsers = _userRepository.GetUsersByNameAndRole(
                 ViewModel.Name,
-                ViewModel.SelectedRole
+                ViewModel.Role
             );
             ViewModel.Items.Clear();
             foreach (var user in filteredUsers)

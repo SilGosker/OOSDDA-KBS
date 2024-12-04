@@ -16,7 +16,7 @@
         <ComboBox HorizontalAlignment="Right" Margin="20,90,152,0"
           VerticalAlignment="Top" Width="128"
           ItemsSource="{Binding Roles}"
-          SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}" />
+          SelectedItem="{Binding Role, UpdateSourceTrigger=PropertyChanged}" />
         <Label Content="Naam" HorizontalAlignment="Right" Margin="152,63,20,0" VerticalAlignment="Top" Width="128" />
         <TextBox HorizontalAlignment="Right" Margin="0,90,20,0" TextWrapping="Wrap" 
          VerticalAlignment="Top" Width="128"

@@ -169,22 +169,26 @@ public class SessionManagerTests
     }
 
     [Theory]
-    [InlineData("Test@tester.com", null)]
-    [InlineData(null, "12345678")]
-    public void UpdateSessionUser_WithValues_ReturnsTrue(string emailInput, string passwordInput)
+    [InlineData("Test@tester.com", null, "Tester")]
+    [InlineData(null, "12345678", "Tester")]
+    [InlineData(null, null, "")]
+    [InlineData(null, null, "Tester II")]
+    public void UpdateSessionUser_WithValues_ReturnsTrue(string emailInput, string passwordInput, string nameInput)
     {
         // Arrange
         var userRepository = new MockUserRepository();
         userRepository.Users.Add(new UserEntity()
         {
             Email = "test@example.com",
-            Password = "123456"
+            Password = "123456",
+            Name = "Tester"
         });
         var sessionManager = new SessionManager(userRepository, TimeSpan.MaxValue);
         var user = new UserEntity()
         {
             Email = "test@example.com",
-            Password = "123456"
+            Password = "123456",
+            Name = "Tester"
         };
         sessionManager.TryCreate(user, out _);
 
@@ -198,9 +202,14 @@ public class SessionManagerTests
         {
             isPasswordUpdated = false;
         }
+        bool isNameUpdated = true;
+        if (nameInput.Equals(user.Name))
+        {
+            isNameUpdated = false;
+        }
 
         // Act
-        sessionManager.UpdateSessionUser(emailInput, passwordInput);
+        sessionManager.UpdateSessionUser(emailInput, passwordInput, nameInput);
 
         // Assert
         if (isEmailUpdated)
@@ -210,6 +219,10 @@ public class SessionManagerTests
         if (isPasswordUpdated)
         {
             Assert.True(BCrypt.Net.BCrypt.Verify(passwordInput, $"{sessionManager.Current.User.Password}"));
+        }
+        if (isNameUpdated)
+        {
+            Assert.Equal(nameInput, $"{sessionManager.Current.User.Name}");
         }
     }
 

@@ -5,6 +5,7 @@ using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
+using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.Create.SelectTime;
@@ -18,7 +19,8 @@ public partial class SelectBoatTypePage : Page
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
-
+    private UserEntity _user = SessionManager.Instance.Current.User;
+    private BoatTypeEntity _selectedBoatType;
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -28,12 +30,13 @@ public partial class SelectBoatTypePage : Page
         {
             ViewModel.Items.Add(new SelectBoatTypeBoatTypeViewModel(type));
         }
+        
     }
 
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
-        UserRole waarde = SessionManager.Instance.Current.User.Role;
-        if (waarde == UserRole.Member)
+        //only users can make a maximum of 2 reservations, this excludes administrators.
+        if (_user.Role == UserRole.Member)
         {
             int userID = SessionManager.Instance.Current.User.UserId;
             int totalReservations = _reservationRepository.CountByUser(userID);
@@ -54,8 +57,8 @@ public partial class SelectBoatTypePage : Page
         {
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            _selectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
         }
     }
 }

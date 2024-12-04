@@ -78,10 +78,10 @@ public class SessionManager
         Current = null;
     }
 
-    public void UpdateSessionUser(string newMail, string newPassword)
+    public void UpdateSessionUser(string newMail, string newPassword, string newName)
     {
         UserEntity sessionUser = Current.User;
-        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
+        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword, Name = newName};
         if (newUser.Email != null && !newMail.Equals(sessionUser.Email))
         {
             sessionUser.Email = newUser.Email;
@@ -93,6 +93,10 @@ public class SessionManager
             {
                 sessionUser.Password = newUser.Password;
             }
+        }
+        if (!newName.Equals(sessionUser.Name))
+        {
+            sessionUser.Name = newName;
         }
     }
 }

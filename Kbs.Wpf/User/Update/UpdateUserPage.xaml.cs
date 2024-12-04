@@ -18,6 +18,7 @@ public partial class UpdateUserPage : Page
         InitializeComponent();
         this._navigationManager = navigationManager;
         ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
+        ViewModel.InputName = SessionManager.Instance.Current.User.Name;
     }
 
     private void Submit(object sender, RoutedEventArgs e)
@@ -25,6 +26,7 @@ public partial class UpdateUserPage : Page
         var sessionUser = SessionManager.Instance.Current.User;
         var user = new UserEntity()
         {
+            Name = ViewModel.InputName,
             Email = ViewModel.InputEmail,
             Password = ViewModel.InputPassword
         };
@@ -53,24 +55,14 @@ public partial class UpdateUserPage : Page
         {
             bool emailUpdated = !string.IsNullOrEmpty(user.Email) && !user.Email.Equals(sessionUser.Email);
             bool passwordUpdated = !string.IsNullOrEmpty(user.Password) && !user.Password.Equals(sessionUser.Password);
+            bool nameUpdated = !user.Name.Equals(sessionUser.Name);
 
             string successMessage = "Er zijn geen aanpassingen gemaakt.";
-            if (emailUpdated && passwordUpdated)
-            {
-                successMessage = "Email en Wachtwoord zijn succesvol aangepast.";
-            }
-            else if (emailUpdated)
-            {
-                successMessage = "Email is succesvol aangepast.";
-            }
-            else if (passwordUpdated)
-            {
-                successMessage = "Wachtwoord is succesvol aangepast.";
-            }
                
-            if (emailUpdated || passwordUpdated)
+            if (emailUpdated || passwordUpdated || nameUpdated)
             {
-                SessionManager.Instance.UpdateSessionUser(((emailUpdated) ? user.Email : null), ((passwordUpdated) ? user.Password : null));
+                successMessage = "Gegevens zijn aangepast.";
+                SessionManager.Instance.UpdateSessionUser(((emailUpdated) ? user.Email : null), ((passwordUpdated) ? user.Password : null), user.Name);
                 _userRepository.Update(sessionUser);
             }
             MessageBox.Show(successMessage);

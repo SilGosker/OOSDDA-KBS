@@ -1,31 +1,10 @@
-﻿using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
-using Kbs.Business.Session;
-using Kbs.Business.User;
-using Kbs.Data.Boat;
-using Kbs.Data.Reservation;
+﻿using Kbs.Business.User;
 using Kbs.Data.User;
-using Kbs.Wpf.Boat.Read.Details;
-using Kbs.Wpf.Boat.Read.Index;
-using Kbs.Wpf.BoatType.Read.Details;
-using Kbs.Wpf.Components;
-using Kbs.Wpf.Reservation.Read.Details;
-using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.User.ViewUser.ViewUserDetail;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
@@ -70,7 +49,8 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
                 UpdateItems();
             }
         }
-        private void TypeChanged(object sender, SelectionChangedEventArgs e)
+      
+        private void RoleChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateItems();
         }
@@ -78,15 +58,24 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 
         private void UpdateItems()
         {
-            var filteredUsers = _userRepository.GetUsersByNameAndRole(
-                ViewModel.Name,
-                ViewModel.Role
-            );
-            ViewModel.Items.Clear();
+            string selectedRole = ViewModel.Role;
+            IEnumerable<UserEntity> filteredUsers;
+
+            if (selectedRole == "Alle rollen")
+            {
+                filteredUsers = _userRepository.Get();
+            }
+            else
+            {
+                filteredUsers = _userRepository.GetUsersByNameAndRole(ViewModel.Name, selectedRole);
+            }
+            ViewModel.Items.Clear(); 
+
             foreach (var user in filteredUsers)
             {
                 ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
         }
+
     }
 }

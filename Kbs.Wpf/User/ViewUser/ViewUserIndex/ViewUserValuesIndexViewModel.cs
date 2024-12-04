@@ -1,16 +1,17 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
+using Kbs.Wpf.User.ViewUser.ViewUserIndex;
 using System.Collections.ObjectModel;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
     public class ViewUserValuesIndexViewModel : ViewModel
     {
-        public ObservableCollection<ViewUserValuesValuesIndexViewModel> Items { get; } = new ObservableCollection<ViewUserValuesValuesIndexViewModel>();
-        public ObservableCollection<string> Roles { get; } = new ObservableCollection<string>();
+        public ObservableCollection<ViewUserValuesValuesIndexViewModel> Items { get; } = new();
+        public ObservableCollection<ViewuserValuesIndexRoleViewModel> Roles { get; } = new();
 
         private string _name;
-        private string _role;
+        private ViewuserValuesIndexRoleViewModel _selectedRole;
 
         public string Name
         {
@@ -18,12 +19,12 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             set => SetField(ref _name, value);
         }
 
-        public string Role
+        public ViewuserValuesIndexRoleViewModel SelectedRole
         {
-            get => _role;
+            get => _selectedRole;
             set
             {
-                if (SetField(ref _role, value))
+                if (SetField(ref _selectedRole, value))
                 {
                     OnRoleChanged();
                 }

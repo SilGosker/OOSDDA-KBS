@@ -78,14 +78,14 @@ public class UserRepository : IUserRepository, IDisposable
             new { Name = "%" + name + "%" });
     }
 
-    public IEnumerable<string> GetAllRoles()
+    public IEnumerable<UserRole> GetAllRoles()
     {
-        return _connection.Query<string>("SELECT DISTINCT Role FROM Users");
+        return _connection.Query<UserRole>("SELECT DISTINCT Role FROM Users");
     }
-    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, string role)
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, UserRole role)
     {
-        var sql = @"SELECT * FROM Users WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%') AND (@Role IS NULL OR Role = @Role)";
-        return _connection.Query<UserEntity>(sql, new { Name = name, Role = role });
+        var sql = @"SELECT * FROM Users WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%') AND (Role & @Role) != 0";
+        return _connection.Query<UserEntity>(sql, new { Name = name, Role = (int)role });
     }
 
 }

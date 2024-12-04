@@ -1,10 +1,4 @@
-﻿using Kbs.Business.Reservation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Kbs.Business.User
 {
     public static class UserRoleExtension
@@ -15,8 +9,10 @@ namespace Kbs.Business.User
             {
                 UserRole.MaterialCommissioner => "Materiaalcommissaris",
                 UserRole.GameCommissioner => "Wedstrijdcommissaris",
-                UserRole.Member => "Member",
-                _ => "Administrator"
+                UserRole.Member => "Lid",
+                (UserRole)7 => "Administrator",
+                default(UserRole) => "Geband",
+                _ => "Onbekende combinatie"
             };
         }
     }

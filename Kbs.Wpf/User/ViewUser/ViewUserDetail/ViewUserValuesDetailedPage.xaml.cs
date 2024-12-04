@@ -11,26 +11,21 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 {
     public partial class ViewUserValuesDetailedPage : Page
     {
-        private readonly UserRepository _userRepository;
+        private readonly UserRepository _userRepository = new UserRepository();
         private readonly INavigationManager _navigationManager;
-        private readonly ReservationRepository _reservationRepository;
+        private readonly ReservationRepository _reservationRepository = new ReservationRepository();
 
         private ViewUserValuesDetailedViewModel ViewModel => (ViewUserValuesDetailedViewModel)DataContext;
 
         public ViewUserValuesDetailedPage(INavigationManager nav, int id)
         {
-            _userRepository = new UserRepository();
-            _reservationRepository = new ReservationRepository();
             InitializeComponent();
 
             var user = _userRepository.GetById(id);
-            if (user != null)
-            {
-                ViewModel.Name = user.Name;
-                ViewModel.UserId = user.UserId;
-                ViewModel.Email = user.Email;
-                ViewModel.Role = user.Role.ToDutchString();
-            }
+            ViewModel.Name = user.Name;
+            ViewModel.UserId = user.UserId;
+            ViewModel.Email = user.Email;
+            ViewModel.Role = user.Role.ToDutchString();
 
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)

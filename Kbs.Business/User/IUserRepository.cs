@@ -10,6 +10,6 @@ public interface IUserRepository
     public UserEntity GetByEmail(string email);
     public UserEntity GetById(int id);
     public IEnumerable<UserEntity> GetUsersByName(string name);
-    public IEnumerable<string> GetAllRoles();
-    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, string role);    
+    public IEnumerable<UserRole> GetAllRoles();
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, UserRole role);    
 }

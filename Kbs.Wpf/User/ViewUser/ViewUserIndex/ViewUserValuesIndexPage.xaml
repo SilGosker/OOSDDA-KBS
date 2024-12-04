@@ -13,11 +13,14 @@
     <Grid Style="{StaticResource PageGrid}">
         <Label Style="{StaticResource TitleLabel}" Content="Leden" />
         <Label Content="Rol" HorizontalAlignment="Right" Margin="20,63,152,0" VerticalAlignment="Top" Width="128" />
+        
         <ComboBox HorizontalAlignment="Right" Margin="20,90,152,0"
-          VerticalAlignment="Top" Width="128"
+          VerticalAlignment="Top" Width="200"
+          IsEditable="True"
           ItemsSource="{Binding Roles}"
-          SelectedItem="{Binding Role, UpdateSourceTrigger=PropertyChanged}"
+          SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}"
           SelectionChanged="RoleChanged" />
+        
         <Label Content="Naam" HorizontalAlignment="Right" Margin="152,63,20,0" VerticalAlignment="Top" Width="128" />
         <TextBox HorizontalAlignment="Right" Margin="0,90,20,0" TextWrapping="Wrap" 
          VerticalAlignment="Top" Width="128"

@@ -21,10 +21,11 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             InitializeComponent();
 
             var roles = _userRepository.GetAllRoles();
-            ViewModel.Roles.Add("Alle rollen");
+
+               ViewModel.Roles.Add(new());
             foreach (var role in roles)
             {
-                ViewModel.Roles.Add(role);
+                ViewModel.Roles.Add(new(role));
             }
 
             var userEntities = _userRepository.Get();
@@ -55,16 +56,17 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 
         private void UpdateItems()
         {
-            string selectedRole = ViewModel.Role;
+            var viewModel = ViewModel.SelectedRole;
             IEnumerable<UserEntity> filteredUsers;
+            var selectedRole = viewModel?.Role;
 
-            if (selectedRole == "Alle rollen")
+            if (viewModel == null || !viewModel.HasValue || selectedRole is null)
             {
                 filteredUsers = _userRepository.GetUsersByName(ViewModel.Name);
             }
             else
             {
-                filteredUsers = _userRepository.GetUsersByNameAndRole(ViewModel.Name, selectedRole);
+                filteredUsers = _userRepository.GetUsersByNameAndRole(ViewModel.Name, (UserRole)selectedRole);
             }
 
             ViewModel.Items.Clear();

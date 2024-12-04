@@ -5,21 +5,21 @@ namespace Kbs.Wpf.Parcours.Read.Index;
 
 public class ReadIndexParcoursParcoursViewModel : ViewModel
 {
-    private int _id;
+    private int _parcourId;
     private string _name;
     private string _difficulty;
 
     public ReadIndexParcoursParcoursViewModel(ParcoursEntity parcours)
     {
-        Id = parcours.ParcoursId;
+        ParcourId = parcours.ParcoursId;
         Name = parcours.Name;
         Difficulty = parcours.Difficulty.ToDutchString();
     }
 
-    public int Id
+    public int ParcourId
     {
-        get => _id;
-        set => SetField(ref _id, value);
+        get => _parcourId;
+        set => SetField(ref _parcourId, value);
     }
 
     public string Name

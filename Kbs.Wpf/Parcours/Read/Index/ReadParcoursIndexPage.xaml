@@ -32,7 +32,7 @@
                 <DataTemplate>
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Id}" Style="{StaticResource ListItemTextBlockStyle}"
+                            <TextBlock Text="{Binding ParcourId}" Style="{StaticResource ListItemTextBlockStyle}"
                                        FontSize="20"
                                        FontWeight="Bold"
                                        VerticalAlignment="Top" />

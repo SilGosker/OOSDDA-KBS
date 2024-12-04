@@ -15,6 +15,7 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         HasSteeringWheel = boatType.HasSteeringWheel;
         Name = boatType.Name;
         BoatTypeId = boatType.BoatTypeId;
+        
     }
 
     private string _seats;
@@ -49,4 +50,5 @@ public class SelectBoatTypeBoatTypeViewModel : ViewModel
         get => _boatTypeId;
         set => SetField(ref _boatTypeId, value);
     }
+
 }

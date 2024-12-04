@@ -35,7 +35,7 @@ public partial class SelectBoatTypePage : Page
 
     public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
-
+        //only users can make a maximum of 2 reservations, this excludes administrators.
         if (_user.Role == UserRole.Member)
         {
             int userID = SessionManager.Instance.Current.User.UserId;

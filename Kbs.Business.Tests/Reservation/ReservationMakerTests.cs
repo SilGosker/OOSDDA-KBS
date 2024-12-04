@@ -31,5 +31,21 @@ namespace Kbs.Business.Reservation
             Assert.Equal(res[1].StartTime, res2.StartTime);
             Assert.Equal(res[1].EndTime, res2.EndTime);
         }
+
+        [Theory]
+        [InlineData(0, "Woensdag")]
+        [InlineData(1, "Donderdag")]
+        [InlineData(2, "Vrijdag")]
+        [InlineData(3, "Zaterdag")]
+        [InlineData(4, "Zondag")]
+        [InlineData(5, "Maandag")]
+        [InlineData(6, "Dinsdag")]
+
+        public void ConvertDayOfWeekToDutchTests(int daysFromWednessday, string result)
+        {
+            DateTime day = new DateTime(2024, 11, 27);
+            Assert.Equal(result, ReservationMaker.ConvertDayOfWeekToDutch(day.AddDays(daysFromWednessday)));
+        }
+
     }
 }

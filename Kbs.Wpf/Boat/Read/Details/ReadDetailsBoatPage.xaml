@@ -5,96 +5,116 @@
       xmlns:details="clr-namespace:Kbs.Wpf.Boat.Read.Details"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="620"
+      d:DesignHeight="1080" d:DesignWidth="1740"
       Background="White"
       HorizontalAlignment="Center"
       Title="ReadDetailsBoatPage">
     <Page.DataContext>
         <details:ReadDetailsBoatViewModel />
     </Page.DataContext>
-    <ScrollViewer>
-        <Grid Style="{StaticResource PageGrid}" HorizontalAlignment="Center" Width="620">
-            <Label Content="{Binding BoatIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
-            <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Right"
-                Margin="0,75,320,0" VerticalAlignment="Top" Style="{StaticResource FormButton}" Width="170" />
-            <Button Content="Permanent verwijderen" Click="PermanentDeletion"
+
+    <Grid Style="{StaticResource PageGrid}">
+ 
+        <Label Content="{Binding BoatIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
+        <Button Content="Update gegevens" Click="UpdateData" 
+                Margin="0,90,364,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Style="{StaticResource FormButton}" Width="120"/>
+        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Right"
+                Margin="0,90,180,0" VerticalAlignment="Top" Style="{StaticResource FormButton}" Width="170" />
+        <Button Content="Permanent verwijderen" Click="PermanentDeletion"
                 IsEnabled="{Binding DeleteButtonEnabled}"
-                HorizontalAlignment="Right" Margin="0,75,160,0" VerticalAlignment="Top"
+                HorizontalAlignment="Right" Margin="0,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" Width="150" />
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch" Margin="10">
 
-            <Label Content="Naam:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="Type:" FontWeight="Bold" Margin="10,135,0,0" VerticalAlignment="Top" />
-            <Label Content="Status:" FontWeight="Bold" Margin="10,160,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="Reserveringen" FontWeight="Bold" Margin="218,110,0,0" VerticalAlignment="Top" />
-            <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,323,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,355,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="VerwijderingsSpecificatie" FontWeight="Bold" Margin="10,287,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="{Binding Name}" Margin="67,112,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="Reserveringen" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
 
-            <TextBlock Margin="72,140,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <Hyperlink Click="NavigateToBoatTypePage">
-                <Run Text="{Binding BoatTypeName}" />
-            </Hyperlink>
-            </TextBlock>
+                <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding NameError}" Foreground="Red" Margin="117,78,0,0" Height="30" VerticalAlignment="Top" />
+                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>
 
-            <Label Content="{Binding Status}" Margin="67,160,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <Label Content="{Binding DeleteRequestDateMessage}" Margin="122,323,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="72" />
-            <Label Content="{Binding WaitDurationMessage}" Margin="119,355,0,0" Height="107" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
+                <Label Content="Type:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" />
+                <TextBlock Margin="121,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Hyperlink Click="NavigateToBoatTypePage">
+                        <Run Text="{Binding BoatTypeName}" />
+                    </Hyperlink>
+                </TextBlock>
+                
+                <Label Content="Status:" FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <TextBlock Text="{Binding StatusError}" TextWrapping="Wrap" Foreground="Red" Margin="121,202,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="260" FontSize="14"/>
+                <ComboBox ItemsSource="{Binding PossibleBoatStatuses}" SelectionChanged="TypeChanged" IsEditable="True" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedBoatStatus}" />
 
-            <DataGrid Style="{StaticResource DefaultDataGridStyle}"
-                      ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
-                      SelectionUnit="FullRow"
-                      IsReadOnly="True"
-                      AutoGenerateColumns="False" Width="320" ItemsSource="{Binding Reservations}" d:ItemsSource="{d:SampleData ItemCount=5}"
-              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-              VerticalAlignment="Top" HorizontalAlignment="Left" Margin="218,135,0,0" Height="261">
 
-                <DataGrid.Resources>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
-                        <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected"/>
-                    </Style>
-                </DataGrid.Resources>
+                <Label Content="Verwijderingsinformatie:" FontWeight="Bold" Margin="10,250,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn Width="80" Header="Gebruiker"  Binding="{Binding Name}"/>
-                    <DataGridTextColumn Width="80" Header="Startdatum" Binding="{Binding StartDate}" />
-                    <DataGridTextColumn Width="80" Header="Eindtijd" Binding="{Binding EndDate}" />
-                    <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
-                </DataGrid.Columns>
-            </DataGrid>
+                <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding DeleteRequestDateMessage}" Margin="130,280,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" />
 
-            <Separator Margin="0,401,0,0" Height="4" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600"/>
-            <Label Content="Beschadigingen" FontWeight="Bold" Margin="10,410,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-            <CheckBox Content="Toon alleen opgeloste beschadigingen" HorizontalAlignment="Left" Margin="165,416,0,0" VerticalAlignment="Top" Unchecked="ShowSolvedDamages_Changed"  Checked="ShowSolvedDamages_Changed"/>
+                <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,310,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding WaitDurationMessage}" Margin="85,310,0,0" Height="107" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
 
-            <ListView Width="600" ItemsSource="{Binding Damages}" d:ItemsSource="{d:SampleData ItemCount=5}"
-              ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-              VerticalAlignment="Top" Margin="0,441,0,0">
+                <DataGrid Style="{StaticResource DefaultDataGridStyle}"
+                          ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False" ItemsSource="{Binding Reservations}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          VerticalAlignment="Top"
+                          Margin="387,50,10,10" Height="330">
 
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <EventSetter Event="PreviewMouseLeftButtonUp" Handler="NavigateToDamage"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected"/>
+                        </Style>
+                    </DataGrid.Resources>
 
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Width="600" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Style="{StaticResource ListViewItemGrid}" >
-                            <StackPanel Width="160">
-                                <Label HorizontalAlignment="Center" Content="{Binding Date}" />
-                                <Image Source="{Binding Image}" MaxWidth="130" />
-                            </StackPanel>
-                        </Grid>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="130" Header="Gebruiker"  Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="100" Header="Startdatum" Binding="{Binding StartDate}" />
+                        <DataGridTextColumn Width="100" Header="Eindtijd" Binding="{Binding EndDate}" />
+                        <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
-        </Grid>
-    </ScrollViewer>
+                <Separator Margin="10,400,10,0" Height="4" VerticalAlignment="Top"/>
+                <Label Content="Beschadigingen" FontWeight="Bold" Margin="10,420,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <CheckBox Content="Toon alleen opgeloste beschadigingen" HorizontalAlignment="Left" Margin="165,428,0,0" VerticalAlignment="Top" Unchecked="ShowSolvedDamages_Changed"  Checked="ShowSolvedDamages_Changed"/>
+
+                <Button Content="Beschadiging uploaden" Click="UploadDamage"
+                        HorizontalAlignment="Right" Margin="0,420,10,0" VerticalAlignment="Top"
+                        Style="{StaticResource FormButton}" Width="150" />
+                
+                <ListView ItemsSource="{Binding Damages}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  VerticalAlignment="Top" Margin="10,470,10,10"
+                          HorizontalAlignment="Stretch">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonUp" Handler="NavigateToDamage"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Style="{StaticResource ListViewItemGrid}" >
+                                <Border Background="Transparent">
+                                <StackPanel Width="160">
+                                    <Label HorizontalAlignment="Center" Content="{Binding Date}" />
+                                    <Image Source="{Binding Image}" MaxWidth="130" Margin="0,0,0,15"/>
+                                </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+    </Grid>
 
 </Page>

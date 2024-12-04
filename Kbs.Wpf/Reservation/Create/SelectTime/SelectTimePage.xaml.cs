@@ -97,11 +97,18 @@ public partial class SelectTimePage : Page
         ViewModel.ThisWeek.Clear();
         Buttons.Children.Clear();
         var countVar = 0;
-        for (var i = _daysFromToday; countVar < 7; i++)
-        {
-            var weekday = DateTime.Now;
-            weekday = weekday.AddDays(i);
-            ViewModel.ThisWeek.Add(weekday);
+        
+            ViewModel.ThisWeek.Clear();
+            Buttons.Children.Clear();
+            int countVar = 0;
+            for (int i = daysFromToday; countVar < 7; i++)
+            {
+                DateTime weekday = new DateTime();
+                weekday = DateTime.Now;
+                weekday = weekday.AddDays(i);
+                ViewModel.ThisWeek.Add(weekday);
+                ViewModel.DaysOfWeek.Add(ReservationMaker.ConvertDayOfWeekToDutch(weekday));
+
 
             if (SessionManager.Instance.Current.User.IsMember())
             {

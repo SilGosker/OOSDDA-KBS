@@ -24,10 +24,15 @@ namespace Kbs.Wpf.Reservation.Create.SelectTime
             set => SetField(ref _memberComboBoxVisibility, value);
         }
 
+
         public string NoBoatsSelectedError
         {
             get => _noBoatsSelectedError;
             set => SetField(ref _noBoatsSelectedError, value);
         }
+
+        public ObservableCollection<DateTime> ThisWeek { get; } = new();
+        public ObservableCollection<string> DaysOfWeek { get; } = new();
+
     }
 }

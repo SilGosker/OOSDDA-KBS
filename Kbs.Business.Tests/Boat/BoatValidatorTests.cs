@@ -74,6 +74,51 @@ public class BoatValidatorTests
     }
 
     [Fact]
+    public void ValidateForUpdate_ShouldReturnNoErrors_WhenBoatIsValid()
+    {
+        // Arrange
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+        BoatEntity boat = new BoatEntity
+        {
+            Name = "Valid Boat 2",
+            BoatTypeId = 1,
+            BoatId = 1,
+            DeleteRequestDate = null,
+            Status = BoatStatus.Operational
+        };
+        // Act
+        var result = validator.ValidateForUpdate(boat);
+
+        // Assert
+        Assert.Empty(result);
+    }
+
+    [Theory]
+    [InlineData(null, null, BoatStatus.Maintaining)]
+    [InlineData("Boot des boten", "2024-12-02", BoatStatus.Operational)]
+    public void ValidateForUpdate_ShouldReturnError_WhenBoatIsInvalid(string name, string requestDateString, BoatStatus status)
+    {
+        // Arrange
+
+        var requestDate = string.IsNullOrEmpty(requestDateString) ? (DateTime?)null : DateTime.Parse(requestDateString);
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+        BoatEntity boat = new BoatEntity
+        {
+            Name = name,
+            BoatTypeId = 1,
+            BoatId = 1,
+            DeleteRequestDate = requestDate,
+            Status = status
+        };
+
+        // Act
+        var result = validator.ValidateForUpdate(boat);
+
+        // Assert
+        Assert.Single(result);
+    }
+
+    [Fact]
     public void IsValidForPermanentDeletion_ShouldReturnError_WhenRequestDateIsNull()
     {
         // Arrange

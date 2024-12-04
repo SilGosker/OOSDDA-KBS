@@ -63,7 +63,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 
             if (selectedRole == "Alle rollen")
             {
-                filteredUsers = _userRepository.Get();
+                filteredUsers = _userRepository.GetUsersByName(ViewModel.Name);
             }
             else
             {

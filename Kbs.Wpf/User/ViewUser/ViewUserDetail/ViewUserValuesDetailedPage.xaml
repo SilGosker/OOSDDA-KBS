@@ -11,47 +11,49 @@
         <local:ViewUserVa_uesDetailedViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
-
         <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="384">
             <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="238">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="90*" MaxWidth="90" />
-                    <ColumnDefinition Width="51*" />
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="90*" MaxWidth="90" />
-                    <ColumnDefinition Width="179*" />
-                    <ColumnDefinition Width="90*" MaxWidth="90" />
-                    <ColumnDefinition Width="179*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="24,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,0.151"/>
-                <Label Grid.Column="1" Content="{Binding Email}" Margin="0,30,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="28" Width="314" />
-                <Label Grid.Row="1" FontWeight="Bold" Content="Role:" HorizontalAlignment="Center" />
-                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Role}" Height="30" Width="314" Grid.ColumnSpan="4" />
-                <Label FontWeight="Bold" Content="UserId:" Margin="24,0,0,0" />
-                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="12,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="43" Width="290" />
+
+                <Label Grid.Row="0" FontWeight="Bold" Content="UserId:" Margin="24,0,0,0" />
+                <Label Content="{Binding UserId}" Width="114" HorizontalAlignment="Center" />
+
+                <Label Grid.Row="1" FontWeight="Bold" Content="Role:" Margin="24,0,0,0" />
+                <Label Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Role}" 
+                   Margin="100,0,0,0" Height="40" Width="213" Grid.Row="1" />
+
+                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="24,0,0,0" />
+                <Label Grid.Row="2" Content="{Binding Email}" 
+                   Margin="105,0,0,0" Height="39" Width="213" />
+
+                <ScrollViewer Grid.Column="1" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto">
+                    <DataGrid
+                    Style="{StaticResource DefaultDataGridStyle}"
+                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                    ItemsSource="{Binding Reservations}"
+                    Background="White"
+                    Foreground="Black"
+                    SelectionChanged="DataGrid_SelectionChanged"
+                    PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" Width="397">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
+                            <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
+                            <DataGridTextColumn Width="100" Header="Date" Binding="{Binding StartTime}" />
+                            <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
             </Grid>
         </Border>
-        <DataGrid
-            Style="{StaticResource DefaultDataGridStyle}"
-            ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
-            ItemsSource="{Binding Reservations}"
-            Margin="435,123,20,239"
-                Background="White"
-                Foreground="Black"
-            SelectionChanged="DataGrid_SelectionChanged"
-            PreviewMouseWheel="DataGrid_OnPreviewMouseWheel">
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
-                <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
-                <DataGridTextColumn Width="100" Header="Date" Binding="{Binding StartTime}" />
-                <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
-            </DataGrid.Columns>
-        </DataGrid>
     </Grid>
 </Page>

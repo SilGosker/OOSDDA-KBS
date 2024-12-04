@@ -4,9 +4,9 @@ using System.Collections.ObjectModel;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
-    public class ViewUserValuesGeneralViewModel : ViewModel
+    public class ViewUserValuesIndexViewModel : ViewModel
     {
-        public ObservableCollection<ViewUserValuesValuesGeneralViewModel> Items { get; } = new ObservableCollection<ViewUserValuesValuesGeneralViewModel>();
+        public ObservableCollection<ViewUserValuesValuesIndexViewModel> Items { get; } = new ObservableCollection<ViewUserValuesValuesIndexViewModel>();
         public ObservableCollection<string> Roles { get; } = new ObservableCollection<string>();
 
         private string _name;

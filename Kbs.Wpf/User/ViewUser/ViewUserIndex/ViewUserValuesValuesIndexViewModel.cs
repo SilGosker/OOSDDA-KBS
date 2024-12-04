@@ -4,7 +4,7 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
 {
-    public class ViewUserValuesValuesGeneralViewModel : ViewModel
+    public class ViewUserValuesValuesIndexViewModel : ViewModel
     {
         private string _name;
         private int _userId;
@@ -28,7 +28,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             set => SetField(ref _role, value);
         }
 
-        public ViewUserValuesValuesGeneralViewModel(UserEntity user)
+        public ViewUserValuesValuesIndexViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;

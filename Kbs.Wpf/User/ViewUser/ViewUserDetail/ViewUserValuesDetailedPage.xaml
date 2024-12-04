@@ -28,14 +28,31 @@
                     <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                 </Grid.RowDefinitions>
-
                 <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-                <Label Grid.Column="1" Content="{Binding Email}" Margin="0,30,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="28" Width="179" />
+                <Label Grid.Column="1" Content="{Binding Email}" Margin="0,30,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="28" Width="314" />
                 <Label Grid.Row="1" FontWeight="Bold" Content="Role:" HorizontalAlignment="Center" />
-                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Role}" Height="30" Width="112" Grid.ColumnSpan="3" />
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding Role}" Height="30" Width="314" Grid.ColumnSpan="4" />
                 <Label FontWeight="Bold" Content="UserId:" Margin="0,52,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
-                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="5,56,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" Height="43" Width="107" Grid.RowSpan="2" />
+                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="5,52,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="43" Width="289" Grid.RowSpan="2" />
             </Grid>
         </Border>
+        <DataGrid
+            Style="{StaticResource DefaultDataGridStyle}"
+            ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+            ItemsSource="{Binding Reservations}"
+            Margin="451,123,20,-48" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                    <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected"/>
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
+                <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}"/>
+                <DataGridTextColumn Width="100" Header="Date"  Binding="{Binding StartTime}"/>
+                <DataGridTextColumn Width="100" Header="Status"  Binding="{Binding Status}"/>
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

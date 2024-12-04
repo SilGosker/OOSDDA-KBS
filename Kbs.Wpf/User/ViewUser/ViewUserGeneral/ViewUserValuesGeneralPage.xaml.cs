@@ -3,9 +3,11 @@ using Kbs.Business.BoatType;
 using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
+using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
 using Kbs.Wpf.Reservation.Read.Index;
@@ -47,11 +49,12 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
                 ViewModel.Roles.Add(role);
             }
 
-            var userrep = _userRepository.Get();
-            foreach (UserEntity user in userrep)
+            var userentity = _userRepository.Get();
+            foreach (UserEntity user in userentity)
             {
                 ViewModel.Items.Add(new ViewUserValuesValuesGeneralViewModel(user));
             }
+            
         }
         public void ClickUser(object sender, RoutedEventArgs e)
         {

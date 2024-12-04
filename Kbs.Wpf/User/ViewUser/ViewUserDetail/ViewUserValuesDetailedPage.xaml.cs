@@ -1,5 +1,9 @@
-﻿using Kbs.Business.User;
+﻿using Kbs.Business.Reservation;
+using Kbs.Business.User;
+using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Reservation.Read.Details;
 using Kbs.Wpf.User.ViewUser.ViewUserGeneral;
 using System;
 using System.Collections.Generic;
@@ -23,11 +27,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
         private ViewUserVa_uesDetailedViewModel ViewModel => (ViewUserVa_uesDetailedViewModel)DataContext;
-
+        private readonly ReservationRepository _reservationRepository;
+       
 
         public ViewUserValuesDetailedPage(INavigationManager nav, int id)
         {
             _userRepository = new UserRepository();
+            _reservationRepository = new ReservationRepository();
             InitializeComponent();
             UserEntity userrep = _userRepository.GetById(id);
             if (userrep != null)
@@ -37,6 +43,24 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
                 ViewModel.Role = userrep.Role.ToDutchString();
                 ViewModel.Name = userrep.Name;
             }
+            
+            var reservations = _reservationRepository.GetByUserId(id);
+            foreach (var reservation in reservations)
+            {
+                ViewModel.Reservations.Add(new ViewUserValuesDetailedReservationViewModel(reservation));
+            }
+            
+        }
+        private void ReservationSelected(object sender, MouseButtonEventArgs e)
+        {
+            var row = (DataGridRow)sender;
+            if (row == null)
+            {
+                return;
+            }
+
+            var dataContext = (ReadDetailsBoatTypeBoatViewModel)row.DataContext;
+            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.BoatId, _navigationManager));
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,6 +68,11 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 
         }
         public void Update(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

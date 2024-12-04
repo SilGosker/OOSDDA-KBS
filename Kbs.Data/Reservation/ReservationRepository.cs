@@ -1,5 +1,6 @@
 using Dapper;
 using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
@@ -44,9 +45,16 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day)
     {
-        string daystring;
-        if (day.Day < 10) { daystring = "0" + day.Day; } else { daystring = day.Day.ToString(); }
-        return _connection.Query<ReservationEntity>("SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  FROM Reservation WHERE BoatID = @boatId AND StartTime Like @day AND Status = 3  ORDER BY StartTime", new { day = "%" + day.Year + "-" + day.Month + "-" + daystring + "%", boat.BoatId }).ToList();
+        string daystring = day.Day < 10 ? "0" + day.Day : day.Day.ToString();
+        string monthstring = day.Month < 10 ? "0" + day.Month : day.Month.ToString();
+        return _connection.Query<ReservationEntity>(
+            @"SELECT ReservationID, UserID, BoatID, StartTime, Length, Status  
+                FROM Reservation 
+                WHERE BoatID = @boatId 
+                  AND StartTime Like @day 
+                  AND Status = 3 
+                ORDER BY StartTime",
+            new { day = "%" + day.Year + "-" + monthstring + "-" + daystring + "%", boat.BoatId }).ToList();
     }
 
     public List<ReservationEntity> GetByUserId(int userId)

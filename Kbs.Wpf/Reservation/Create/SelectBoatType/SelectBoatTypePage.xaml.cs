@@ -17,6 +17,8 @@ public partial class SelectBoatTypePage : Page
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly ReservationValidator _reservationValidator = new();
     private readonly ReservationRepository _reservationRepository = new();
+    private readonly UserEntity _user = SessionManager.Instance.Current.User;
+    private BoatTypeEntity _selectedBoatType;
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
 
     public SelectBoatTypePage(INavigationManager navigationManager)
@@ -30,17 +32,16 @@ public partial class SelectBoatTypePage : Page
         }
     }
 
-    public void BoatTypeSelected(object sender, MouseButtonEventArgs e)
+    private void BoatTypeSelected(object sender, MouseButtonEventArgs e)
     {
-        UserRole waarde = SessionManager.Instance.Current.User.Role;
-        if (waarde == UserRole.Member)
+        //only users can make a maximum of 2 reservations, this excludes administrators.
+        if (_user.Role == UserRole.Member)
         {
-            int userID = SessionManager.Instance.Current.User.UserId;
-            int totalReservations = _reservationRepository.CountByUser(userID);
+            int userId = SessionManager.Instance.Current.User.UserId;
+            int totalReservations = _reservationRepository.CountByUser(userId);
             if (_reservationValidator.IsReservationLimitReached(totalReservations))
             {
                 MessageBox.Show("U heeft het maximale aantal reserveringen bereikt");
-                return;
             }
             else
             {
@@ -54,8 +55,8 @@ public partial class SelectBoatTypePage : Page
         {
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
-            var boatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+            _selectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
         }
     }
 }

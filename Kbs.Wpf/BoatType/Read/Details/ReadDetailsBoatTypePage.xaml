@@ -11,59 +11,55 @@
         <details:ReadDetailsBoatTypeViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
-        
+
         <Label Content="{Binding BoatTypeNameString}" Style="{StaticResource TitleLabel}" />
         <Button Content="Verwijderen" Click="RemoveBoatType"
                 HorizontalAlignment="Right" Margin="412,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" />
-        <Button Content="Wijzigen" Click="Wijzigen" 
+        <Button Content="Wijzigen" Click="UpdateData" 
                 HorizontalAlignment="Right" Margin="412,90,130,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" />
-        
+
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
-            
-                   <Label Content="Boten" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top"
-                          HorizontalAlignment="Left" />
-                <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="Snelheid:" FontWeight="Bold" Margin="10,85,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="Zitplaatsen:" FontWeight="Bold" Margin="10,120,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="Ervaring:" FontWeight="Bold" Margin="10,155,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="Stuur:" FontWeight="Bold" Margin="10,190,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="{Binding Name}" Margin="100,50,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="{Binding Speed}" Margin="100,85,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="{Binding Seats}" Margin="100,120,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="{Binding Experience}" Margin="100,155,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
-                <Label Content="{Binding HasWheelString}" Margin="100,190,0,0" VerticalAlignment="Top"
-                       HorizontalAlignment="Left" />
                 
+                <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding NameError}" Margin="117,78,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>
+                
+                <Label Content="Snelheid: " FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding SpeedError}" Margin="117,138,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="121,110,0,0" TextWrapping="Wrap" Text="{Binding Speed}" VerticalAlignment="Top" Width="130"/>
+                
+                <Label Content="Zitplaatsen: " FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding SeatsError}" Margin="119,198,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <ComboBox ItemsSource="{Binding PossibleSeats}" SelectionChanged="SeatsChanged" IsEditable="True" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="130" SelectedItem="{Binding SelectedBoatTypeSeats}" />
+                
+                <Label Content="Ervaring: " FontWeight="Bold" Margin="10,230,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding ExperienceError}" Margin="119,258,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <ComboBox ItemsSource="{Binding PossibleExperiences}" SelectionChanged="ExperienceChanged" IsEditable="True" HorizontalAlignment="Left" Margin="121,230,0,0" VerticalAlignment="Top" Width="130" SelectedItem="{Binding SelectedBoatTypeExperience}" />
+
+                <Label Content="Stuur: " FontWeight="Bold" Margin="10,290,0,0" VerticalAlignment="Top"/>
+                <CheckBox IsChecked="{Binding HasWheel}" Content="Heeft een stuur" Margin="122,300,0,20" VerticalAlignment="Top"/>
+
                 <DataGrid
                        Style="{StaticResource DefaultDataGridStyle}"
                        ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                        ItemsSource="{Binding Items}"
                        Margin="387,50,10,10">
-    
-                       <DataGrid.RowStyle>
-                              <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
-                                     <EventSetter Event="MouseDoubleClick" Handler="BoatSelected" />
-                              </Style>
-                       </DataGrid.RowStyle>
-                       <DataGrid.Columns>
-                              <DataGridTextColumn Width="165" Header="Naam" Binding="{Binding Name}" />
-                              <DataGridTextColumn Width="80" Header="ID" Binding="{Binding BoatId}"/> 
-                              <DataGridTextColumn Width="165" Header="Status"  Binding="{Binding Status}"/>
-                       </DataGrid.Columns>
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="BoatSelected" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="165" Header="Naam" Binding="{Binding Name}" />
+                        <DataGridTextColumn Width="80" Header="ID" Binding="{Binding BoatId}"/>
+                        <DataGridTextColumn Width="165" Header="Status"  Binding="{Binding Status}"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-        </Border> 
+        </Border>
     </Grid>
 </Page>

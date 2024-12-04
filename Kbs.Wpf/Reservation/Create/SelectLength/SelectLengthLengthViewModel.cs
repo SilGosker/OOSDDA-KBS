@@ -4,12 +4,16 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
 {
     public class SelectLengthLengthViewModel : ViewModel
     {
+        private bool _checkable;
+        private TimeSpan _length;
+        private bool _isChecked;
+        private string _content;
+        
         public bool Checkable
         {
             get => _checkable;
             set => SetField(ref _checkable, value);
         }
-
         public TimeSpan Length
         {
             get => _length;
@@ -17,29 +21,21 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         }
         public bool IsChecked
         {
-            get => _ischecked;
-            set => SetField(ref _ischecked, value);
+            get => _isChecked;
+            set => SetField(ref _isChecked, value);
         }
         public string Content
         {
             get => _content;
             set => SetField(ref _content, value);
         }
-
-        private bool _checkable;
-
-        private TimeSpan _length;
-
-        private bool _ischecked;
-
-        private string _content;
-
+        
         public SelectLengthLengthViewModel(bool checkable, TimeSpan length, bool ischecked)
         {
-            this.Checkable = checkable;
-            this.Length = length;
-            this.IsChecked = ischecked;
-            Content = length.TotalMinutes.ToString() + " minuten";
+            Checkable = checkable;
+            Length = length;
+            IsChecked = ischecked;
+            Content = length.TotalHours + " uur";
         }
     }
 }

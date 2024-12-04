@@ -8,7 +8,6 @@ using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.User.Update;
-using Kbs.Wpf.BoatType.Update;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
@@ -48,7 +47,9 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) {Name = "Instellingen"});
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewUserValuesIndexPage(this)) { Name = "Inzien leden" });
+
         }
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)

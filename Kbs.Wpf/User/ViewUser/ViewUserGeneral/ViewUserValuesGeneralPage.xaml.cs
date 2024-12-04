@@ -44,8 +44,10 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             InitializeComponent();
 
             var roles = _userRepository.GetAllRoles();
+            ViewModel.Roles.Add("Alle rollen");
             foreach (var role in roles)
             {
+                //ViewModel.Roles.Add(role); Stel dit actief zetten dan methoden aanpassen van <UserRole> naar <string>
                 ViewModel.Roles.Add(((UserRole)role).ToDutchString());
             }
 

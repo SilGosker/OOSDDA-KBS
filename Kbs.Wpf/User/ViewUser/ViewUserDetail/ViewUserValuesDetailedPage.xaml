@@ -11,7 +11,7 @@
         <local:ViewUserVa_uesDetailedViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
-        
+
         <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="384">
             <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="238">
@@ -29,12 +29,12 @@
                     <RowDefinition MinHeight="25" />
                     <RowDefinition MinHeight="25" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="0,30,0,0" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="24,29,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.561,0.151"/>
                 <Label Grid.Column="1" Content="{Binding Email}" Margin="0,30,0,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="28" Width="314" />
                 <Label Grid.Row="1" FontWeight="Bold" Content="Role:" HorizontalAlignment="Center" />
                 <Label Grid.Row="1" Grid.Column="1" Content="{Binding Role}" Height="30" Width="314" Grid.ColumnSpan="4" />
-                <Label FontWeight="Bold" Content="UserId:" Margin="0,52,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
-                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="5,52,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="43" Width="289" Grid.RowSpan="2" />
+                <Label FontWeight="Bold" Content="UserId:" Margin="24,0,0,0" />
+                <Label Grid.Column="1" Content="{Binding UserId}" RenderTransformOrigin="0.533,0.8" Margin="12,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="4" Height="43" Width="290" />
             </Grid>
         </Border>
         <DataGrid

@@ -205,7 +205,7 @@ public partial class SelectTimePage : Page
 
     private void BackWeekButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_daysFromToday < 7 && SessionManager.Instance.Current.User.IsMember()) return;
+        if (_daysFromToday < 7) return;
         _daysFromToday -= 7;
         RefreshCalendar();
     }

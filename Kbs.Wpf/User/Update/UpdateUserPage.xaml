@@ -15,12 +15,15 @@
         <Label Content="Instellingen" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" />
 
         <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="320" VerticalAlignment="Top">
-        
-            <Label Content="Email" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
-            <TextBox HorizontalAlignment="Left" Text="{Binding InputEmail}" Margin="200,43,0,0" VerticalAlignment="Top" Width="400" />
-            <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,70,0,0" VerticalAlignment="Top" />
 
-            <Grid HorizontalAlignment="Center" Width="800" Margin="0,87,0,0" Height="160" VerticalAlignment="Top">
+            <Label Content="Naam" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding InputName}" Margin="200,43,0,0" VerticalAlignment="Top" Width="190" />
+
+            <Label Content="Email" HorizontalAlignment="Left" Margin="195,87,0,0" VerticalAlignment="Top" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding InputEmail}" Margin="200,113,0,0" VerticalAlignment="Top" Width="400" />
+            <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,140,0,0" VerticalAlignment="Top" />
+
+            <Grid HorizontalAlignment="Center" Width="800" Margin="0,157,0,0" Height="160" VerticalAlignment="Top">
                 
                 <Label Content="Nieuw wachtwoord" HorizontalAlignment="Left" Margin="195,0,0,0" VerticalAlignment="Top" />
                 
@@ -35,8 +38,8 @@
 
             </Grid>
         </Grid>
-        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,290,0,0" VerticalAlignment="Top" Click="Submit" />
+        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Update gegevens" HorizontalAlignment="Center" Margin="0,440,0,0" VerticalAlignment="Top" Click="Submit" Width="110"/>
     
-        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,380,0,0" VerticalAlignment="Top" Click="Cancel"/>
+        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Click="Cancel" Width="110"/>
     </Grid>
 </Page>

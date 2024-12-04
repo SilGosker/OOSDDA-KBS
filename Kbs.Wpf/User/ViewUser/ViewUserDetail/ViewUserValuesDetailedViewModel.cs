@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 {
-    public class ViewUserVa_uesDetailedViewModel : ViewModel
+    public class ViewUserValuesDetailedViewModel : ViewModel
     {
         private string _name;
         private string _role;
@@ -38,7 +38,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             set => SetField(ref _userId, value);
         }
 
-        public ViewUserVa_uesDetailedViewModel(UserEntity user)
+        public ViewUserValuesDetailedViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;
@@ -47,6 +47,6 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             Email = user.Email;
         }
 
-        public ViewUserVa_uesDetailedViewModel() { }
+        public ViewUserValuesDetailedViewModel() { }
     }
 }

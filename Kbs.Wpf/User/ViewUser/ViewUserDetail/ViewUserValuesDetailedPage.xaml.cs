@@ -15,7 +15,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         private readonly INavigationManager _navigationManager;
         private readonly ReservationRepository _reservationRepository;
 
-        private ViewUserVa_uesDetailedViewModel ViewModel => (ViewUserVa_uesDetailedViewModel)DataContext;
+        private ViewUserValuesDetailedViewModel ViewModel => (ViewUserValuesDetailedViewModel)DataContext;
 
         public ViewUserValuesDetailedPage(INavigationManager nav, int id)
         {

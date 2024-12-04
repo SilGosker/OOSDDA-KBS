@@ -1,18 +1,6 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
-using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Components;
-using Kbs.Wpf.Reservation.Read.Details;
-using Kbs.Wpf.User.ViewUser.ViewUserGeneral;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 {
@@ -22,11 +10,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         private int _boatId;
         private DateTime _startTime;
         private string _status;
+
         public int ReservationId
         {
             get => _reservationId;
             set => SetField(ref _reservationId, value);
         }
+
         public int BoatId
         {
             get => _boatId;
@@ -42,6 +32,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
                 OnPropertyChanged(nameof(StartTimeString));
             }
         }
+
         public string StartTimeString => StartTime.ToString("dd-MM");
 
         public string Status
@@ -49,6 +40,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             get => _status;
             set => SetField(ref _status, value);
         }
+
         public ViewUserValuesDetailedReservationViewModel(ReservationEntity reservation)
         {
             ThrowHelper.ThrowIfNull(reservation);
@@ -57,7 +49,5 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             StartTime = reservation.StartTime;
             Status = reservation.Status.ToDutchString();
         }
-
-
     }
 }

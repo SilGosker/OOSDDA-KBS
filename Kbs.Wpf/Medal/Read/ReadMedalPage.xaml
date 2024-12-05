@@ -20,6 +20,16 @@
                 <Label Content="5 " Margin="121,446,0,0" VerticalAlignment="Top" />
                 <Label Content="10 " Margin="609,452,0,0" VerticalAlignment="Top" />
                 <Label Content="20 " Margin="358,336,0,0" VerticalAlignment="Top" />
+                <Grid>
+                    <!-- Gouden trofee -->
+                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\bronze.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="84,239,0,0" />
+
+                    <!-- Zilveren trofee -->
+                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\goud.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="184" Height="270" Margin="0,40,0,0" />
+
+                    <!-- Bronzen trofee -->
+                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\silver.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="133" Margin="533,0,0,144" Height="192" />
+                </Grid>
             </Grid>
         </Border>
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,757,20,0" Height="259">

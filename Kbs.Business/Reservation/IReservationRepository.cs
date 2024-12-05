@@ -1,5 +1,6 @@
 
 using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
 
 namespace Kbs.Business.Reservation;
 
@@ -15,4 +16,5 @@ public interface IReservationRepository
     public List<ReservationEntity> GetByBoatId(int boatBoatId);
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day);
     public List<ReservationEntity> GetByUserId(int userId);
+    public int CountByUser(int userid);
 }

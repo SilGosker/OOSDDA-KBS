@@ -363,7 +363,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Equal("Wachtwoord is verplicht", validationResult[nameof(user.Password)]);
     }
@@ -379,7 +379,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "Short1!");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Contains("Wachtwoord moet minimaal 8 tekens lang zijn", validationResult[nameof(user.Password)]);
     }
@@ -395,7 +395,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "lowercase1!");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Contains("Wachtwoord moet minimaal 1 hoofdletter en 1 kleine letter bevatten", validationResult[nameof(user.Password)]);
     }
@@ -411,7 +411,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "Password!");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Contains("Wachtwoord moet minimaal 1 cijfer bevatten", validationResult[nameof(user.Password)]);
     }
@@ -427,7 +427,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "Password1");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Contains("Wachtwoord moet minimaal 1 speciaal teken bevatten", validationResult[nameof(user.Password)]);
     }
@@ -443,7 +443,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "Password1!");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Email)));
         Assert.Equal("Email is verplicht", validationResult[nameof(user.Email)]);
     }
@@ -475,7 +475,7 @@ public class UserValidatorTests
         var validationResult = validator.ValidatorForRegistration(user, "DifferentPassword1!");
 
         // Assert
-        Assert.Equal(1, validationResult.Count);
+        Assert.Single(validationResult);
         Assert.True(validationResult.ContainsKey(nameof(user.Password)));
         Assert.Contains("Wachtwoorden komen niet overeen", validationResult[nameof(user.Password)]);
     }

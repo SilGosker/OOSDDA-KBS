@@ -1,0 +1,120 @@
+﻿<Page x:Class="Kbs.Wpf.Reservation.Create.SelectLength.SelectLengthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:selectLength="clr-namespace:Kbs.Wpf.Reservation.Create.SelectLength"
+      mc:Ignorable="d"
+      d:DesignWidth="1740" d:DesignHeight="1080"
+      Title="SelectLength">
+    <Page.DataContext>
+        <selectLength:SelectLengthViewModel />
+    </Page.DataContext>
+
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}"
+               Content="Reserveren boot"
+               Margin="5" />
+        <Button Style="{StaticResource FormButton}"
+                Content="Vorige stap"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="PreviousStep"
+                Width="150"
+                Margin="20,90,0,0" />
+
+        <Border Margin="20,132,20,90" Background="Transparent">
+            <Grid HorizontalAlignment="Stretch" Margin="10">
+                <Label Content="Selecteer de lengte van de reservering" 
+                       Margin="0,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"/>
+                <Border Margin="0,30,0,0"
+                        Width="200"
+                        Padding="10"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                <ItemsControl ItemsSource="{Binding RadioButtons}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                                <Viewbox Height="20"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center">
+                                    <RadioButton GroupName="length"
+                                                 Content="{Binding Content}"
+                                                 Foreground="{StaticResource ColorPrimaryText}"
+                                                 IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                 IsEnabled="{Binding Checkable}"
+                                                 Checked="RadioButtLength_Checked" />
+                                </Viewbox>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                </ItemsControl>
+                </Border>
+                <Label Content="Kies een starttijd" 
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,100,0"/>
+                <ComboBox HorizontalAlignment="Center"
+                          VerticalAlignment="Top"
+                          Margin="0,30,100,0"
+                          ItemsSource="{Binding AvailableStartTimes}" 
+                          Width="100"
+                          SelectedIndex="0"
+                          SelectionChanged="ComboBoxStartTime_SelectionChanged" />
+
+                <Label Content="Overzicht:" 
+                       HorizontalAlignment="Right" 
+                       VerticalAlignment="Top"
+                       Margin="0,0,230,0"/>
+                <Border Margin="0, 30, 0, 0"
+                        Padding="20" 
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right">
+                <Grid VerticalAlignment="Center" 
+                      Background="{StaticResource ColorSecondaryBackground}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Content="Reservering voor:" 
+                           FontSize="25"
+                           Grid.Row="0" 
+                           Margin="0,0,0,20"
+                           HorizontalAlignment="Center" />
+                    <Label Content="{Binding Name}" 
+                           FontSize="20"
+                           Grid.Row="1" 
+                           HorizontalAlignment="Center" />
+                    <Label Content="Op:" 
+                           FontSize="20"
+                           Grid.Row="2" 
+                           HorizontalAlignment="Center" />
+                    <Label Content="{Binding Day}" 
+                           FontSize="20"
+                           Grid.Row="3" 
+                           HorizontalAlignment="Center" />
+                    <Label Content="{Binding Date}" 
+                           FontSize="20"
+                           Grid.Row="4" 
+                           HorizontalAlignment="Center" />
+                </Grid>
+                </Border>
+
+            </Grid>
+        </Border>
+        <Button Style="{StaticResource FormButton}" Content="Reserveer" VerticalAlignment="Bottom" Margin="0, 0, 0, 30"
+                Click="ButtonReservation_Click" />
+    </Grid>
+</Page>

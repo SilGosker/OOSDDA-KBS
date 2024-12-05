@@ -10,5 +10,40 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Resources\**\*.*">
+			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+	  <Page Update="Boat\Read\Index\ReadIndexBoatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Boat\Read\Details\ReadDetailsBoatPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\ViewBoatTypes\ViewBoatTypes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\ViewDetailedBoatTypes\ViewDetailedBoatTypesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Reservation\Read\ViewReservationGeneralPage\ViewReservationPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="Reservation\Read\ViewReservationSpecificPage\ViewPageSpecific.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Index\ReadBoatTypeIndexPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\Index\ReadBoatTypeIndexPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	  <Page Update="BoatType\Read\Details\ReadDetailsBoatTypePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </Page>
+	</ItemGroup>
   
 </Project>

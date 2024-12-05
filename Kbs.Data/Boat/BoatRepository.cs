@@ -42,9 +42,14 @@ public class BoatRepository : IBoatRepository
 
     public void Update(BoatEntity boat)
     {
-        _connection.Execute("UPDATE Boat SET BoattypeID = @BoatTypeId, Name = @Name, DeleteRequestDate = @DeleteRequestDate, Status = @Status WHERE BoatId = @BoatId", boat);
+        _connection.Execute("UPDATE Boat SET BoattypeID = @BoatTypeId, Name = @Name, Status = @Status WHERE BoatId = @BoatId", boat);
     }
 
+    public void UpdateDeletionStatus(BoatEntity boat)
+    {
+        _connection.Execute("UPDATE Boat SET DeleteRequestDate = @DeleteRequestDate, Status = @Status WHERE BoatId = @BoatId", boat);
+
+    }
     public void DeleteById(int boatId)
     {
         _connection.Execute("DELETE FROM Boat WHERE BoatId = @boatId", new { boatId });
@@ -56,4 +61,6 @@ public class BoatRepository : IBoatRepository
             "INSERT INTO Boat (Name, BoatTypeId, Status) VALUES (@Name, @BoatTypeId, 1); SELECT SCOPE_IDENTITY()",
             boat);
     }
+
+ 
 }

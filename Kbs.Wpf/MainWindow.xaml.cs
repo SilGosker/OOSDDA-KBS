@@ -13,6 +13,7 @@ using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
 using Kbs.Wpf.Medal.Create;
+using Kbs.Wpf.Medal.Read;
 
 namespace Kbs.Wpf;
 
@@ -40,11 +41,15 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Overzicht boten" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
         }
-        
+
         if (user.IsMember() || user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Plaatsen reservering" });
+        }
+        if (user.IsMember() || user.IsMember())
+        {
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage(this)) { Name = "Inzien medailles" });
         }
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
         //if you see this this needs to be removed i was retarded and forgot aaaaaaaaaaaaaaaaaaaaaaaaaaaah

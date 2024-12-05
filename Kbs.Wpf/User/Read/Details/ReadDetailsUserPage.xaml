@@ -53,10 +53,8 @@
                 </ScrollViewer>
             </Grid>
         </Border>
-        <Button Content="Bannen" Click="Ban" Style="{StaticResource FormButton}" VerticalAlignment="Top"
-        Margin="591,382,179,0" />
-        <Button Content="Updaten" Click="Update" Style="{StaticResource FormButton}" VerticalAlignment="Top"
-        Margin="696,382,74,0" />
+        <Button Content="Verbannen" Click="Ban" Style="{StaticResource FormButton}" VerticalAlignment="Top"
+        Margin="695,380,75,0" />
     </Grid>
 </Page>
 

@@ -64,7 +64,7 @@ public class UserRepository : IUserRepository, IDisposable
     public void ChangeRole(UserEntity user)
     {
         _connection.Execute("UPDATE Users SET Role = 11 WHERE UserID = @UserId",new { UserId = user.UserId });
-        _connection.Execute("UPDATE Reservation SET Status = 1 WHERE UserID = @UserId", new { UserId = user.UserId });
+        _connection.Execute("UPDATE Reservation SET Status = 11 WHERE UserID = @UserId", new { UserId = user.UserId });
     }
 
 

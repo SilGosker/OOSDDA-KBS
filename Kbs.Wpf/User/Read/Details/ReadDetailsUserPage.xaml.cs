@@ -79,13 +79,6 @@ namespace Kbs.Wpf.User.Read.Details
                 _userRepository.ChangeRole(entity);
                 _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
             }
-            else
-            {
-            }
-        }
-        private void Update(object sender, System.Windows.RoutedEventArgs e)
-        {
-
         }
     }
 }

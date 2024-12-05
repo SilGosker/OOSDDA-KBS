@@ -12,6 +12,7 @@ using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
+using Kbs.Wpf.Medal.Create;
 
 namespace Kbs.Wpf;
 
@@ -46,6 +47,8 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
         }
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
+        //if you see this this needs to be removed i was retarded and forgot aaaaaaaaaaaaaaaaaaaaaaaaaaaah
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this)) { Name = "Medailes a niffo" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)

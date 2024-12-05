@@ -2,16 +2,11 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Reservation;
-using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
-using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
-using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.Reservation.Read.Details;
-using Kbs.Wpf.Reservation.Read.Index;
-using Kbs.Wpf.User.Read.Index;
 
 namespace Kbs.Wpf.User.Read.Details
 {

@@ -12,7 +12,7 @@ using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
-using Kbs.Wpf.User.ReadUser.ReadUserGeneral;
+using Kbs.Wpf.User.Read.Index;
 
 namespace Kbs.Wpf;
 

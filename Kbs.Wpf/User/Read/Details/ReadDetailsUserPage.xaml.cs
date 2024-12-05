@@ -1,13 +1,12 @@
-﻿using Kbs.Business.Reservation;
+﻿using System.Windows.Controls;
+using System.Windows.Input;
 using Kbs.Business.User;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Reservation.Read.Details;
-using System.Windows.Controls;
-using System.Windows.Input;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
+namespace Kbs.Wpf.User.Read.Details
 {
     public partial class ReadDetailsUserPage : Page
     {

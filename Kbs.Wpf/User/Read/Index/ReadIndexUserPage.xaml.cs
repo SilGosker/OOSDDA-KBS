@@ -1,12 +1,11 @@
-﻿using Kbs.Business.User;
-using Kbs.Wpf.User.ReadUser.ReadUserDetail;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Collections.Generic;
+using Kbs.Business.User;
 using Kbs.Data.User;
+using Kbs.Wpf.User.Read.Details;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
+namespace Kbs.Wpf.User.Read.Index
 {
     public partial class ReadIndexUserPage : Page
     {
@@ -31,13 +30,13 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
             var userEntities = _userRepository.Get();
             foreach (var user in userEntities)
             {
-                ViewModel.Items.Add(new ReadIndexUserValuesViewModel(user));
+                ViewModel.Items.Add(new ReadIndexUserUserViewModel(user));
             }
         }
 
         public void ClickUser(object sender, RoutedEventArgs e)
         {
-            var item = (ReadIndexUserValuesViewModel)((ListViewItem)sender).DataContext;
+            var item = (ReadIndexUserUserViewModel)((ListViewItem)sender).DataContext;
             _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, item.UserId));
         }
 
@@ -60,7 +59,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
             IEnumerable<UserEntity> filteredUsers;
             var selectedRole = viewModel?.Role;
 
-            if (viewModel == null || !viewModel.HasValue || selectedRole is null)
+            if (viewModel == null || !viewModel.HasValue)
             {
                 filteredUsers = _userRepository.GetUsersByName(ViewModel.Name);
             }
@@ -72,7 +71,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
             ViewModel.Items.Clear();
             foreach (var user in filteredUsers)
             {
-                ViewModel.Items.Add(new ReadIndexUserValuesViewModel(user));
+                ViewModel.Items.Add(new ReadIndexUserUserViewModel(user));
             }
         }
     }

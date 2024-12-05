@@ -1,13 +1,11 @@
-﻿using Kbs.Business.Helpers;
+﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
-using Kbs.Wpf.User.ReadUser.ViewUserIndex;
-using System.Collections.ObjectModel;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
+namespace Kbs.Wpf.User.Read.Index
 {
     public class ReadIndexUserViewModel : ViewModel
     {
-        public ObservableCollection<ReadIndexUserValuesViewModel> Items { get; } = new();
+        public ObservableCollection<ReadIndexUserUserViewModel> Items { get; } = new();
         public ObservableCollection<ReadIndexUserRoleViewModel> Roles { get; } = new();
 
         private string _name;

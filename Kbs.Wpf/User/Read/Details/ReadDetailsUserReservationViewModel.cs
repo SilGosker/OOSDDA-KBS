@@ -2,7 +2,7 @@
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
+namespace Kbs.Wpf.User.Read.Details
 {
     public class ReadDetailsUserReservationViewModel : ViewModel
     {

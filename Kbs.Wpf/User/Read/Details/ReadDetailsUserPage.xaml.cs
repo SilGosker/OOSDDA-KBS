@@ -39,29 +39,11 @@ namespace Kbs.Wpf.User.Read.Details
         private void ReservationSelected(object sender, MouseButtonEventArgs e)
         {
             var row = (DataGridRow)sender;
+            
             if (row == null) return;
 
-            var dataContext = (ReadDetailsBoatTypeBoatViewModel)row.DataContext;
-            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.BoatId, _navigationManager));
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedReservation = (ReadDetailsUserReservationViewModel)((DataGrid)sender).SelectedItem;
-            if (selectedReservation != null)
-            {
-            }
-        }
-
-        private void DataGrid_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (sender is DataGrid dataGrid)
-            {
-                if (e.Delta > 0)
-                    dataGrid.ScrollIntoView(dataGrid.Items[0]);
-                else
-                    dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
-            }
+            var dataContext = (ReadDetailsUserReservationViewModel)row.DataContext;
+            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
         }
 
         private void Ban(object sender, RoutedEventArgs e)

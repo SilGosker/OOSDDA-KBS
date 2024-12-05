@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kbs.Wpf.Boat.Read.Index;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Kbs.Wpf.Medal.Create
     /// </summary>
     public partial class CreateMedalPage : Page
     {
+        private CreateMedalViewModel ViewModel => (CreateMedalViewModel)DataContext;
         public CreateMedalPage(INavigationManager navigationManager)
         {
             InitializeComponent();

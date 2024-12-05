@@ -17,7 +17,7 @@
         <ComboBox Text="{Binding Users}" HorizontalAlignment="Center" Margin="0,158,400,0" VerticalAlignment="Top" Width="130"/>
 
         <Label Content="Medaille" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Medailles}"  IsEditable="True" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Width="130"/>
+        <ComboBox ItemsSource="{Binding MedalMaterial}"  IsEditable="True" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Width="130"/>
 
         <Label Content="Boot" HorizontalAlignment="Center" Margin="400,130,0,0" VerticalAlignment="Top"/>
         <ComboBox ItemsSource="{Binding Boats}" IsEditable="True" HorizontalAlignment="Center" Margin="400,158,0,0" VerticalAlignment="Top" Width="130"/>

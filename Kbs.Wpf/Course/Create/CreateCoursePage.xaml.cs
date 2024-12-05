@@ -87,7 +87,7 @@ namespace Kbs.Wpf.Course.Create
             }
 
             _courseRepository.Create(course);
-            _navigationManager.Navigate(() => new ReadDetailsCoursePage(course.CourseId));
+            _navigationManager.Navigate(() => new ReadDetailsCoursePage(course.CourseId, _navigationManager));
         }
 
         private void DifficultyChanged(object sender, SelectionChangedEventArgs e)

@@ -78,21 +78,15 @@ public class SessionManager
         Current = null;
     }
 
-    public void UpdateSessionUser(string newMail, string newPassword)
+    public void UpdateSessionUser(string newMail, string newPassword, string newName)
     {
         UserEntity sessionUser = Current.User;
-        UserEntity newUser = new UserEntity() { Email = newMail, Password = newPassword};
-        if (newUser.Email != null && !newMail.Equals(sessionUser.Email))
-        {
-            sessionUser.Email = newUser.Email;
-        }
+        sessionUser.Email = newMail;
+        sessionUser.Name = newName;
         if (newPassword != null)
         {
-            newUser.Encrypt();
-            if (!newPassword.Equals(sessionUser.Password))
-            {
-                sessionUser.Password = newUser.Password;
-            }
+            sessionUser.Password = newPassword;
+            sessionUser.Encrypt();
         }
     }
 }

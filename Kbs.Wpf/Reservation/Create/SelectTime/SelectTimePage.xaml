@@ -10,20 +10,52 @@
     <Page.DataContext>
         <selectTime:SelectTimeViewModel />
     </Page.DataContext>
-    <Grid Style="{StaticResource PageGrid}" Width="1380">
-        <Label Style="{StaticResource TitleLabel}" Content="Selecteer een tijdsblok" />
-        <Button Style="{StaticResource FormButton}" Content="Vorige stap" HorizontalAlignment="Left" VerticalAlignment="Top" Click="PreviousStep" Width="150" Margin="20,90,0,0" />
-        <ComboBox SelectedIndex="0"
+    <Grid Style="{StaticResource PageGrid}"
+          Width="1380">
+        <Label Style="{StaticResource TitleLabel}"
+               Content="Selecteer een tijdsblok" />
+        <Button Style="{StaticResource FormButton}"
+                Content="Vorige stap"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" Click="PreviousStep"
+                Width="150"
+                Margin="20,90,0,0" />
+
+        <ComboBox Visibility="{Binding MemberComboBoxVisibility}"
+                  SelectedIndex="0"
                   IsEditable="True"
-                  HorizontalAlignment="Right" 
+                  HorizontalAlignment="Right"
                   Margin="0 90 20 0"
-                  VerticalAlignment="Top" 
+                  VerticalAlignment="Top"
                   Width="150"
                   SelectionChanged="ComboBoxBoats_SelectionChanged"
                   ItemsSource="{Binding Boats}" />
-        
-        <Border  VerticalAlignment="Top" Width="1340" Margin="20,132,20,20">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="8">
+        <Label Content="{Binding NoBoatsSelectedError}" Foreground="Red" HorizontalAlignment="Right" Margin="0,60,20,0"
+               VerticalAlignment="Top" />
+        <ComboBox
+            Text="Selecteer boten"
+            Visibility="{Binding GameCommissionerComboBoxVisibility}"
+            ItemsSource="{Binding Boats}"
+            Margin="0,90,20,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Width="150"
+            SelectionChanged="ListBoxBoats_SelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}"
+                              Unchecked="GameCommissionerComboBoxChanged"
+                              Checked="GameCommissionerComboBoxChanged"
+                              IsChecked="{Binding Path=IsSelected}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <Border VerticalAlignment="Top"
+                Width="1340"
+                Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top" Margin="8">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MaxWidth="160" MinWidth="160" />
@@ -50,7 +82,8 @@
                     <Line Grid.Row="0" Grid.Column="0" Stroke="{StaticResource ColorPrimaryText}" X1="0" X2="1210"
                           Grid.ColumnSpan="9" StrokeThickness="2" Visibility="Visible" VerticalAlignment="Bottom" />
                     <Label Grid.Row="0" Grid.Column="0" Content="Tijd" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
+
                     <Line Grid.Row="0" Grid.Column="0" Y1="0" Y2="94" Stroke="{StaticResource ColorPrimaryText}"
                           StrokeThickness="2" HorizontalAlignment="Right" />
                     <Line Grid.Row="0" Grid.Column="1" Y1="0" Y2="94" Stroke="{StaticResource ColorPrimaryText}"
@@ -68,43 +101,45 @@
                     <Line Grid.Row="1" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="1" Grid.Column="0" Content="7:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="2" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="9:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="3" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="11:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="4" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="4" Grid.Column="0" Content="13:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="5" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="5" Grid.Column="0" Content="15:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="6" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="6" Grid.Column="0" Content="17:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
+                           VerticalAlignment="Center" />
 
                     <Line Grid.Row="7" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="7" Grid.Column="0" Content="19:00" FontSize="28" HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
-                    
-                    <Button Grid.Column="8" Grid.RowSpan="2" Content="→" Grid.Row="2" FontSize="70" Padding="0,0,0,15" Margin="10,0,0,0"
+                           VerticalAlignment="Center" />
+
+                    <Button Grid.Column="8" Grid.RowSpan="2" Content="→" Grid.Row="2" FontSize="70" Padding="0,0,0,15"
+                            Margin="10,0,0,0"
                             Background="Transparent"
                             Foreground="{StaticResource ColorPrimaryText}"
                             BorderBrush="{StaticResource ColorPrimaryText}" Click="NextWeekButton_Click" />
-                    <Button Grid.Column="8" Grid.RowSpan="2" Content="←" Grid.Row="5" FontSize="70" Padding="0,0,0,15" Margin="10,0,0,0"
+                    <Button Grid.Column="8" Grid.RowSpan="2" Content="←" Grid.Row="5" FontSize="70" Padding="0,0,0,15"
+                            Margin="10,0,0,0"
                             Background="Transparent"
                             Foreground="{StaticResource ColorPrimaryText}"
                             BorderBrush="{StaticResource ColorPrimaryText}" Click="BackWeekButton_Click" />
@@ -182,7 +217,7 @@
                         </Grid>
                         <ItemsControl.Template>
                             <ControlTemplate>
-                                    <ItemsPresenter />
+                                <ItemsPresenter />
                             </ControlTemplate>
                         </ItemsControl.Template>
                     </ItemsControl>
@@ -199,7 +234,8 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Label FontFamily="Segoe UI" FontSize="24" Content="{Binding DayOfWeek}"
+                                <Label FontFamily="Segoe UI" FontSize="24"
+                                       Content="{Binding DayOfWeek}"
                                        Width="150"
                                        HorizontalContentAlignment="Center" />
                             </DataTemplate>

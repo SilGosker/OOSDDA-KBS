@@ -1,37 +1,51 @@
 ﻿using Kbs.Business.Boat;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Reservation.Create.SelectTime
+namespace Kbs.Wpf.Reservation.Create.SelectTime;
+
+public class SelectTimeBoatViewModel : ViewModel
 {
-    public class SelectTimeBoatViewModel : ViewModel
+    public SelectTimeBoatViewModel(BoatEntity boat)
     {
+        Boat = boat;
+        Name = boat.Name;
+    }
 
-        public SelectTimeBoatViewModel(BoatEntity boat)
+    private BoatEntity _boat;
+    private string _name;
+    private bool _isSelected;
+    private List<BoatEntity> _selectedBoats;
+
+    public List<BoatEntity> SelectedBoats
+    {
+        get => _selectedBoats;
+        set
         {
-            Boat = boat;
-            Name = boat.Name;
+            _selectedBoats = value;
+            OnPropertyChanged();
         }
+    }
 
-        private string _name;
-        public string Name
-        {
-            get => _name;
-            set => SetField(ref _name, value);
-        }
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
+    }
 
-        private BoatEntity _boat;
+    public BoatEntity Boat
+    {
+        get => _boat;
+        set => SetField(ref _boat, value);
+    }
 
+    public bool IsSelected
+    {
+        get => _isSelected;
+        set => SetField(ref _isSelected, value);
+    }
 
-
-        public BoatEntity Boat
-        {
-            get => _boat;
-            set => SetField(ref _boat, value);
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
+    public override string ToString()
+    {
+        return Name;
     }
 }

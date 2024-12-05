@@ -6,7 +6,7 @@
       xmlns:details="clr-namespace:Kbs.Wpf.Course.Read.Details"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="900"
-      Title="ReadParcoursDetailsPage">
+      Title="Course details">
     <Page.DataContext>
         <details:ReadCourseDetailsViewModel />
     </Page.DataContext>

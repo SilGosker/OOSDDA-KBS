@@ -15,9 +15,9 @@ public partial class ReadCourseIndexPage : Page
         _navigationManager = navigationManager;
         InitializeComponent();
 
-        foreach (var parcours in _courseRepository.GetAll())
+        foreach (var course in _courseRepository.GetAll())
         {
-            ViewModel.Items.Add(new ReadCourseIndexCourseViewModel(parcours));
+            ViewModel.Items.Add(new ReadCourseIndexCourseViewModel(course));
         }
     }
 

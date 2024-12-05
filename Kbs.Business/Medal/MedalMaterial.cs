@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Medal
 {
-    internal class MedalMaterial
+
+    public enum MedalMaterial
     {
-    }
+        Bronze = 1,
+        Silver = 2,
+        Gold = 3
+    };
 }

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Course.Read.Details"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="900"
+      d:DesignHeight="800" d:DesignWidth="900"
       Title="Course details">
     <Page.DataContext>
         <details:ReadDetailsCourseViewModel />
@@ -14,8 +14,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="120" />
-                <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
+                <RowDefinition Height="80" />
+                <RowDefinition Height="80" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="400" />
             </Grid.RowDefinitions>
@@ -23,19 +23,28 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource TitleLabel}" Content="{Binding IdFormatted}" />
-            <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Content="Foto" FontWeight="Bold" />
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0" Style="{StaticResource TitleLabel}" Content="{Binding IdFormatted}" />
 
-            <Label Margin="10,0,0,0" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Content="Naam:" FontWeight="Bold"/>
-            <Label Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Content="{Binding Name}"/>
+            <Button Grid.Row="0" Content="Opslaan" Style="{StaticResource FormButton}"  HorizontalAlignment="Left" Margin="335,60,0,0" VerticalAlignment="Top" Click="Submit"/>
+            <Button Grid.Column="1" Grid.Row="0" Content="Verwijderen" Style="{StaticResource FormButton}"  HorizontalAlignment="Left" Margin="20,60,0,0" VerticalAlignment="Top" Click="Remove"/>
 
-            <Label Margin="10,0,0,0" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Content="Moeilijkheid:" FontWeight="Bold"/>
-            <Label Grid.Column="0" Grid.Row="2" HorizontalAlignment="Right" Content="{Binding Difficulty}"/>
+            <Label Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Content="Foto" FontWeight="Bold" Margin="0,6,0,0" />
+
+            <Label Margin="10,8,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Content="Naam:" FontWeight="Bold"/>
+            <TextBox Margin="0,0,10,10" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right" Width="200" VerticalAlignment="Top" Text="{Binding Name}"/>
+            <Label Margin="0,0,10,10" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="1" Foreground="Red" HorizontalAlignment="Right" Content="{Binding Path=NameErrorMessage}"/>
+
+            <Label Margin="10,10,0,0" Grid.Column="0" Grid.Row="2" Content="Moeilijkheid:" FontWeight="Bold" VerticalAlignment="Top"/>
+            <ComboBox Grid.Column="0" Text="Moeilijkheidsgraad" IsEditable="True" HorizontalAlignment="Right" Margin="0,10,10,0"
+                      VerticalAlignment="Top" Width="190" ItemsSource="{Binding Path=Difficulties}" SelectedItem="{Binding SelectedDifficulty}" Grid.Row="2" />
+            <Label Margin="0,0,10,10" VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="2" Foreground="Red" HorizontalAlignment="Right" Content="{Binding Path=DifficultyErrorMessage}"/>
 
             <Label Margin="10,0,0,0" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Content="Beschrijving" FontWeight="Bold"/>
-            <TextBox Margin="10" Grid.Column="0" AcceptsReturn="True" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" IsReadOnly="True" Text="{Binding Path=Description}" VerticalAlignment="Stretch" />
+            <TextBox Margin="10" Grid.Column="0" AcceptsReturn="True" HorizontalAlignment="Stretch" Grid.Row="4" TextWrapping="Wrap" Text="{Binding Path=Description}" VerticalAlignment="Stretch" />
 
             <Image Margin="10" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Source="{Binding ImageSource}" />
+            <Button Grid.Column="1" Grid.Row="1" Content="Upload foto" Style="{StaticResource FormButton}"  HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Click="SelectFile"/>
+            <Label Margin="10,0,0,10" VerticalAlignment="Bottom" Grid.Column="1" Grid.Row="1" Foreground="Red" HorizontalAlignment="Left" Content="{Binding Path=ImageErrorMessage}"/>
         </Grid>
     </Grid>
 </Page>

@@ -1,4 +1,4 @@
-﻿using Kbs.Business.BoatType;
+using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
 using System;
 using System.Collections.Generic;
@@ -47,6 +47,43 @@ namespace Kbs.Business.Course
             }
 
             return validationResult;
+        }
+
+        public Dictionary<string, string> ValidateForUpdate(CourseEntity course)
+        {
+            var result = new Dictionary<string, string>();
+
+            if (string.IsNullOrWhiteSpace(course.Name))
+            {
+                result.Add(nameof(course.Name), "Naam is verplicht");
+            }
+
+            if (course.Difficulty == default)
+            {
+                result.Add(nameof(course.Difficulty), "Moeilijkheidsgraad is verplicht");
+            }
+
+            byte[] pngImageHeader = new byte[]
+            {
+                0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A
+            };
+
+            byte[] jpgImageHeader = new byte[]
+            {
+                0xFF, 0xD8, 0xFF
+            };
+
+            if (course.Image == null || course.Image.Length == 0)
+            {
+                result.Add(nameof(course.Image), "Afbeelding is verplicht");
+            }
+            else if (!course.Image.Take(pngImageHeader.Length).SequenceEqual(pngImageHeader) &&
+                    !course.Image.Take(jpgImageHeader.Length).SequenceEqual(jpgImageHeader))
+            {
+                result.Add(nameof(course.Image), "Afbeelding is geen PNG of JPG");
+            }
+
+            return result;
         }
     }
 }

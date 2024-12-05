@@ -61,6 +61,11 @@ public class UserRepository : IUserRepository, IDisposable
     {
         return _connection.Query<UserEntity>("SELECT * FROM Users WHERE UserId = @UserId", new { UserId = id }).FirstOrDefault();
     }
+    public void ChangeRole(UserEntity user)
+    {
+        _connection.Execute("UPDATE Users SET Role = 0 WHERE UserID = @UserId",new { UserId = user.UserId });
+        _connection.Execute("UPDATE Reservation SET Status = 1 WHERE UserID = @UserId", new { UserId = user.UserId });
+    }
 
 
     public void Dispose()

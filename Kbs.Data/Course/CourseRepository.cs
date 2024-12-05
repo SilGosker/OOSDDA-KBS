@@ -23,4 +23,13 @@ public class CourseRepository : ICourseRepository
             "INSERT INTO Course (Name, Difficulty, Description, Image) VALUES (@Name, @Difficulty, @Description, @Image); SELECT SCOPE_IDENTITY()",
             course);
     }
+
+    public void Update(CourseEntity course)
+    {
+        _connection.Execute("UPDATE Course SET Name = @Name, Description = @Description, Difficulty = @Difficulty, Image = @Image WHERE CourseID = @CourseID", course);
+    }
+    public void Delete(int id) 
+    {
+        _connection.Execute("DELETE FROM Course WHERE CourseId = @CourseId", new { CourseId = id });
+    }
 }

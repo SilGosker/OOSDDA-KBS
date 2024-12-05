@@ -1,5 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
@@ -16,8 +18,9 @@ namespace Kbs.Wpf.User.Read.Details
 
         private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
-        public ReadDetailsUserPage(INavigationManager nav, int id)
+        public ReadDetailsUserPage(INavigationManager navigationManager, int id)
         {
+            _navigationManager = navigationManager;
             InitializeComponent();
 
             var user = _userRepository.GetById(id);
@@ -36,28 +39,22 @@ namespace Kbs.Wpf.User.Read.Details
         private void ReservationSelected(object sender, MouseButtonEventArgs e)
         {
             var row = (DataGridRow)sender;
+            
             if (row == null) return;
 
-            var dataContext = (ReadDetailsBoatTypeBoatViewModel)row.DataContext;
-            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.BoatId, _navigationManager));
+            var dataContext = (ReadDetailsUserReservationViewModel)row.DataContext;
+            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Ban(object sender, RoutedEventArgs e)
         {
-            var selectedReservation = (ReadDetailsUserReservationViewModel)((DataGrid)sender).SelectedItem;
-            if (selectedReservation != null)
+            var entity = _userRepository.GetById(ViewModel.UserId);
+            var userId = entity.UserId;
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
             {
-            }
-        }
-
-        private void DataGrid_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
-        {
-            if (sender is DataGrid dataGrid)
-            {
-                if (e.Delta > 0)
-                    dataGrid.ScrollIntoView(dataGrid.Items[0]);
-                else
-                    dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
+                _userRepository.ChangeRole(entity);
+                _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
             }
         }
     }

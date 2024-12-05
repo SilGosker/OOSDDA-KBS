@@ -2,9 +2,9 @@
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
+namespace Kbs.Wpf.User.Read.Index
 {
-    public class ReadIndexUserValuesViewModel : ViewModel
+    public class ReadIndexUserUserViewModel : ViewModel
     {
         private string _name;
         private int _userId;
@@ -28,7 +28,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
             set => SetField(ref _role, value);
         }
 
-        public ReadIndexUserValuesViewModel(UserEntity user)
+        public ReadIndexUserUserViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;

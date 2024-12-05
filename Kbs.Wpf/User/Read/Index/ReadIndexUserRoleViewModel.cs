@@ -1,6 +1,6 @@
 ﻿using Kbs.Business.User;
 
-namespace Kbs.Wpf.User.ReadUser.ViewUserIndex
+namespace Kbs.Wpf.User.Read.Index
 {
     public class ReadIndexUserRoleViewModel
     {

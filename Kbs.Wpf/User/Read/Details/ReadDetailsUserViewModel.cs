@@ -1,9 +1,9 @@
-﻿using Kbs.Business.Helpers;
+﻿using System.Collections.ObjectModel;
+using Kbs.Business.Helpers;
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
-using System.Collections.ObjectModel;
 
-namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
+namespace Kbs.Wpf.User.Read.Details
 {
     public class ReadDetailsUserViewModel : ViewModel
     {

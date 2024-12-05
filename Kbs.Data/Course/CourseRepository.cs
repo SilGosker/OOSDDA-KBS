@@ -9,11 +9,11 @@ public class CourseRepository : ICourseRepository
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
     public List<CourseEntity> GetAll()
     {
-        return _connection.Query<CourseEntity>("SELECT * FROM Parcours").ToList();
+        return _connection.Query<CourseEntity>("SELECT * FROM Course").ToList();
     }
 
     public CourseEntity GetById(int id)
     {
-        return _connection.QueryFirstOrDefault<CourseEntity>("SELECT * FROM Parcours WHERE ParcoursID = @ParcoursID", new { ParcoursID = id });
+        return _connection.QueryFirstOrDefault<CourseEntity>("SELECT * FROM Course WHERE CourseID = @CourseID", new { CourseId = id });
     }
 }

@@ -11,12 +11,12 @@ public partial class ReadCourseDetailsPage : Page
     public ReadCourseDetailsPage(int id)
     {
         InitializeComponent();
-        var parcours = _courseRepository.GetById(id);
+        var course = _courseRepository.GetById(id);
 
-        ViewModel.Name = parcours.Name;
-        ViewModel.Description = parcours.Description;
-        ViewModel.Image = parcours.Image;
-        ViewModel.Difficulty = parcours.Difficulty.ToDutchString();
-        ViewModel.Id = parcours.ParcoursId;
+        ViewModel.Name = course.Name;
+        ViewModel.Description = course.Description;
+        ViewModel.Image = course.Image;
+        ViewModel.Difficulty = course.Difficulty.ToDutchString();
+        ViewModel.Id = course.CourseId;
     }
 }

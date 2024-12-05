@@ -14,14 +14,14 @@ public class CourseEntityTests
         var course = new CourseEntity();
 
         // Act
-        course.ParcoursId = id;
+        course.CourseId = id;
         course.Image = image;
         course.Name = name;
         course.Description = description;
         course.Difficulty = difficulty;
 
         // Assert
-        Assert.Equal(id, course.ParcoursId);
+        Assert.Equal(id, course.CourseId);
         Assert.Equal(image, course.Image);
         Assert.Equal(name, course.Name);
         Assert.Equal(description, course.Description);

@@ -21,11 +21,11 @@ public partial class ReadCourseIndexPage : Page
         }
     }
 
-    private void ParcourClicked(object sender, MouseButtonEventArgs e)
+    private void CourseClicked(object sender, MouseButtonEventArgs e)
     {
         var listItem = (ListViewItem)sender;
         var dataContext = (ReadCourseIndexCourseViewModel)listItem.DataContext;
 
-        _navigationManager.Navigate(() => new ReadCourseDetailsPage(dataContext.ParcourId));
+        _navigationManager.Navigate(() => new ReadCourseDetailsPage(dataContext.CourseId));
     }
 }

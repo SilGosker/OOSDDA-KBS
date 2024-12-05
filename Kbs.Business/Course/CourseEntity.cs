@@ -4,8 +4,8 @@ namespace Kbs.Business.Course;
 
 public class CourseEntity
 {
-    [Column("ParcoursID")]
-    public int ParcoursId { get; set; }
+    [Column("CourseID")]
+    public int CourseId { get; set; }
 
     public byte[] Image { get; set; }
     public string Name { get; set; }

@@ -53,7 +53,7 @@ public class MockUserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, string role)
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, UserRole role)
     {
         throw new NotImplementedException();
     }

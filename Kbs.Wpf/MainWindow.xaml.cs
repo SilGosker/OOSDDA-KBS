@@ -7,6 +7,7 @@ using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
+using Kbs.Wpf.Course.Read.Index;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
@@ -19,6 +20,7 @@ namespace Kbs.Wpf;
 public partial class MainWindow : Window, INavigationManager
 {
     private MainViewModel ViewModel => (MainViewModel)DataContext;
+
     protected override void OnClosed(EventArgs e)
     {
         SessionManager.Instance.SessionTimeExpired -= SessionExpired;
@@ -35,12 +37,16 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMaterialCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Overzicht boottypen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this)) { Name = "Boottype aanmaken" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Overzicht boten" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this)) { Name = "Boot aanmaken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this))
+                { Name = "Overzicht boottypen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this))
+                { Name = "Boottype aanmaken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this))
+                { Name = "Overzicht boten" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this))
+                { Name = "Boot aanmaken" });
         }
-        
+
         if (user.IsMember() || user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
@@ -48,7 +54,14 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Inzien leden" });
 
         }
-        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
+
+        if (user.IsGameCommissioner())
+        {
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Parcours overzicht" });
+        }
+
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
+            { Name = "Instellingen" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
@@ -96,7 +109,7 @@ public partial class MainWindow : Window, INavigationManager
             }
 
             if (attributes.Any(e => user.Is(e.UserRole)))
-            { 
+            {
                 page = creator();
                 NavigationFrame.Navigate(page);
                 return;
@@ -109,7 +122,7 @@ public partial class MainWindow : Window, INavigationManager
         page = creator();
         NavigationFrame.Navigate(page);
     }
-        
+
     private void LogOut(object sender, RoutedEventArgs e)
     {
         SessionManager.Instance.Logout();

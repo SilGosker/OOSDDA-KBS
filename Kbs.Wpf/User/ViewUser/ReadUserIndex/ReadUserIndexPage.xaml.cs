@@ -12,7 +12,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
     {
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
-        private ViewUserValuesIndexViewModel ViewModel => (ViewUserValuesIndexViewModel)DataContext;
+        private ReadUserIndexViewModel ViewModel => (ReadUserIndexViewModel)DataContext;
 
         public ViewUserValuesIndexPage(INavigationManager navigationManager)
         {
@@ -31,13 +31,13 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             var userEntities = _userRepository.Get();
             foreach (var user in userEntities)
             {
-                ViewModel.Items.Add(new ViewUserValuesValuesIndexViewModel(user));
+                ViewModel.Items.Add(new ReadUserValuesIndexViewModel(user));
             }
         }
 
         public void ClickUser(object sender, RoutedEventArgs e)
         {
-            var item = (ViewUserValuesValuesIndexViewModel)((ListViewItem)sender).DataContext;
+            var item = (ReadUserValuesIndexViewModel)((ListViewItem)sender).DataContext;
             _navigationManager.Navigate(() => new ViewUserValuesDetailedPage(_navigationManager, item.UserId));
         }
 
@@ -72,7 +72,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
             ViewModel.Items.Clear();
             foreach (var user in filteredUsers)
             {
-                ViewModel.Items.Add(new ViewUserValuesValuesIndexViewModel(user));
+                ViewModel.Items.Add(new ReadUserValuesIndexViewModel(user));
             }
         }
     }

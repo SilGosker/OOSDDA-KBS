@@ -15,7 +15,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
         private readonly INavigationManager _navigationManager;
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
 
-        private ViewUserValuesDetailedViewModel ViewModel => (ViewUserValuesDetailedViewModel)DataContext;
+        private ReadUserDetailedViewModel ViewModel => (ReadUserDetailedViewModel)DataContext;
 
         public ViewUserValuesDetailedPage(INavigationManager nav, int id)
         {
@@ -30,7 +30,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)
             {
-                ViewModel.Reservations.Add(new ViewUserValuesDetailedReservationViewModel(reservation));
+                ViewModel.Reservations.Add(new ReadUserDetailedReservationViewModel(reservation));
             }
         }
 
@@ -45,7 +45,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedReservation = (ViewUserValuesDetailedReservationViewModel)((DataGrid)sender).SelectedItem;
+            var selectedReservation = (ReadUserDetailedReservationViewModel)((DataGrid)sender).SelectedItem;
             if (selectedReservation != null)
             {
             }

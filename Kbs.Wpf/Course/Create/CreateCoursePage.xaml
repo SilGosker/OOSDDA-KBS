@@ -5,8 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:create="clr-namespace:Kbs.Wpf.Course.Create"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="680" d:DesignWidth="900"
       Title="CreateCoursePage">
+    <Page.DataContext>
+        <create:CreateCourseViewModel />
+    </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
         <Border Background="Transparent " VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
@@ -27,31 +30,32 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.ColumnSpan="2" Style="{StaticResource TitleLabel}" Content="Uploaden beschadiging" />
+                <Label Grid.ColumnSpan="3" Style="{StaticResource TitleLabel}" Content="Parcours aanmaken" />
 
-                <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
-                <Label Grid.Column="0" Grid.Row="2" Content="Selecteer bestand" FontWeight="Bold" />
-                <Label Grid.Column="0" Grid.Row="4" Content="{}" Foreground="Red" />
+                <Separator Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" />
 
-                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving" FontWeight="Bold" />
-                <Label Grid.Column="1" Grid.Row="2" Content="Afbeelding preview" FontWeight="Bold" />
+                <Label Grid.Column="0" Grid.Row="2" Content="Naam:" FontWeight="Bold" Margin="10,0,0,0" />
+                <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Content="{Binding NameErrorMessage}" Foreground="Red" Margin="10,0,0,25" VerticalAlignment="Bottom"/>
+                <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Name}" TextWrapping="Wrap" Width="200" Height="30" HorizontalAlignment="Right" Margin="10,0,10,0"/>
 
-                <Image Grid.Column="1" Grid.Row="3" Grid.RowSpan="5"  />
+                <Label Grid.Column="0" Grid.Row="4" Content="Moeilijkheidsgraad:" FontWeight="Bold" Margin="10,0,0,0" />
+                <ComboBox Grid.Column="0" Grid.Row="4" ItemsSource="{Binding PossibleDifficulties}" SelectionChanged="DifficultyChanged" IsEditable="True" Text="Selecteer moeilijkheidsgraad" Width="200" HorizontalAlignment="Right" Margin="0,0,10,0"/>
 
-                <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal">
+                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving" FontWeight="Bold" Margin="10,0,0,0" />
+                <TextBox MinHeight="190" Margin="10,0,10,0" Grid.Row="6" Grid.Column="0" Grid.RowSpan="3" Text="{Binding Description}" TextWrapping="Wrap"
+                     AcceptsReturn="True" />
+                
+                <Label Grid.Column="1" Grid.Row="2" Content="Selecteer afbeelding:" FontWeight="Bold" Margin="17,0,0,0" />
+                <Label Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Content="{Binding ImageErrorMessage}" Foreground="Red" Margin="17,0,0,25" VerticalAlignment="Bottom"/>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
                     <Button Style="{StaticResource FormButton}" HorizontalAlignment="Left" Margin="5"
-                        VerticalAlignment="Top" Content="Kies bestand" Click="SelectFileButtonClick" />
-                    <CheckBox  VerticalAlignment="Top"
-                          Content="Boot is nog reserveerbaar" Height="31" Margin="5"
-                          VerticalContentAlignment="Center" />
+                        VerticalAlignment="Top" Content="Kies afbeelding" Click="SelectFileButtonClick" />
                 </StackPanel>
 
-                <TextBox MinHeight="200" Margin="0,0,10,0" Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Text="{}" TextWrapping="Wrap"
-                     AcceptsReturn="True" />
+                <Label Grid.Column="1" Grid.Row="4" Content="Afbeelding preview" FontWeight="Bold" Margin="17,0,0,0"/>
+                <Image Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Source="{Binding Image}" />
 
-                <Label Margin="0,0,10,0" Grid.Column="0" Grid.Row="9" VerticalAlignment="Top" VerticalContentAlignment="Center"
-                   Content="{}" Foreground="Red" />
-                <Button Margin="10" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
+                <Button Margin="10,10,20,10" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
                     Content="Bevestigen" Click="Submit" />
             </Grid>
         </Border>

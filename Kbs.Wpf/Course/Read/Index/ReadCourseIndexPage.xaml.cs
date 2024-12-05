@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
-using Kbs.Data.Parcours;
+using Kbs.Data.Course;
 using Kbs.Wpf.Course.Read.Details;
 
 namespace Kbs.Wpf.Course.Read.Index;

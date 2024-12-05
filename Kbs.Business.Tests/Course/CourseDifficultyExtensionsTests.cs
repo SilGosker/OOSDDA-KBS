@@ -1,6 +1,4 @@
-﻿using Kbs.Business.Course;
-
-namespace Kbs.Business.Parcours;
+﻿namespace Kbs.Business.Course;
 
 public class CourseDifficultyExtensionsTests
 {

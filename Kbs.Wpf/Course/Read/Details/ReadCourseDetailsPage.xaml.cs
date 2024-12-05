@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 using Kbs.Business.Course;
-using Kbs.Data.Parcours;
+using Kbs.Data.Course;
 
 namespace Kbs.Wpf.Course.Read.Details;
 

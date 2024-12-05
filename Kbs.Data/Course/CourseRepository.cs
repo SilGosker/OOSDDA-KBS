@@ -2,7 +2,7 @@
 using Kbs.Business.Course;
 using Microsoft.Data.SqlClient;
 
-namespace Kbs.Data.Parcours;
+namespace Kbs.Data.Course;
 
 public class CourseRepository : ICourseRepository
 {

@@ -1,19 +1,19 @@
-﻿using Kbs.Business.Parcours;
+﻿using Kbs.Business.Course;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Parcours.Read.Index;
+namespace Kbs.Wpf.Course.Read.Index;
 
-public class ReadIndexParcoursParcoursViewModel : ViewModel
+public class ReadCourseIndexCourseViewModel : ViewModel
 {
     private int _parcourId;
     private string _name;
     private string _difficulty;
 
-    public ReadIndexParcoursParcoursViewModel(ParcoursEntity parcours)
+    public ReadCourseIndexCourseViewModel(CourseEntity course)
     {
-        ParcourId = parcours.ParcoursId;
-        Name = parcours.Name;
-        Difficulty = parcours.Difficulty.ToDutchString();
+        ParcourId = course.ParcoursId;
+        Name = course.Name;
+        Difficulty = course.Difficulty.ToDutchString();
     }
 
     public int ParcourId

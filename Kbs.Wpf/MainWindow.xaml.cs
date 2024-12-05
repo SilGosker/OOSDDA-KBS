@@ -7,9 +7,9 @@ using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
+using Kbs.Wpf.Course.Read.Index;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Damage.Read.Details;
-using Kbs.Wpf.Parcours.Read.Index;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
@@ -56,7 +56,7 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadParcoursIndexPage(this)) { Name = "Parcours overzicht" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadCourseIndexPage(this)) { Name = "Parcours overzicht" });
         }
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))

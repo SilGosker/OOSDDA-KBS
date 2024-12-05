@@ -1,9 +1,9 @@
 ﻿using System.Windows.Media;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Parcours.Read.Details;
+namespace Kbs.Wpf.Course.Read.Details;
 
-public class ReadParcoursDetailsViewModel : ViewModel
+public class ReadCourseDetailsViewModel : ViewModel
 {
     private string _name;
     private string _description;

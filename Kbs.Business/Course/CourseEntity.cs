@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Kbs.Business.Parcours;
+namespace Kbs.Business.Course;
 
-public class ParcoursEntity
+public class CourseEntity
 {
     [Column("ParcoursID")]
     public int ParcoursId { get; set; }
@@ -10,5 +10,5 @@ public class ParcoursEntity
     public byte[] Image { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    public ParcoursDifficulty Difficulty { get; set; }
+    public CourseDifficulty Difficulty { get; set; }
 }

@@ -1,17 +1,19 @@
-﻿namespace Kbs.Business.Parcours;
+﻿using Kbs.Business.Course;
 
-public class ParcoursEntityTests
+namespace Kbs.Business.Parcours;
+
+public class CourseEntityTests
 {
     [Theory]
-    [InlineData(1, new byte[] { 1, 2, 3 }, "Parcours 1", "Description 1", ParcoursDifficulty.Easy)]
-    [InlineData(int.MaxValue, new byte[] { }, "", "", (ParcoursDifficulty)int.MaxValue)]
-    [InlineData(int.MinValue, null, null, null, (ParcoursDifficulty)0)]
+    [InlineData(1, new byte[] { 1, 2, 3 }, "Parcours 1", "Description 1", CourseDifficulty.Easy)]
+    [InlineData(int.MaxValue, new byte[] { }, "", "", (CourseDifficulty)int.MaxValue)]
+    [InlineData(int.MinValue, null, null, null, (CourseDifficulty)0)]
     public void Properties_ShouldSetProperties(int id, byte[] image, string name, string description,
-        ParcoursDifficulty difficulty)
+        CourseDifficulty difficulty)
 
     {
         // Arrange
-        var parcours = new ParcoursEntity();
+        var parcours = new CourseEntity();
 
         // Act
         parcours.ParcoursId = id;

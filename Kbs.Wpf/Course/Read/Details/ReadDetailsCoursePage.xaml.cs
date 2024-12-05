@@ -2,7 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Course;
+using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Data.Course;
+using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.Course.Read.Index;
+using Kbs.Wpf.Reservation.Read.Index;
 using Microsoft.Win32;
 
 namespace Kbs.Wpf.Course.Read.Details;
@@ -46,6 +51,17 @@ public partial class ReadDetailsCoursePage : Page
         if (success == true)
         {
             ViewModel.Image = File.ReadAllBytes(fileDialog.FileName);
+        }
+    }
+    private void Remove(object sender, RoutedEventArgs e)
+    {
+        var entity = _courseRepository.GetById(ViewModel.Id);
+        int id = entity.CourseId;
+        MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (MessageBoxResult.Yes == result)
+        {
+            _courseRepository.Delete(id);
+            _navigationManager.Navigate(() => new ReadIndexCoursePage(_navigationManager));
         }
     }
 

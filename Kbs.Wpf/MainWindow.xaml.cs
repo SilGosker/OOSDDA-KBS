@@ -57,7 +57,7 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadCourseIndexPage(this)) { Name = "Parcours overzicht" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Parcours overzicht" });
         }
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))

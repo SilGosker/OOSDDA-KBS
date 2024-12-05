@@ -4,11 +4,11 @@ using Kbs.Data.Course;
 
 namespace Kbs.Wpf.Course.Read.Details;
 
-public partial class ReadCourseDetailsPage : Page
+public partial class ReadDetailsCoursePage : Page
 {
     private readonly CourseRepository _courseRepository = new();
-    private ReadCourseDetailsViewModel ViewModel => (ReadCourseDetailsViewModel)DataContext;
-    public ReadCourseDetailsPage(int id)
+    private ReadDetailsCourseViewModel ViewModel => (ReadDetailsCourseViewModel)DataContext;
+    public ReadDetailsCoursePage(int id)
     {
         InitializeComponent();
         var course = _courseRepository.GetById(id);

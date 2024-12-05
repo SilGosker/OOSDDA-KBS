@@ -3,13 +3,13 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Course.Read.Index;
 
-public class ReadCourseIndexCourseViewModel : ViewModel
+public class ReadIndexCourseCourseViewModel : ViewModel
 {
     private int _courseId;
     private string _name;
     private string _difficulty;
 
-    public ReadCourseIndexCourseViewModel(CourseEntity course)
+    public ReadIndexCourseCourseViewModel(CourseEntity course)
     {
         CourseId = course.CourseId;
         Name = course.Name;

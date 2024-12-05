@@ -3,7 +3,7 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Course.Read.Details;
 
-public class ReadCourseDetailsViewModel : ViewModel
+public class ReadDetailsCourseViewModel : ViewModel
 {
     private string _name;
     private string _description;

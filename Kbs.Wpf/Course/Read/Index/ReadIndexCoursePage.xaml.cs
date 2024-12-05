@@ -5,27 +5,27 @@ using Kbs.Wpf.Course.Read.Details;
 
 namespace Kbs.Wpf.Course.Read.Index;
 
-public partial class ReadCourseIndexPage : Page
+public partial class ReadIndexCoursePage : Page
 {
     private readonly INavigationManager _navigationManager;
     private readonly CourseRepository _courseRepository = new();
-    private ReadCourseIndexViewModel ViewModel => (ReadCourseIndexViewModel)DataContext;
-    public ReadCourseIndexPage(INavigationManager navigationManager)
+    private ReadIndexCourseViewModel ViewModel => (ReadIndexCourseViewModel)DataContext;
+    public ReadIndexCoursePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
 
         foreach (var course in _courseRepository.GetAll())
         {
-            ViewModel.Items.Add(new ReadCourseIndexCourseViewModel(course));
+            ViewModel.Items.Add(new ReadIndexCourseCourseViewModel(course));
         }
     }
 
     private void CourseClicked(object sender, MouseButtonEventArgs e)
     {
         var listItem = (ListViewItem)sender;
-        var dataContext = (ReadCourseIndexCourseViewModel)listItem.DataContext;
+        var dataContext = (ReadIndexCourseCourseViewModel)listItem.DataContext;
 
-        _navigationManager.Navigate(() => new ReadCourseDetailsPage(dataContext.CourseId));
+        _navigationManager.Navigate(() => new ReadDetailsCoursePage(dataContext.CourseId));
     }
 }

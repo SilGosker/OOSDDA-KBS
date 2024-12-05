@@ -16,4 +16,9 @@ public class CourseRepository : ICourseRepository
     {
         return _connection.QueryFirstOrDefault<CourseEntity>("SELECT * FROM Course WHERE CourseID = @CourseID", new { CourseId = id });
     }
+
+    public void Update(CourseEntity course)
+    {
+        _connection.Execute("UPDATE Course SET Name = @Name, Description = @Description, Difficulty = @Difficulty, Image = @Image WHERE CourseID = @CourseID", course);
+    }
 }

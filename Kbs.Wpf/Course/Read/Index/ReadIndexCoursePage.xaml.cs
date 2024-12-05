@@ -26,6 +26,6 @@ public partial class ReadIndexCoursePage : Page
         var listItem = (ListViewItem)sender;
         var dataContext = (ReadIndexCourseCourseViewModel)listItem.DataContext;
 
-        _navigationManager.Navigate(() => new ReadDetailsCoursePage(dataContext.CourseId));
+        _navigationManager.Navigate(() => new ReadDetailsCoursePage(dataContext.CourseId, _navigationManager));
     }
 }

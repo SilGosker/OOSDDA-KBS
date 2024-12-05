@@ -48,7 +48,7 @@ public class MockUserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public IEnumerable<string> GetAllRoles()
+    public IEnumerable<UserRole> GetAllRoles()
     {
         throw new NotImplementedException();
     }

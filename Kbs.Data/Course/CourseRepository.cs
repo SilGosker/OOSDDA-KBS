@@ -21,4 +21,8 @@ public class CourseRepository : ICourseRepository
     {
         _connection.Execute("UPDATE Course SET Name = @Name, Description = @Description, Difficulty = @Difficulty, Image = @Image WHERE CourseID = @CourseID", course);
     }
+    public void Delete(int id) 
+    {
+        _connection.Execute("DELETE FROM Course WHERE CourseId = @CourseId", new { CourseId = id });
+    }
 }

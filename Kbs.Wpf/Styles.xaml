@@ -11,7 +11,7 @@
     <Brush x:Key="ColorBorder">#99AAB5</Brush> <!-- Cool Gray -->
     <Brush x:Key="ColorButtonHoverBackground">#3B4048</Brush> <!-- Charcoal Gray -->
     <Brush x:Key="ColorButtonPressedBorder">#72767D</Brush> <!-- Gray -->
-    
+
     <Brush x:Key="ColorEmptySpace">#33373D</Brush>
 
     <Style x:Key="MainWindow" TargetType="Window">
@@ -24,21 +24,21 @@
         <Setter Property="Width" Value="870" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
-    
-    
+
+
     <Style x:Key="ContentGrid" TargetType="Grid">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Margin" Value="10" />
     </Style>
-    
+
     <Style x:Key="ContentBorder" TargetType="Border">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Width" Value="830" />
         <Setter Property="Margin" Value="20,132,20,20" />
     </Style>
-    
+
 
     <Style x:Key="ListViewItemGrid" TargetType="Grid">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
@@ -48,7 +48,7 @@
     <!-- <Style TargetType="Grid"> -->
     <!--     <Setter Property="Background" Value="{StaticResource ColorPrimaryBackground}" /> -->
     <!-- </Style> -->
-    
+
     <Style x:Key="TitleLabel" TargetType="Label">
         <Setter Property="FontSize" Value="32" />
         <Setter Property="FontWeight" Value="Bold" />
@@ -68,7 +68,7 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Margin" Value="0,5,0,5" />
     </Style>
-    
+
     <Style TargetType="CheckBox">
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
         <Setter Property="FontSize" Value="14" />
@@ -175,8 +175,8 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
+
+
     <Style x:Key="ListItemTextBlockStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
@@ -219,7 +219,7 @@
                                     <Setter Property="BorderThickness" Value="1" />
                                     <Setter Property="Padding" Value="8, 5, 8, 5" />
                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
-            
+
                                     <!-- Hover State -->
                                     <Style.Triggers>
                                         <Trigger Property="IsMouseOver" Value="True">
@@ -326,14 +326,14 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style TargetType="Border">
         <Setter Property="CornerRadius" Value="5" />
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="BorderThickness" Value="1" />
     </Style>
-    
+
     <Style x:Key="DefaultDataGridStyle" TargetType="DataGrid">
         <Setter Property="SelectionMode" Value="Single" />
         <Setter Property="SelectionUnit" Value="FullRow" />
@@ -379,29 +379,61 @@
         </Setter>
     </Style>
 
-    <Style x:Key="DefaultDataGridRowStyle" TargetType="DataGridRow">
-        <Setter Property="Background" Value="#2C2F33" />
-        <Setter Property="Foreground" Value="#DCDDDE" />
-        <Setter Property="BorderBrush" Value="#99AAB5" />
-        <Setter Property="BorderThickness" Value="0,0,0,0" />
+    <Style TargetType="CalendarDayButton" x:Key="CustomCalendarDayButtonStyle">
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Opacity" Value="1" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="Width" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#3B4048" />
+                <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+                <Setter Property="Background" Value="{StaticResource ColorCaretBrush}" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#23272A" />
-                <Setter Property="Foreground" Value="#DCDDDE" />
+                <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+                <Setter Property="Background" Value="{StaticResource ColorCaretBrush}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+                <Setter Property="Opacity" Value="1" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="DatePicker" x:Key="CustomDatePickerStyle">
+
+    <Style TargetType="Calendar" x:Key="DefaultCalendarStyle">
+        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+        <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+        <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CalendarDayButtonStyle" Value="{StaticResource CustomCalendarDayButtonStyle}" />
+        <Setter Property="CalendarItemStyle">
+            <Setter.Value>
+                <Style TargetType="CalendarItem">
+                    <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+                    <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+                    <Setter Property="BorderThickness" Value="1" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style TargetType="DatePicker" x:Key="DefaultDatePickerStyle">
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="5,2,5,2" />
-        <Setter Property="FontSize" Value="24" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="Template">
@@ -409,48 +441,50 @@
                 <ControlTemplate TargetType="DatePicker">
                     <Grid>
                         <Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
                             <DockPanel>
                                 <TextBox x:Name="PART_TextBox"
-                                         Width="154"
                                          Background="{StaticResource ColorSecondaryBackground}"
-                                     Foreground="{StaticResource ColorPrimaryText}"
-                                     BorderThickness="0"
-                                     VerticalContentAlignment="Center"
-                                     Padding="5,0" />
-                                
+                                         Foreground="{StaticResource ColorPrimaryText}"
+                                         BorderThickness="0"
+                                         VerticalContentAlignment="Center"
+                                         Width="165"
+                                         Padding="5,0" />
                                 <Button x:Name="PART_Button"
-                                    Width="40"
-                                    Background="{StaticResource ColorSecondaryBackground}"
-                                    Foreground="{StaticResource ColorPrimaryText}"
-                                    BorderBrush="{StaticResource ColorBorder}"
-                                    BorderThickness="1"
-                                    HorizontalAlignment="Right"
-                                    Margin="0,0,0,0">
-                                    <ContentPresenter Content="🗓️"
-                                                      HorizontalAlignment="Center" 
-                                                  VerticalAlignment="Center" />
+                                        Width="30"
+                                        Height="30"
+                                        Foreground="{StaticResource ColorPrimaryText}"
+                                        Background="{StaticResource ColorSecondaryBackground}"
+                                        BorderBrush="{StaticResource ColorBorder}"
+                                        BorderThickness="1"
+                                        HorizontalAlignment="Right">
+                                    <ContentPresenter Content="📅"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center" />
                                 </Button>
                             </DockPanel>
                         </Border>
                         <Popup x:Name="PART_Popup"
-                           AllowsTransparency="True"
-                           Placement="Bottom">
+                               AllowsTransparency="True"
+                               Placement="Bottom">
                             <Border Background="{StaticResource ColorSecondaryBackground}"
-                                BorderBrush="{StaticResource ColorBorder}"
-                                BorderThickness="1"
-                                CornerRadius="5">
+                                    BorderBrush="{StaticResource ColorBorder}"
+                                    BorderThickness="1"
+                                    CornerRadius="5">
                                 <Calendar x:Name="PART_Calendar"
-                                      Background="{StaticResource ColorSecondaryBackground}"
-                                      Foreground="{StaticResource ColorPrimaryText}" />
+                                          Background="{StaticResource ColorSecondaryBackground}"
+                                          Foreground="{StaticResource ColorPrimaryText}"
+                                          CalendarDayButtonStyle="{StaticResource CustomCalendarDayButtonStyle}" />
+
                             </Border>
                         </Popup>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="BorderBrush" Value="{StaticResource ColorCaretBrush}" />
@@ -460,7 +494,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
 
 
 </ResourceDictionary>

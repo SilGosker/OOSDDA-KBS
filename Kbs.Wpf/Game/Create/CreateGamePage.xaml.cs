@@ -16,6 +16,7 @@ public partial class CreateGamePage : Page
     {
         _navigationManager = navigationManager;
         InitializeComponent();
+        ViewModel.Date = DateTime.Now;
     }
 
     private void SaveWithoutBoats(object sender, RoutedEventArgs e)

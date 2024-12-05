@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 
 namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
 {
-    public class ReadUserIndexViewModel : ViewModel
+    public class ReadIndexUserViewModel : ViewModel
     {
-        public ObservableCollection<ReadUserValuesIndexViewModel> Items { get; } = new();
-        public ObservableCollection<ReadUserIndexRoleViewModel> Roles { get; } = new();
+        public ObservableCollection<ReadIndexUserValuesViewModel> Items { get; } = new();
+        public ObservableCollection<ReadIndexUserRoleViewModel> Roles { get; } = new();
 
         private string _name;
-        private ReadUserIndexRoleViewModel _selectedRole;
+        private ReadIndexUserRoleViewModel _selectedRole;
 
         public string Name
         {
@@ -19,7 +19,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
             set => SetField(ref _name, value);
         }
 
-        public ReadUserIndexRoleViewModel SelectedRole
+        public ReadIndexUserRoleViewModel SelectedRole
         {
             get => _selectedRole;
             set => SetField(ref _selectedRole, value);

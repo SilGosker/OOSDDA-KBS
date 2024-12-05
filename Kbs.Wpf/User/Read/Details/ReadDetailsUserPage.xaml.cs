@@ -9,15 +9,15 @@ using System.Windows.Input;
 
 namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 {
-    public partial class ReadUserDetailedPage : Page
+    public partial class ReadDetailsUserPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();
         private readonly INavigationManager _navigationManager;
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
 
-        private ReadUserDetailedViewModel ViewModel => (ReadUserDetailedViewModel)DataContext;
+        private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
-        public ReadUserDetailedPage(INavigationManager nav, int id)
+        public ReadDetailsUserPage(INavigationManager nav, int id)
         {
             InitializeComponent();
 
@@ -30,7 +30,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)
             {
-                ViewModel.Reservations.Add(new ReadUserDetailedReservationViewModel(reservation));
+                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
             }
         }
 
@@ -45,7 +45,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selectedReservation = (ReadUserDetailedReservationViewModel)((DataGrid)sender).SelectedItem;
+            var selectedReservation = (ReadDetailsUserReservationViewModel)((DataGrid)sender).SelectedItem;
             if (selectedReservation != null)
             {
             }

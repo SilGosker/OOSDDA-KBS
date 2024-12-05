@@ -2,14 +2,14 @@
 
 namespace Kbs.Wpf.User.ReadUser.ViewUserIndex
 {
-    public class ReadUserIndexRoleViewModel
+    public class ReadIndexUserRoleViewModel
     {
         private readonly UserRole _role;
-        public ReadUserIndexRoleViewModel()
+        public ReadIndexUserRoleViewModel()
         {
             HasValue = false;
         }
-        public ReadUserIndexRoleViewModel(UserRole role)
+        public ReadIndexUserRoleViewModel(UserRole role)
         {
             _role = role;
         }

@@ -5,14 +5,14 @@ using System.Collections.ObjectModel;
 
 namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 {
-    public class ReadUserDetailedViewModel : ViewModel
+    public class ReadDetailsUserViewModel : ViewModel
     {
         private string _name;
         private string _role;
         private string _email;
         private int _userId;
 
-        public ObservableCollection<ReadUserDetailedReservationViewModel> Reservations { get; } = new();
+        public ObservableCollection<ReadDetailsUserReservationViewModel> Reservations { get; } = new();
 
         public string Name
         {
@@ -38,7 +38,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
             set => SetField(ref _userId, value);
         }
 
-        public ReadUserDetailedViewModel(UserEntity user)
+        public ReadDetailsUserViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
             Name = user.Name;
@@ -47,6 +47,6 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
             Email = user.Email;
         }
 
-        public ReadUserDetailedViewModel() { }
+        public ReadDetailsUserViewModel() { }
     }
 }

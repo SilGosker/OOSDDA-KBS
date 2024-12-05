@@ -4,7 +4,7 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 {
-    public class ReadUserDetailedReservationViewModel : ViewModel
+    public class ReadDetailsUserReservationViewModel : ViewModel
     {
         private int _reservationId;
         private int _boatId;
@@ -39,7 +39,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
             set => SetField(ref _status, value);
         }
 
-        public ReadUserDetailedReservationViewModel(ReservationEntity reservation)
+        public ReadDetailsUserReservationViewModel(ReservationEntity reservation)
         {
             ThrowHelper.ThrowIfNull(reservation);
             ReservationId = reservation.ReservationId;

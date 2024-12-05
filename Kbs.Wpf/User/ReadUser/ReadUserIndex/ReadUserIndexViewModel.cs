@@ -1,9 +1,9 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Wpf.Components;
-using Kbs.Wpf.User.ViewUser.ViewUserIndex;
+using Kbs.Wpf.User.ReadUser.ViewUserIndex;
 using System.Collections.ObjectModel;
 
-namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
+namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
 {
     public class ReadUserIndexViewModel : ViewModel
     {

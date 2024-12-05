@@ -7,9 +7,9 @@ using Kbs.Wpf.Reservation.Read.Details;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
+namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 {
-    public partial class ViewUserValuesDetailedPage : Page
+    public partial class ReadUserDetailedPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();
         private readonly INavigationManager _navigationManager;
@@ -17,7 +17,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
 
         private ReadUserDetailedViewModel ViewModel => (ReadUserDetailedViewModel)DataContext;
 
-        public ViewUserValuesDetailedPage(INavigationManager nav, int id)
+        public ReadUserDetailedPage(INavigationManager nav, int id)
         {
             InitializeComponent();
 

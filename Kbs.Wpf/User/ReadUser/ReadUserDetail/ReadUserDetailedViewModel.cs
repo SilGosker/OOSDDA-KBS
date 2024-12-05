@@ -3,7 +3,7 @@ using Kbs.Business.User;
 using Kbs.Wpf.Components;
 using System.Collections.ObjectModel;
 
-namespace Kbs.Wpf.User.ViewUser.ViewUserDetail
+namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
 {
     public class ReadUserDetailedViewModel : ViewModel
     {

@@ -1,20 +1,20 @@
 ﻿using Kbs.Business.User;
-using Kbs.Wpf.User.ViewUser.ViewUserDetail;
+using Kbs.Wpf.User.ReadUser.ReadUserDetail;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Collections.Generic;
 using Kbs.Data.User;
 
-namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
+namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
 {
-    public partial class ViewUserValuesIndexPage : Page
+    public partial class ReadUserIndexPage : Page
     {
         private readonly UserRepository _userRepository;
         private readonly INavigationManager _navigationManager;
         private ReadUserIndexViewModel ViewModel => (ReadUserIndexViewModel)DataContext;
 
-        public ViewUserValuesIndexPage(INavigationManager navigationManager)
+        public ReadUserIndexPage(INavigationManager navigationManager)
         {
             _userRepository = new UserRepository();
             _navigationManager = navigationManager;
@@ -38,7 +38,7 @@ namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
         public void ClickUser(object sender, RoutedEventArgs e)
         {
             var item = (ReadUserValuesIndexViewModel)((ListViewItem)sender).DataContext;
-            _navigationManager.Navigate(() => new ViewUserValuesDetailedPage(_navigationManager, item.UserId));
+            _navigationManager.Navigate(() => new ReadUserDetailedPage(_navigationManager, item.UserId));
         }
 
         private void NameChanged(object sender, KeyEventArgs e)

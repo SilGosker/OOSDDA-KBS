@@ -2,7 +2,7 @@
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.ViewUser.ViewUserGeneral
+namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
 {
     public class ReadUserValuesIndexViewModel : ViewModel
     {

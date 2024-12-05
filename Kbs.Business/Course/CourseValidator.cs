@@ -1,43 +1,89 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+using Kbs.Business.BoatType;
+using Kbs.Business.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace Kbs.Business.Course;
-
-public class CourseValidator
+namespace Kbs.Business.Course
 {
-    public Dictionary<string, string> ValidateForUpdate(CourseEntity course)
+    public class CourseValidator
     {
-        var result = new Dictionary<string, string>();
-
-        if (string.IsNullOrWhiteSpace(course.Name))
+        public Dictionary<string, string> ValidateForCreate(CourseEntity course)
         {
-            result.Add(nameof(course.Name), "Naam is verplicht");
+            ThrowHelper.ThrowIfNull(course);
+            Dictionary<string, string> validationResult = new();
+
+            if (string.IsNullOrWhiteSpace(course.Name))
+            {
+                validationResult.Add(nameof(course.Name), "Naam is verplicht");
+            }
+
+            if (!Enum.IsDefined(course.Difficulty))
+            {
+                validationResult.Add(nameof(course.Difficulty), "Moeilijkheid is verplicht");
+            }
+
+            byte[] pngImageHeader = new byte[]
+            {
+                0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A
+            };
+
+            byte[] jpgImageHeader = new byte[]
+            {
+                0xFF, 0xD8, 0xFF
+            };
+
+            if (course.Image == null || course.Image.Length == 0)
+            {
+                validationResult.Add(nameof(course.Image), "Afbeelding is verplicht");
+            }
+            else if (!course.Image.Take(pngImageHeader.Length).SequenceEqual(pngImageHeader) &&
+                     !course.Image.Take(jpgImageHeader.Length).SequenceEqual(jpgImageHeader))
+            {
+                validationResult.Add(nameof(course.Image), "Afbeelding is geen PNG of JPG");
+            }
+
+            return validationResult;
         }
 
-        if (course.Difficulty == default)
+        public Dictionary<string, string> ValidateForUpdate(CourseEntity course)
         {
-            result.Add(nameof(course.Difficulty), "Moeilijkheidsgraad is verplicht");
+            var result = new Dictionary<string, string>();
+
+            if (string.IsNullOrWhiteSpace(course.Name))
+            {
+                result.Add(nameof(course.Name), "Naam is verplicht");
+            }
+
+            if (course.Difficulty == default)
+            {
+                result.Add(nameof(course.Difficulty), "Moeilijkheidsgraad is verplicht");
+            }
+
+            byte[] pngImageHeader = new byte[]
+            {
+                0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A
+            };
+
+            byte[] jpgImageHeader = new byte[]
+            {
+                0xFF, 0xD8, 0xFF
+            };
+
+            if (course.Image == null || course.Image.Length == 0)
+            {
+                result.Add(nameof(course.Image), "Afbeelding is verplicht");
+            }
+            else if (!course.Image.Take(pngImageHeader.Length).SequenceEqual(pngImageHeader) &&
+                    !course.Image.Take(jpgImageHeader.Length).SequenceEqual(jpgImageHeader))
+            {
+                result.Add(nameof(course.Image), "Afbeelding is geen PNG of JPG");
+            }
+
+            return result;
         }
-
-        byte[] pngImageHeader = new byte[]
-        {
-            0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A
-        };
-
-        byte[] jpgImageHeader = new byte[]
-        {
-            0xFF, 0xD8, 0xFF
-        };
-
-        if (course.Image == null || course.Image.Length == 0)
-        {
-            result.Add(nameof(course.Image), "Afbeelding is verplicht");
-        }
-        else if (!course.Image.Take(pngImageHeader.Length).SequenceEqual(pngImageHeader) &&
-                 !course.Image.Take(jpgImageHeader.Length).SequenceEqual(jpgImageHeader))
-        {
-            result.Add(nameof(course.Image), "Afbeelding is geen PNG of JPG");
-        }
-
-        return result;
     }
 }

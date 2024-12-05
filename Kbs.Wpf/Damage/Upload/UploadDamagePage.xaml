@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:upload="clr-namespace:Kbs.Wpf.Damage.Upload"
       mc:Ignorable="d"
-      d:DesignHeight="6800" d:DesignWidth="900"
+      d:DesignHeight="680" d:DesignWidth="900"
       Title="UploadDamagePage">
     <Page.DataContext>
         <upload:UploadDamageViewModel />

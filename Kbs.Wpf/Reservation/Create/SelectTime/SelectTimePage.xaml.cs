@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.Eventing.Reader;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Kbs.Business.Boat;
@@ -59,7 +60,16 @@ public partial class SelectTimePage : Page
 
     private void TimeSlotButton_Click(object sender, RoutedEventArgs e)
     {
-        if (SessionManager.Instance.Current.User.IsGameCommissioner())
+        if (SessionManager.Instance.Current.User.IsMember())
+        {
+
+            Button send = (Button)sender;
+            Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
+                (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
+            _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+
+        }
+        else if (SessionManager.Instance.Current.User.IsGameCommissioner())
         {
             if (_boatsSelected.Count > 0)
             {
@@ -73,13 +83,14 @@ public partial class SelectTimePage : Page
             {
                 ViewModel.NoBoatsSelectedError = "Selecteer een of meerdere boten";
             }
-        }
-        else
+        } else
         {
+
             Button send = (Button)sender;
             Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
                 (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
             _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+
         }
     }
 

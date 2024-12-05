@@ -81,7 +81,7 @@
                                 </Grid>
                             </StackPanel>
                             <StackPanel>
-                                <TextBlock Background="{StaticResource ColorHyperlink}" Height="2" Margin="0,2,0,0" Visibility="{Binding SelectionLineVisability}"></TextBlock>
+                                <TextBlock Background="{StaticResource ColorHyperlink}" Height="2" Margin="0,2,0,0"></TextBlock>
                             </StackPanel>
 
                         </StackPanel>

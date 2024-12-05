@@ -29,11 +29,9 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserDetail
             set
             {
                 SetField(ref _startTime, value);
-                OnPropertyChanged(nameof(StartTimeString));
             }
         }
 
-        public string StartTimeString => StartTime.ToString("dd-MM");
 
         public string Status
         {

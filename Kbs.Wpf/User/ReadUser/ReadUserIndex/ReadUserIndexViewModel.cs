@@ -22,17 +22,7 @@ namespace Kbs.Wpf.User.ReadUser.ReadUserGeneral
         public ReadUserIndexRoleViewModel SelectedRole
         {
             get => _selectedRole;
-            set
-            {
-                if (SetField(ref _selectedRole, value))
-                {
-                    OnRoleChanged();
-                }
-            }
-        }
-
-        private void OnRoleChanged()
-        {
+            set => SetField(ref _selectedRole, value);
         }
     }
 }

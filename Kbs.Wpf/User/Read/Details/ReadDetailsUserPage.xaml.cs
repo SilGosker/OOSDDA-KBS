@@ -1,10 +1,17 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.Reservation.Read.Details;
+using Kbs.Wpf.Reservation.Read.Index;
+using Kbs.Wpf.User.Read.Index;
 
 namespace Kbs.Wpf.User.Read.Details
 {
@@ -16,8 +23,9 @@ namespace Kbs.Wpf.User.Read.Details
 
         private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
-        public ReadDetailsUserPage(INavigationManager nav, int id)
+        public ReadDetailsUserPage(INavigationManager navigationManager, int id)
         {
+            _navigationManager = navigationManager;
             InitializeComponent();
 
             var user = _userRepository.GetById(id);
@@ -59,6 +67,25 @@ namespace Kbs.Wpf.User.Read.Details
                 else
                     dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
             }
+        }
+
+        private void Ban(object sender, RoutedEventArgs e)
+        {
+            var entity = _userRepository.GetById(ViewModel.UserId);
+            var userId = entity.UserId;
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
+            {
+                _userRepository.ChangeRole(entity);
+                _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
+            }
+            else
+            {
+            }
+        }
+        private void Update(object sender, System.Windows.RoutedEventArgs e)
+        {
+
         }
     }
 }

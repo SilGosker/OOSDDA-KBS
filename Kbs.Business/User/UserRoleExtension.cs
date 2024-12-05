@@ -10,9 +10,11 @@ namespace Kbs.Business.User
                 UserRole.MaterialCommissioner => "Materiaalcommissaris",
                 UserRole.GameCommissioner => "Wedstrijdcommissaris",
                 UserRole.Member => "Lid",
+                UserRole.Banned => "Verbannen",
                 (UserRole)7 => "Administrator",
                 default(UserRole) => "Geband",
                 _ => "Onbekende combinatie"
+
             };
         }
     }

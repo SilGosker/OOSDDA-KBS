@@ -380,6 +380,22 @@
     </Style>
 
     <Style TargetType="CalendarDayButton" x:Key="CustomCalendarDayButtonStyle">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CalendarDayButton">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="{TemplateBinding Content}"
+                                   Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
         <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
         <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
@@ -398,14 +414,20 @@
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
                 <Setter Property="Background" Value="{StaticResource ColorCaretBrush}" />
+                <Setter Property="BorderBrush" Value="{StaticResource ColorBorder}" />
+                <Setter Property="BorderThickness" Value="2" />
             </Trigger>
+
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{StaticResource ColorPrimaryText}" />
-                <Setter Property="Opacity" Value="1" />
+                <Setter Property="Opacity" Value="0.5" />
             </Trigger>
+            <Trigger Property="IsInactive" Value="True">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+
         </Style.Triggers>
     </Style>
-
 
     <Style TargetType="Calendar" x:Key="DefaultCalendarStyle">
         <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
@@ -424,7 +446,6 @@
                 </Style>
             </Setter.Value>
         </Setter>
-
     </Style>
 
     <Style TargetType="DatePicker" x:Key="DefaultDatePickerStyle">

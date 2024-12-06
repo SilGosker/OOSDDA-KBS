@@ -3,9 +3,11 @@ using Kbs.Business.Medal;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
+using Kbs.Data.Medal;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Medal.Components;
+using Kbs.Wpf.Reservation.Read.Index;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,13 +33,16 @@ namespace Kbs.Wpf.Medal.Create
         private CreateMedalViewModel ViewModel => (CreateMedalViewModel)DataContext;
         private readonly UserRepository _userRepository = new();
         private readonly BoatRepository _boatRepository = new();
-        private int _boatId;
+        private readonly MedalRepository _MedalRepository = new();
+        private readonly INavigationManager _navigationManager;
+        private int _boatId = 48;
         private int _userId;
         private int _gameId;
         private MedalMaterial _medalMaterial;
         public CreateMedalPage(INavigationManager navigationManager, int gameId)
         {
             _gameId = gameId;
+            _navigationManager = navigationManager;
             InitializeComponent();
             foreach(UserEntity user in _userRepository.Get())
             {
@@ -47,7 +52,7 @@ namespace Kbs.Wpf.Medal.Create
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
 
-            foreach (BoatEntity boat in _boatRepository.GetMany())
+            foreach (BoatEntity boat in _boatRepository.GetManyByGame(_gameId))
             {
                 ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
             }
@@ -83,7 +88,15 @@ namespace Kbs.Wpf.Medal.Create
 
         private void ButtonRewardMedal_Click(object sender, RoutedEventArgs e)
         {
+            var medal = new MedalEntity();
+            medal.Material = _medalMaterial;
+            medal.UserId = _userId;
+            medal.BoatId = _boatId;
+            medal.GameId = _gameId;
 
+            _MedalRepository.Create(medal);
+
+            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
         }
     }
 }

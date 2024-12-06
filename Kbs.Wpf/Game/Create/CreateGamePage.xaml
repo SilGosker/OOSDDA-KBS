@@ -36,6 +36,7 @@
                 <!-- x:Name is required to access the BlackOutDates to cancel out past dates -->
                 <Calendar x:Name="Calendar" SelectedDate="{Binding Date}"
                           VerticalAlignment="Top"
+                          FirstDayOfWeek="Monday"
                           Margin="10,29,0,0"  Grid.Row="1" Grid.Column="1"
                           Style="{StaticResource DefaultCalendarStyle}"/>
 

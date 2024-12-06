@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.BoatType;
+using Kbs.Business.Game;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
@@ -20,6 +21,13 @@ public partial class SelectBoatTypePage : Page
     private readonly UserEntity _user = SessionManager.Instance.Current.User;
     private BoatTypeEntity _selectedBoatType;
     private SelectBoatTypeViewModel ViewModel => (SelectBoatTypeViewModel)DataContext;
+    private readonly GameEntity _game;
+
+    public SelectBoatTypePage(INavigationManager navigationManager, GameEntity game) : this(navigationManager)
+    {
+        _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
+    }
 
     public SelectBoatTypePage(INavigationManager navigationManager)
     {
@@ -56,7 +64,15 @@ public partial class SelectBoatTypePage : Page
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
             _selectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
-            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
+
+            if (_game != null)
+            {
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType, _game));
+            }
+            else
+            {
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
+            }
         }
     }
 }

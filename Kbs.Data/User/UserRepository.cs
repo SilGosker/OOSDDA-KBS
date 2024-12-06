@@ -61,10 +61,36 @@ public class UserRepository : IUserRepository, IDisposable
     {
         return _connection.Query<UserEntity>("SELECT * FROM Users WHERE UserId = @UserId", new { UserId = id }).FirstOrDefault();
     }
+    public void ChangeRole(UserEntity user)
+    {
+        _connection.Execute("UPDATE Users SET Role = 0 WHERE UserID = @UserId",new { UserId = user.UserId });
+        _connection.Execute("UPDATE Reservation SET Status = 1 WHERE UserID = @UserId", new { UserId = user.UserId });
+    }
 
 
     public void Dispose()
     {
         _connection?.Dispose();
     }
+    public IEnumerable<UserEntity> GetUsersByName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return _connection.Query<UserEntity>("SELECT * FROM Users");
+        }
+        return _connection.Query<UserEntity>(
+            "SELECT * FROM Users WHERE Name LIKE @Name",
+            new { Name = "%" + name + "%" });
+    }
+
+    public IEnumerable<UserRole> GetAllRoles()
+    {
+        return _connection.Query<UserRole>("SELECT DISTINCT Role FROM Users");
+    }
+    public IEnumerable<UserEntity> GetUsersByNameAndRole(string name, UserRole role)
+    {
+        var sql = @"SELECT * FROM Users WHERE (@Name IS NULL OR Name LIKE '%' + @Name + '%') AND (Role & @Role) != 0";
+        return _connection.Query<UserEntity>(sql, new { Name = name, Role = (int)role });
+    }
+
 }

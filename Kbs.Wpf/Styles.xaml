@@ -429,10 +429,12 @@
 
                                 <Label Grid.Row="0"
                                        Grid.Column="1"
-                                       Content="{Binding DisplayDate, StringFormat={}{0:yyyy-MM}, RelativeSource={RelativeSource AncestorType=Calendar}}"
+                                       Content="{Binding DisplayDate, RelativeSource={RelativeSource AncestorType=Calendar}}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
-                                       FontSize="16" />
+                                       ContentStringFormat="yyyy-MM"
+                                       FontSize="16">
+                                </Label>
 
                                 <Button Grid.Row="0"
                                         Visibility="Hidden"

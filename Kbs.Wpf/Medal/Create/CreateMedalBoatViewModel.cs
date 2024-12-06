@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace Kbs.Wpf.Medal.Create
 {
-    public class CreateMedalBoatViewModel: ViewModel
+    public class CreateMedalBoatViewModel : ViewModel
     {
         private int _boatId;
         private string _name;
+
+        public CreateMedalBoatViewModel(BoatEntity boat)
+        {
+            BoatId = boat.BoatId;
+            Name = boat.Name;
+        }
         public int BoatId
         {
             get => _boatId;
@@ -22,12 +28,6 @@ namespace Kbs.Wpf.Medal.Create
         {
             get => _name;
             set => SetField(ref _name, value);
-        }
-
-        public CreateMedalBoatViewModel(BoatEntity boat)
-        {
-            BoatId = boat.BoatId;
-            Name = boat.Name;
         }
 
         public override string ToString()

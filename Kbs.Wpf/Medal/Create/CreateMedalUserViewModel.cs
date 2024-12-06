@@ -11,6 +11,19 @@ namespace Kbs.Wpf.Medal.Create
     {
         private int _userId;
         private string _displayName;
+
+        public CreateMedalUserViewModel(Business.User.UserEntity user)
+        {
+            UserId = user.UserId;
+            if (user.Name == "")
+            {
+                DisplayName = user.Email;
+            }
+            else
+            {
+                DisplayName = user.Name;
+            }
+        }
         public int UserId
         {
             get => _userId;
@@ -21,18 +34,6 @@ namespace Kbs.Wpf.Medal.Create
         {
             get => _displayName;
             set => SetField(ref _displayName, value);
-        }
-
-        public CreateMedalUserViewModel(Business.User.UserEntity user)
-        {
-            UserId = user.UserId;
-            if (user.Name == "")
-            {
-                DisplayName = user.Email;
-            } else
-            {
-                DisplayName = user.Name;
-            }
         }
 
         public override string ToString()

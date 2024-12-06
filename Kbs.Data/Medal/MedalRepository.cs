@@ -32,5 +32,6 @@ namespace Kbs.Data.Medal
         {
             return _connection.Query<MedalEntity>("SELECT *, m.Medal as Material FROM Medal m WHERE UserID = @GameId", new { GameId = userId }).ToList();
         }
+
     }
 }

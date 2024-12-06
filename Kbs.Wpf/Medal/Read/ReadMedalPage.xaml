@@ -38,17 +38,20 @@
             <DataGrid Style="{StaticResource DefaultDataGridStyle}" Foreground="Black"
           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
           IsReadOnly="True"
-          AutoGenerateColumns="False" ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=15}"
-          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+          AutoGenerateColumns="False" ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=100}"
+          VerticalScrollBarVisibility="Auto"
           VerticalAlignment="Top"
-          Margin="18,809,18,0" Height="330">
-
+          Margin="18,809,18,0" Height="219">
                 
-
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                        <EventSetter Event="MouseDoubleClick" Handler="GameSelected" />
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="130" Header="Datum: "  Binding="{Binding Date}"/>
                     <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Material}" />
-                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles: " Binding="{Binding Totaal}" />
+                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles / beschrijving / of iets dergelijks idk: " Binding="{Binding Totaal}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

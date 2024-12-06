@@ -2,6 +2,8 @@
 using Kbs.Business.Session;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
+using Kbs.Wpf.Reservation.Read.Details;
+using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows.Controls;
 
 namespace Kbs.Wpf.Medal.Read
@@ -51,7 +53,10 @@ namespace Kbs.Wpf.Medal.Read
 
         public void GameSelected(object sender, EventArgs e)
         {
-            
+            var listViewItem = (ListViewItem)sender;
+            var item = (ReadMedalsGameViewModel)listViewItem.DataContext;
+            //Is nog geen specifieke Game pagina
+            _navigationManager.Navigate(() => new ReadMedalPage(_navigationManager));
         }
     }
 }

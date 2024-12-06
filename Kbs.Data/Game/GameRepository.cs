@@ -9,6 +9,6 @@ public class GameRepository : IGameRepository
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
     public void Create(GameEntity game)
     {
-        _connection.Execute("INSERT INTO Game (Name, Description) VALUES (@Name, @Description)", game);
+        _connection.Execute("INSERT INTO Game (Name, Date) VALUES (@Name, @Date)", game);
     }
 }

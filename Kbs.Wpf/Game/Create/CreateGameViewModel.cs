@@ -9,6 +9,7 @@ public class CreateGameViewModel : ViewModel
     private string _nameErrorMessage;
     private string _dateErrorMessage;
     private string _name;
+    private string _courseErrorMessage;
     private DateTime _date;
     private CreateGameCourseViewModel _selectedCourse;
     public string NameErrorMessage
@@ -21,6 +22,11 @@ public class CreateGameViewModel : ViewModel
     {
         get => _dateErrorMessage;
         set => SetField(ref _dateErrorMessage, value);
+    }
+    public string CourseErrorMessage
+    {
+        get => _courseErrorMessage;
+        set => SetField(ref _courseErrorMessage, value);
     }
     public string Name
     {

@@ -14,8 +14,8 @@ public class ReservationRepository : IReservationRepository, IDisposable
     {
         res.ReservationId =
             _connection.QueryFirst<int>(
-                @"INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status)
-                    VALUES (@UserID, @BoatID, @StartTime, @Length, @Status);
+                @"INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status, GameID)
+                    VALUES (@UserID, @BoatID, @StartTime, @Length, @Status, @GameId);
                     SELECT SCOPE_IDENTITY()",
                 res);
     }

@@ -24,7 +24,7 @@ namespace Kbs.Wpf.Medal.Read
         public ReadMedalPage(INavigationManager _navigationManager)
         {
             InitializeComponent();
-            var skibidi = _medalRepository.
+            //var skibidi = _medalRepository.
         }
         public void GameSelected(object sender, EventArgs e)
         {

@@ -36,7 +36,7 @@ public partial class CreateGamePage : Page
         {
             Name = ViewModel.Name,
             Date = ViewModel.Date,
-            CourseId = ViewModel.SelectedCourse?.Id
+            CourseId = ViewModel.SelectedCourse?.Id ?? 0
         };
 
         var validationResult = _gameValidator.ValidateForCreate(game);

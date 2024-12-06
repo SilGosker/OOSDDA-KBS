@@ -1,31 +1,27 @@
-﻿using System;
-using Kbs.Wpf.Components;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Kbs.Business.Medal;
+﻿using Kbs.Wpf.Components;
+using Kbs.Business.Game;
 
 namespace Kbs.Wpf.Medal.Read
 {
     public class ReadMedalsGameViewModel : ViewModel
     {
-        private string _place;
+        private string _material;
         private string _date;
 
-        public string Place
+        public string Material
         {
-            get => _place;
-            set => SetField(ref _place, value);
+            get => _material;
+            set => SetField(ref _material, value);
         }
         public string Date
         {
             get => _date;
             set => SetField(ref _date, value);
         }
-        public ReadMedalsGameViewModel(MedalEntity medal)
+        public ReadMedalsGameViewModel(GameEntity medal)
         {
-
+            Date = medal.Date.ToShortDateString();
+            Material = medal.Place.ToString();
         }
     }
     

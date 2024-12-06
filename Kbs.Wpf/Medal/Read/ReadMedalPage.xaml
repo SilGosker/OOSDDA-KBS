@@ -17,9 +17,9 @@
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0" Height="620">
             <Grid Margin="10,10,10,33">
                 <TextBlock Margin="121,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBlock>
-                <Label Content="5 " Margin="121,446,0,0" VerticalAlignment="Top" />
-                <Label Content="10 " Margin="609,452,0,0" VerticalAlignment="Top" />
-                <Label Content="20 " Margin="358,336,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding Gold}" Margin="386,339,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding Silver}" Margin="591,446,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding Bronze}" Margin="121,426,0,0" VerticalAlignment="Top" />
                 <Grid>
                     <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\bronze.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="84,239,0,0" />
                     <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\goud.jpg" HorizontalAlignment="Center" VerticalAlignment="Top" Width="184" Height="270" Margin="0,54,0,0" />
@@ -35,7 +35,7 @@
             <DataGrid Style="{StaticResource DefaultDataGridStyle}"
           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
           IsReadOnly="True"
-          AutoGenerateColumns="False" ItemsSource="{Binding Reservations}" d:ItemsSource="{d:SampleData ItemCount=5}"
+          AutoGenerateColumns="False" ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=15}"
           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
           VerticalAlignment="Top"
           Margin="18,809,18,0" Height="330">
@@ -48,7 +48,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="130" Header="Datum: "  Binding="{Binding Date}"/>
                     <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Place}" />
-                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles: " Binding="{Binding pee pee poo poo}" />
+                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles: " />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

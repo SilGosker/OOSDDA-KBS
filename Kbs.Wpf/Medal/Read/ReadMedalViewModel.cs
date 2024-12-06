@@ -1,17 +1,11 @@
-﻿using Accessibility;
-using Kbs.Wpf.Components;
-using System;
-using System.Collections.Generic;
+﻿using Kbs.Wpf.Components;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Kbs.Wpf.Medal.Read
 {
-    public class ReadMedalViewModel : ViewModel
-    {
-        public ObservableCollection<ReadMedalsGameViewModel> Games = new ObservableCollection<ReadMedalsGameViewModel>();
+    public class ReadMedalViewModel : ViewModel {
+        public ObservableCollection<ReadMedalsGameViewModel> Games { get; set; } = new ObservableCollection<ReadMedalsGameViewModel>();
         private int _gold;
         private int _silver;
         private int _bronze;

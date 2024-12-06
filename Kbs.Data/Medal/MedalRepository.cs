@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using Kbs.Business.Boat;
 using Kbs.Business.Damage;
+using Kbs.Business.Game;
 using Kbs.Business.Medal;
 using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
@@ -20,6 +21,16 @@ namespace Kbs.Data.Medal
         public void Delete(MedalEntity medal)
         {
             throw new NotImplementedException();
+        }
+
+        public MedalEntity GetById(int id)
+        {
+            return _connection.Query<MedalEntity>("SELECT * FROM Medal WHERE GameId = @GameId", new { GameId = id }).FirstOrDefault();
+        }
+
+        public List<MedalEntity> GetByUserId(int userId)
+        {
+            return _connection.Query<MedalEntity>("SELECT * FROM Medal WHERE UserID = @GameId", new { GameId = userId }).ToList();
         }
     }
 }

@@ -15,6 +15,11 @@ public class GameValidator
             result.Add(nameof(game.Date), "Datum moet in de toekomst liggen");
         }
 
+        if (game.CourseId == null)
+        {
+            result.Add(nameof(game.CourseId), "Parcours is verplicht");
+        }
+
         return result;
     }
 }

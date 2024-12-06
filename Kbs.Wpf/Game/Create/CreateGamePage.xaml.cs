@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Course;
 using Kbs.Business.Game;
+using Kbs.Data.Course;
 using Kbs.Data.Game;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 
@@ -10,6 +12,7 @@ public partial class CreateGamePage : Page
 {
     private readonly GameValidator _gameValidator = new();
     private readonly GameRepository _gameRepository = new();
+    private readonly CourseRepository _courseRepository = new();
     private readonly INavigationManager _navigationManager;
     private CreateGameViewModel ViewModel => (CreateGameViewModel)DataContext;
     public CreateGamePage(INavigationManager navigationManager)
@@ -17,6 +20,14 @@ public partial class CreateGamePage : Page
         _navigationManager = navigationManager;
         InitializeComponent();
         ViewModel.Date = DateTime.Now;
+
+        Calendar.BlackoutDates.AddDatesInPast();
+
+        foreach (CourseEntity course in _courseRepository.GetAll())
+        {
+            ViewModel.Courses.Add(new CreateGameCourseViewModel(course));
+        }
+
     }
 
     private void SaveWithoutBoats(object sender, RoutedEventArgs e)
@@ -24,7 +35,8 @@ public partial class CreateGamePage : Page
         var game = new GameEntity
         {
             Name = ViewModel.Name,
-            Date = ViewModel.Date
+            Date = ViewModel.Date,
+            CourseId = ViewModel.SelectedCourse?.Id,
         };
         var validationResult = _gameValidator.ValidateForCreate(game);
 

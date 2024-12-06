@@ -22,30 +22,32 @@ namespace Kbs.Wpf.Medal.Read
             InitializeComponent();
             var user = SessionManager.Instance.Current.User;
             var medals = _medalRepository.GetByUserId(user.UserId);
+
             foreach (var medal in medals)
             {
+                var game = _gameRepository.GetById(medal.GameId);
+                var gameViewModel = new ReadMedalsGameViewModel(game, medal.Material);
+
+                ViewModel.Games.Add(gameViewModel);
+
                 if (medal.Material == MedalMaterial.Gold)
                 {
                     _totalAmountOfGold++;
-                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Gold));
                 }
-                if (medal.Material == MedalMaterial.Silver)
+                else if (medal.Material == MedalMaterial.Silver)
                 {
                     _totalAmountOfSilver++;
-                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Silver));
                 }
-                if (medal.Material == MedalMaterial.Bronze)
+                else if (medal.Material == MedalMaterial.Bronze)
                 {
                     _totalAmountOfBronze++;
-                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Bronze));
                 }
-                var game = _gameRepository.GetById(medal.GameId);
-                ViewModel.Games.Add(new ReadMedalsGameViewModel(game));
             }
-            ViewModel.Gold = _totalAmountOfGold; 
+            ViewModel.Gold = _totalAmountOfGold;
             ViewModel.Silver = _totalAmountOfSilver;
             ViewModel.Bronze = _totalAmountOfBronze;
         }
+
 
         public void GameSelected(object sender, EventArgs e)
         {

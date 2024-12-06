@@ -19,25 +19,10 @@ namespace Kbs.Wpf.Medal.Read
             get => _date;
             set => SetField(ref _date, value);
         }
-        public ReadMedalsGameViewModel(GameEntity medal)
+        public ReadMedalsGameViewModel(GameEntity game, MedalMaterial material)
         {
-            Date = medal.Date.ToShortDateString();
-            Material = medal.Place.ToString();
-        }
-        public ReadMedalsGameViewModel(MedalMaterial medal)
-        {
-            if (medal == MedalMaterial.Bronze)
-            {
-                Material = MedalMaterial.Bronze.ToString();
-            }
-            if (medal == MedalMaterial.Silver)
-            {
-                Material = MedalMaterial.Silver.ToString();
-            }
-            if (medal == MedalMaterial.Gold)
-            {
-                Material = MedalMaterial.Gold.ToString();
-            }
+            Date = game.Date.ToShortDateString();  
+            Material = material.ToDutchString();  
         }
     }
     

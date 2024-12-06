@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Kbs.Business.Game;
 
@@ -8,5 +8,6 @@ public class GameEntity
     public int GameId { get; set; }
     public string Name { get; set; }
     public DateTime Date { get; set; }
-    public int? CourseId { get; set; }
+    [Column("CourseID")]
+    public int CourseId { get; set; }
 }

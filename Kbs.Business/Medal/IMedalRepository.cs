@@ -10,6 +10,5 @@ namespace Kbs.Business.Medal
     public interface IMedalRepository
     {
         public void Create(MedalEntity medal);
-        public void Delete(MedalEntity medal);
     }
 }

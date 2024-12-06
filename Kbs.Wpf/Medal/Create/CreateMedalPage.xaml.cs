@@ -35,13 +35,9 @@ namespace Kbs.Wpf.Medal.Create
         private readonly BoatRepository _boatRepository = new();
         private readonly MedalRepository _MedalRepository = new();
         private readonly INavigationManager _navigationManager;
-        private int? _boatId;
-        private int _userId;
-        private int _gameId;
-        private MedalMaterial _medalMaterial;
         public CreateMedalPage(INavigationManager navigationManager, int gameId)
         {
-            _gameId = gameId;
+            ViewModel.SelectedGameId = gameId;
             _navigationManager = navigationManager;
             InitializeComponent();
             foreach(UserEntity user in _userRepository.Get())
@@ -52,7 +48,7 @@ namespace Kbs.Wpf.Medal.Create
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
 
-            foreach (BoatEntity boat in _boatRepository.GetManyByGame(_gameId))
+            foreach (BoatEntity boat in _boatRepository.GetManyByGame(ViewModel.SelectedGameId))
             {
                 ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
             }
@@ -64,7 +60,7 @@ namespace Kbs.Wpf.Medal.Create
             var selected = (CreateMedalBoatViewModel)comboBox.SelectedItem;
 
             if (selected == null) return;
-            _boatId = selected.BoatId;
+            ViewModel.SelectedBoat = selected;
 
         }
 
@@ -74,7 +70,7 @@ namespace Kbs.Wpf.Medal.Create
             var selected = (CreateMedalUserViewModel)comboBox.SelectedItem;
 
             if (selected == null) return;
-            _userId = selected.UserId;  
+            ViewModel.SelectedUser = selected;  
         }
 
         private void ComboBoxMedalMaterial_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -83,16 +79,16 @@ namespace Kbs.Wpf.Medal.Create
             var selected = (MedalMaterialViewModel)comboBox.SelectedItem;
 
             if (selected == null) return;
-            _medalMaterial = selected.MedalMaterial;
+            ViewModel.SelectedMaterial = selected;
         }
 
         private void ButtonRewardMedal_Click(object sender, RoutedEventArgs e)
         {
             var medal = new MedalEntity();
-            medal.Material = _medalMaterial;
-            medal.UserId = _userId;
-            medal.BoatId = _boatId;
-            medal.GameId = _gameId;
+            medal.Material = ViewModel.SelectedMaterial.MedalMaterial;
+            medal.UserId = ViewModel.SelectedUser.UserId;
+            medal.BoatId = ViewModel.SelectedBoat.BoatId;
+            medal.GameId = ViewModel.SelectedGameId;
 
             _MedalRepository.Create(medal);
 

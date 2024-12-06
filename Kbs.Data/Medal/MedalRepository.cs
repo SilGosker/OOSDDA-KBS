@@ -16,10 +16,5 @@ namespace Kbs.Data.Medal
             "INSERT INTO Medal (BoatId, UserId, GameId, Medal) VALUES (@BoatId, @UserId, @GameId, @Material); SELECT SCOPE_IDENTITY()",
             medal);
         }
-
-        public void Delete(MedalEntity medal)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

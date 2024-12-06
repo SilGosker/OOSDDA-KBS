@@ -33,7 +33,7 @@ public class CreateGameViewModel : ViewModel
         set => SetField(ref _date, value);
     }
 
-    public ObservableCollection<CreateGameCourseViewModel> Courses { get; } = new();
+    public ObservableCollection<CreateGameCourseViewModel> PossibleCourses { get; } = new();
     public CreateGameCourseViewModel SelectedCourse
     {
         get => _selectedCourse;

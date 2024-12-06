@@ -25,7 +25,7 @@ public partial class CreateGamePage : Page
 
         foreach (CourseEntity course in _courseRepository.GetAll())
         {
-            ViewModel.Courses.Add(new CreateGameCourseViewModel(course));
+            ViewModel.PossibleCourses.Add(new CreateGameCourseViewModel(course));
         }
 
     }

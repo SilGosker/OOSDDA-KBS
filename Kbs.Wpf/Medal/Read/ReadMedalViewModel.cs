@@ -1,4 +1,5 @@
-﻿using Kbs.Wpf.Components;
+﻿using Kbs.Business.Medal;
+using Kbs.Wpf.Components;
 using System.Collections.ObjectModel;
 
 

@@ -12,9 +12,13 @@ public class GameRepository : IGameRepository
     {
         game.GameId = _connection.QuerySingle<int>("INSERT INTO Game (Name, Date, CourseID) VALUES (@Name, @Date, @CourseId); SELECT SCOPE_IDENTITY();", game);
     }
-    public List<GameEntity> GetByGameId(int id)
+    public GameEntity GetById(int id)
     {
-        return _connection.Query<List<GameEntity>>("SELECT * FROM Game WHERE GameId = @GameId", new { GameId = id }).FirstOrDefault();
+        return _connection.QueryFirstOrDefault<GameEntity>("SELECT * FROM Game WHERE GameId = @GameId", new { GameId = id });
     }
-   
+
+    public List<GameEntity> Get()
+    {
+        return _connection.Query<List<GameEntity>>("SELECT *,  FROM Game").FirstOrDefault();
+    }
 }

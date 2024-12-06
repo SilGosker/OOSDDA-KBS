@@ -3,6 +3,6 @@
 public interface IGameRepository
 {
     public void Create(GameEntity game);
-    public List<GameEntity> GetByGameId(int userId);
+    public GameEntity GetById(int id);
 
 }

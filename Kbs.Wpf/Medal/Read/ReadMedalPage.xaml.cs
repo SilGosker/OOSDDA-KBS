@@ -16,18 +16,14 @@ namespace Kbs.Wpf.Medal.Read
         private int _totalAmountOfSilver;
         private int _totalAmountOfBronze;
         private ReadMedalViewModel ViewModel => (ReadMedalViewModel)DataContext;
-        //private ReadMedalsGameViewModel ViewModelGame => (ReadMedalsGameViewModel) DataContext;
-
+        private ReadMedalsGameViewModel peepee => (ReadMedalsGameViewModel)DataContext;
         public ReadMedalPage(INavigationManager _navigationManager)
         {
             InitializeComponent();
             var user = SessionManager.Instance.Current.User;
             var medals = _medalRepository.GetByUserId(user.UserId);
-
-
-            foreach (var medal in medals) //optellen aantal medailles
+            foreach (var medal in medals)
             {
-                //hij zegt dat ik 3 medailles heb wat klopt maar ik heb 0 material wrm tf zijn dit 2 verschillende waarden?
                 if (medal.Material == MedalMaterial.Gold)
                 {
                     _totalAmountOfGold++;
@@ -41,13 +37,10 @@ namespace Kbs.Wpf.Medal.Read
                     _totalAmountOfBronze++;
                 }
 
-                //hij zegt dat ik geen games heb
-                var games = _gameRepository.GetByGameId(medal.GameId);
-                foreach (var game in games)
-                {
-                    ViewModel.Games.Add(new ReadMedalsGameViewModel(game));
-                }
+                var game = _gameRepository.GetById(medal.GameId);
+                ViewModel.Games.Add(new ReadMedalsGameViewModel(game));
             }
+
             ViewModel.Gold = _totalAmountOfGold; //mss ook nog todutchstring of andere manier om 1-> 1st etc te maken
             ViewModel.Silver = _totalAmountOfSilver;
             ViewModel.Bronze = _totalAmountOfBronze;

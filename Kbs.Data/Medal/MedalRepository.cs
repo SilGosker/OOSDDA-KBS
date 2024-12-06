@@ -25,12 +25,12 @@ namespace Kbs.Data.Medal
 
         public MedalEntity GetById(int id)
         {
-            return _connection.Query<MedalEntity>("SELECT * FROM Medal WHERE GameId = @GameId", new { GameId = id }).FirstOrDefault();
+            return _connection.Query<MedalEntity>("SELECT *, m.Medal as Material FROM Medal m WHERE GameId = @GameId", new { GameId = id }).FirstOrDefault();
         }
 
         public List<MedalEntity> GetByUserId(int userId)
         {
-            return _connection.Query<MedalEntity>("SELECT * FROM Medal WHERE UserID = @GameId", new { GameId = userId }).ToList();
+            return _connection.Query<MedalEntity>("SELECT *, m.Medal as Material FROM Medal m WHERE UserID = @GameId", new { GameId = userId }).ToList();
         }
     }
 }

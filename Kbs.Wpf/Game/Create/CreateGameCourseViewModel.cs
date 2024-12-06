@@ -13,6 +13,7 @@ public class CreateGameCourseViewModel
     }
 
     public int Id { get; }
+    public string Name => _name;
 
     public override string ToString()
     {

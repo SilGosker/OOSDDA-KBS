@@ -16,6 +16,7 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+	
 	<ItemGroup>
 	  <Page Update="Boat\Read\Index\ReadIndexBoatPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>

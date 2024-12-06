@@ -62,5 +62,8 @@ public class BoatRepository : IBoatRepository
             boat);
     }
 
- 
+    public List<BoatEntity> GetManyByGame(int gameId)
+    {
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
+    }
 }

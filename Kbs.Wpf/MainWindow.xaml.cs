@@ -14,8 +14,12 @@ using Kbs.Wpf.Game.Create;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
+
+using Kbs.Wpf.Medal.Create;
+
 using Kbs.Wpf.User.Read.Index;
 using Kbs.Wpf.Course.Create;
+
 
 namespace Kbs.Wpf;
 

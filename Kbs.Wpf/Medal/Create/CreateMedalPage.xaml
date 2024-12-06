@@ -1,0 +1,27 @@
+﻿<Page x:Class="Kbs.Wpf.Medal.Create.CreateMedalPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Kbs.Wpf.Medal.Create"
+      mc:Ignorable="d" 
+      d:DesignWidth="1740" d:DesignHeight="1080"
+      Title="CreateMedalPage">
+    <Page.DataContext>
+        <local:CreateMedalViewModel />
+    </Page.DataContext>
+        <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Medailes uitdelen"/>
+
+        <Label Content="Boot" HorizontalAlignment="Center" Margin="0,130,400,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Boats}" IsEditable="True" HorizontalAlignment="Center" Margin="0,158,400,0" VerticalAlignment="Top" Width="130" SelectionChanged="ComboBoxBoats_SelectionChanged"/>
+
+        <Label Content="Winnar" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding Users}" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Width="200" SelectedIndex="0" SelectionChanged="ComboBoxUser_SelectionChanged"/>
+
+        <Label Content="Medaille" HorizontalAlignment="Center" Margin="400,130,0,0" VerticalAlignment="Top"/>
+        <ComboBox ItemsSource="{Binding MedalMaterial}"  IsEditable="True" HorizontalAlignment="Center" Margin="400,158,0,0" VerticalAlignment="Top" Width="130" SelectedIndex="0" SelectionChanged="ComboBoxMedalMaterial_SelectionChanged"/>
+
+        <Button Style="{StaticResource FormButton}" Content="Bevestigen" HorizontalAlignment="Center" Margin="0,225,0,0" VerticalAlignment="Top" Click="ButtonRewardMedal_Click" />
+    </Grid>
+</Page>

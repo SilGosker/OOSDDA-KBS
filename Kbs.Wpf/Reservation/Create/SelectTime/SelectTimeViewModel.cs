@@ -9,6 +9,7 @@ public class SelectTimeViewModel : ViewModel
     private Visibility _gameCommissionerComboBoxVisibility;
     private Visibility _memberComboBoxVisibility;
     private string _noBoatsSelectedError;
+    private string _gameCreateMessage;
     public ObservableCollection<SelectTimeBoatViewModel> Boats { get; } = new();
     public ObservableCollection<string> DaysOfWeek { get; } = new();
     public ObservableCollection<DateTime> ThisWeek { get; } = new();
@@ -29,5 +30,11 @@ public class SelectTimeViewModel : ViewModel
     {
         get => _noBoatsSelectedError;
         set => SetField(ref _noBoatsSelectedError, value);
+    }
+
+    public string GameCreateMessage
+    {
+        get => _gameCreateMessage;
+        set => SetField(ref _gameCreateMessage, value);
     }
 }

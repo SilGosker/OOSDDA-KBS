@@ -15,6 +15,7 @@ public partial class CreateGamePage : Page
     private readonly CourseRepository _courseRepository = new();
     private readonly INavigationManager _navigationManager;
     private CreateGameViewModel ViewModel => (CreateGameViewModel)DataContext;
+
     public CreateGamePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -27,17 +28,17 @@ public partial class CreateGamePage : Page
         {
             ViewModel.PossibleCourses.Add(new CreateGameCourseViewModel(course));
         }
-
     }
 
-    private void SaveWithoutBoats(object sender, RoutedEventArgs e)
+    private GameEntity Validate()
     {
         var game = new GameEntity
         {
             Name = ViewModel.Name,
             Date = ViewModel.Date,
-            CourseId = ViewModel.SelectedCourse?.Id,
+            CourseId = ViewModel.SelectedCourse?.Id
         };
+
         var validationResult = _gameValidator.ValidateForCreate(game);
 
         if (validationResult.TryGetValue(nameof(game.Name), out string nameErrorMessage))
@@ -58,7 +59,22 @@ public partial class CreateGamePage : Page
             ViewModel.DateErrorMessage = string.Empty;
         }
 
-        if (validationResult.Count == 0)
+        if (validationResult.TryGetValue(nameof(game.CourseId), out string courseErrorMessage))
+        {
+            ViewModel.CourseErrorMessage = courseErrorMessage;
+        }
+        else
+        {
+            ViewModel.CourseErrorMessage = string.Empty;
+        }
+
+        return validationResult.Count == 0 ? game : null;
+    }
+    private void SaveWithoutBoats(object sender, RoutedEventArgs e)
+    {
+        var game = Validate();
+
+        if (game != null)
         {
             _gameRepository.Create(game);
             // TODO: Navigate to game detail page
@@ -67,32 +83,9 @@ public partial class CreateGamePage : Page
 
     private void SaveAndCreateReservation(object sender, RoutedEventArgs e)
     {
-        var game = new GameEntity
-        {
-            Name = ViewModel.Name,
-            Date = ViewModel.Date
-        };
-        var validationResult = _gameValidator.ValidateForCreate(game);
+        var game = Validate();
 
-        if (validationResult.TryGetValue(nameof(game.Name), out string nameErrorMessage))
-        {
-            ViewModel.NameErrorMessage = nameErrorMessage;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(game.Date), out string dateErrorMessage))
-        {
-            ViewModel.DateErrorMessage = dateErrorMessage;
-        }
-        else
-        {
-            ViewModel.DateErrorMessage = string.Empty;
-        }
-
-        if (validationResult.Count == 0)
+        if (game != null)
         {
             _gameRepository.Create(game);
             _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager, game));

@@ -29,6 +29,7 @@ public partial class SelectTimePage : Page
     public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType, GameEntity game) : this(navigationManager, boatType)
     {
         _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
     }
 
     public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType)
@@ -84,8 +85,15 @@ public partial class SelectTimePage : Page
                 Button send = (Button)sender;
                 Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
                     (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
-                _navigationManager.Navigate(() =>
-                    new SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+
+                if (_game != null)
+                {
+                    _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat, _game));
+                }
+                else
+                {
+                    _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+                }
             }
             else
             {

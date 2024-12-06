@@ -26,9 +26,10 @@ public partial class SelectBoatTypePage : Page
     public SelectBoatTypePage(INavigationManager navigationManager, GameEntity game) : this(navigationManager)
     {
         _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
     }
 
-     public SelectBoatTypePage(INavigationManager navigationManager)
+    public SelectBoatTypePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
@@ -63,13 +64,14 @@ public partial class SelectBoatTypePage : Page
             var listViewItem = (ListViewItem)sender;
             var dataContext = (SelectBoatTypeBoatTypeViewModel)listViewItem.DataContext;
             _selectedBoatType = _boatTypeRepository.GetById(dataContext.BoatTypeId);
+
             if (_game != null)
             {
-                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType, _game));
             }
             else
             {
-                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType, _game));
+                _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, _selectedBoatType));
             }
         }
     }

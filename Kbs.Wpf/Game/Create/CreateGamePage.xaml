@@ -28,7 +28,7 @@
                 <Label Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Margin="107,20,0,0" Content="Naam" />
                 <TextBox Grid.Column="0" Grid.Row="1" Width="200" Text="{Binding Path=Name}"
                          VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,49,0,0" />
-                <Label Grid.Column="0" Grid.Row="1" Foreground="Red" VerticalAlignment="Top" Margin="10,75,0,0"
+                <Label Grid.Column="0" Grid.Row="1" Foreground="Red" VerticalAlignment="Top" Margin="107,85,0,0"
                        Content="{Binding NameErrorMessage}" />
 
                 <Label Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="65,0,0,0" Content="Datum" />
@@ -40,7 +40,7 @@
                           Margin="10,29,0,0"  Grid.Row="1" Grid.Column="1"
                           Style="{StaticResource DefaultCalendarStyle}"/>
 
-                <Label Grid.Column="1" Grid.Row="1" Foreground="Red" VerticalAlignment="Bottom" Margin="65,0,0,19"
+                <Label Grid.Column="1" Grid.Row="1" Foreground="Red" VerticalAlignment="Bottom" Margin="65,0,0,20"
                        Content="{Binding DateErrorMessage}" />
 
                 <Button Grid.Column="0" Style="{StaticResource FormButton}" Grid.Row="2" Content="Opslaan zonder boten"
@@ -51,12 +51,14 @@
                         Click="SaveAndCreateReservation" />
 
                 <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Top" Content="Parcours" Margin="147,156,0,0" />
-
-                <ComboBox ItemsSource="{Binding PossibleCourses}"
-                          SelectedItem="{Binding SelectedCourse}"
+                <ComboBox ItemsSource="{Binding PossibleCourses}" SelectedItem="{Binding SelectedCourse}"
                           Text="Kies een parcours"
-                          Grid.Column="0" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1">
-                </ComboBox>
+                          IsEditable="True"
+                          Grid.Column="0"  Grid.Row="1" Width="200"
+                          VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+                <Label Grid.Column="0" Grid.Row="1" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,50,75,0"
+                       Content="{Binding CourseErrorMessage}" />
             </Grid>
         </Border>
     </Grid>

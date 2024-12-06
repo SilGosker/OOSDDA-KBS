@@ -30,6 +30,7 @@ public partial class SelectLengthPage : Page
         Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat, GameEntity game) : this(navigationManager, chosenTimeAndBoat)
     {
         _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
     }
     public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat)
     {
@@ -106,7 +107,7 @@ public partial class SelectLengthPage : Page
     {
         foreach (BoatEntity boat in _chosenTimeAndBoat.Item2)
         {
-            ReservationEntity res = new ReservationEntity();
+            ReservationEntity res = new();
             res.BoatId = boat.BoatId;
             res.Status = ReservationStatus.Active;
             res.StartTime = SelectedStartTime;

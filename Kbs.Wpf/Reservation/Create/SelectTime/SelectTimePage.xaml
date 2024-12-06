@@ -12,8 +12,8 @@
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}"
           Width="1380">
-        <Label Style="{StaticResource TitleLabel}"
-               Content="Selecteer een tijdsblok" />
+        <Label Style="{StaticResource TitleLabel}" Margin="0" Content="{Binding GameCreateMessage}" />
+        <Label Style="{StaticResource TitleLabel}" Content="Selecteer een tijdsblok" />
         <Button Style="{StaticResource FormButton}"
                 Content="Vorige stap"
                 HorizontalAlignment="Left"

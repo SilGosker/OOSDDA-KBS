@@ -37,7 +37,13 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         private string _date;
 
         private ObservableCollection<string> _availableStartTimes;
+        private string _gameCreateMessage;
         public ObservableCollection<SelectLengthLengthViewModel> RadioButtons { get; } = new();
+        public string GameCreateMessage
+        {
+            get => _gameCreateMessage;
+            set => SetField(ref _gameCreateMessage, value);
+        }
 
 
         public void MakeSelectLengthViewModel(ObservableCollection<string> availableStartTimes, string name,

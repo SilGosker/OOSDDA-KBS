@@ -18,7 +18,7 @@ namespace Kbs.Wpf.Medal.Components
 
         public MedalMaterial MedalMaterial { get; }
 
-        // Override ToString to display the BoatStatuses in Dutch
+        // Override ToString to display the MedalMaterials in Dutch
         public override string ToString()
         {
             return MedalMaterial.ToDutchString();

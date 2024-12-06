@@ -47,7 +47,7 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="130" Header="Datum: "  Binding="{Binding Date}"/>
-                    <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Place}" />
+                    <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Material}" />
                     <DataGridTextColumn Width="600" Header="Totaal aantal medailles: " Binding="{Binding Totaal}" />
                 </DataGrid.Columns>
             </DataGrid>

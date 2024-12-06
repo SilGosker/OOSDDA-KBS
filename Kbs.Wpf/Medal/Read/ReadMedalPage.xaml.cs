@@ -27,21 +27,22 @@ namespace Kbs.Wpf.Medal.Read
                 if (medal.Material == MedalMaterial.Gold)
                 {
                     _totalAmountOfGold++;
+                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Gold));
                 }
                 if (medal.Material == MedalMaterial.Silver)
                 {
                     _totalAmountOfSilver++;
+                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Silver));
                 }
                 if (medal.Material == MedalMaterial.Bronze)
                 {
                     _totalAmountOfBronze++;
+                    ViewModel.Games.Add(new ReadMedalsGameViewModel(MedalMaterial.Bronze));
                 }
-
                 var game = _gameRepository.GetById(medal.GameId);
                 ViewModel.Games.Add(new ReadMedalsGameViewModel(game));
             }
-
-            ViewModel.Gold = _totalAmountOfGold; //mss ook nog todutchstring of andere manier om 1-> 1st etc te maken
+            ViewModel.Gold = _totalAmountOfGold; 
             ViewModel.Silver = _totalAmountOfSilver;
             ViewModel.Bronze = _totalAmountOfBronze;
         }

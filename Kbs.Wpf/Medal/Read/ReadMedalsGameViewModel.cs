@@ -1,5 +1,6 @@
 ﻿using Kbs.Wpf.Components;
 using Kbs.Business.Game;
+using Kbs.Business.Medal;
 
 namespace Kbs.Wpf.Medal.Read
 {
@@ -22,6 +23,21 @@ namespace Kbs.Wpf.Medal.Read
         {
             Date = medal.Date.ToShortDateString();
             Material = medal.Place.ToString();
+        }
+        public ReadMedalsGameViewModel(MedalMaterial medal)
+        {
+            if (medal == MedalMaterial.Bronze)
+            {
+                Material = MedalMaterial.Bronze.ToString();
+            }
+            if (medal == MedalMaterial.Silver)
+            {
+                Material = MedalMaterial.Silver.ToString();
+            }
+            if (medal == MedalMaterial.Gold)
+            {
+                Material = MedalMaterial.Gold.ToString();
+            }
         }
     }
     

@@ -8,5 +8,6 @@ public class GameEntity
     public int GameId { get; set; }
     public string Name { get; set; }
     public DateTime Date { get; set; }
+    [Column("CourseID")]
     public int? CourseId { get; set; }
 }

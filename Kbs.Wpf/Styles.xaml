@@ -380,6 +380,22 @@
         </Setter>
     </Style>
 
+    <Style x:Key="DefaultDataGridRowStyle" TargetType="DataGridRow">
+        <Setter Property="Background" Value="#2C2F33" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderBrush" Value="#99AAB5" />
+        <Setter Property="BorderThickness" Value="0,0,0,0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3B4048" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="#23272A" />
+                <Setter Property="Foreground" Value="#DCDDDE" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="CalendarItem" x:Key="DefaultCalendarItemStyle">
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">

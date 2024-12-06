@@ -18,7 +18,14 @@ public class WeekDayTranslationConverter : IValueConverter
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        // Optional: Handle reverse conversion if necessary
-        return value;
+        if (value?.ToString() is null)
+        {
+            return string.Empty;
+        }
+
+        return value.ToString()!
+            .Replace('D', 'T')
+            .Replace('Z', 'S')
+            .Replace('V', 'F');
     }
 }

@@ -9,5 +9,5 @@ public class GameEntity
     public string Name { get; set; }
     public DateTime Date { get; set; }
     [Column("CourseID")]
-    public int? CourseId { get; set; }
+    public int CourseId { get; set; }
 }

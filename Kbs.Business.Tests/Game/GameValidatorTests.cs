@@ -51,8 +51,7 @@ public class GameValidatorTests
     [Theory]
     [InlineData(0)]
     [InlineData(int.MinValue)]
-    [InlineData(null)]
-    public void ValidateForCreate_WithNullCourseId_ReturnsError(int? courseId)
+    public void ValidateForCreate_WithNullCourseId_ReturnsError(int courseId)
     {
         // Arrange
         var game = new GameEntity

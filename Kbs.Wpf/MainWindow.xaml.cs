@@ -19,6 +19,7 @@ using Kbs.Wpf.Medal.Create;
 
 using Kbs.Wpf.User.Read.Index;
 using Kbs.Wpf.Course.Create;
+using Kbs.Wpf.Game.Read.Index;
 
 
 namespace Kbs.Wpf;
@@ -64,7 +65,7 @@ public partial class MainWindow : Window, INavigationManager
         if (user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Parcours overzicht" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateGamePage(this)) { Name = "Wedstrijd plannen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateCoursePage(this)) { Name = "Parcours aanmaken" });
         }
 

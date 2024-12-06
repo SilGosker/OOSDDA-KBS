@@ -62,6 +62,7 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 1)) { Name = "Medailes a niffo" });
         }
+
         if (user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Inzien leden" });

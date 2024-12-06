@@ -35,7 +35,7 @@ namespace Kbs.Wpf.Medal.Create
         private readonly BoatRepository _boatRepository = new();
         private readonly MedalRepository _MedalRepository = new();
         private readonly INavigationManager _navigationManager;
-        private int _boatId = 48;
+        private int? _boatId;
         private int _userId;
         private int _gameId;
         private MedalMaterial _medalMaterial;

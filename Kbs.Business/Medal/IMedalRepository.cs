@@ -11,5 +11,6 @@ namespace Kbs.Business.Medal
     {
         public void Create(MedalEntity medal);
         public void Delete(MedalEntity medal);
+
     }
 }

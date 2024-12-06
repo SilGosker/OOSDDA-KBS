@@ -21,25 +21,36 @@
                 <Label Content="10 " Margin="609,452,0,0" VerticalAlignment="Top" />
                 <Label Content="20 " Margin="358,336,0,0" VerticalAlignment="Top" />
                 <Grid>
-                    <!-- Gouden trofee -->
                     <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\bronze.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="84,239,0,0" />
-
-                    <!-- Zilveren trofee -->
-                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\goud.png" HorizontalAlignment="Center" VerticalAlignment="Top" Width="184" Height="270" Margin="0,40,0,0" />
-
-                    <!-- Bronzen trofee -->
+                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\goud.jpg" HorizontalAlignment="Center" VerticalAlignment="Top" Width="184" Height="270" Margin="0,54,0,0" />
                     <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\silver.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="133" Margin="533,0,0,144" Height="192" />
                 </Grid>
             </Grid>
         </Border>
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,757,20,0" Height="259">
-            <Grid HorizontalAlignment="Stretch" Margin="10">
-                <Label Content="Wedstrijden" Style="{StaticResource TitleLabel}" Margin="0,10,0,0" />
-                <Label Content="Datum" Margin="10,64,0,0" VerticalAlignment="Top" />
-                <Label Content="Placed: " Margin="174,64,0,0" VerticalAlignment="Top" />
-                <Label Content="1st " Margin="266,64,0,0" VerticalAlignment="Top" />
-                <TextBlock Margin="121,117,0,0" VerticalAlignment="Bottom" HorizontalAlignment="Left"></TextBlock>
-            </Grid>
-        </Border>
+
+
+        <Grid HorizontalAlignment="Stretch" Margin="10">
+            <Border Margin="0,761,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="289" Width="814"></Border>
+            <Label Content="Wedstrijden" Style="{StaticResource TitleLabel}" Margin="0,761,0,0" />
+            <DataGrid Style="{StaticResource DefaultDataGridStyle}"
+          ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+          IsReadOnly="True"
+          AutoGenerateColumns="False" ItemsSource="{Binding Reservations}" d:ItemsSource="{d:SampleData ItemCount=5}"
+          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+          VerticalAlignment="Top"
+          Margin="18,809,18,0" Height="330">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="130" Header="Datum: "  Binding="{Binding Date}"/>
+                    <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Place}" />
+                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles: " Binding="{Binding pee pee poo poo}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 </Page>

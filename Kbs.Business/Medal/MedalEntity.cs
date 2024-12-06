@@ -14,7 +14,7 @@ namespace Kbs.Business.Medal
         [Column("UserID")]
         public int UserId { get; set; }
         [Column("BoatID")]
-        public int BoatId { get; set; }
+        public int? BoatId { get; set; }
         [Column("GameID")]
         public int GameId { get; set; }
         [Column("Medal")]

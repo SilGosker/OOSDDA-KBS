@@ -47,8 +47,6 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
         }
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
-        //if you see this this needs to be removed i was retarded and forgot aaaaaaaaaaaaaaaaaaaaaaaaaaaah
-        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this,1)) { Name = "Medailes a niffo" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)

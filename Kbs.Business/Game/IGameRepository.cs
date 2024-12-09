@@ -1,4 +1,4 @@
-namespace Kbs.Business.Game;
+﻿namespace Kbs.Business.Game;
 
  public interface IGameRepository
  {

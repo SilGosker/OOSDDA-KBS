@@ -1,4 +1,4 @@
-using Dapper;
+﻿using Dapper;
 using Kbs.Business.Game;
 using Microsoft.Data.SqlClient;
 
@@ -48,4 +48,5 @@ public class GameRepository : IGameRepository
     {
         _connection.Execute("UPDATE Game SET CourseID = @CourseId, Name = @Name, Date = @Date WHERE GameId = @GameId", game);
     }
+    
 }

@@ -3,6 +3,7 @@ using Kbs.Business.Boat;
 using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
+using Kbs.Business.Session;
 
 namespace Kbs.Data.Boat;
 

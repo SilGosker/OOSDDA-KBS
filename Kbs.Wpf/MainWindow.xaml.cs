@@ -60,12 +60,12 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMember())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage(this)) { Name = "Overzicht medailles" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Overzicht medailles" });
         }
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this)) { Name = "Medailles uitreiken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 2)) { Name = "Medailles uitreiken" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateCoursePage(this)) { Name = "Parcours aanmaken" });

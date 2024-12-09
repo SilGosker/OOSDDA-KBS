@@ -4,6 +4,7 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Medal;
 using Kbs.Data.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Medal.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows;
@@ -18,7 +19,7 @@ public partial class CreateMedalPage : Page
     private readonly BoatRepository _boatRepository = new();
     private readonly MedalRepository _medalRepository = new();
     private readonly INavigationManager _navigationManager;
-    public CreateMedalPage(INavigationManager navigationManager)
+    public CreateMedalPage(INavigationManager navigationManager, int gameId)
     {
         _navigationManager = navigationManager;
         InitializeComponent();
@@ -26,6 +27,8 @@ public partial class CreateMedalPage : Page
         {
             ViewModel.Users.Add(new CreateMedalUserViewModel(user));
         }
+
+        ViewModel.SelectedGameId = gameId;
         ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
         ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
         ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));

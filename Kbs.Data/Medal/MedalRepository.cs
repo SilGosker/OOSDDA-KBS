@@ -16,5 +16,15 @@ namespace Kbs.Data.Medal
             "INSERT INTO Medal (BoatId, UserId, GameId, Medal) VALUES (@BoatId, @UserId, @GameId, @Material); SELECT SCOPE_IDENTITY()",
             medal);
         }
+
+        public List<MedalEntity> GetAllByUserId(int userId)
+        {
+            return _connection.Query<MedalEntity>("SELECT *, m.Medal as Material FROM Medal m WHERE UserID = @userId", new { userId }).ToList();
+        }
+
+        public void RemoveById(int medalId)
+        {
+            _connection.Execute("DELETE FROM Medal WHERE MedalID = @medalId", new { medalId });
+        }
     }
 }

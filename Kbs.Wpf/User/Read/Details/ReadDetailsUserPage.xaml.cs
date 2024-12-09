@@ -3,10 +3,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
+using Kbs.Data.Boat;
+using Kbs.Data.Game;
+using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Reservation.Read.Details;
+using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
@@ -15,6 +19,9 @@ namespace Kbs.Wpf.User.Read.Details
         private readonly UserRepository _userRepository = new UserRepository();
         private readonly INavigationManager _navigationManager;
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
+        private readonly BoatRepository _boatRepository = new BoatRepository();
+        private readonly GameRepository _gameRepository = new GameRepository();
+        private readonly MedalRepository _medalRepository = new MedalRepository();
 
         private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
@@ -33,6 +40,13 @@ namespace Kbs.Wpf.User.Read.Details
             foreach (var reservation in reservations)
             {
                 ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
+            }
+            var medals = _medalRepository.GetAllByUserId(id);
+            foreach (var medal in medals)
+            {
+                var boat = _boatRepository.GetById((int)medal.BoatId);
+                var game = _gameRepository.GetById(medal.GameId);
+                ViewModel.Medals.Add(new ReadDetailsUserMedalViewModel(medal, game, boat, RemoveMedal));
             }
         }
 
@@ -55,6 +69,16 @@ namespace Kbs.Wpf.User.Read.Details
             {
                 _userRepository.ChangeRole(entity);
                 _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
+            }
+        }
+
+        private void RemoveMedal(int medalId)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
+            {
+                _medalRepository.RemoveById(medalId);
+                _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, ViewModel.UserId));
             }
         }
     }

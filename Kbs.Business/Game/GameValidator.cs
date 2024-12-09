@@ -11,11 +11,6 @@ public class GameValidator
             result.Add(nameof(game.Name), "Naam is verplicht");
         }
 
-        if (game.Date < DateTime.Now)
-        {
-            result.Add(nameof(game.Date), "Datum moet in de toekomst liggen");
-        }
-
         if (game.CourseId <= 0)
         {
             result.Add(nameof(game.CourseId), "Parcours is verplicht");

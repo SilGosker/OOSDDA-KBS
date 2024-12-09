@@ -109,7 +109,6 @@ public class ReservationRepository : IReservationRepository, IDisposable
             r.StartTime,
             r.Length,
             r.Status,
-            r.IsForCompetition,
             b.BoatID AS BoatId,
             b.Name
         FROM 

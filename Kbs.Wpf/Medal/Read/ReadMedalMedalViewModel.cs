@@ -4,7 +4,7 @@ using Kbs.Business.Medal;
 
 namespace Kbs.Wpf.Medal.Read
 {
-    public class ReadMedalsGameViewModel : ViewModel
+    public class ReadMedalMedalViewModel : ViewModel
     {
         private string _material;
         private string _date;
@@ -26,7 +26,7 @@ namespace Kbs.Wpf.Medal.Read
             set => SetField(ref _date, value);
         }
 
-        public ReadMedalsGameViewModel(GameEntity game, MedalMaterial material)
+        public ReadMedalMedalViewModel(GameEntity game, MedalMaterial material)
         {
             Date = game.Date.ToShortDateString();  
             Material = material.ToDutchString();  

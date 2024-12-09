@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using Kbs.Business.Boat;
 
 namespace Kbs.Business.Reservation;
 
@@ -10,6 +11,8 @@ public class ReservationEntity
     public int UserId { get; set; }
     [Column("BoatID")]
     public int BoatId { get; set; }
+    public BoatEntity Boat { get; set; }
+    
     [Column("GameID")]
     public int? GameId { get; set; }
     public DateTime StartTime { get; set; }
@@ -17,4 +20,5 @@ public class ReservationEntity
     public DateTime EndTime => StartTime + Length;
     public ReservationStatus Status { get; set; }
     public bool IsForCompetition { get; set; }
+    
 }

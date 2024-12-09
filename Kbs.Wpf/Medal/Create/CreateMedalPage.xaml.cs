@@ -4,7 +4,6 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Medal;
 using Kbs.Data.User;
-using Kbs.Wpf.Components;
 using Kbs.Wpf.Medal.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows;

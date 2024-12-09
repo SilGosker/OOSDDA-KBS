@@ -4,13 +4,14 @@ using Kbs.Business.Course;
 using Kbs.Business.Game;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
+using Kbs.Wpf.Game.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 
 namespace Kbs.Wpf.Game.Create;
 
 public partial class CreateGamePage : Page
 {
-    private readonly GameValidator _gameValidator = new();
+    private readonly GameValidator _gameValidator;
     private readonly GameRepository _gameRepository = new();
     private readonly CourseRepository _courseRepository = new();
     private readonly INavigationManager _navigationManager;
@@ -19,6 +20,7 @@ public partial class CreateGamePage : Page
     public CreateGamePage(INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
+        _gameValidator = new();
         InitializeComponent();
         ViewModel.Date = DateTime.Now;
 
@@ -36,7 +38,7 @@ public partial class CreateGamePage : Page
         {
             Name = ViewModel.Name,
             Date = ViewModel.Date,
-            CourseId = ViewModel.SelectedCourse?.Id ?? 0
+            CourseId = ViewModel.SelectedCourse.Id
         };
 
         var validationResult = _gameValidator.ValidateForCreate(game);
@@ -77,7 +79,7 @@ public partial class CreateGamePage : Page
         if (game != null)
         {
             _gameRepository.Create(game);
-            // TODO: Navigate to game detail page
+            _navigationManager.Navigate(() => new ReadDetailsGamePage(_navigationManager, game.GameId)); ;
         }
     }
 

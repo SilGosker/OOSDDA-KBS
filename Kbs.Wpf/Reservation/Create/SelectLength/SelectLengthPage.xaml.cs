@@ -8,6 +8,7 @@ using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Game.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectTime;
 using Kbs.Wpf.Reservation.Read.Index;
 using Microsoft.IdentityModel.Tokens;
@@ -127,8 +128,7 @@ public partial class SelectLengthPage : Page
         }
         else
         {
-            // TODO: Go to detail page of game
-            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            _navigationManager.Navigate(() => new ReadDetailsGamePage(_navigationManager, _game.GameId));
         }
     }
 

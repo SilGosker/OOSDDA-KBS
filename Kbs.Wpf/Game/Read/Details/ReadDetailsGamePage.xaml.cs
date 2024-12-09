@@ -81,6 +81,11 @@ public partial class ReadDetailsGamePage : Page
     
     private void DeleteGame(object sender, RoutedEventArgs e)
     {
+        MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        if (MessageBoxResult.No == result)
+        {
+            return;
+        }
         var game = _gameRepository.GetById(ViewModel.GameId);
         _gameRepository.DeleteById(game.GameId);
         MessageBox.Show($"{game.Name} succesvol verwijderd");

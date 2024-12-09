@@ -37,13 +37,13 @@ namespace Kbs.Wpf.Medal.Create
         private readonly INavigationManager _navigationManager;
         public CreateMedalPage(INavigationManager navigationManager, int gameId)
         {
-            ViewModel.SelectedGameId = gameId;
             _navigationManager = navigationManager;
             InitializeComponent();
-            foreach(UserEntity user in _userRepository.Get())
+            foreach (UserEntity user in _userRepository.Get())
             {
                 ViewModel.Users.Add(new CreateMedalUserViewModel(user));
             }
+            ViewModel.SelectedGameId = gameId;
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
             ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
@@ -87,7 +87,7 @@ namespace Kbs.Wpf.Medal.Create
             var medal = new MedalEntity();
             medal.Material = ViewModel.SelectedMaterial.MedalMaterial;
             medal.UserId = ViewModel.SelectedUser.UserId;
-            medal.BoatId = ViewModel.SelectedBoat.BoatId;
+            medal.BoatId = ViewModel.SelectedBoat?.BoatId;
             medal.GameId = ViewModel.SelectedGameId;
 
             _MedalRepository.Create(medal);

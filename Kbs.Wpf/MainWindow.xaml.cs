@@ -70,6 +70,7 @@ public partial class MainWindow : Window, INavigationManager
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
             { Name = "Instellingen" });
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 12)) { Name = "reeeeeeeeeeeeeeeeeeeeee" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)

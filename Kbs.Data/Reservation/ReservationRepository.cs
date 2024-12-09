@@ -102,7 +102,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
     {
         string sql = @"
         SELECT 
-            r.*
+            r.*,
             b.BoatID AS BoatId,
             b.Name
         FROM 

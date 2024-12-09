@@ -45,9 +45,7 @@
                       Margin="18,809,18,0" Height="219">
                 
                 <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
-                        <EventSetter Event="MouseDoubleClick" Handler="GameSelected" />
-                    </Style>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" />
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="*" Header="Naam"  Binding="{Binding Name}"/>

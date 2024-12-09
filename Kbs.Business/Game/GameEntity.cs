@@ -10,5 +10,4 @@ public class GameEntity
     public DateTime Date { get; set; }
     [Column("CourseID")]
     public int CourseId { get; set; }
-    public int Place {  get; set; }
 }

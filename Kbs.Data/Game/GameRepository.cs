@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Kbs.Business.Game;
-using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Game;
@@ -19,6 +18,6 @@ public class GameRepository : IGameRepository
 
     public List<GameEntity> Get()
     {
-        return _connection.Query<List<GameEntity>>("SELECT *,  FROM Game").FirstOrDefault();
+        return _connection.Query<List<GameEntity>>("SELECT * FROM Game").FirstOrDefault();
     }
 }

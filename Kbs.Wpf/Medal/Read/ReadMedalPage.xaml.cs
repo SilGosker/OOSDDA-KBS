@@ -2,61 +2,48 @@
 using Kbs.Business.Session;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
-using Kbs.Wpf.Reservation.Read.Details;
-using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows.Controls;
 
-namespace Kbs.Wpf.Medal.Read
+namespace Kbs.Wpf.Medal.Read;
+
+public partial class ReadMedalPage : Page
 {
-    public partial class ReadMedalPage : Page
+    private readonly MedalRepository _medalRepository = new();
+    private readonly GameRepository _gameRepository = new();
+    private ReadMedalViewModel ViewModel => (ReadMedalViewModel)DataContext;
+    public ReadMedalPage()
     {
-        private readonly MedalRepository _medalRepository = new();
-        private readonly GameRepository _gameRepository = new();
-        public INavigationManager _navigationManager;
-        public MedalEntity _medalEntity = new();
-        private int _totalAmountOfGold; 
-        private int _totalAmountOfSilver;
-        private int _totalAmountOfBronze;
-        private ReadMedalViewModel ViewModel => (ReadMedalViewModel)DataContext;
-        private ReadMedalsGameViewModel peepee => (ReadMedalsGameViewModel)DataContext;
-        public ReadMedalPage(INavigationManager _navigationManager)
-        {
-            InitializeComponent();
-            var user = SessionManager.Instance.Current.User;
-            var medals = _medalRepository.GetByUserId(user.UserId);
+        InitializeComponent();
+        var user = SessionManager.Instance.Current.User;
+        var medals = _medalRepository.GetByUserId(user.UserId);
 
-            foreach (var medal in medals)
+        int totalAmountOfGold = 0;
+        int totalAmountOfSilver = 0;
+        int totalAmountOfBronze = 0;
+
+        foreach (var medal in medals)
+        {
+            var game = _gameRepository.GetById(medal.GameId);
+            var gameViewModel = new ReadMedalsGameViewModel(game, medal.Material);
+
+            ViewModel.Games.Add(gameViewModel);
+
+            switch (medal.Material)
             {
-                var game = _gameRepository.GetById(medal.GameId);
-                var gameViewModel = new ReadMedalsGameViewModel(game, medal.Material);
-
-                ViewModel.Games.Add(gameViewModel);
-
-                if (medal.Material == MedalMaterial.Gold)
-                {
-                    _totalAmountOfGold++;
-                }
-                else if (medal.Material == MedalMaterial.Silver)
-                {
-                    _totalAmountOfSilver++;
-                }
-                else if (medal.Material == MedalMaterial.Bronze)
-                {
-                    _totalAmountOfBronze++;
-                }
+                case MedalMaterial.Gold:
+                    totalAmountOfGold++;
+                    break;
+                case MedalMaterial.Silver:
+                    totalAmountOfSilver++;
+                    break;
+                case MedalMaterial.Bronze:
+                    totalAmountOfBronze++;
+                    break;
             }
-            ViewModel.Gold = _totalAmountOfGold;
-            ViewModel.Silver = _totalAmountOfSilver;
-            ViewModel.Bronze = _totalAmountOfBronze;
         }
 
-
-        public void GameSelected(object sender, EventArgs e)
-        {
-            var listViewItem = (ListViewItem)sender;
-            var item = (ReadMedalsGameViewModel)listViewItem.DataContext;
-            //Is nog geen specifieke Game pagina
-            _navigationManager.Navigate(() => new ReadMedalPage(_navigationManager));
-        }
+        ViewModel.Gold = totalAmountOfGold;
+        ViewModel.Silver = totalAmountOfSilver;
+        ViewModel.Bronze = totalAmountOfBronze;
     }
 }

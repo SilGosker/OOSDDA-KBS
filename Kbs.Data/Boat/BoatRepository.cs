@@ -64,12 +64,6 @@ public class BoatRepository : IBoatRepository
 
     public List<BoatEntity> GetManyByGame(int gameId)
     {
-        // return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
-        return _connection.Query<BoatEntity, int, BoatEntity>(
-            "SELECT b.*, r.ReservationID FROM Boat b JOIN Reservation r ON b.BoatID = r.BoatID WHERE r.GameID = @GameId",
-            (boat, reservationId) => { boat.ReservationId = reservationId; return boat; },
-            new { gameId },
-            splitOn: "ReservationId"
-        ).ToList();
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
     }
 }

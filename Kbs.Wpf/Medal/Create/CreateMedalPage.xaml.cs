@@ -2,26 +2,12 @@
 using Kbs.Business.Medal;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
-using Kbs.Data.BoatType;
 using Kbs.Data.Medal;
 using Kbs.Data.User;
-using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Medal.Components;
 using Kbs.Wpf.Reservation.Read.Index;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Kbs.Wpf.Medal.Create
 {

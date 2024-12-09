@@ -2,9 +2,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Game;
-using Kbs.Data.Boat;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
+using Kbs.Data.Reservation;
 using Kbs.Wpf.Game.Read.Index;
 using Kbs.Wpf.Reservation.Read.Details;
 
@@ -14,7 +14,7 @@ public partial class ReadDetailsGamePage : Page
 {
     private readonly GameRepository _gameRepository = new();
     private readonly CourseRepository _courseRepository = new();
-    private readonly BoatRepository _boatRepository = new();
+    private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly GameValidator _gameValidator;
     private ReadDetailsGameViewModel ViewModel => (ReadDetailsGameViewModel)DataContext;
@@ -30,12 +30,12 @@ public partial class ReadDetailsGamePage : Page
         ViewModel.CourseName = _courseRepository.GetById(game.CourseId).Name;
         ViewModel.Date = game.Date;
         
-        foreach (var boat in _boatRepository.GetManyByGame(game.GameId))
+        foreach (var reservation in _reservationRepository.GetManyByGameId(game.GameId))
         {
             ViewModel.Boats.Add(new ReadDetailsGameBoatViewModel
             {
-                ReservationId = boat.ReservationId,
-                Name = boat.Name
+                ReservationId = reservation.ReservationId,
+                Name = reservation.Boat.Name
             });
         }
 

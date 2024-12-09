@@ -24,7 +24,7 @@ public partial class ReadMedalPage : Page
         foreach (var medal in medals)
         {
             var game = _gameRepository.GetById(medal.GameId);
-            var gameViewModel = new ReadMedalsGameViewModel(game, medal.Material);
+            var gameViewModel = new ReadMedalMedalViewModel(game, medal.Material);
 
             ViewModel.Games.Add(gameViewModel);
 

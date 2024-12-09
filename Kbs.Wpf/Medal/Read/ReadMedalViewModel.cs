@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 namespace Kbs.Wpf.Medal.Read
 {
     public class ReadMedalViewModel : ViewModel {
-        public ObservableCollection<ReadMedalsGameViewModel> Games { get; set; } = new ObservableCollection<ReadMedalsGameViewModel>();
+        public ObservableCollection<ReadMedalMedalViewModel> Games { get; set; } = new ObservableCollection<ReadMedalMedalViewModel>();
         private int _gold;
         private int _silver;
         private int _bronze;

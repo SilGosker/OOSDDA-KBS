@@ -14,7 +14,7 @@ public class ReadIndexGameViewModel : ViewModel
         // Add default course that shows all games when selected
         Courses.Add(new ReadIndexGameCourseViewModel(new CourseEntity()
         {
-            Name = "Alle courses",
+            Name = "Alle parcours",
             CourseId = -1
         }));
     }

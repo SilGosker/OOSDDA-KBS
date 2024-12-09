@@ -62,16 +62,20 @@ public partial class ReadDetailsGamePage : Page
             GameId = ViewModel.GameId,
             CourseId = ViewModel.CourseId,
             Name = ViewModel.Name,
+            Date = ViewModel.Date
         };
         var validationResult = _gameValidator.ValidateForUpdate(game);
         if (validationResult.Count > 0)
         {
-            ViewModel.NameError = validationResult.GetValueOrDefault(nameof(game.Name), "");
+            ViewModel.NameError = validationResult.GetValueOrDefault(nameof(game.Name), ""); 
+            ViewModel.CourseErrorMessage = validationResult.GetValueOrDefault(nameof(game.CourseId), "");
+            ViewModel.DateErrorMessage = validationResult.GetValueOrDefault(nameof(game.Date), "");
         }
         else
         {
             _gameRepository.Update(game);
             MessageBox.Show($"{game.Name} succesvol geüpdatet");
+            _navigationManager.Navigate(() => new ReadDetailsGamePage(_navigationManager, game.GameId));
         }
     }
     

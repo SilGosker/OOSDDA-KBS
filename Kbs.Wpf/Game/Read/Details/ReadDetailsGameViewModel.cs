@@ -21,9 +21,13 @@ public class ReadDetailsGameViewModel : ViewModel
     public int GameId
     {
         get => _gameId;
-        set => SetField(ref _gameId, value);
+        set
+        {
+            SetField(ref _gameId, value);
+            OnPropertyChanged(nameof(GameIdString));
+        }
     }
-    public string GameIdString => $"Game #{GameId}";
+    public string GameIdString => $"Wedstrijd #{GameId}";
     
     public string Name
     {

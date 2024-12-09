@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Boat;
+using Kbs.Business.Game;
 using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
@@ -44,8 +46,8 @@ namespace Kbs.Wpf.User.Read.Details
             var medals = _medalRepository.GetAllByUserId(id);
             foreach (var medal in medals)
             {
-                var boat = _boatRepository.GetById((int)medal.BoatId);
-                var game = _gameRepository.GetById(medal.GameId);
+                BoatEntity boat = medal.BoatId == null? null : _boatRepository.GetById((int)medal.BoatId);
+                GameEntity game = _gameRepository.GetById(medal.GameId);
                 ViewModel.Medals.Add(new ReadDetailsUserMedalViewModel(medal, game, boat, RemoveMedal));
             }
         }

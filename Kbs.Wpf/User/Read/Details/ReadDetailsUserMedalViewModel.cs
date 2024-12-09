@@ -20,7 +20,7 @@ namespace Kbs.Wpf.User.Read.Details
             MedalId = medal.MedalId;
             Medal = medal.Material.ToDutchString();
             GameName = game.Name;
-            BoatName = boat.Name;
+            BoatName = boat == null? "-" : boat.Name;
             GameDate = game.Date.ToString("yyyy-MM-dd");
             RemoveMedalCommand = new RelayCommand<int>(action);
         }

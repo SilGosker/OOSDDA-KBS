@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Kbs.Business.Boat;
 using Kbs.Business.Game;
 using Microsoft.Data.SqlClient;
 
@@ -10,5 +11,10 @@ public class GameRepository : IGameRepository
     public void Create(GameEntity game)
     {
         game.GameId = _connection.QuerySingle<int>("INSERT INTO Game (Name, Date, CourseID) VALUES (@Name, @Date, @CourseId); SELECT SCOPE_IDENTITY();", game);
+    }
+
+    public GameEntity GetById(int gameId)
+    {
+        return _connection.QueryFirstOrDefault<GameEntity>("SELECT * FROM Game WHERE GameId = @gameId", new { gameId });
     }
 }

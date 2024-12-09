@@ -105,6 +105,7 @@ public partial class SelectLengthPage : Page
 
     private void ButtonReservation_Click(object sender, RoutedEventArgs e)
     {
+        var validator = new ReservationValidator();
         foreach (BoatEntity boat in _chosenTimeAndBoat.Item2)
         {
             ReservationEntity res = new();
@@ -117,8 +118,10 @@ public partial class SelectLengthPage : Page
             UserEntity user = SessionManager.Instance.Current.User;
 
             res.UserId = user.UserId;
-
-            _reservationRepository.Create(res);
+            if (validator.IsWithinDaylightHours(res))
+            {
+                _reservationRepository.Create(res);
+            }
         }
 
         if (_game == null)

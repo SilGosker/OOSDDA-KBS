@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
 using Kbs.Business.Medal;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
@@ -90,9 +91,16 @@ namespace Kbs.Wpf.Medal.Create
             medal.BoatId = ViewModel.SelectedBoat?.BoatId;
             medal.GameId = ViewModel.SelectedGameId;
 
-            _MedalRepository.Create(medal);
+            var validationResult = new MedalValidator().ValidateForCreate(medal);
 
-            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            if (validationResult.Count() == 0)
+            {
+                _MedalRepository.Create(medal);
+
+                _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            } 
+
+            
         }
     }
 }

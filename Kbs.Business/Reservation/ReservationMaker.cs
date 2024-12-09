@@ -33,12 +33,12 @@ public class ReservationMaker
 
 
         DateTime selectedDayMorning = new DateTime();
-        selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);
-        selectedDayMorning = selectedDayMorning.AddMinutes(ReservationValidator.Morning.Minutes);
+        selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hour);
+        selectedDayMorning = selectedDayMorning.AddMinutes(ReservationValidator.Morning.Minute);
 
         DateTime selectedDayEvening = new DateTime();
-        selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hours);
-        selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minutes);
+        selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hour);
+        selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minute);
 
         //if there are no reservations on the day, create the full block of reservable time
         if (reservations.Count == 0)
@@ -85,12 +85,12 @@ public class ReservationMaker
 
 
         DateTime selectedDayMorning = new DateTime();
-        selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hours);
-        selectedDayMorning = selectedDayMorning.AddMinutes(ReservationValidator.Morning.Minutes);
+        selectedDayMorning = selectedDayDayOnly.AddHours(ReservationValidator.Morning.Hour);
+        selectedDayMorning = selectedDayMorning.AddMinutes(ReservationValidator.Morning.Minute);
 
         DateTime selectedDayEvening = new DateTime();
-        selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hours);
-        selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minutes);
+        selectedDayEvening = selectedDayDayOnly.AddHours(ReservationValidator.Evening.Hour);
+        selectedDayEvening = selectedDayEvening.AddMinutes(ReservationValidator.Evening.Minute);
 
         //if there are no reservations on the day, create the full block of reservable time
         if (allReservations.Count == 0)

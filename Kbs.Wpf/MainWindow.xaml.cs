@@ -45,6 +45,7 @@ public partial class MainWindow : Window, INavigationManager
                 { Name = "Overzicht boottypen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this))
                 { Name = "Boottype aanmaken" });
+
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this))
                 { Name = "Overzicht boten" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this))
@@ -53,22 +54,22 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMember() || user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Overzicht reserveringen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Plaatsen reservering" });
         }
-        if (user.IsMember() || user.IsMember())
+
+        if (user.IsMember())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage(this)) { Name = "Inzien medailles" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 1)) { Name = "Medailes a niffo" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage(this)) { Name = "Overzicht medailles" });
         }
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Inzien leden" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Parcours overzicht" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateGamePage(this)) { Name = "Wedstrijd plannen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this)) { Name = "Medailles uitreiken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateCoursePage(this)) { Name = "Parcours aanmaken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateGamePage(this)) { Name = "Wedstrijd plannen" });
         }
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))

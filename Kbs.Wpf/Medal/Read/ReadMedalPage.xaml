@@ -12,36 +12,37 @@
         <local:ReadMedalViewModel />
     </Page.DataContext>
 
+    <Page.Resources>
+        <BitmapImage x:Key="Bronze" UriSource="/Images/bronze.png" />
+        <BitmapImage x:Key="Silver" UriSource="/Images/silver.png" />
+        <BitmapImage x:Key="Gold" UriSource="/Images/goud.png" />
+    </Page.Resources>
+
     <Grid Style="{StaticResource PageGrid}" Margin="0,0,0,-610">
         <Label Content="Medaille overzicht" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
+
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0" Height="620">
             <Grid Margin="10,10,10,33">
-                <TextBlock Margin="121,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"></TextBlock>
-                <Label Content="{Binding Gold}" Margin="386,339,0,0" VerticalAlignment="Top" />
-                <Label Content="x"  Margin="404,339,0,0" VerticalAlignment="Top" Height="101" Width="78" />
-                <Label Content="{Binding Silver}" Margin="591,446,0,0" VerticalAlignment="Top" />
-                <Label Content="x"  Margin="614,446,0,0" VerticalAlignment="Top" Height="101" Width="78" />
-                <Label Content="{Binding Bronze}" Margin="121,426,0,0" VerticalAlignment="Top" />
-                <Label Content="x"  Margin="144,426,0,0" VerticalAlignment="Top" Height="101" Width="78" />
+                <TextBlock Margin="121,117,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding GoldFormatted}" Margin="386,339,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding SilverFormatted}" Margin="591,446,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding BronzeFormatted}" Margin="121,426,0,0" VerticalAlignment="Top" />
                 <Grid>
-                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\bronze.jpg" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="84,239,0,0" />
-                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\goud.jpg" HorizontalAlignment="Center" VerticalAlignment="Top" Width="184" Height="270" Margin="0,54,0,0" />
-                    <Image Source="C:\Users\siets\source\repos\OOSDDA-KBS\Kbs.Wpf\Resources\Images\silver.png" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="133" Margin="533,0,0,144" Height="192" />
+                    <Image Source="{StaticResource Bronze}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Margin="84,239,0,0" />
+                    <Image Source="{StaticResource Gold}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="160" Height="270" Margin="0,54,0,0" />
+                    <Image Source="{StaticResource Silver}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="133" Margin="545,0,0,142" Height="192" />
                 </Grid>
             </Grid>
         </Border>
 
-
         <Grid HorizontalAlignment="Stretch" Margin="10">
-            <Border Margin="0,761,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="289" Width="814"></Border>
+            <Border Margin="0,761,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Height="289" Width="814" />
             <Label Content="Wedstrijden" Style="{StaticResource TitleLabel}" Margin="0,761,0,0" />
-            <DataGrid Style="{StaticResource DefaultDataGridStyle}" Foreground="Black"
-          ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
-          IsReadOnly="True"
-          AutoGenerateColumns="False" ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=100}"
-          VerticalScrollBarVisibility="Auto"
-          VerticalAlignment="Top"
-          Margin="18,809,18,0" Height="219">
+            <DataGrid Style="{StaticResource DefaultDataGridStyle}"
+                      ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                      ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=100}"
+                      VerticalScrollBarVisibility="Auto" VerticalAlignment="Top"
+                      Margin="18,809,18,0" Height="219">
                 
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
@@ -49,9 +50,9 @@
                     </Style>
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="130" Header="Datum: "  Binding="{Binding Date}"/>
-                    <DataGridTextColumn Width="100" Header="Plaats: " Binding="{Binding Material}" />
-                    <DataGridTextColumn Width="600" Header="Totaal aantal medailles / beschrijving / of iets dergelijks idk: " Binding="{Binding Totaal}" />
+                    <DataGridTextColumn Width="*" Header="Naam"  Binding="{Binding Name}"/>
+                    <DataGridTextColumn Width="*" Header="Datum"  Binding="{Binding Date}"/>
+                    <DataGridTextColumn Width="*" Header="Plaats" Binding="{Binding Material}" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

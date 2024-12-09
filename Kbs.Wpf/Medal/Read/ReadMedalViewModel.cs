@@ -1,5 +1,4 @@
-﻿using Kbs.Business.Medal;
-using Kbs.Wpf.Components;
+﻿using Kbs.Wpf.Components;
 using System.Collections.ObjectModel;
 
 
@@ -12,18 +11,35 @@ namespace Kbs.Wpf.Medal.Read
         private int _bronze;
         public int Gold
         {
-            get => _gold; 
-            set => SetField(ref _gold, value);
+            get => _gold;
+            set
+            {
+                SetField(ref _gold, value);
+                OnPropertyChanged(nameof(GoldFormatted));
+            }
         }
+
         public int Silver
         {
             get => _silver;
-            set => SetField(ref _silver, value); 
+            set
+            {
+                SetField(ref _silver, value);
+                OnPropertyChanged(nameof(SilverFormatted));
+            }
         }
         public int Bronze
         {
             get => _bronze;
-            set => SetField(ref _bronze, value);
+            set
+            {
+                SetField(ref _bronze, value);
+                OnPropertyChanged(nameof(BronzeFormatted));
+            }
         }
+
+        public string GoldFormatted => $"{Gold}x";
+        public string SilverFormatted => $"{Silver}x";
+        public string BronzeFormatted => $"{Bronze}x";
     }
 }

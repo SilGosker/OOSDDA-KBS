@@ -3,6 +3,7 @@ using Kbs.Business.Boat;
 using Kbs.Business.User;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
+using Kbs.Business.Session;
 
 namespace Kbs.Data.Boat;
 
@@ -64,6 +65,6 @@ public class BoatRepository : IBoatRepository
 
     public List<BoatEntity> GetManyByGame(int gameId)
     {
-        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
+        return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId IN (SELECT BoatId FROM Reservation WHERE GameId IS NOT NULL AND GameId IN (SELECT GameId FROM Medal Where UserId = @userId))", new { userId = SessionManager.Instance.Current.User.UserId }).ToList();
     }
 }

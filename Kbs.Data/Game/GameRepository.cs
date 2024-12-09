@@ -15,9 +15,4 @@ public class GameRepository : IGameRepository
     {
         return _connection.QueryFirstOrDefault<GameEntity>("SELECT * FROM Game WHERE GameId = @GameId", new { GameId = id });
     }
-
-    public List<GameEntity> Get()
-    {
-        return _connection.Query<List<GameEntity>>("SELECT * FROM Game").FirstOrDefault();
-    }
 }

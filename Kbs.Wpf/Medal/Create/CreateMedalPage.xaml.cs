@@ -24,25 +24,21 @@ public partial class CreateMedalPage : Page
     {
         _navigationManager = navigationManager;
         InitializeComponent();
+
         foreach (UserEntity user in _userRepository.Get())
         {
-
-            _navigationManager = navigationManager;
-            InitializeComponent();
-            foreach (UserEntity user in _userRepository.Get())
-            {
-                ViewModel.Users.Add(new CreateMedalUserViewModel(user));
-            }
-            ViewModel.SelectedGameId = gameId;
-            ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
-            ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
-            ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
-
-            foreach (BoatEntity boat in _boatRepository.GetManyByGame(ViewModel.SelectedGameId))
-            {
-                ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
-            }
+            ViewModel.Users.Add(new CreateMedalUserViewModel(user));
         }
+        ViewModel.SelectedGameId = gameId;
+        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
+        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
+        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
+
+        foreach (BoatEntity boat in _boatRepository.GetManyByGame(ViewModel.SelectedGameId))
+        {
+            ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
+        }
+
 
         ViewModel.SelectedGameId = gameId;
         ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
@@ -71,7 +67,7 @@ public partial class CreateMedalPage : Page
         var selected = (CreateMedalUserViewModel)comboBox.SelectedItem;
 
         if (selected == null) return;
-        ViewModel.SelectedUser = selected;  
+        ViewModel.SelectedUser = selected;
     }
 
     private void ComboBoxMedalMaterial_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,24 +78,23 @@ public partial class CreateMedalPage : Page
         ViewModel.SelectedMaterial = selected;
     }
 
-        private void ButtonRewardMedal_Click(object sender, RoutedEventArgs e)
+    private void ButtonRewardMedal_Click(object sender, RoutedEventArgs e)
+    {
+        var medal = new MedalEntity();
+        medal.Material = ViewModel.SelectedMaterial.MedalMaterial;
+        medal.UserId = ViewModel.SelectedUser.UserId;
+        medal.BoatId = ViewModel.SelectedBoat?.BoatId;
+        medal.GameId = ViewModel.SelectedGameId;
+
+        var validationResult = new MedalValidator().ValidateForCreate(medal);
+
+        if (validationResult.Count() == 0)
         {
-            var medal = new MedalEntity();
-            medal.Material = ViewModel.SelectedMaterial.MedalMaterial;
-            medal.UserId = ViewModel.SelectedUser.UserId;
-            medal.BoatId = ViewModel.SelectedBoat?.BoatId;
-            medal.GameId = ViewModel.SelectedGameId;
+            _medalRepository.Create(medal);
 
-            var validationResult = new MedalValidator().ValidateForCreate(medal);
-
-            if (validationResult.Count() == 0)
-            {
-                _MedalRepository.Create(medal);
-
-                _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
-            } 
-
-            
+            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
         }
 
+
+    }
 }

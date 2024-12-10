@@ -1,58 +1,54 @@
 ﻿<Page x:Class="Kbs.Wpf.User.Read.Details.ReadDetailsUserPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.User.Read.Details"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d"
+      d:DesignHeight="1080" d:DesignWidth="1740"
       Title="ReadUserDetailedPage">
     <Page.DataContext>
         <details:ReadDetailsUserViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
+
         <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="384">
-            <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="238">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" FontWeight="Bold" Content="UserId:" Margin="24,0,0,0" />
-                <Label Content="{Binding UserId}" Width="114" HorizontalAlignment="Center" />
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,20" Height="384">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10, 0, 10, 10">
 
-                <Label Grid.Row="1" FontWeight="Bold" Content="Role:" Margin="24,0,0,0" />
-                <Label Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Role}" 
-                   Margin="100,0,0,0" Height="40" Width="213" Grid.Row="1" />
+                <Label Content="Reserveringen:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
 
-                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="24,0,0,0" />
-                <Label Grid.Row="2" Content="{Binding Email}" 
-                   Margin="105,0,0,0" Height="39" Width="213" />
+                <Label FontWeight="Bold" Content="GebruikersID:" Margin="10,50,0,0" />
+                <Label Content="{Binding UserId}" Margin="121, 50, 0, 0" />
 
-                <ScrollViewer Grid.Column="1" Grid.RowSpan="3" VerticalScrollBarVisibility="Auto">
-                    <DataGrid
+                <Label FontWeight="Bold" Content="Rol:" Margin="10,110,0,0" />
+                <Label Content="{Binding Role}" Margin="121,110,0,0" />
+
+                <Label FontWeight="Bold" Content="Email:" Margin="10,170,0,0" />
+                <Label Content="{Binding Email}"
+                       Margin="121,170,0,0" />
+
+
+                <DataGrid
                     Style="{StaticResource DefaultDataGridStyle}"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                     ItemsSource="{Binding Reservations}"
-                    Foreground="Black"
-                    SelectionChanged="DataGrid_SelectionChanged"
-                    PreviewMouseWheel="DataGrid_OnPreviewMouseWheel" Width="397">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
-                            <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
-                            <DataGridTextColumn Width="100" Header="Date" Binding="{Binding StartTime}" />
-                            <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </ScrollViewer>
+                    Margin="387,50,10,10">
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected" />
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
+                        <DataGridTextColumn Width="110" Header="Date" Binding="{Binding StartTime}" />
+                        <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Border>
     </Grid>
 </Page>
-

@@ -11,12 +11,12 @@
         <local:CreateMedalViewModel />
     </Page.DataContext>
         <Grid Style="{StaticResource PageGrid}">
-        <Label Style="{StaticResource TitleLabel}" Content="Medailes uitdelen"/>
+        <Label Style="{StaticResource TitleLabel}" Content="Medailles uitdelen"/>
 
         <Label Content="Boot" HorizontalAlignment="Center" Margin="0,130,400,0" VerticalAlignment="Top"/>
         <ComboBox ItemsSource="{Binding Boats}" IsEditable="True" HorizontalAlignment="Center" Margin="0,158,400,0" VerticalAlignment="Top" Width="130" SelectionChanged="ComboBoxBoats_SelectionChanged"/>
 
-        <Label Content="Winnar" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top"/>
+        <Label Content="Winnaar" HorizontalAlignment="Center" Margin="0,130,0,0" VerticalAlignment="Top"/>
         <ComboBox ItemsSource="{Binding Users}" HorizontalAlignment="Center" Margin="0,158,0,0" VerticalAlignment="Top" Width="200" SelectedIndex="0" SelectionChanged="ComboBoxUser_SelectionChanged"/>
 
         <Label Content="Medaille" HorizontalAlignment="Center" Margin="400,130,0,0" VerticalAlignment="Top"/>

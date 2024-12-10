@@ -23,6 +23,9 @@
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10, 0, 10, 10">
                 
+                <Label Content="Boten:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
+
+                
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding NameError}" Margin="117,78,0,0" Foreground="Red" VerticalAlignment="Top"/>
                 <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>

@@ -76,7 +76,7 @@ namespace Kbs.Wpf.User.Read.Details
 
         private void RemoveMedal(int medalId)
         {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker dat u deze medaille wil intrekken?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == result)
             {
                 _medalRepository.RemoveById(medalId);

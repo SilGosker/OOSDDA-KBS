@@ -1,8 +1,5 @@
 ﻿using Dapper;
-using Kbs.Business.Boat;
-using Kbs.Business.Damage;
 using Kbs.Business.Medal;
-using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Medal
@@ -12,6 +9,7 @@ namespace Kbs.Data.Medal
         private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
         public void Create(MedalEntity medal)
         {
+            // medal as material to map properties correctly
             medal.MedalId = _connection.QueryFirst<int>(
             "INSERT INTO Medal (BoatId, UserId, GameId, Medal) VALUES (@BoatId, @UserId, @GameId, @Material); SELECT SCOPE_IDENTITY()",
             medal);

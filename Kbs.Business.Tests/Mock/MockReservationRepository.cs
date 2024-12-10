@@ -46,6 +46,11 @@ namespace Kbs.Business.Mock
             throw new NotImplementedException();
         }
 
+        public List<ReservationEntity> GetManyByGameId(int gameId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
         {
             return reservations.OrderByDescending(e => e.Status).ThenBy(e => e.StartTime).ToList();

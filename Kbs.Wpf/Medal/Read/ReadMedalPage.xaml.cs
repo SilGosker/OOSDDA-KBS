@@ -15,7 +15,7 @@ public partial class ReadMedalPage : Page
     {
         InitializeComponent();
         var user = SessionManager.Instance.Current.User;
-        var medals = _medalRepository.GetByUserId(user.UserId);
+        var medals = _medalRepository.GetAllByUserId(user.UserId);
 
         int totalAmountOfGold = 0;
         int totalAmountOfSilver = 0;

@@ -2,6 +2,10 @@
 
 public interface IMedalRepository
 {
-    public void Create(MedalEntity medal);
-    public List<MedalEntity> GetByUserId(int userId);
+    public interface IMedalRepository
+    {
+        public void Create(MedalEntity medal);
+        List<MedalEntity> GetAllByUserId(int userId);
+        public void RemoveById(int medalId);
+    }
 }

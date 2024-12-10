@@ -87,7 +87,7 @@ public partial class CreateMedalPage : Page
         medal.GameId = ViewModel.SelectedGameId;
 
         var validationResult = new MedalValidator().ValidateForCreate(medal);
-
+        // else is not necessary cuz its functionally impossible
         if (validationResult.Count() == 0)
         {
             _medalRepository.Create(medal);

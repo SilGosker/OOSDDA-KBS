@@ -27,7 +27,7 @@ public class ReservationValidator
     {
         var StartTime = TimeOnly.FromDateTime(reservation.StartTime);
         var EndTime = TimeOnly.FromDateTime(reservation.EndTime);
-        return StartTime > Morning && EndTime < Evening;
+        return StartTime >= Morning && EndTime <= Evening;
     }
     public bool IsDurationValid(ReservationEntity reservation)
     {

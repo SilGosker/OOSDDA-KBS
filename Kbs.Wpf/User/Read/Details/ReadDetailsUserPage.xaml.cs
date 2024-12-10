@@ -16,8 +16,10 @@ namespace Kbs.Wpf.User.Read.Details
 
         private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
-        public ReadDetailsUserPage(INavigationManager nav, int id)
+        public ReadDetailsUserPage(INavigationManager navigationManager, int id)
         {
+            _navigationManager = navigationManager;
+            
             InitializeComponent();
 
             var user = _userRepository.GetById(id);
@@ -38,8 +40,8 @@ namespace Kbs.Wpf.User.Read.Details
             var row = (DataGridRow)sender;
             if (row == null) return;
 
-            var dataContext = (ReadDetailsBoatTypeBoatViewModel)row.DataContext;
-            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.BoatId, _navigationManager));
+            var dataContext = (ReadDetailsUserReservationViewModel)row.DataContext;
+            _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
         }
 
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)

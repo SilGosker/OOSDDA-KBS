@@ -52,7 +52,7 @@
                 <Label Content="{Binding DeleteRequestDateMessage}" Margin="130,280,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" />
 
                 <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,310,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <Label Content="{Binding WaitDurationMessage}" Margin="85,310,0,0" Height="107" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
+                <Label Content="{Binding WaitDurationMessage}" Margin="85,310,0,0" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
 
                 <DataGrid Style="{StaticResource DefaultDataGridStyle}"
                           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
@@ -60,7 +60,7 @@
                           AutoGenerateColumns="False" ItemsSource="{Binding Reservations}" d:ItemsSource="{d:SampleData ItemCount=5}"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                           VerticalAlignment="Top"
-                          Margin="387,50,10,10" Height="330">
+                          Margin="387,50,10,10" Height="320">
 
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
@@ -76,17 +76,17 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
-                <Separator Margin="10,400,10,0" Height="4" VerticalAlignment="Top"/>
-                <Label Content="Beschadigingen" FontWeight="Bold" Margin="10,420,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <CheckBox Content="Toon alleen opgeloste beschadigingen" HorizontalAlignment="Left" Margin="165,428,0,0" VerticalAlignment="Top" Unchecked="ShowSolvedDamages_Changed"  Checked="ShowSolvedDamages_Changed"/>
+                <Separator Margin="10,390,10,0" Height="4" VerticalAlignment="Top"/>
+                <Label Content="Beschadigingen" FontWeight="Bold" Margin="10,410,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <CheckBox Content="Toon alleen opgeloste beschadigingen" HorizontalAlignment="Left" Margin="165,418,0,0" VerticalAlignment="Top" Unchecked="ShowSolvedDamages_Changed"  Checked="ShowSolvedDamages_Changed"/>
 
                 <Button Content="Beschadiging uploaden" Click="UploadDamage"
-                        HorizontalAlignment="Right" Margin="0,420,10,0" VerticalAlignment="Top"
+                        HorizontalAlignment="Right" Margin="0,410,10,0" VerticalAlignment="Top"
                         Style="{StaticResource FormButton}" Width="150" />
 
                 <ListView ItemsSource="{Binding Damages}" d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  VerticalAlignment="Top" Margin="10,470,10,10"
+                  VerticalAlignment="Top" Margin="10,460,10,10"
                           HorizontalAlignment="Stretch">
 
                     <ListView.ItemContainerStyle>
@@ -106,7 +106,7 @@
                                 <Border Background="Transparent">
                                     <StackPanel Width="160">
                                         <Label HorizontalAlignment="Center" Content="{Binding Date}" />
-                                        <Image Source="{Binding Image}" MaxWidth="130" Margin="0,0,0,15"/>
+                                        <Image Source="{Binding Image}" MaxWidth="130" MaxHeight="75" Margin="0,0,0,15"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>

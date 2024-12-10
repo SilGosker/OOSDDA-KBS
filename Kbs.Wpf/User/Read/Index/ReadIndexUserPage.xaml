@@ -5,17 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:index="clr-namespace:Kbs.Wpf.User.Read.Index"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1740"
       Title="ReadIndexUserViewModel">
     <Page.DataContext>
         <index:ReadIndexUserViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
         <Label Style="{StaticResource TitleLabel}" Content="Leden" />
-        <Label Content="Rol" HorizontalAlignment="Right" Margin="20,63,152,0" VerticalAlignment="Top" Width="128" />
+        <Label Content="Rol" HorizontalAlignment="Right" Margin="20,63,158,0" VerticalAlignment="Top" Width="170" />
         
-        <ComboBox HorizontalAlignment="Right" Margin="20,90,152,0"
-          VerticalAlignment="Top" Width="200"
+        <ComboBox HorizontalAlignment="Right" Margin="20,90,158,0"
+          VerticalAlignment="Top" Width="170"
           IsEditable="True"
           ItemsSource="{Binding Roles}"
           SelectedItem="{Binding SelectedRole, UpdateSourceTrigger=PropertyChanged}"

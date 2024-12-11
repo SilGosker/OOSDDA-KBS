@@ -1,6 +1,8 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Data.Course;
+using Kbs.Wpf.Course.Create;
 using Kbs.Wpf.Course.Read.Details;
 
 namespace Kbs.Wpf.Course.Read.Index;
@@ -27,5 +29,10 @@ public partial class ReadIndexCoursePage : Page
         var dataContext = (ReadIndexCourseCourseViewModel)listItem.DataContext;
 
         _navigationManager.Navigate(() => new ReadDetailsCoursePage(dataContext.CourseId, _navigationManager));
+    }
+    
+    private void CreateCourseButtonClicked(object sender, RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new CreateCoursePage(_navigationManager));
     }
 }

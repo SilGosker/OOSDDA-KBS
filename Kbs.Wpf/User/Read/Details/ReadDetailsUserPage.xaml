@@ -5,48 +5,39 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.User.Read.Details"
       mc:Ignorable="d"
-      d:DesignHeight="850" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1740"
+
       Title="ReadUserDetailedPage">
     <Page.DataContext>
         <details:ReadDetailsUserViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
+
         <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,0" Height="568">
-            <Grid VerticalAlignment="Top" Margin="10,10,10,0" Height="476">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                    <RowDefinition MinHeight="25" />
-                </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" FontWeight="Bold" Content="UserId:" Margin="24,0,0,0" />
-                <Label Content="{Binding UserId}" Width="114" HorizontalAlignment="Center" />
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,20">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10, 0, 10, 10" d:DesignHeight="900">
 
-                <Label Grid.Row="1" FontWeight="Bold" Content="Role:" Margin="24,0,0,0" />
-                <Label Grid.Column="0" Grid.ColumnSpan="1" Content="{Binding Role}"
-                       Margin="100,0,0,0" Height="40" Width="213" Grid.Row="1" />
+                <Label Content="Reserveringen:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
 
-                <Label Grid.Row="2" FontWeight="Bold" Content="Email:" Margin="24,0,0,0" />
-                <Label Grid.Row="2" Content="{Binding Email}"
-                       Margin="105,0,0,0" Height="39" Width="213" />
+                <Label FontWeight="Bold" Content="GebruikersID:" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding UserId}" Margin="121, 50, 0, 0" VerticalAlignment="Top"/>
+
+                <Label FontWeight="Bold" Content="Rol:" Margin="10,110,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding Role}" Margin="121,110,0,0" VerticalAlignment="Top"/>
+
+                <Label FontWeight="Bold" Content="Email:" Margin="10,170,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding Email}"
+                       Margin="121,170,0,0" VerticalAlignment="Top"/>
 
                 <DataGrid
-                    Grid.Row="0"
-                    Grid.Column="1" Grid.RowSpan="3"
                     Style="{StaticResource DefaultDataGridStyle}"
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                     ItemsSource="{Binding Reservations}"
-                    VerticalScrollBarVisibility="Auto"
-                    Foreground="Black"
-                    Width="397">
+                    VerticalAlignment="Top"
+                    Margin="387,50,10,80"
+                    Height="225">
+                    
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
                             <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected" />
@@ -55,44 +46,46 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
                         <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
-                        <DataGridTextColumn Width="100" Header="Date" Binding="{Binding StartTime}" />
+                        <DataGridTextColumn Width="110" Header="Date" Binding="{Binding StartTime}" />
                         <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <DataGrid
-                    Grid.Row="4"
-                    Grid.Column="1" Grid.RowSpan="2"
-                    Style="{StaticResource DefaultDataGridStyle}"
-                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
-                    ItemsSource="{Binding Medals}"
-                    VerticalScrollBarVisibility="Auto"
-                    Foreground="Black"
-                    Width="397">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Width="70" Header="Medaille" Binding="{Binding Medal}" />
-                        <DataGridTextColumn Width="80" Header="Wedstrijd" Binding="{Binding GameName}" />
-                        <DataGridTextColumn Width="70" Header="Boot" Binding="{Binding BoatName}" />
-                        <DataGridTextColumn Width="60" Header="Date" Binding="{Binding GameDate}" />
-                        <DataGridTemplateColumn Width="120" Header="Medaille intrekken">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Content="Intrekken" 
-                                        Command="{Binding RemoveMedalCommand}"
-                                        CommandParameter="{Binding MedalId}"
-                                        Width="70" Style="{StaticResource FormButton}" >
-                                    </Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                
+                
+                <!-- For sprint 3: -->
+                <!-- <DataGrid -->
+                <!--     Style="{StaticResource DefaultDataGridStyle}" -->
+                <!--     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}" -->
+                <!--     ItemsSource="{Binding Medals}" -->
+                <!--     VerticalAlignment="Top" -->
+                <!--     Margin="387,325,10,80" -->
+                <!--     Height="225"> -->
+                <!--      -->
+                <!--     <DataGrid.RowStyle> -->
+                <!--         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" /> -->
+                <!--     </DataGrid.RowStyle> -->
+                <!--     <DataGrid.Columns> -->
+                <!--         <DataGridTextColumn Width="60" Header="Medaille" Binding="{Binding Medal}" /> -->
+                <!--         <DataGridTextColumn Width="100" Header="Wedstrijd" Binding="{Binding GameName}" /> -->
+                <!--         <DataGridTextColumn Width="80" Header="Boot" Binding="{Binding BoatName}" /> -->
+                <!--         <DataGridTextColumn Width="90" Header="Datum" Binding="{Binding GameDate}" /> -->
+                <!--         <DataGridTemplateColumn Width="80" Header=""> -->
+                <!--             <DataGridTemplateColumn.CellTemplate> -->
+                <!--                 <DataTemplate> -->
+                <!--                     <Button Content="Intrekken"  -->
+                <!--                         Command="{Binding RemoveMedalCommand}" -->
+                <!--                         CommandParameter="{Binding MedalId}" -->
+                <!--                         Width="70" Style="{StaticResource FormButton}" > -->
+                <!--                     </Button> -->
+                <!--                 </DataTemplate> -->
+                <!--             </DataGridTemplateColumn.CellTemplate> -->
+                <!--         </DataGridTemplateColumn> -->
+                <!--     </DataGrid.Columns> -->
+                <!-- </DataGrid> -->
 
-                <Button Content="Verbannen" Click="Ban" Style="{StaticResource FormButton}"
-                Grid.Column="0" Grid.Row="6" Margin="20,0,0,0" HorizontalAlignment="Left"/>
+                <Button Content="Verban gebruiker" Click="Ban" Style="{StaticResource FormButton}"
+                 Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120"/>
+
             </Grid>
         </Border>
     </Grid>

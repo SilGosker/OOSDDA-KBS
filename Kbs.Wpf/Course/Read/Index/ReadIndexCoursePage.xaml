@@ -15,7 +15,7 @@
         <ListView ItemsSource="{Binding Items}"
                   d:ItemsSource="{d:SampleData ItemCount=5}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                  Margin="20,132,20,10">
+                  Margin="20,132,20,90">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
                     <EventSetter Event="PreviewMouseLeftButtonUp" Handler="CourseClicked" />
@@ -67,5 +67,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Style="{StaticResource FormButton}" Content="Nieuw parcours" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom"
+                Width="120"
+                Click="CreateCourseButtonClicked" />
     </Grid>
 </Page>

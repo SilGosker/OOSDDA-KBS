@@ -74,7 +74,11 @@ public class ReadDetailsReservationViewModel : ViewModel
     public int ReservationId
     {
         get => _reservationId;
-        set => SetField(ref _reservationId, value);
+        set
+        {
+            SetField(ref _reservationId, value);
+            OnPropertyChanged(nameof(ReservationIdString));
+        }
     }
     
     public BoatEntity BoatEntity

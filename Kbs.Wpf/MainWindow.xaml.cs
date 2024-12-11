@@ -42,35 +42,29 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMaterialCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this))
-                { Name = "Overzicht boottypen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatTypePage(this))
-                { Name = "Boottype aanmaken" });
-
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this))
-                { Name = "Overzicht boten" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateBoatPage(this))
-                { Name = "Boot aanmaken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Boottypen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Boten" });
         }
 
         if (user.IsMember() || user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Overzicht reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Plaatsen reservering" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Nieuwe reservering" });
         }
 
         if (user.IsMember())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Overzicht medailles" });
+            // For sprint 3
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Medailles" });
         }
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 2)) { Name = "Medailles uitreiken" });
+            // For sprint 3
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 2)) { Name = "Medailles uitreiken" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateCoursePage(this)) { Name = "Parcours aanmaken" });
         }
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))

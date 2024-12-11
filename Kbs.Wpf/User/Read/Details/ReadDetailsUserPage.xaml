@@ -35,7 +35,7 @@
                     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                     ItemsSource="{Binding Reservations}"
                     VerticalAlignment="Top"
-                    Margin="387,50,10,10"
+                    Margin="387,50,10,80"
                     Height="225">
                     
                     <DataGrid.RowStyle>

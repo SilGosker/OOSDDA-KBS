@@ -17,7 +17,7 @@
         <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" Height="320" VerticalAlignment="Top">
 
             <Label Content="Naam" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
-            <TextBox HorizontalAlignment="Left" Text="{Binding InputName}" Margin="200,43,0,0" VerticalAlignment="Top" Width="190" />
+            <TextBox HorizontalAlignment="Left" Text="{Binding InputName}" Margin="200,43,0,0" VerticalAlignment="Top" Width="400" />
 
             <Label Content="Email" HorizontalAlignment="Left" Margin="195,87,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding InputEmail}" Margin="200,113,0,0" VerticalAlignment="Top" Width="400" />
@@ -38,7 +38,7 @@
 
             </Grid>
         </Grid>
-        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Update gegevens" HorizontalAlignment="Center" Margin="0,440,0,0" VerticalAlignment="Top" Click="Submit" Width="110"/>
+        <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Update gegevens" HorizontalAlignment="Center" Margin="0,410,0,0" VerticalAlignment="Top" Click="Submit" Width="110"/>
     
         <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Click="Cancel" Width="110"/>
     </Grid>

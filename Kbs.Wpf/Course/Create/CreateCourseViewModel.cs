@@ -15,6 +15,7 @@ public class CreateCourseViewModel : ViewModel
     private string _imageErrorMessage;
     private CourseDifficulty _difficulty;
     private string _description;
+    private string _difficultyErrorMessage;
     public ObservableCollection<CourseDifficultyViewModel> PossibleDifficulties { get; } = new();
     public string Name 
     { 
@@ -64,5 +65,11 @@ public class CreateCourseViewModel : ViewModel
     { 
         get => _description;
         set => SetField(ref _description, value);
+    }
+
+    public string DifficultyErrorMessage
+    {
+        get => _difficultyErrorMessage;
+        set => SetField(ref _difficultyErrorMessage, value);
     }
 }

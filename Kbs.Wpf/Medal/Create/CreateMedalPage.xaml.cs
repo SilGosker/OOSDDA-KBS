@@ -38,16 +38,6 @@ public partial class CreateMedalPage : Page
             ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
         }
 
-
-        ViewModel.SelectedGameId = gameId;
-        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Bronze));
-        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Silver));
-        ViewModel.MedalMaterial.Add(new MedalMaterialViewModel(MedalMaterial.Gold));
-
-        foreach (BoatEntity boat in _boatRepository.GetManyByGame(ViewModel.SelectedGameId))
-        {
-            ViewModel.Boats.Add(new CreateMedalBoatViewModel(boat));
-        }
     }
 
     private void ComboBoxBoats_SelectionChanged(object sender, SelectionChangedEventArgs e)

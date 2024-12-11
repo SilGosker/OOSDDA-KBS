@@ -162,6 +162,9 @@
                 <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource ColorButtonPressedBorder}" />
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.6" />
+            </Trigger>
         </Style.Triggers>
     </Style>
 

@@ -42,6 +42,7 @@ public class GameRepository : IGameRepository
 
     public void DeleteById(int gameId)
     {
+        _connection.Execute("DELETE FROM Reservation WHERE GameId = @gameId", new { gameId });
         _connection.Execute("DELETE FROM Game WHERE GameId = @gameId", new { gameId });
     }
 

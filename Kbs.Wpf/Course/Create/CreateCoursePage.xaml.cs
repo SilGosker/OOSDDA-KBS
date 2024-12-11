@@ -81,6 +81,15 @@ namespace Kbs.Wpf.Course.Create
                 ViewModel.NameErrorMessage = string.Empty;
             }
 
+            if (validationResult.TryGetValue(nameof(course.Difficulty), out string difficultyError))
+            {
+                ViewModel.DifficultyErrorMessage = difficultyError;
+            }
+            else
+            {
+                ViewModel.DifficultyErrorMessage = string.Empty;
+            }
+
             if (validationResult.Count != 0)
             {
                 return;

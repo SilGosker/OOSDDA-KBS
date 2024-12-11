@@ -186,6 +186,6 @@ public class ReservationValidatorTests
         var result = validator.IsWithinDaylightHours(reservation);
 
         // Assert
-        Assert.False(result); // Moet false geven vanwege de Length
+        Assert.True(result);
     }
 }

@@ -15,35 +15,35 @@
     <Grid Style="{StaticResource PageGrid}">
         <Label Content="Registreren" FontSize="28" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,50,0,0"
                VerticalAlignment="Top" />
-        
+
         <Grid HorizontalAlignment="Center" Width="800" Margin="0,100,0,0" VerticalAlignment="Top">
-            
+
             <Label Content="Email" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding Email}" Margin="200,43,0,0" VerticalAlignment="Top"
                      Width="400" />
             <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,70,0,0"
                    VerticalAlignment="Top" />
-            
+
             <Label Content="Naam (optioneel)" HorizontalAlignment="Left" Margin="195,87,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding Name}" Margin="200,113,0,0" VerticalAlignment="Top"
                          Width="400" />
 
             <Grid HorizontalAlignment="Center" Width="800" Margin="0,156,0,0" Height="160" VerticalAlignment="Top">
-                
+
                 <Label Content="Wachtwoord" HorizontalAlignment="Left" Margin="195,0,0,0" VerticalAlignment="Top" />
                 <PasswordBox HorizontalAlignment="Left" PasswordChanged="PasswordChanged" Margin="200,26,0,0" VerticalAlignment="Top"
                          Width="190" />
                 <Label Content="{Binding PasswordErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,53,0,0"
                        VerticalAlignment="Top" />
-                
+
                 <Label Content="Wachtwoord (herhaling)" HorizontalAlignment="Left" Margin="405,0,0,0" VerticalAlignment="Top" />
                 <PasswordBox HorizontalAlignment="Right" PasswordChanged="PasswordConfirmationChanged" Margin="0,26,200,0" VerticalAlignment="Top"
                          Width="190" />
             </Grid>
-            
-            <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,251,0,0" VerticalAlignment="Top" Height="30"
+
+            <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Registreren" HorizontalAlignment="Center" Margin="0,330,0,0" VerticalAlignment="Top" Height="30"
                     Click="SubmitButtonClicked" />
-            <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,320,0,0" VerticalAlignment="Top" Height="30"
+            <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,410,0,0" VerticalAlignment="Top" Height="30"
                     Click="CancelButtonClicked"/>
         </Grid>
     </Grid>

@@ -29,6 +29,7 @@ public partial class ReadDetailsBoatPage : Page
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
+
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
@@ -95,7 +96,8 @@ public partial class ReadDetailsBoatPage : Page
 
         var dataContext = (ReadDetailsBoatReservationViewModel)row.DataContext;
 
-        _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
+        _navigationManager.Navigate(() =>
+            new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
     }
 
     private void RequestDeletion(object sender, RoutedEventArgs e)
@@ -112,10 +114,12 @@ public partial class ReadDetailsBoatPage : Page
             newDeleteRequestDateValue = null;
             popupMessage = "Verwijdering aanvraag is ongedaan gemaakt.";
         }
+
         ViewModel.DeleteRequestDate = newDeleteRequestDateValue;
         MessageBox.Show(popupMessage);
         ViewModel.Status = BoatStatus.Maintaining;
-        BoatEntity newBoatValues = new BoatEntity() { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status, BoatId = ViewModel.BoatId };
+        BoatEntity newBoatValues = new BoatEntity()
+            { DeleteRequestDate = ViewModel.DeleteRequestDate, Status = ViewModel.Status, BoatId = ViewModel.BoatId };
         _boatRepository.UpdateDeletionStatus(newBoatValues);
 
         //Refresh the whole page so every UI element gets updated where needed
@@ -168,30 +172,31 @@ public partial class ReadDetailsBoatPage : Page
             Status = ViewModel.Status
         };
         var validationResult = _boatValidator.ValidateForUpdate(boat);
-        if (validationResult.Count > 0)
+        if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
         {
-            if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
-            {
-                ViewModel.NameError = nameErrorMessage;
-            }
-            else
-            {
-                ViewModel.NameError = "";
-            }
-            if (validationResult.TryGetValue(nameof(boat.Status), out string statusErrorMessage))
-            {
-                ViewModel.StatusError = statusErrorMessage;
-            } else
-            {
-                ViewModel.StatusError = "";
-            }
+            ViewModel.NameError = nameErrorMessage;
         }
         else
+        {
+            ViewModel.NameError = "";
+        }
+
+        if (validationResult.TryGetValue(nameof(boat.Status), out string statusErrorMessage))
+        {
+            ViewModel.StatusError = statusErrorMessage;
+        }
+        else
+        {
+            ViewModel.StatusError = "";
+        }
+
+        if (validationResult.Count == 0)
         {
             _boatRepository.Update(boat);
             MessageBox.Show($"{boat.Name} succesvol geüpdatet");
         }
     }
+
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)
     {
         _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, ViewModel.BoatTypeId));

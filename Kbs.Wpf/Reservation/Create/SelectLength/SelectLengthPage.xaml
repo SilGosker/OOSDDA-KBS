@@ -12,9 +12,8 @@
     </Page.DataContext>
 
     <Grid Style="{StaticResource PageGrid}">
-        <Label Style="{StaticResource TitleLabel}"
-               Content="Reserveren boot"
-               Margin="5" />
+        <Label Style="{StaticResource TitleLabel}" Margin="0" Content="{Binding GameCreateMessage}"/>
+        <Label Style="{StaticResource TitleLabel}" Content="Reserveren boot"/>
         <Button Style="{StaticResource FormButton}"
                 Content="Vorige stap"
                 HorizontalAlignment="Left"
@@ -23,20 +22,20 @@
                 Width="150"
                 Margin="20,90,0,0" />
 
-        <Border Margin="20,132,20,90" Background="Transparent">
+        <Border Margin="20,132,20,20" Background="Transparent">
             <Grid HorizontalAlignment="Stretch" Margin="10">
-                <Label Content="Selecteer de lengte van de reservering" 
-                       Margin="0,0,0,0"
+                <Label Content="Selecteer de duur van de reservering"
+                       Margin="16,20,0,0"
                        HorizontalAlignment="Left"
-                       VerticalAlignment="Top"/>
-                <Border Margin="0,30,0,0"
+                       VerticalAlignment="Top" />
+                <Border Margin="20,50,0,0"
                         Width="200"
                         Padding="10"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top">
-                <ItemsControl ItemsSource="{Binding RadioButtons}" >
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding RadioButtons}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
                                 <Viewbox Height="20"
                                          HorizontalAlignment="Left"
                                          VerticalAlignment="Center">
@@ -47,74 +46,74 @@
                                                  IsEnabled="{Binding Checkable}"
                                                  Checked="RadioButtLength_Checked" />
                                 </Viewbox>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
 
-                </ItemsControl>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                    </ItemsControl>
                 </Border>
-                <Label Content="Kies een starttijd" 
+                <Label Content="Kies een starttijd"
                        VerticalAlignment="Top"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,100,0"/>
-                <ComboBox HorizontalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="296,20,100,0" />
+                <ComboBox HorizontalAlignment="Left"
                           VerticalAlignment="Top"
-                          Margin="0,30,100,0"
-                          ItemsSource="{Binding AvailableStartTimes}" 
-                          Width="100"
+                          Margin="300,50,100,0"
+                          ItemsSource="{Binding AvailableStartTimes}"
+                          Width="200"
                           SelectedIndex="0"
                           SelectionChanged="ComboBoxStartTime_SelectionChanged" />
 
-                <Label Content="Overzicht:" 
-                       HorizontalAlignment="Right" 
+                <Label Content="Overzicht:"
+                       HorizontalAlignment="Right"
                        VerticalAlignment="Top"
-                       Margin="0,0,230,0"/>
-                <Border Margin="0, 30, 0, 0"
-                        Padding="20" 
+                       Margin="0,20,190,0" />
+                <Border Margin="0, 50, 20, 0"
+                        Padding="20"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Right">
-                <Grid VerticalAlignment="Center" 
-                      Background="{StaticResource ColorSecondaryBackground}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Label Content="Reservering voor:" 
-                           FontSize="25"
-                           Grid.Row="0" 
-                           Margin="0,0,0,20"
-                           HorizontalAlignment="Center" />
-                    <Label Content="{Binding Name}" 
-                           FontSize="20"
-                           Grid.Row="1" 
-                           HorizontalAlignment="Center" />
-                    <Label Content="Op:" 
-                           FontSize="20"
-                           Grid.Row="2" 
-                           HorizontalAlignment="Center" />
-                    <Label Content="{Binding Day}" 
-                           FontSize="20"
-                           Grid.Row="3" 
-                           HorizontalAlignment="Center" />
-                    <Label Content="{Binding Date}" 
-                           FontSize="20"
-                           Grid.Row="4" 
-                           HorizontalAlignment="Center" />
-                </Grid>
+                    <Grid VerticalAlignment="Center"
+                          Background="{StaticResource ColorSecondaryBackground}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label Content="Reservering voor:"
+                               FontSize="25"
+                               Grid.Row="0"
+                               Margin="0,0,0,20"
+                               HorizontalAlignment="Center" />
+                        <Label Content="{Binding Name}"
+                               FontSize="25"
+                               Grid.Row="1"
+                               HorizontalAlignment="Center" />
+                        <Label Content="Op:"
+                               FontSize="20"
+                               Grid.Row="2"
+                               HorizontalAlignment="Center" />
+                        <Label Content="{Binding Day}"
+                               FontSize="20"
+                               Grid.Row="3"
+                               HorizontalAlignment="Center" />
+                        <Label Content="{Binding Date}"
+                               FontSize="20"
+                               Grid.Row="4"
+                               HorizontalAlignment="Center" />
+                    </Grid>
                 </Border>
-
+                <Button Style="{StaticResource FormButton}" Content="Reserveer" VerticalAlignment="Bottom" Margin="0, 0, 0, 30"
+                        Click="ButtonReservation_Click" />
             </Grid>
         </Border>
-        <Button Style="{StaticResource FormButton}" Content="Reserveer" VerticalAlignment="Bottom" Margin="0, 0, 0, 30"
-                Click="ButtonReservation_Click" />
+        
     </Grid>
 </Page>

@@ -1,0 +1,65 @@
+<Page x:Class="Kbs.Wpf.Course.Create.CreateCoursePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:create="clr-namespace:Kbs.Wpf.Course.Create"
+      mc:Ignorable="d" 
+      d:DesignHeight="680" d:DesignWidth="900"
+      Title="CreateCoursePage">
+    <Page.DataContext>
+        <create:CreateCourseViewModel />
+    </Page.DataContext>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Parcours aanmaken" />
+        
+        <Border Background="Transparent " VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10" />
+                    <RowDefinition Height="0" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10" />
+                </Grid.RowDefinitions>
+
+
+                <Label Grid.Column="0" Grid.Row="2" Content="Naam:" FontWeight="Bold" Margin="10,0,0,0" />
+                <Label Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Content="{Binding NameErrorMessage}" Foreground="Red" Margin="10,0,0,25" VerticalAlignment="Bottom"/>
+                <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Name}" TextWrapping="Wrap" Width="200" Height="30" HorizontalAlignment="Right" Margin="10,0,10,0"/>
+
+                <Label Grid.Column="0" VerticalAlignment="Top" Grid.Row="3" Content="Moeilijkheidsgraad:" FontWeight="Bold" Margin="10,35,0,0" Grid.RowSpan="2" />
+                <ComboBox Grid.Column="0" Grid.Row="4" ItemsSource="{Binding PossibleDifficulties}" SelectionChanged="DifficultyChanged" IsEditable="True" Text="Selecteer moeilijkheidsgraad" Width="200" HorizontalAlignment="Right" Margin="0,0,10,0"/>
+                <Label Grid.Column="0" Grid.Row="4" Content="{Binding DifficultyErrorMessage}" Foreground="Red" Margin="10,0,0,0" VerticalAlignment="Bottom"/>
+
+                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving" FontWeight="Bold" Margin="10,0,0,0" />
+                <TextBox MinHeight="190" Margin="10,0,10,0" Grid.Row="6" Grid.Column="0" Grid.RowSpan="4" Text="{Binding Description}" TextWrapping="Wrap"
+                     AcceptsReturn="True" />
+
+                <Label Grid.Column="1" Grid.Row="2" Content="Selecteer afbeelding:" FontWeight="Bold" Margin="17,0,0,0" />
+                <Label Grid.Column="1" Grid.Row="2" Grid.RowSpan="2" Content="{Binding ImageErrorMessage}" Foreground="Red" Margin="17,0,0,25" VerticalAlignment="Bottom"/>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,0">
+                    <Button Style="{StaticResource FormButton}" HorizontalAlignment="Left" Margin="5"
+                        VerticalAlignment="Top" Content="Kies afbeelding" Click="SelectFileButtonClick" />
+                </StackPanel>
+
+                <Label Grid.Column="1" Grid.Row="4" Content="Afbeelding preview" FontWeight="Bold" Margin="17,0,0,0"/>
+                <Image Grid.Column="1" Grid.Row="5" Grid.RowSpan="4" Source="{Binding Image}" />
+
+                <Button Margin="10,10,20,10" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Right" Style="{StaticResource FormButton}"
+                    VerticalAlignment="Bottom"
+                        Content="Bevestigen" Click="Submit" />
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

@@ -85,7 +85,7 @@ public class UserValidator
         {
             errors.Add(nameof(user.Email), "Ongeldig email adres");
         }
-        else if (userRepository.GetByEmail(user.Email) != null)
+        else if (user.Email != previousUserEmail && userRepository.GetByEmail(user.Email) != null)
         {
             errors.Add(nameof(user.Email), "Email adres bestaat al");
         }

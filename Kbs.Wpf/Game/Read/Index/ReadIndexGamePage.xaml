@@ -1,0 +1,101 @@
+<Page x:Class="Kbs.Wpf.Game.Read.Index.ReadIndexGamePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:index="clr-namespace:Kbs.Wpf.Game.Read.Index"
+      mc:Ignorable="d"
+      d:DesignWidth="1740" d:DesignHeight="1080"
+      Title="ReadIndexGamePage">
+    <Page.DataContext>
+        <index:ReadIndexGameViewModel />
+    </Page.DataContext>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Style="{StaticResource TitleLabel}" Content="Wedstrijden" />
+        
+        <Label Content="Naam" HorizontalAlignment="Right" Margin="152,63,20,0" VerticalAlignment="Top" Width="128" />
+        <TextBox HorizontalAlignment="Right" Margin="0,90,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"
+                 KeyUp="NameChanged" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+        <Label Content="Parcours" HorizontalAlignment="Right" Margin="20,63,152,0" VerticalAlignment="Top" Width="128" />
+        <ComboBox Text="Alle parcours" IsEditable="True" HorizontalAlignment="Right" Margin="20,90,152,0"
+                  VerticalAlignment="Top" Width="128"
+                  SelectionChanged="CourseChanged" ItemsSource="{Binding Courses}" />
+
+        
+        
+        <ListView ItemsSource="{Binding Items}"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                  ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                  Margin="20,132,20,90">
+            
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemStyle}">
+                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="GameClicked" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Width="830" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type index:ReadIndexGameGameViewModel}">
+                    <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
+                    <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding GameIdString}" Style="{StaticResource ListItemTextBlockStyle}"
+                                        FontSize="20"
+                                        FontWeight="Bold"
+                                        VerticalAlignment="Top" />
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0,40,0,0">
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Naam: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Parcours: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Course}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="Datum: "
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Date}"
+                                               Style="{StaticResource ListItemTextBlockStyle}" />
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Background="{Binding DateColor}" Height="2" Margin="0,2,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        
+        <Button Style="{StaticResource FormButton}" Content="Nieuwe wedstrijd" HorizontalAlignment="Center" Margin="0,0,0,30" VerticalAlignment="Bottom" Click="AddGame" Width="120"/>
+
+    </Grid>
+</Page>

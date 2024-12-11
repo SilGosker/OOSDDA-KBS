@@ -14,8 +14,8 @@ public class ReservationRepository : IReservationRepository, IDisposable
     {
         res.ReservationId =
             _connection.QueryFirst<int>(
-                @"INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status)
-                    VALUES (@UserID, @BoatID, @StartTime, @Length, @Status);
+                @"INSERT INTO Reservation (UserID, BoatID, StartTime, Length, Status, GameID)
+                    VALUES (@UserID, @BoatID, @StartTime, @Length, @Status, @GameId);
                     SELECT SCOPE_IDENTITY()",
                 res);
     }
@@ -96,5 +96,31 @@ public class ReservationRepository : IReservationRepository, IDisposable
     {
         await _connection.ExecuteAsync(
             "UPDATE Reservation\r\nSET Status = 2\r\nWHERE DATEADD(MINUTE, DATEDIFF(MINUTE, '00:00:00', Length), StartTime) < GETDATE() AND Status = 3;");
+    }
+
+    public List<ReservationEntity> GetManyByGameId(int gameId)
+    {
+        string sql = @"
+        SELECT 
+            r.*,
+            b.BoatID AS BoatId,
+            b.Name
+        FROM 
+            Reservation r
+        JOIN 
+            Boat b ON r.BoatID = b.BoatID
+        WHERE 
+            r.GameID = @gameId";
+
+        return _connection.Query<ReservationEntity, BoatEntity, ReservationEntity>(
+            sql,
+            (reservation, boat) =>
+            {
+                reservation.Boat = boat;
+                return reservation;
+            },
+            new { gameId },
+            splitOn: "BoatId"
+        ).ToList();
     }
 }

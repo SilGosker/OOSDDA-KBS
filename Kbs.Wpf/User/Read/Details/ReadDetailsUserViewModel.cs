@@ -13,6 +13,7 @@ namespace Kbs.Wpf.User.Read.Details
         private int _userId;
 
         public ObservableCollection<ReadDetailsUserReservationViewModel> Reservations { get; } = new();
+        public ObservableCollection<ReadDetailsUserMedalViewModel> Medals { get; } = new();
 
         public string Name
         {

@@ -7,18 +7,25 @@ using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
+using Kbs.Wpf.Course.Read.Index;
 using Kbs.Wpf.User.Update;
 using Kbs.Wpf.Damage.Read.Details;
+using Kbs.Wpf.Game.Create;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
+using Kbs.Wpf.Medal.Create;
+using Kbs.Wpf.Medal.Read;
 using Kbs.Wpf.User.Read.Index;
+using Kbs.Wpf.Course.Create;
+using Kbs.Wpf.Game.Read.Index;
 
 namespace Kbs.Wpf;
 
 public partial class MainWindow : Window, INavigationManager
 {
     private MainViewModel ViewModel => (MainViewModel)DataContext;
+
     protected override void OnClosed(EventArgs e)
     {
         SessionManager.Instance.SessionTimeExpired -= SessionExpired;
@@ -38,15 +45,30 @@ public partial class MainWindow : Window, INavigationManager
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Boottypen" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Boten" });
         }
-        
+
         if (user.IsMember() || user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) {Name = "Plaatsen reservering"});
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Inzien leden" });
-
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Nieuwe reservering" });
         }
-        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this)) { Name = "Instellingen" });
+
+        if (user.IsMember())
+        {
+            // For sprint 3
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Medailles" });
+        }
+
+        if (user.IsGameCommissioner())
+        {
+            // For sprint 3
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
+            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new CreateMedalPage(this, 2)) { Name = "Medailles uitreiken" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
+        }
+
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
+            { Name = "Instellingen" });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
@@ -94,7 +116,7 @@ public partial class MainWindow : Window, INavigationManager
             }
 
             if (attributes.Any(e => user.Is(e.UserRole)))
-            { 
+            {
                 page = creator();
                 NavigationFrame.Navigate(page);
                 return;
@@ -107,7 +129,7 @@ public partial class MainWindow : Window, INavigationManager
         page = creator();
         NavigationFrame.Navigate(page);
     }
-        
+
     private void LogOut(object sender, RoutedEventArgs e)
     {
         SessionManager.Instance.Logout();

@@ -1,10 +1,18 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Boat;
+using Kbs.Business.Game;
+using Kbs.Business.Reservation;
 using Kbs.Business.User;
+using Kbs.Data.Boat;
+using Kbs.Data.Game;
+using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Reservation.Read.Details;
+using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
@@ -13,13 +21,15 @@ namespace Kbs.Wpf.User.Read.Details
         private readonly UserRepository _userRepository = new UserRepository();
         private readonly INavigationManager _navigationManager;
         private readonly ReservationRepository _reservationRepository = new ReservationRepository();
+        private readonly BoatRepository _boatRepository = new BoatRepository();
+        private readonly GameRepository _gameRepository = new GameRepository();
+        private readonly MedalRepository _medalRepository = new MedalRepository();
 
         private ReadDetailsUserViewModel ViewModel => (ReadDetailsUserViewModel)DataContext;
 
         public ReadDetailsUserPage(INavigationManager navigationManager, int id)
         {
             _navigationManager = navigationManager;
-            
             InitializeComponent();
 
             var user = _userRepository.GetById(id);
@@ -33,33 +43,44 @@ namespace Kbs.Wpf.User.Read.Details
             {
                 ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
             }
+            var medals = _medalRepository.GetAllByUserId(id);
+            foreach (var medal in medals)
+            {
+                BoatEntity boat = medal.BoatId == null? null : _boatRepository.GetById((int)medal.BoatId);
+                GameEntity game = _gameRepository.GetById(medal.GameId);
+                ViewModel.Medals.Add(new ReadDetailsUserMedalViewModel(medal, game, boat, RemoveMedal));
+            }
         }
 
         private void ReservationSelected(object sender, MouseButtonEventArgs e)
         {
             var row = (DataGridRow)sender;
+            
             if (row == null) return;
 
             var dataContext = (ReadDetailsUserReservationViewModel)row.DataContext;
             _navigationManager.Navigate(() => new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
         }
 
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Ban(object sender, RoutedEventArgs e)
         {
-            var selectedReservation = (ReadDetailsUserReservationViewModel)((DataGrid)sender).SelectedItem;
-            if (selectedReservation != null)
+            var entity = _userRepository.GetById(ViewModel.UserId);
+            var userId = entity.UserId;
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
             {
+                _userRepository.ChangeRole(entity);
+                _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
             }
         }
 
-        private void DataGrid_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void RemoveMedal(int medalId)
         {
-            if (sender is DataGrid dataGrid)
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker dat u deze medaille wil intrekken?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.Yes == result)
             {
-                if (e.Delta > 0)
-                    dataGrid.ScrollIntoView(dataGrid.Items[0]);
-                else
-                    dataGrid.ScrollIntoView(dataGrid.Items[dataGrid.Items.Count - 1]);
+                _medalRepository.RemoveById(medalId);
+                _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, ViewModel.UserId));
             }
         }
     }

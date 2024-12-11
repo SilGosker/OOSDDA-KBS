@@ -1,13 +1,16 @@
-﻿using System.Windows;
+using System.Diagnostics.Eventing.Reader;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
+using Kbs.Business.Game;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Data.Boat;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
+using Kbs.Wpf.Reservation.Create.SelectLength;
 
 namespace Kbs.Wpf.Reservation.Create.SelectTime;
 
@@ -20,7 +23,14 @@ public partial class SelectTimePage : Page
     private int _daysFromToday;
     private readonly BoatRepository _boatRepository = new();
     private SelectTimeViewModel ViewModel => (SelectTimeViewModel)DataContext;
-    private readonly List<double> _checklist = [];
+    private readonly List<double> _checklist = new();
+    private readonly GameEntity _game;
+
+    public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType, GameEntity game) : this(navigationManager, boatType)
+    {
+        _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
+    }
 
     public SelectTimePage(INavigationManager navigationManager, BoatTypeEntity boatType)
     {
@@ -59,27 +69,50 @@ public partial class SelectTimePage : Page
 
     private void TimeSlotButton_Click(object sender, RoutedEventArgs e)
     {
-        if (SessionManager.Instance.Current.User.IsGameCommissioner())
+        if (SessionManager.Instance.Current.User.IsMember())
+        {
+
+            Button send = (Button)sender;
+            Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
+                (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
+            _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+
+        }
+        else if (SessionManager.Instance.Current.User.IsGameCommissioner())
         {
             if (_boatsSelected.Count > 0)
             {
                 Button send = (Button)sender;
                 Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
                     (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
-                _navigationManager.Navigate(() =>
-                    new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+
+                if (_game != null)
+                {
+                    _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat, _game));
+                }
+                else
+                {
+                    _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+                }
             }
             else
             {
                 ViewModel.NoBoatsSelectedError = "Selecteer een of meerdere boten";
             }
-        }
-        else
+        } else
         {
+
             Button send = (Button)sender;
             Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat =
                 (Tuple<ReservationTime, List<BoatEntity>>)send.Tag;
-            _navigationManager.Navigate(() => new SelectLength.SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+            if (_game != null)
+            {
+                _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat, _game));
+            }
+            else
+            {
+                _navigationManager.Navigate(() => new SelectLengthPage(_navigationManager, chosenTimeAndBoat));
+            }
         }
     }
 
@@ -201,9 +234,16 @@ public partial class SelectTimePage : Page
         }
     }
 
-    private void PreviousStep(object sender, System.Windows.RoutedEventArgs e)
+    private void PreviousStep(object sender, RoutedEventArgs e)
     {
-        _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager));
+        if (_game != null)
+        {
+            _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager, _game)); 
+        }
+        else
+        {
+            _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager));
+        }
     }
 
     private void NextWeekButton_Click(object sender, RoutedEventArgs e)

@@ -7,15 +7,26 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+
 	<ItemGroup>
 		<ProjectReference Include="..\Kbs.Data\Kbs.Data.csproj" />
 	</ItemGroup>
+
 	<ItemGroup>
-		<Content Include="Resources\**\*.*">
-			<Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+	  <Resource Include="Resources\Images\bronze.png" Link="Images\bronze.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+	  <Resource Include="Resources\Images\goud.png" Link="Images\goud.png">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Resource>
+		<Resource Include="Resources\Images\silver.png" Link="Images\silver.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
+		</Resource>
+		<Resource Include="Resources\Images\NoImageAvailable.jpg" Link="Images\NoImageAvailable.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 	</ItemGroup>
+	
 	<ItemGroup>
 	  <Page Update="Boat\Read\Index\ReadIndexBoatPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>

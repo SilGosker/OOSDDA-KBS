@@ -11,8 +11,9 @@ namespace Kbs.Business.User
                 UserRole.GameCommissioner => "Wedstrijdcommissaris",
                 UserRole.Member => "Lid",
                 (UserRole)7 => "Administrator",
-                default(UserRole) => "Geband",
+                default(UserRole) => "Verbannen",
                 _ => "Onbekende combinatie"
+
             };
         }
     }

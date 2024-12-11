@@ -2,20 +2,19 @@
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Boat;
+using Kbs.Business.Game;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Game.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectTime;
 using Kbs.Wpf.Reservation.Read.Index;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Kbs.Wpf.Reservation.Create.SelectLength;
 
-/// <summary>
-/// Interaction logic for SelectLength.xaml
-/// </summary>
 public partial class SelectLengthPage : Page
 {
     private readonly INavigationManager _navigationManager;
@@ -27,9 +26,14 @@ public partial class SelectLengthPage : Page
     Tuple<ReservationTime, List<BoatEntity>> _chosenTimeAndBoat;
     public TimeSpan LengthSelected = TimeSpan.FromMinutes(30);
     public DateTime SelectedStartTime;
-
+    private readonly GameEntity _game;
     public SelectLengthPage(INavigationManager navigationManager,
-        Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat)
+        Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat, GameEntity game) : this(navigationManager, chosenTimeAndBoat)
+    {
+        _game = game;
+        ViewModel.GameCreateMessage = "U reserveert boten voor Wedstrijd #" + _game.GameId;
+    }
+    public SelectLengthPage(INavigationManager navigationManager, Tuple<ReservationTime, List<BoatEntity>> chosenTimeAndBoat)
     {
         int reservationLengthIncrementMinutes;
         int maxReservationLength;
@@ -102,23 +106,33 @@ public partial class SelectLengthPage : Page
 
     private void ButtonReservation_Click(object sender, RoutedEventArgs e)
     {
+        var validator = new ReservationValidator();
         foreach (BoatEntity boat in _chosenTimeAndBoat.Item2)
         {
-            ReservationEntity res = new ReservationEntity();
+            ReservationEntity res = new();
             res.BoatId = boat.BoatId;
             res.Status = ReservationStatus.Active;
             res.StartTime = SelectedStartTime;
-
+            res.GameId = _game?.GameId;
             res.Length = LengthSelected;
 
             UserEntity user = SessionManager.Instance.Current.User;
 
             res.UserId = user.UserId;
-
-            _reservationRepository.Create(res);
+            if (validator.IsWithinDaylightHours(res))
+            {
+                _reservationRepository.Create(res);
+            }
         }
 
-        _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+        if (_game == null)
+        {
+            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+        }
+        else
+        {
+            _navigationManager.Navigate(() => new ReadDetailsGamePage(_navigationManager, _game.GameId));
+        }
     }
 
     private void ComboBoxStartTime_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -161,8 +175,14 @@ public partial class SelectLengthPage : Page
     private void PreviousStep(object sender, RoutedEventArgs e)
     {
         var boatType = _boatTypeRepository.GetByBoatId(_chosenTimeAndBoat.Item2[0].BoatId);
-
-        _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+        if (_game != null)
+        {
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType, _game));
+        }
+        else
+        {
+            _navigationManager.Navigate(() => new SelectTimePage(_navigationManager, boatType));
+        }
     }
 
     private void RadioButtLength_Checked(object sender, RoutedEventArgs e)

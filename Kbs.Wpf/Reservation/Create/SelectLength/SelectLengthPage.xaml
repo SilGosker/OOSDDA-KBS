@@ -12,9 +12,8 @@
     </Page.DataContext>
 
     <Grid Style="{StaticResource PageGrid}">
-        <Label Style="{StaticResource TitleLabel}"
-               Content="Reserveren boot"
-               Margin="5" />
+        <Label Style="{StaticResource TitleLabel}" Margin="0" Content="{Binding GameCreateMessage}"/>
+        <Label Style="{StaticResource TitleLabel}" Content="Reserveren boot"/>
         <Button Style="{StaticResource FormButton}"
                 Content="Vorige stap"
                 HorizontalAlignment="Left"

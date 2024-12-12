@@ -10,7 +10,7 @@
     <Page.DataContext>
         <local:ReadDetailsGameViewModel />
     </Page.DataContext>
-    
+
     <Grid Style="{StaticResource PageGrid}">
         <Label Content="{Binding GameIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
 
@@ -26,22 +26,26 @@
                 Margin="0,90,280,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Style="{StaticResource FormButton}" Width="180"/>
 
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+        <Button Content="Medaille uitreiken" Click="GiveMedal" 
+                Margin="0,90,470,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Style="{StaticResource FormButton}" Width="120"/>
+
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0">
             <Grid HorizontalAlignment="Stretch" Margin="10">
-                
-                <Label Content="Reserveringen" FontWeight="Bold" Margin="547,20,0,0" VerticalAlignment="Top" />
+
+                <Label Content="Reserveringen" FontWeight="Bold" Margin="439,21,0,0" VerticalAlignment="Top" />
 
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top" />
                 <Label Content="{Binding NameError}" 
                        Foreground="Red" Margin="117,78,0,0" Height="30" VerticalAlignment="Top" />
-                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="150"/>
-                
+                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="283"/>
+
                 <Label Content="Parcours:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                 <Label Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="117,148,75,0"
                        Content="{Binding CourseErrorMessage}" />
                 <ComboBox ItemsSource="{Binding Courses}" 
                           SelectionChanged="CourseChanged" IsEditable="True" 
-                          HorizontalAlignment="Left" Margin="121,110,0,0" VerticalAlignment="Top" Width="150" 
+                          HorizontalAlignment="Left" Margin="121,110,0,0" VerticalAlignment="Top" Width="283" 
                           SelectedItem="{Binding SelectedCourse}" />
 
                 <Label Content="Datum:" FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top" />
@@ -50,12 +54,14 @@
                           SelectedDate="{Binding Date}"/>
                 <Label Foreground="Red" VerticalAlignment="Top" Margin="117,510,0,20"
                        Content="{Binding DateErrorMessage}" />
-                
+
                 <DataGrid Style="{StaticResource DefaultDataGridStyle}"
                           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                           ItemsSource="{Binding Boats}" d:ItemsSource="{d:SampleData ItemCount=5}"
                           ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                          Margin="547,50,10,10" >
+                          Height="200"
+                          VerticalAlignment="Top"
+                          Margin="439,50,10,0" >
 
                     <DataGrid.Resources>
                         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
@@ -64,10 +70,30 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="150" Header="Boot" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="100" Header="ReserveringsID" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Width="*" Header="Boot" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="*" Header="ReserveringsID" Binding="{Binding ReservationId}" />
                     </DataGrid.Columns>
                 </DataGrid>
+
+                <DataGrid Style="{StaticResource DefaultDataGridStyle}"
+                          ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                          ItemsSource="{Binding Medals}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          VerticalAlignment="Top" Margin="439,293,10,0" Height="207">
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="OnMedalClick"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Gebruiker" Binding="{Binding UserName}"/>
+                        <DataGridTextColumn Width="*" Header="Materiaal" Binding="{Binding Material}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Medailles" FontWeight="Bold" Margin="439,264,0,0" VerticalAlignment="Top" />
+
             </Grid>
         </Border>
     </Grid>

@@ -24,5 +24,10 @@ namespace Kbs.Data.Medal
         {
             _connection.Execute("DELETE FROM Medal WHERE MedalID = @medalId", new { medalId });
         }
+
+        public List<MedalEntity> GetAllByGameId(int gameId)
+        {
+            return _connection.Query<MedalEntity>("SELECT *, m.Medal as Material FROM Medal m WHERE GameID = @gameId", new { gameId }).ToList();
+        }
     }
 }

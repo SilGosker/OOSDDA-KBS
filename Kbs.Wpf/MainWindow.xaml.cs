@@ -54,14 +54,12 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMember())
         {
-            // For sprint 3
-            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Medailles" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Medailles" });
         }
 
         if (user.IsGameCommissioner())
         {
-            // For sprint 3
-            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
+            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
         }

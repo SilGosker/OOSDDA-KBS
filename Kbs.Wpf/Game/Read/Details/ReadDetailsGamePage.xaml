@@ -30,7 +30,7 @@
                 Margin="0,90,470,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Style="{StaticResource FormButton}" Width="120"/>
 
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0" Height="946">
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0">
             <Grid HorizontalAlignment="Stretch" Margin="10">
 
                 <Label Content="Reserveringen" FontWeight="Bold" Margin="439,21,0,0" VerticalAlignment="Top" />

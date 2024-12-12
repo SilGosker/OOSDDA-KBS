@@ -67,11 +67,9 @@
                 
             </Grid>
         </Border>
-        <Button Content="Update Game" Click="UpdateGame" 
-            Margin="0,90,150,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
-            Style="{StaticResource FormButton}" Width="120"/>
+
         <Button Content="Reserveringen toevoegen" Click="AddReservations" 
                 Margin="0,90,290,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Style="{StaticResource FormButton}" Width="120"/>
+                Style="{StaticResource FormButton}" Width="200"/>
     </Grid>
 </Page>

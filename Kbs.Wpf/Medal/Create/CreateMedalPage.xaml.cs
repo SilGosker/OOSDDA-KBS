@@ -9,6 +9,7 @@ using Kbs.Wpf.Medal.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows;
 using System.Windows.Controls;
+using Kbs.Wpf.Game.Read.Details;
 
 namespace Kbs.Wpf.Medal.Create;
 
@@ -76,12 +77,13 @@ public partial class CreateMedalPage : Page
         medal.GameId = ViewModel.SelectedGameId;
 
         var validationResult = new MedalValidator().ValidateForCreate(medal);
+
         // else is not necessary cuz its functionally impossible
-        if (validationResult.Count() == 0)
+        if (validationResult.Count == 0)
         {
             _medalRepository.Create(medal);
 
-            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            _navigationManager.Navigate(() => new ReadDetailsGamePage(_navigationManager, ViewModel.SelectedGameId));
         }
 
 

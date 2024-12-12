@@ -20,13 +20,13 @@
 
                 <Label Content="Reserveringen:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
 
-                <Label FontWeight="Bold" Content="GebruikersID:" Margin="10,50,0,0" VerticalAlignment="Top"/>
-                <Label Content="{Binding UserId}" Margin="121, 50, 0, 0" VerticalAlignment="Top"/>
+                <Label FontWeight="Bold" Content="Gebruikers nummer:" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding UserId}" Margin="181, 50, 0, 0" VerticalAlignment="Top"/>
 
                 <Label FontWeight="Bold" Content="Rol:" Margin="10,110,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding Role}" Margin="121,110,0,0" VerticalAlignment="Top"/>
 
-                <Label FontWeight="Bold" Content="Email:" Margin="10,170,0,0" VerticalAlignment="Top"/>
+                <Label FontWeight="Bold" Content="Emailadres:" Margin="10,170,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding Email}"
                        Margin="121,170,0,0" VerticalAlignment="Top"/>
 
@@ -44,10 +44,10 @@
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="100" Header="ReservationID" Binding="{Binding ReservationId}" />
-                        <DataGridTextColumn Width="100" Header="BoatID" Binding="{Binding BoatId}" />
-                        <DataGridTextColumn Width="110" Header="Date" Binding="{Binding StartTime}" />
-                        <DataGridTextColumn Width="100" Header="Status" Binding="{Binding Status}" />
+                        <DataGridTextColumn Width="100" Header="Reservering" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Width="100" Header="Boot naam" Binding="{Binding BoatName}" />
+                        <DataGridTextColumn Width="120" Header="Datum en starttijd" Binding="{Binding StartTime}" />
+                        <DataGridTextColumn Width="90" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>
                 </DataGrid>
                 

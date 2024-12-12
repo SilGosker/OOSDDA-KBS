@@ -41,7 +41,8 @@ namespace Kbs.Wpf.User.Read.Details
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)
             {
-                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
+                string boatName = _boatRepository.GetById(reservation.BoatId).Name;
+                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation, boatName));
             }
             var medals = _medalRepository.GetAllByUserId(id);
             foreach (var medal in medals)

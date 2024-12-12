@@ -49,7 +49,8 @@
                 <Label Content="Verwijderingsinformatie:" FontWeight="Bold" Margin="10,250,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
                 <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <Label Content="{Binding DeleteRequestDateMessage}" Margin="130,280,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" />
+                <Label Content="{Binding DeleteRequestDate
+                    }" Margin="130,280,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" />
 
                 <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,310,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                 <Label Content="{Binding WaitDurationMessage}" Margin="85,310,0,0" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />

@@ -2,6 +2,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
+using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -15,6 +17,8 @@ using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
+using Kbs.Wpf.Reservation.Read.Index;
+using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.Boat.Read.Details;
 
@@ -163,6 +167,14 @@ public partial class ReadDetailsBoatPage : Page
 
     private void UpdateData(object sender, RoutedEventArgs e)
     {
+        if (ViewModel.Status != BoatStatus.Operational)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.No == result)
+            {
+                return;
+            }
+        }
         BoatEntity boat = new BoatEntity()
         {
             BoatId = ViewModel.BoatId,

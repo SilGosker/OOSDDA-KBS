@@ -44,7 +44,7 @@
                 <DataTemplate DataType="{x:Type index:ReadIndexGameGameViewModel}">
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
                     <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding GameIdString}" Style="{StaticResource ListItemTextBlockStyle}"
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextBlockStyle}"
                                         FontSize="20"
                                         FontWeight="Bold"
                                         VerticalAlignment="Top" />
@@ -56,9 +56,9 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Naam: "
+                                    <TextBlock Grid.Column="0" Text="Nummer: "
                                                Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                    <TextBlock Grid.Column="1" Text="{Binding Id}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

@@ -31,8 +31,6 @@ public class ReadIndexGameGameViewModel : ViewModel
         set => SetField(ref _id, value);
     }
     
-    public string GameIdString => "Wedstrijd nr. " + Id;
-    
     public DateTime Date
     {
         get => _date;

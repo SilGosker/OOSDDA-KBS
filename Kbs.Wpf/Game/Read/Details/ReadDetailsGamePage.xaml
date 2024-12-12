@@ -26,22 +26,26 @@
                 Margin="0,90,280,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Style="{StaticResource FormButton}" Width="180"/>
 
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+        <Button Content="Medaille uitreiken" Click="GiveMedal" 
+                Margin="0,90,470,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Style="{StaticResource FormButton}" Width="120"/>
+
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,0" Height="946">
             <Grid HorizontalAlignment="Stretch" Margin="10">
-                
-                <Label Content="Reserveringen" FontWeight="Bold" Margin="547,20,0,0" VerticalAlignment="Top" />
+
+                <Label Content="Reserveringen" FontWeight="Bold" Margin="439,21,0,0" VerticalAlignment="Top" />
 
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top" />
                 <Label Content="{Binding NameError}" 
                        Foreground="Red" Margin="117,78,0,0" Height="30" VerticalAlignment="Top" />
-                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="150"/>
-                
+                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="283"/>
+
                 <Label Content="Parcours:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                 <Label Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="117,148,75,0"
                        Content="{Binding CourseErrorMessage}" />
                 <ComboBox ItemsSource="{Binding Courses}" 
                           SelectionChanged="CourseChanged" IsEditable="True" 
-                          HorizontalAlignment="Left" Margin="121,110,0,0" VerticalAlignment="Top" Width="150" 
+                          HorizontalAlignment="Left" Margin="121,110,0,0" VerticalAlignment="Top" Width="283" 
                           SelectedItem="{Binding SelectedCourse}" />
 
                 <Label Content="Datum:" FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top" />

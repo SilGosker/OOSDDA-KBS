@@ -110,4 +110,10 @@ public partial class ReadDetailsGamePage : Page
         var game = _gameRepository.GetById(ViewModel.GameId);
         _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager, game));
     }
+
+    private void OnMedalClick(object sender, MouseButtonEventArgs e)
+    {
+        var medal = (ReadDetailsGameMedalViewModel)((DataGridRow)sender).DataContext;
+        _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, medal.UserId));
+    }
 }

@@ -21,7 +21,11 @@
         <Button Content="Game Verwijderen" Click="DeleteGame"
                 HorizontalAlignment="Right" Margin="0,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" Width="120" />
-        
+
+        <Button Content="Reserveringen toevoegen" Click="AddReservations" 
+                Margin="0,90,280,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                Style="{StaticResource FormButton}" Width="180"/>
+
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" Margin="10">
                 
@@ -64,12 +68,7 @@
                         <DataGridTextColumn Width="100" Header="ReserveringsID" Binding="{Binding ReservationId}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                
             </Grid>
         </Border>
-
-        <Button Content="Reserveringen toevoegen" Click="AddReservations" 
-                Margin="0,90,290,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                Style="{StaticResource FormButton}" Width="200"/>
     </Grid>
 </Page>

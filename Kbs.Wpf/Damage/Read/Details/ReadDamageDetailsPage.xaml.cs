@@ -47,7 +47,7 @@ public partial class ReadDamageDetailsPage : Page
         if (result == MessageBoxResult.Yes)
         {
             _damageRepository.Solve(entity);
-            _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
+            _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, entity.BoatId));
         }
     }
 
@@ -59,7 +59,7 @@ public partial class ReadDamageDetailsPage : Page
         if (result == MessageBoxResult.Yes)
         {
             _damageRepository.Delete(entity);
-            _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
+            _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, entity.BoatId));
         }
     }
 }

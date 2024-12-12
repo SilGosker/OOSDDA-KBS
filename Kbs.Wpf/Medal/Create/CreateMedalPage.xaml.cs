@@ -78,7 +78,7 @@ public partial class CreateMedalPage : Page
 
         var validationResult = new MedalValidator().ValidateForCreate(medal);
 
-        // else is not necessary cuz its functionally impossible
+        // else is not necessary since its functionally impossible to reach
         if (validationResult.Count == 0)
         {
             _medalRepository.Create(medal);

@@ -6,6 +6,7 @@ using Kbs.Data.Course;
 using Kbs.Data.Game;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Game.Read.Index;
+using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Game.Read.Details;
@@ -102,5 +103,11 @@ public partial class ReadDetailsGamePage : Page
     {
         var reservation = (ReadDetailsGameBoatViewModel)((DataGridRow)sender).DataContext;
         _navigationManager.Navigate(() => new ReadDetailsReservationPage(reservation.ReservationId, _navigationManager));
+    }
+
+    private void AddReservations(object sender, RoutedEventArgs e)
+    {
+        var game = _gameRepository.GetById(ViewModel.GameId);
+        _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager, game));
     }
 }

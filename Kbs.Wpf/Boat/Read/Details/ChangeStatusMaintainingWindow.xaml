@@ -1,0 +1,25 @@
+﻿<Window x:Class="Kbs.Wpf.Boat.Read.Details.ChangeStatusMaintainingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kbs.Wpf.Boat.Read.Details"
+        mc:Ignorable="d"
+        Title="ChangeStatusMaintainingWindow" Height="450" Width="800">
+    <Grid Margin="0,0,0,-6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="403*"/>
+            <ColumnDefinition Width="397*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Verwachte einddatum onderhoud" Style="{StaticResource TitleLabel}" Margin="128,10,0,0" Width="634" Grid.ColumnSpan="2" HorizontalAlignment="Left" Foreground="Black"/>
+        <Calendar Style="{StaticResource DefaultCalendarStyle}" 
+          VerticalAlignment="Top" HorizontalAlignment="Left" Margin="240,62,0,0" 
+          SelectedDate="{Binding Date}" Grid.ColumnSpan="2"/>
+        <Button Content="AKKOORD" Click="Submit" 
+        Margin="0,393,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+        Style="{StaticResource FormButton}" Width="145"/>
+        <Button Content="HELL NAH" Click="Cancel" 
+        Margin="0,393,260,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+        Style="{StaticResource FormButton}" Width="140" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>

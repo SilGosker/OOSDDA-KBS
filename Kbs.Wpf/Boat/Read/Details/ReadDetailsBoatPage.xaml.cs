@@ -161,12 +161,18 @@ public partial class ReadDetailsBoatPage : Page
         {
             popupMessage = "De wacht periode is nog niet gestart.";
         }
-
         MessageBox.Show(popupMessage);
     }
 
     private void UpdateData(object sender, RoutedEventArgs e)
     {
+        if (ViewModel.Status == BoatStatus.Maintaining)
+        {
+            ChangeStatusMaintainingWindow change = new ChangeStatusMaintainingWindow();
+            change.Show();
+            return;
+        }
+
         if (ViewModel.Status != BoatStatus.Operational)
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);

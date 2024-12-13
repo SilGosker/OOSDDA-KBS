@@ -33,6 +33,15 @@ public partial class ReadDamageDetailsPage : Page
         ViewModel.Date = damage.Date;
         ViewModel.Image = damage.Image.ToImageSource();
         ViewModel.BoatName = boat.Name;
+
+        if (damage.Status == Business.Damage.DamageStatus.Solved)
+        {
+            ViewModel.SolveButtonEnabled = "False";
+        } else
+        {
+            ViewModel.SolveButtonEnabled = "True";
+        }
+
     }
 
     private void NavigateToBoatPage(object sender, RoutedEventArgs e)

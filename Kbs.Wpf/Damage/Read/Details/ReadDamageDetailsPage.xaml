@@ -53,7 +53,7 @@
                 <Button Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Verwijderen" Click="RemoveDamage"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
                 <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Oplossen"
-                        Click="SolveDamage" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        Click="SolveDamage" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="{Binding SolveButtonEnabled}" />
 
                 <Label Grid.Column="1" Grid.Row="4" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
                        FontWeight="Bold" />

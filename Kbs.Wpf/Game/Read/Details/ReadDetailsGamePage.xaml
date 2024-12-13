@@ -14,11 +14,11 @@
     <Grid Style="{StaticResource PageGrid}">
         <Label Content="{Binding GameIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
 
-        <Button Content="Update Game" Click="UpdateGame" 
+        <Button Content="Wijzigen" Click="UpdateGame" 
                 Margin="0,90,150,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Style="{StaticResource FormButton}" Width="120"/>
 
-        <Button Content="Game Verwijderen" Click="DeleteGame"
+        <Button Content="Verwijderen" Click="DeleteGame"
                 HorizontalAlignment="Right" Margin="0,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" Width="120" />
         
@@ -61,7 +61,7 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="150" Header="Boot" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="100" Header="ReserveringsID" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Width="100" Header="Reservering" Binding="{Binding ReservationId}" />
                     </DataGrid.Columns>
                 </DataGrid>
                 

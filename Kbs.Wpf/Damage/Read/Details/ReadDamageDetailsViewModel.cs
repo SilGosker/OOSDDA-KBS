@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using Kbs.Business.Damage;
+using Kbs.Business.Extentions;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Damage.Read.Details;
@@ -13,10 +14,17 @@ public class ReadDamageDetailsViewModel : ViewModel
     private string _boatName;
     private DateTime _date;
     private int _damageId;
+    private string _solveButtonEnabled;
     public string Description
     {
         get => _description;
         set => SetField(ref _description, value);
+    }
+
+    public string SolveButtonEnabled
+    {
+        get => _solveButtonEnabled;
+        set => SetField(ref _solveButtonEnabled, value);
     }
 
     public ImageSource Image
@@ -54,7 +62,7 @@ public class ReadDamageDetailsViewModel : ViewModel
         }
     }
 
-    public string DateFormatted => Date.ToString("yyyy-MM-dd");
+    public string DateFormatted => Date.ToDutchString();
     public string StatusFormatted => Status.ToDutchString();
     public int DamageId
     {

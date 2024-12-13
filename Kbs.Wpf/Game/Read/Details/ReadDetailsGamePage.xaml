@@ -60,11 +60,32 @@
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="150" Header="Boot" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="100" Header="Reservering" Binding="{Binding ReservationId}" />
+                        <DataGridTextColumn Width="*" Header="Boot" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Width="*" Header="Reservering" Binding="{Binding ReservationId}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
+                <DataGrid Style="{StaticResource DefaultDataGridStyle}"
+                          ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                          ItemsSource="{Binding Medals}" d:ItemsSource="{d:SampleData ItemCount=5}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          VerticalAlignment="Top" Margin="439,293,10,0" Height="207">
+
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                            <EventSetter Event="MouseDoubleClick" Handler="OnMedalClick"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Header="Gebruiker" Binding="{Binding UserName}"/>
+                        <DataGridTextColumn Width="*" Header="Materiaal" Binding="{Binding Material}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Medailles" FontWeight="Bold" Margin="439,264,0,0" VerticalAlignment="Top" />
+
+
+
             </Grid>
         </Border>
     </Grid>

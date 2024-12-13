@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Kbs.Business.Extentions
 {
-    public static class DateTimeExtention
+    public static class DateTimeExtentions
     {
         public static string ToDutchString(this DateTime dateTime)
         {

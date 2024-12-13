@@ -13,6 +13,7 @@ using Kbs.Wpf.Game.Read.Details;
 
 namespace Kbs.Wpf.Medal.Create;
 
+[HasRole(UserRole.GameCommissioner)]
 public partial class CreateMedalPage : Page
 {
     private CreateMedalViewModel ViewModel => (CreateMedalViewModel)DataContext;

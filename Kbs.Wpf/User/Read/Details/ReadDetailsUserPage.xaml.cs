@@ -16,6 +16,7 @@ using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
+    [HasRole(UserRole.GameCommissioner)]
     public partial class ReadDetailsUserPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();

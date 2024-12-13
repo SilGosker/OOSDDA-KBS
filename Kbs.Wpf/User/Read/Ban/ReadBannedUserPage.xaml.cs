@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Kbs.Business.User;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,7 @@ using System.Windows.Shapes;
 
 namespace Kbs.Wpf.User.Ban
 {
-    /// <summary>
-    /// Interaction logic for BanUserPage.xaml
-    /// </summary>
+    [HasRole(UserRole.Banned)]
     public partial class BanUserPage : Page
     {
         public BanUserPage()

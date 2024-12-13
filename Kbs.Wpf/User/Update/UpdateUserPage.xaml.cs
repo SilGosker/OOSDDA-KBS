@@ -4,6 +4,8 @@ using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
 using Kbs.Wpf.Reservation.Read.Index;
+using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.User.Ban;
 
 namespace Kbs.Wpf.User.Update;
 
@@ -57,13 +59,9 @@ public partial class UpdateUserPage : Page
             SessionManager.Instance.UpdateSessionUser(user.Email, ((passwordUpdated) ? user.Password : null), user.Name);
             _userRepository.Update(sessionUser);
             MessageBox.Show("Gegevens zijn aangepast.");
-            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            _navigationManager.Navigate(() => new UpdateUserPage(_navigationManager));
             return;
         }
-    }
-    private void Cancel(object sender, RoutedEventArgs e)
-    {
-        _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
     }
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {

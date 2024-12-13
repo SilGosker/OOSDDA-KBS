@@ -5,4 +5,5 @@ public interface IMedalRepository
     public void Create(MedalEntity medal);
     List<MedalEntity> GetAllByUserId(int userId);
     public void RemoveById(int medalId);
+    public List<MedalEntity> GetAllByGameId(int gameId);
 }

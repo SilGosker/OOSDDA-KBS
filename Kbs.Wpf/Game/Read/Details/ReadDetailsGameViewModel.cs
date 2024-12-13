@@ -76,4 +76,6 @@ public class ReadDetailsGameViewModel : ViewModel
         get => _selectedCourse;
         set => SetField(ref _selectedCourse, value);
     }
+
+    public ObservableCollection<ReadDetailsGameMedalViewModel> Medals { get; } = new();
 }

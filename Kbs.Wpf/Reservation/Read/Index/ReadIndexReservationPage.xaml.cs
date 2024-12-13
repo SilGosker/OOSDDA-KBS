@@ -17,8 +17,11 @@ public partial class ReadIndexReservationPage : Page
     {
         _navigationManager = navigationManager;
         InitializeComponent();
-        var reservations = _reservationRepository.GetByUserId(SessionManager.Instance.Current.User.UserId);
-        var sortedReservations = _reservationRepository.OrderByStatusAndTime(reservations);
+        var user = SessionManager.Instance.Current.User.UserId;
+        var reservationsWithStatus = _reservationRepository.GetReservationsWithActiveBoatsWithUserId(user);
+        //var reservations = _reservationRepository.GetByUserId(user);
+       
+        var sortedReservations = _reservationRepository.OrderByStatusAndTime(reservationsWithStatus);
         foreach (var reservation in sortedReservations)
         {
             {

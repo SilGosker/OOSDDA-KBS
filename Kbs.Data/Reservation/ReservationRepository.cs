@@ -123,4 +123,15 @@ public class ReservationRepository : IReservationRepository, IDisposable
             splitOn: "BoatId"
         ).ToList();
     }
+    public List<ReservationEntity> GetReservationsWithActiveBoatsWithUserId(int userId)
+    {
+        var query = @"
+        SELECT r.*
+        FROM Reservation r
+        INNER JOIN Boat b ON r.BoatId = b.BoatId
+        WHERE r.UserId = @UserId
+          AND b.Status = 1";
+
+        return _connection.Query<ReservationEntity>(query, new { UserId = userId }).ToList();
+    }
 }

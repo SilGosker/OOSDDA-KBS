@@ -27,7 +27,7 @@ public partial class ReadDetailsReservationPage : Page
         InitializeComponent();
         var reservation = _reservationRepository.GetById(reservationId);
         var boatType = _boatTypeRepository.GetByReservationId(reservationId);
-
+        
         ViewModel.ReservationId = reservation.ReservationId;
         ViewModel.Length = reservation.Length;
         ViewModel.StartTime = reservation.StartTime;

@@ -32,7 +32,7 @@ namespace Kbs.Wpf.User.Read.Index
         public ReadIndexUserUserViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
-            if (user.Name.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(user.Name))
             {
                 Name = user.Email;
             }

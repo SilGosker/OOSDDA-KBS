@@ -13,15 +13,16 @@
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
 
-        <Label Content="{Binding Name}" Style="{StaticResource TitleLabel}" />
+        <Label Content="{Binding TitleLabel}" Style="{StaticResource TitleLabel}" />
 
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,123,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10, 0, 10, 10" d:DesignHeight="900">
 
                 <Label Content="Reserveringen:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
+                <Label Content="Medailles:" FontWeight="Bold" Margin="387,295,0,0" VerticalAlignment="Top" />
 
-                <Label FontWeight="Bold" Content="Gebruikers nummer:" Margin="10,50,0,0" VerticalAlignment="Top"/>
-                <Label Content="{Binding UserId}" Margin="181, 50, 0, 0" VerticalAlignment="Top"/>
+                <Label FontWeight="Bold" Content="Naam:" Margin="10,50,0,0" VerticalAlignment="Top"/>
+                <Label Content="{Binding Name}" Margin="121, 50, 0, 0" VerticalAlignment="Top"/>
 
                 <Label FontWeight="Bold" Content="Rol:" Margin="10,110,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding Role}" Margin="121,110,0,0" VerticalAlignment="Top"/>
@@ -46,7 +47,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="100" Header="Reservering" Binding="{Binding ReservationId}" />
                         <DataGridTextColumn Width="100" Header="Boot naam" Binding="{Binding BoatName}" />
-                        <DataGridTextColumn Width="120" Header="Datum en starttijd" Binding="{Binding StartTime}" />
+                        <DataGridTextColumn Width="120" Header="Datum en starttijd" Binding="{Binding StartTimeString}" />
                         <DataGridTextColumn Width="90" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -63,10 +64,10 @@
                         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" />
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="60" Header="Medaille" Binding="{Binding Medal}" />
+                        <DataGridTextColumn Width="65" Header="Medaille" Binding="{Binding Medal}" />
                         <DataGridTextColumn Width="100" Header="Wedstrijd" Binding="{Binding GameName}" />
-                        <DataGridTextColumn Width="80" Header="Boot" Binding="{Binding BoatName}" />
-                        <DataGridTextColumn Width="90" Header="Datum" Binding="{Binding GameDate}" />
+                        <DataGridTextColumn Width="95" Header="Boot" Binding="{Binding BoatName}" />
+                        <DataGridTextColumn Width="70" Header="Datum" Binding="{Binding GameDate}" />
                         <DataGridTemplateColumn Width="80" Header="">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Helpers;
+﻿using Kbs.Business.Extentions;
+using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
@@ -32,6 +33,10 @@ namespace Kbs.Wpf.User.Read.Details
             }
         }
 
+        public string StartTimeString
+        {
+            get => StartTime.ToDutchString(true);
+        }
 
         public string Status
         {

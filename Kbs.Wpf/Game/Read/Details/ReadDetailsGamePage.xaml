@@ -90,7 +90,7 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" Header="Gebruiker" Binding="{Binding UserName}"/>
-                        <DataGridTextColumn Width="*" Header="Materiaal" Binding="{Binding Material}" />
+                        <DataGridTextColumn Width="100" Header="Materiaal" Binding="{Binding Material}" />
                     </DataGrid.Columns>
                 </DataGrid>
                 <Label Content="Medailles" FontWeight="Bold" Margin="439,264,0,0" VerticalAlignment="Top" />

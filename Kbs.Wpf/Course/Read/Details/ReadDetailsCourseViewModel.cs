@@ -25,7 +25,7 @@ public class ReadDetailsCourseViewModel : ViewModel
         } 
     }
 
-    public string IdFormatted => $"Parcours #{Id}";
+    public string IdFormatted => $"Parcour #{Id}";
 
     public string Name
     {

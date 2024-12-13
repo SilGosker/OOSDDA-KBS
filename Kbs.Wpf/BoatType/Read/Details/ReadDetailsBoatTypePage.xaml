@@ -58,7 +58,7 @@
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="165" Header="Naam" Binding="{Binding Name}" />
-                        <DataGridTextColumn Width="80" Header="ID" Binding="{Binding BoatId}"/>
+                        <DataGridTextColumn Width="80" Header="Boot" Binding="{Binding BoatId}"/>
                         <DataGridTextColumn Width="165" Header="Status"  Binding="{Binding Status}"/>
                     </DataGrid.Columns>
                 </DataGrid>

@@ -56,7 +56,7 @@ public class ReadIndexReservationReservationViewModel : ViewModel
     
     public string ReservationIdString => $"Reservering #{ReservationId}";
     public string StartTimeString => StartTime.ToDutchString(true);
-    public string DurationString => $"{Length.TotalMinutes:F0} min";
+    public string DurationString => $"{Length.TotalMinutes:F0} minuten";
 
     public TimeSpan Length
     {

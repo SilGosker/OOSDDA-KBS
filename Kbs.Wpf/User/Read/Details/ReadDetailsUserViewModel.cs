@@ -39,6 +39,11 @@ namespace Kbs.Wpf.User.Read.Details
             set => SetField(ref _userId, value);
         }
 
+        public string TitleLabel
+        {
+            get => "Lid #" + UserId;
+        }
+
         public ReadDetailsUserViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);

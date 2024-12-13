@@ -1,4 +1,5 @@
 using System.Windows.Media;
+using Kbs.Business.Extentions;
 using Kbs.Business.Game;
 using Kbs.Wpf.Components;
 
@@ -44,4 +45,10 @@ public class ReadIndexGameGameViewModel : ViewModel
         get => _course;
         set => SetField(ref _course, value);
     }
+
+    public string DateString
+    {
+        get => Date.ToDutchString();
+    }
+
 }

@@ -70,7 +70,7 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="130" Header="Gebruiker"  Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="100" Header="Startdatum" Binding="{Binding StartDate}" />
+                        <DataGridTextColumn Width="100" Header="Starttijd" Binding="{Binding StartDate}" />
                         <DataGridTextColumn Width="100" Header="Eindtijd" Binding="{Binding EndDate}" />
                         <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>

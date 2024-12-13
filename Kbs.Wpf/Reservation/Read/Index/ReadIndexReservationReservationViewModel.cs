@@ -1,5 +1,6 @@
 ﻿using System;
 ﻿using System.Windows.Media;
+using Kbs.Business.Extentions;
 using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
 using Kbs.Data.Reservation;
@@ -54,7 +55,7 @@ public class ReadIndexReservationReservationViewModel : ViewModel
     }
     
     public string ReservationIdString => $"Reservering #{ReservationId}";
-    public string StartTimeString => StartTime.ToString("dd-MM-yyyy HH:mm");
+    public string StartTimeString => StartTime.ToDutchString(true);
     public string DurationString => $"{Length.TotalMinutes:F0} min";
 
     public TimeSpan Length

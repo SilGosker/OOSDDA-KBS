@@ -36,10 +36,10 @@ public partial class ReadDamageDetailsPage : Page
 
         if (damage.Status == Business.Damage.DamageStatus.Solved)
         {
-            ViewModel.SolveButtonEnabled = "False";
+            ViewModel.SolveButtonEnabled = false;
         } else
         {
-            ViewModel.SolveButtonEnabled = "True";
+            ViewModel.SolveButtonEnabled = true;
         }
 
     }

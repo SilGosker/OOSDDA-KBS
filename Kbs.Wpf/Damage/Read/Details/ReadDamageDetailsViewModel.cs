@@ -14,14 +14,14 @@ public class ReadDamageDetailsViewModel : ViewModel
     private string _boatName;
     private DateTime _date;
     private int _damageId;
-    private string _solveButtonEnabled;
+    private bool _solveButtonEnabled;
     public string Description
     {
         get => _description;
         set => SetField(ref _description, value);
     }
 
-    public string SolveButtonEnabled
+    public bool SolveButtonEnabled
     {
         get => _solveButtonEnabled;
         set => SetField(ref _solveButtonEnabled, value);

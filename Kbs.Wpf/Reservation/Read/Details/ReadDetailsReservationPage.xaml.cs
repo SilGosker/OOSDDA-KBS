@@ -12,7 +12,6 @@ using Kbs.Wpf.Reservation.Read.Index;
 
 namespace Kbs.Wpf.Reservation.Read.Details;
 
-[HasRole(UserRole.Member)]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();

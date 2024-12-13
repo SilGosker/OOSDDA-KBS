@@ -59,44 +59,8 @@ public partial class UpdateUserPage : Page
             SessionManager.Instance.UpdateSessionUser(user.Email, ((passwordUpdated) ? user.Password : null), user.Name);
             _userRepository.Update(sessionUser);
             MessageBox.Show("Gegevens zijn aangepast.");
-            UserEntity updatedSessionUser = SessionManager.Instance.Current.User;
-            // Go to default page based on role
-            switch (updatedSessionUser.Role)
-            {
-                // Banned user: Navigate to ban user page.
-                case UserRole.Banned:
-                    _navigationManager.Navigate(() => new BanUserPage());
-                    break;
-                // MaterialCommissioner: Navigate to boat index page.
-                case UserRole.MaterialCommissioner:
-                    _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
-                    break;
-                // Member and other people: Navigate to reservation index page.
-                default:
-                    _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
-                    break;
-            }
+            _navigationManager.Navigate(() => new UpdateUserPage(_navigationManager));
             return;
-        }
-    }
-    private void Cancel(object sender, RoutedEventArgs e)
-    {
-        UserEntity updatedSessionUser = SessionManager.Instance.Current.User;
-        // Go to default page based on role
-        switch (updatedSessionUser.Role)
-        {
-            // Banned user: Navigate to ban user page.
-            case UserRole.Banned:
-                _navigationManager.Navigate(() => new BanUserPage());
-                break;
-            // MaterialCommissioner: Navigate to boat index page.
-            case UserRole.MaterialCommissioner:
-                _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
-                break;
-            // Member and other people: Navigate to reservation index page.
-            default:
-                _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
-                break;
         }
     }
     private void PasswordChanged(object sender, RoutedEventArgs e)

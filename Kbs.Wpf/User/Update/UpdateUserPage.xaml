@@ -39,7 +39,5 @@
             </Grid>
         </Grid>
         <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Update gegevens" HorizontalAlignment="Center" Margin="0,410,0,0" VerticalAlignment="Top" Click="Submit" Width="110"/>
-    
-        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Click="Cancel" Width="110"/>
     </Grid>
 </Page>

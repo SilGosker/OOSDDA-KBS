@@ -51,37 +51,35 @@
                     </DataGrid.Columns>
                 </DataGrid>
                 
+                <DataGrid
+                    Style="{StaticResource DefaultDataGridStyle}"
+                    ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
+                    ItemsSource="{Binding Medals}"
+                    VerticalAlignment="Top"
+                    Margin="387,325,10,80"
+                    Height="225">
                 
-                <!-- For sprint 3: -->
-                <!-- <DataGrid -->
-                <!--     Style="{StaticResource DefaultDataGridStyle}" -->
-                <!--     ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}" -->
-                <!--     ItemsSource="{Binding Medals}" -->
-                <!--     VerticalAlignment="Top" -->
-                <!--     Margin="387,325,10,80" -->
-                <!--     Height="225"> -->
-                <!--      -->
-                <!--     <DataGrid.RowStyle> -->
-                <!--         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" /> -->
-                <!--     </DataGrid.RowStyle> -->
-                <!--     <DataGrid.Columns> -->
-                <!--         <DataGridTextColumn Width="60" Header="Medaille" Binding="{Binding Medal}" /> -->
-                <!--         <DataGridTextColumn Width="100" Header="Wedstrijd" Binding="{Binding GameName}" /> -->
-                <!--         <DataGridTextColumn Width="80" Header="Boot" Binding="{Binding BoatName}" /> -->
-                <!--         <DataGridTextColumn Width="90" Header="Datum" Binding="{Binding GameDate}" /> -->
-                <!--         <DataGridTemplateColumn Width="80" Header=""> -->
-                <!--             <DataGridTemplateColumn.CellTemplate> -->
-                <!--                 <DataTemplate> -->
-                <!--                     <Button Content="Intrekken"  -->
-                <!--                         Command="{Binding RemoveMedalCommand}" -->
-                <!--                         CommandParameter="{Binding MedalId}" -->
-                <!--                         Width="70" Style="{StaticResource FormButton}" > -->
-                <!--                     </Button> -->
-                <!--                 </DataTemplate> -->
-                <!--             </DataGridTemplateColumn.CellTemplate> -->
-                <!--         </DataGridTemplateColumn> -->
-                <!--     </DataGrid.Columns> -->
-                <!-- </DataGrid> -->
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" />
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="60" Header="Medaille" Binding="{Binding Medal}" />
+                        <DataGridTextColumn Width="100" Header="Wedstrijd" Binding="{Binding GameName}" />
+                        <DataGridTextColumn Width="80" Header="Boot" Binding="{Binding BoatName}" />
+                        <DataGridTextColumn Width="90" Header="Datum" Binding="{Binding GameDate}" />
+                        <DataGridTemplateColumn Width="80" Header="">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Intrekken"
+                                        Command="{Binding RemoveMedalCommand}"
+                                        CommandParameter="{Binding MedalId}"
+                                        Width="70" Style="{StaticResource FormButton}" >
+                                    </Button>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
                 <Button Content="Verban gebruiker" Click="Ban" Style="{StaticResource FormButton}"
                  Margin="0,0,0,20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120"/>

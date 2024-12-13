@@ -45,7 +45,6 @@
                 <TextBlock Text="{Binding StatusError}" TextWrapping="Wrap" Foreground="Red" Margin="121,202,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="260" FontSize="14"/>
                 <ComboBox ItemsSource="{Binding PossibleBoatStatuses}" SelectionChanged="TypeChanged" IsEditable="True" HorizontalAlignment="Left" Margin="121,170,0,0" VerticalAlignment="Top" Width="120" SelectedItem="{Binding SelectedBoatStatus}" />
 
-
                 <Label Content="Verwijderingsinformatie:" FontWeight="Bold" Margin="10,250,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
                 <Label Content="Datum aanvraag:" FontWeight="Bold" Margin="10,280,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />

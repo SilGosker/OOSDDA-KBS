@@ -130,8 +130,18 @@ public class ReservationRepository : IReservationRepository, IDisposable
         FROM Reservation r
         INNER JOIN Boat b ON r.BoatId = b.BoatId
         WHERE r.UserId = @UserId
-          AND b.Status = 1";
+          AND b.Status = 1 OR b.Status = 2";
 
         return _connection.Query<ReservationEntity>(query, new { UserId = userId }).ToList();
+    }
+    public void DeleteWhenBroken(int boatId)
+    {
+        var query = @"DELETE r FROM Reservation r INNER JOIN Boat b ON r.BoatID = b.BoatID WHERE b.BoatID = @BoatId";
+        _connection.Execute(query, new { BoatId = boatId });
+    }
+    public void DeleteWhenMaintained(int reservationId, DateTime date)
+    {
+        var query = @"DELETE FROM Reservation WHERE ReservationID = @ReservationId AND @Date < StartTime";
+        _connection.Execute(query, new { ReservationId = reservationId, Date = date });
     }
 }

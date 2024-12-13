@@ -2,8 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
-using Kbs.Business.Reservation;
-using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -11,14 +9,11 @@ using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
-using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
-using Kbs.Wpf.Reservation.Read.Index;
-using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.Boat.Read.Details;
 
@@ -29,10 +24,12 @@ public partial class ReadDetailsBoatPage : Page
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly DamageRepository _damageRepository = new();
     private readonly UserRepository _userRepository = new();
+    private readonly ReservationRepository _reservationRepository = new();
     private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
+    private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
 
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {
@@ -49,6 +46,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
             ? "Ter verwijdering opstellen"
             : "Annuleren verwijdering";
+        
 
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
         ViewModel.DeleteButtonEnabled = result.Count == 0;
@@ -76,6 +74,7 @@ public partial class ReadDetailsBoatPage : Page
             }
         }
     }
+
 
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -168,11 +167,15 @@ public partial class ReadDetailsBoatPage : Page
     {
         if (ViewModel.Status == BoatStatus.Maintaining)
         {
-            ChangeStatusMaintainingWindow change = new ChangeStatusMaintainingWindow();
-            change.Show();
+            _changeStatusDialog.ShowDialog();
+        }
+
+        if (_changeStatusDialog.ViewModel.IsCancelled)
+        {
             return;
         }
 
+        _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.Date);
         if (ViewModel.Status != BoatStatus.Operational)
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -180,7 +183,12 @@ public partial class ReadDetailsBoatPage : Page
             {
                 return;
             }
+            if (MessageBoxResult.Yes == result)
+            {
+                _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+            }
         }
+
         BoatEntity boat = new BoatEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -212,6 +220,7 @@ public partial class ReadDetailsBoatPage : Page
         {
             _boatRepository.Update(boat);
             MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+           _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
         }
     }
 

@@ -67,4 +67,5 @@ public class BoatRepository : IBoatRepository
     {
         return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
     }
+    
 }

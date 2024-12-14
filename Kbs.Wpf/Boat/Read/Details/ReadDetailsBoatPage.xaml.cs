@@ -176,8 +176,14 @@ public partial class ReadDetailsBoatPage : Page
         {
             return;
         }
-
-        _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.Date);
+        if (ViewModel.Status == BoatStatus.Maintaining)
+        {
+            _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+        } else if (ViewModel.Status == BoatStatus.Broken)
+        {
+            _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+        }
+        _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
         if (ViewModel.Status != BoatStatus.Operational)
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);

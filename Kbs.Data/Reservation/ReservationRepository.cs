@@ -139,9 +139,11 @@ public class ReservationRepository : IReservationRepository, IDisposable
         var query = @"DELETE r FROM Reservation r INNER JOIN Boat b ON r.BoatID = b.BoatID WHERE b.BoatID = @BoatId";
         _connection.Execute(query, new { BoatId = boatId });
     }
-    public void DeleteWhenMaintained(int reservationId, DateTime date)
+    public void DeleteWhenMaintained(int boatId, DateTime endDate)
     {
-        var query = @"DELETE FROM Reservation WHERE ReservationID = @ReservationId AND @Date < StartTime";
-        _connection.Execute(query, new { ReservationId = reservationId, Date = date });
+        var query = @"DELETE FROM Reservation 
+                  WHERE BoatID = @BoatId AND StartTime < @EndDate";
+        _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
     }
+
 }

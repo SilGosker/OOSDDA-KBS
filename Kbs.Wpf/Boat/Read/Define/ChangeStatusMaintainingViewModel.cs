@@ -5,13 +5,13 @@ namespace Kbs.Wpf.Boat.Read.Define
     public class ChangeStatusMaintainingViewModel : ViewModel
     {
         private int _boatId;
-        private DateTime _date;
+        private DateTime _endDate;
         private bool _isCancelled = false;
 
-        public DateTime Date
+        public DateTime EndDate
         {
-            get => _date;
-            set => SetField(ref _date, value);
+            get => _endDate;
+            set => SetField(ref _endDate, value);
         }
         public int BoatId
         {

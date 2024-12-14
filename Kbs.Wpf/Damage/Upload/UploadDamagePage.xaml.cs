@@ -62,7 +62,7 @@ public partial class UploadDamagePage : Page
             return;
         }
 
-        _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
         if (!ViewModel.BoatIsFine)
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);

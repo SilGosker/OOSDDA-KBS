@@ -1,6 +1,6 @@
 ﻿using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Boat.Read.Details
+namespace Kbs.Wpf.Boat.Read.Define
 {
     public class ChangeStatusMaintainingViewModel : ViewModel
     {
@@ -15,7 +15,7 @@ namespace Kbs.Wpf.Boat.Read.Details
         }
         public int BoatId
         {
-            get => _boatId; 
+            get => _boatId;
             set => SetField(ref _boatId, value);
         }
         public bool IsCancelled

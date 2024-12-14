@@ -1,8 +1,9 @@
 ﻿using Kbs.Data.Boat;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Boat.Read.Define;
 using System.Windows;
 
-namespace Kbs.Wpf.Boat.Read.Details
+namespace Kbs.Wpf.Boat.Read.Define
 {
     public partial class ChangeStatusMaintainingWindow : Window
     {

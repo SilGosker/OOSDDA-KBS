@@ -9,6 +9,7 @@ using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
+using Kbs.Wpf.Boat.Read.Define;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
@@ -30,6 +31,7 @@ public partial class ReadDetailsBoatPage : Page
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
     private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
+
 
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Kbs.Business.Boat;
@@ -6,6 +7,8 @@ using Kbs.Business.Damage;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Damage;
+using Kbs.Data.Reservation;
+using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
 using Microsoft.Win32;
 
@@ -17,8 +20,11 @@ public partial class UploadDamagePage : Page
     private readonly DamageValidator _damageValidator = new();
     private readonly DamageRepository _damageRepository = new();
     private readonly BoatRepository _boatRepository = new();
+    private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private UploadDamageViewModel ViewModel => (UploadDamageViewModel)DataContext;
+    private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
+
     public UploadDamagePage(int boatId, INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -44,6 +50,29 @@ public partial class UploadDamagePage : Page
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
     {
+        if (!ViewModel.BoatIsFine)
+        {
+            _changeStatusDialog.ShowDialog();
+        }
+
+        if (_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            return;
+        }
+
+        _reservationRepository.DeleteWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.Date);
+        if (!ViewModel.BoatIsFine)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.No == result)
+            {
+                return;
+            }
+            if (MessageBoxResult.Yes == result)
+            {
+                _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+            }
+        }
         var damage = new DamageEntity()
         {
             BoatId = ViewModel.BoatId,

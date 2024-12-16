@@ -25,11 +25,10 @@ public partial class ReadDetailsBoatPage : Page
     private readonly DamageRepository _damageRepository = new();
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _reservationRepository = new();
-    private readonly ReservationRepository _registrationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
-    private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
+    private readonly DatePickPopupWindow _changeStatusDialog = new();
 
 
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
@@ -52,7 +51,7 @@ public partial class ReadDetailsBoatPage : Page
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
         ViewModel.DeleteButtonEnabled = result.Count == 0;
 
-        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
+        foreach (var reservation in _reservationRepository.GetByBoatId(boat.BoatId))
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new ReadDetailsBoatReservationViewModel(reservation, user));
@@ -217,7 +216,7 @@ public partial class ReadDetailsBoatPage : Page
                 }
                 else if (ViewModel.Status == BoatStatus.Broken)
                 {
-                    _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+                    _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
                 }
             }
         }

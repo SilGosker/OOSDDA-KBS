@@ -24,7 +24,7 @@ public partial class UploadDamagePage : Page
     private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private UploadDamageViewModel ViewModel => (UploadDamageViewModel)DataContext;
-    private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
+    private readonly DatePickPopupWindow _changeStatusDialog = new();
     private ReadDetailsBoatViewModel _ReadDetailsBoatViewModel = new();
 
 
@@ -123,7 +123,7 @@ public partial class UploadDamagePage : Page
                 }
                 else if (_ReadDetailsBoatViewModel.Status == BoatStatus.Broken)
                 {
-                    _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+                    _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
                 }
             }
         }

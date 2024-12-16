@@ -1,15 +1,12 @@
 ﻿using Kbs.Business.Boat;
-using Kbs.Data.Boat;
-using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Components;
 using System.Windows;
 
 namespace Kbs.Wpf.Boat.Components
 {
-    public partial class ChangeStatusMaintainingWindow : Window
+    public partial class DatePickPopupWindow : Window
     {
-        public ChangeStatusMaintainingViewModel ViewModel => (ChangeStatusMaintainingViewModel)DataContext;
-        public ChangeStatusMaintainingWindow()
+        public DatePickPopupViewModel ViewModel => (DatePickPopupViewModel)DataContext;
+        public DatePickPopupWindow()
         {
             InitializeComponent();
             ViewModel.EndDate = DateTime.Now;
@@ -28,13 +25,11 @@ namespace Kbs.Wpf.Boat.Components
             {
                 MessageBox.Show("De datum moet in de toekomst liggen.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-            } else
-            {
-                BoatEntity boat = new BoatEntity()
-                {
-                    EndDate = ViewModel.EndDate,
-                };
             }
+            BoatEntity boat = new BoatEntity()
+            {
+                EndDate = ViewModel.EndDate,
+            };
             Hide();
         }
 

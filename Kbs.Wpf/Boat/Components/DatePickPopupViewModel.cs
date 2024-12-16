@@ -2,7 +2,7 @@
 
 namespace Kbs.Wpf.Boat.Components
 {
-    public class ChangeStatusMaintainingViewModel : ViewModel
+    public class DatePickPopupViewModel : ViewModel
     {
         private int _boatId;
         private DateTime _endDate;

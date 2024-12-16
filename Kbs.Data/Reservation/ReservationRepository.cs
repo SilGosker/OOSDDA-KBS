@@ -134,28 +134,20 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
         return _connection.Query<ReservationEntity>(query, new { UserId = userId }).ToList();
     }
-    public void DeleteWhenBroken(int boatId)
+    public void UpdateWhenBroken(int boatId)
     {
-        var query = @"DELETE r FROM Reservation r INNER JOIN Boat b ON r.BoatID = b.BoatID WHERE b.BoatID = @BoatId";
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId";
+
         _connection.Execute(query, new { BoatId = boatId });
     }
     public void UpdateWhenMaintained(int boatId, DateTime endDate)
     {
-        //alles aan t proberen zodat t werkt
         endDate = endDate.Date;
-
         var query = @"UPDATE Reservation 
                   SET Status = 1 
-                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL"; 
-
-        _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
-    }
-    //test
-    public void UpdateWhenMaintained2(int boatId, DateTime endDate)
-    {
-        var query = @"UPDATE Reservation 
-                  SET Status = 1 
-                  WHERE BoatID = @BoatId AND StartTime < @EndDate AND StartTime IS NOT NULL";
+                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL";
 
         _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
     }

@@ -11,6 +11,7 @@ using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
@@ -29,6 +30,7 @@ public partial class ReadDetailsBoatPage : Page
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
     private readonly DatePickPopupWindow _changeStatusDialog = new();
+    private BoatStatus _oldStatus;
 
 
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
@@ -73,6 +75,7 @@ public partial class ReadDetailsBoatPage : Page
                 ViewModel.SelectedBoatStatus = statusViewModel;
             }
         }
+        _oldStatus = boat.Status;
     }
 
 
@@ -165,7 +168,7 @@ public partial class ReadDetailsBoatPage : Page
 
     private void UpdateData(object sender, RoutedEventArgs e)
     {
-        if (ViewModel.Status == BoatStatus.Maintaining)
+        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken && !_changeStatusDialog.ViewModel.IsCancelled)
         {
             _changeStatusDialog.ShowDialog();
         }
@@ -201,7 +204,7 @@ public partial class ReadDetailsBoatPage : Page
         }
 
         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
-        if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled)
+        if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled && (_oldStatus != BoatStatus.Broken && ViewModel.Status != BoatStatus.Maintaining))
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.No == result)

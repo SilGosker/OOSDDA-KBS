@@ -35,7 +35,11 @@ public class ReadIndexGameGameViewModel : ViewModel
     public DateTime Date
     {
         get => _date;
-        set => SetField(ref _date, value);
+        set
+        {
+            SetField(ref _date, value);
+            OnPropertyChanged(nameof(DateString));
+        }
     }
     
     public Brush DateColor => Date > DateTime.Now ? Brushes.Green : Brushes.Red;
@@ -46,9 +50,7 @@ public class ReadIndexGameGameViewModel : ViewModel
         set => SetField(ref _course, value);
     }
 
-    public string DateString
-    {
-        get => Date.ToDutchString();
-    }
+    public string DateString => Date.ToDutchString();
+    
 
 }

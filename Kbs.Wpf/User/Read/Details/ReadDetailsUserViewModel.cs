@@ -36,13 +36,15 @@ namespace Kbs.Wpf.User.Read.Details
         public int UserId
         {
             get => _userId;
-            set => SetField(ref _userId, value);
+            set
+            {
+                SetField(ref _userId, value);
+                OnPropertyChanged(nameof(TitleLabel));
+            }
         }
 
-        public string TitleLabel
-        {
-            get => "Lid #" + UserId;
-        }
+        public string TitleLabel => "Lid #" + UserId;
+        
 
         public ReadDetailsUserViewModel(UserEntity user)
         {

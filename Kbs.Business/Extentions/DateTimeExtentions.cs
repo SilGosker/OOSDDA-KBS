@@ -13,8 +13,8 @@ namespace Kbs.Business.Extentions
         {
             return dateTime.ToString("yyyy-MM-dd");
         }
-        public static string ToDutchString(this DateTime dateTime, bool withtime)
 
+        public static string ToDutchString(this DateTime dateTime, bool withTime)
         {
             return dateTime.ToString("yyyy-MM-dd HH:mm");
         }

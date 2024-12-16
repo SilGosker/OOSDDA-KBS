@@ -13,26 +13,35 @@ namespace Kbs.Business.Extentions
         
         public void ToDutchString_TranslatesValueDateOnly()
         {
-            DateTime dateTime = new DateTime(2024, 6, 9);
-            var result = dateTime.ToDutchString();
-            Assert.Equal("2024-06-09", result);
 
-            dateTime = new DateTime(2024, 12, 31);
-            result = dateTime.ToDutchString();
-            Assert.Equal("2024-12-31", result);
+            // Arrange
+            DateTime dateTime1 = new DateTime(2024, 6, 9);
+            DateTime dateTime2 = new DateTime(2024, 12, 31);
+
+            // Act
+            var result1 = dateTime1.ToDutchString();
+            var result2 = dateTime2.ToDutchString();
+
+            // Assert
+            Assert.Equal("2024-06-09", result1);
+            Assert.Equal("2024-12-31", result2);
         }
 
         [Fact]
 
         public void ToDutchString_TranslatesValue()
         {
-            DateTime dateTime = new DateTime(2024, 6, 9, 23, 59, 59);
-            var result = dateTime.ToDutchString(true);
-            Assert.Equal("2024-06-09 23:59", result);
+            // Arange
+            DateTime dateTime1 = new DateTime(2024, 6, 9, 23, 59, 59);
+            DateTime dateTime2 = new DateTime(2024, 12, 31, 12, 30, 50);
 
-            dateTime = new DateTime(2024, 12, 31, 12, 30, 50);
-            result = dateTime.ToDutchString(true);
-            Assert.Equal("2024-12-31 12:30", result);
+            // Act
+            var result1 = dateTime1.ToDutchString(true);
+            var result2 = dateTime2.ToDutchString(true);
+
+            // Assert
+            Assert.Equal("2024-06-09 23:59", result1);
+            Assert.Equal("2024-12-31 12:30", result2);
         }
     }
 }

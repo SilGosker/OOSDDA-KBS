@@ -1,6 +1,6 @@
 ﻿using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.Boat.Read.Define
+namespace Kbs.Wpf.Boat.Components
 {
     public class ChangeStatusMaintainingViewModel : ViewModel
     {

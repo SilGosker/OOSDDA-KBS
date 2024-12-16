@@ -1,10 +1,10 @@
 ﻿using Kbs.Business.Boat;
 using Kbs.Data.Boat;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Read.Define;
+using Kbs.Wpf.Boat.Components;
 using System.Windows;
 
-namespace Kbs.Wpf.Boat.Read.Define
+namespace Kbs.Wpf.Boat.Components
 {
     public partial class ChangeStatusMaintainingWindow : Window
     {

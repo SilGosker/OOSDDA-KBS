@@ -8,7 +8,7 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
-using Kbs.Wpf.Boat.Read.Define;
+using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.Damage.Read.Details;
 using Microsoft.Win32;

@@ -35,6 +35,7 @@ public partial class UploadDamagePage : Page
         InitializeComponent();
         ViewModel.BoatIsFine = true;
         ViewModel.BoatId = boatId;
+
     }
 
     private void SelectFileButtonClick(object sender, System.Windows.RoutedEventArgs e)

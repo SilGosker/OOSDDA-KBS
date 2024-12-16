@@ -13,6 +13,12 @@ namespace Kbs.Wpf.Boat.Components
         {
             InitializeComponent();
             ViewModel.EndDate = DateTime.Now;
+            Closing += (s, e) => //om bij te houden of het via het kruisje wordt gesloten
+            {
+                e.Cancel = true; 
+                ViewModel.IsCancelled = true; 
+                Hide(); //venster verborgen ipv vernietigd -> anders foutmelding bij meerdere keren
+            };
         }
 
         private void Submit(object sender, RoutedEventArgs e)
@@ -37,6 +43,5 @@ namespace Kbs.Wpf.Boat.Components
             ViewModel.IsCancelled = true;
             Hide();
         }
-        
     }
 }

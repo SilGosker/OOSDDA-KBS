@@ -16,6 +16,10 @@ namespace Kbs.Business.Extentions
 
         public static string ToDutchString(this DateTime dateTime, bool withTime)
         {
+            if (!withTime)
+            {
+                return dateTime.ToDutchString();
+            }
             return dateTime.ToString("yyyy-MM-dd HH:mm");
         }
     }

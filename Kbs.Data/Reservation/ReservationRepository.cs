@@ -146,9 +146,17 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
         var query = @"UPDATE Reservation 
                   SET Status = 1 
-                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate"; 
+                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL"; 
 
         _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
     }
+    //test
+    public void UpdateWhenMaintained2(int boatId, DateTime endDate)
+    {
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId AND StartTime < @EndDate AND StartTime IS NOT NULL";
 
+        _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
+    }
 }

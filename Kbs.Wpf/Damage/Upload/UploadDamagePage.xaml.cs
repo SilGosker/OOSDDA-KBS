@@ -25,6 +25,8 @@ public partial class UploadDamagePage : Page
     private readonly INavigationManager _navigationManager;
     private UploadDamageViewModel ViewModel => (UploadDamageViewModel)DataContext;
     private readonly ChangeStatusMaintainingWindow _changeStatusDialog = new();
+    private ReadDetailsBoatViewModel _ReadDetailsBoatViewModel = new();
+
 
 
     public UploadDamagePage(int boatId, INavigationManager navigationManager)
@@ -62,19 +64,6 @@ public partial class UploadDamagePage : Page
             return;
         }
 
-        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
-        if (!ViewModel.BoatIsFine)
-        {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (MessageBoxResult.No == result)
-            {
-                return;
-            }
-            if (MessageBoxResult.Yes == result)
-            {
-                _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
-            }
-        }
         var damage = new DamageEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -116,6 +105,29 @@ public partial class UploadDamagePage : Page
         {
             return;
         }
+
+
+        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+        if (!ViewModel.BoatIsFine && _ReadDetailsBoatViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (MessageBoxResult.No == result)
+            {
+                return;
+            }
+            if (MessageBoxResult.Yes == result)
+            {
+                if (_ReadDetailsBoatViewModel.Status == BoatStatus.Maintaining)
+                {
+                    _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+                }
+                else if (_ReadDetailsBoatViewModel.Status == BoatStatus.Broken)
+                {
+                    _reservationRepository.DeleteWhenBroken(ViewModel.BoatId);
+                }
+            }
+        }
+
 
         _damageRepository.Create(damage);
 

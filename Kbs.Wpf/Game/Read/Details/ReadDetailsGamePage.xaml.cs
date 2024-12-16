@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Game;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
@@ -15,6 +16,7 @@ using Kbs.Wpf.User.Read.Details;
 
 namespace Kbs.Wpf.Game.Read.Details;
 
+[HasRole(UserRole.GameCommissioner)]
 public partial class ReadDetailsGamePage : Page
 {
     private readonly GameRepository _gameRepository = new();

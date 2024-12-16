@@ -1,6 +1,7 @@
 ﻿using System.Net.NetworkInformation;
 using System.Windows.Media;
 using Kbs.Business.Damage;
+using Kbs.Business.Extentions;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Read.Details;
@@ -13,7 +14,7 @@ public class ReadDetailsBoatDamageViewModel : ViewModel
     public ReadDetailsBoatDamageViewModel(DamageEntity damage)
     {
         _image = damage.Image.ToImageSource();
-        _date = damage.Date.ToString("yyyy-MM-dd");
+        _date = damage.Date.ToDutchString();
         DamageId = damage.DamageId;
     }
 

@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Helpers;
+﻿using Kbs.Business.Extentions;
+using Kbs.Business.Helpers;
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
@@ -7,7 +8,7 @@ namespace Kbs.Wpf.User.Read.Details
     public class ReadDetailsUserReservationViewModel : ViewModel
     {
         private int _reservationId;
-        private int _boatId;
+        private string _boatName;
         private DateTime _startTime;
         private string _status;
 
@@ -17,10 +18,10 @@ namespace Kbs.Wpf.User.Read.Details
             set => SetField(ref _reservationId, value);
         }
 
-        public int BoatId
+        public string BoatName
         {
-            get => _boatId;
-            set => SetField(ref _boatId, value);
+            get => _boatName;
+            set => SetField(ref _boatName, value);
         }
 
         public DateTime StartTime
@@ -32,6 +33,10 @@ namespace Kbs.Wpf.User.Read.Details
             }
         }
 
+        public string StartTimeString
+        {
+            get => StartTime.ToDutchString(true);
+        }
 
         public string Status
         {
@@ -39,11 +44,11 @@ namespace Kbs.Wpf.User.Read.Details
             set => SetField(ref _status, value);
         }
 
-        public ReadDetailsUserReservationViewModel(ReservationEntity reservation)
+        public ReadDetailsUserReservationViewModel(ReservationEntity reservation, string boatName)
         {
             ThrowHelper.ThrowIfNull(reservation);
             ReservationId = reservation.ReservationId;
-            BoatId = reservation.BoatId;
+            BoatName = boatName;
             StartTime = reservation.StartTime;
             Status = reservation.Status.ToDutchString();
         }

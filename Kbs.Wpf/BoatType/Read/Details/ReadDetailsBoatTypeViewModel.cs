@@ -38,7 +38,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             get => _boatTypeId;
             set => SetField(ref _boatTypeId, value);    
         }
-        public string BoatTypeNameString => $"Boottype: {Name}";
+        public string BoatTypeNameString => $"Boottype #{BoatTypeId}";
         public int Speed
         {
             get => _speed;

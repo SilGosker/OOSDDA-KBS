@@ -9,6 +9,9 @@ using Kbs.Wpf.User.Ban;
 
 namespace Kbs.Wpf.User.Update;
 
+[HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class UpdateUserPage : Page
 {
     private readonly UserValidator _userValidator = new(); 

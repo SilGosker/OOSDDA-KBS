@@ -6,10 +6,11 @@ namespace Kbs.Wpf.Boat.Components
     public partial class DatePickPopupWindow : Window
     {
         public DatePickPopupViewModel ViewModel => (DatePickPopupViewModel)DataContext;
-        public DatePickPopupWindow()
+        public DatePickPopupWindow(string title)
         {
             InitializeComponent();
             ViewModel.EndDate = DateTime.Now;
+            ViewModel.Title = title;
             Closing += (s, e) => //om bij te houden of het via het kruisje wordt gesloten
             {
                 e.Cancel = true; 
@@ -21,15 +22,16 @@ namespace Kbs.Wpf.Boat.Components
         private void Submit(object sender, RoutedEventArgs e)
         {
             ViewModel.IsCancelled = false;
-            if (ViewModel.EndDate <= DateTime.Now)
+            var validationResult = BoatValidator.ValidateEndDate(ViewModel.EndDate);
+            if (validationResult.Any())
             {
-                MessageBox.Show("De datum moet in de toekomst liggen.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                foreach (var error in validationResult)
+                {
+                    MessageBox.Show(error.Value, "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+                return; 
             }
-            BoatEntity boat = new BoatEntity()
-            {
-                EndDate = ViewModel.EndDate,
-            };
+
             Hide();
         }
 

@@ -24,7 +24,7 @@ public partial class UploadDamagePage : Page
     private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private UploadDamageViewModel ViewModel => (UploadDamageViewModel)DataContext;
-    private readonly DatePickPopupWindow _changeStatusDialog = new();
+    private readonly DatePickPopupWindow _changeStatusDialog = new("Verwachte einddatum onderhoud");
     private ReadDetailsBoatViewModel _ReadDetailsBoatViewModel = new();
 
 
@@ -55,16 +55,6 @@ public partial class UploadDamagePage : Page
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
     {
-        if (!ViewModel.BoatIsFine)
-        {
-            _changeStatusDialog.ShowDialog();
-        }
-
-        if (_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            return;
-        }
-
         var damage = new DamageEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -107,15 +97,24 @@ public partial class UploadDamagePage : Page
             return;
         }
 
-
-        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
-        if (!ViewModel.BoatIsFine && _ReadDetailsBoatViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled)
+        if (!ViewModel.BoatIsFine)
         {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            _changeStatusDialog.ShowDialog();
+
+            if (_changeStatusDialog.ViewModel.IsCancelled)
+            {
+                // Reset the dialog
+                _changeStatusDialog.ViewModel.IsCancelled = false;
+                return;
+            }
+
+            MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. sWeet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (MessageBoxResult.No == result)
             {
                 return;
             }
+
             if (MessageBoxResult.Yes == result)
             {
                 if (_ReadDetailsBoatViewModel.Status == BoatStatus.Maintaining)
@@ -129,15 +128,10 @@ public partial class UploadDamagePage : Page
             }
         }
 
-
         _damageRepository.Create(damage);
-
-        if (!ViewModel.BoatIsFine)
-        {
-            var boat = _boatRepository.GetById(ViewModel.BoatId);
-            boat.Status = BoatStatus.Maintaining;
-            _boatRepository.Update(boat);
-        }
+        var boat = _boatRepository.GetById(ViewModel.BoatId);
+        boat.Status = BoatStatus.Maintaining;
+        _boatRepository.Update(boat);
 
         _navigationManager.Navigate(() => new ReadDamageDetailsPage(damage.DamageId, _navigationManager));
     }

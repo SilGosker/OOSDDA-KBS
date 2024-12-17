@@ -29,10 +29,8 @@ public partial class ReadDetailsBoatPage : Page
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
-    private DatePickPopupWindow _changeStatusDialog = new();
-    private BoatStatus _oldStatus;
-
-
+    private DatePickPopupWindow _changeStatusDialog = new("Verwachte einddatum onderhoud");
+    
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
@@ -75,8 +73,6 @@ public partial class ReadDetailsBoatPage : Page
                 ViewModel.SelectedBoatStatus = statusViewModel;
             }
         }
-
-        _oldStatus = boat.Status;
     }
 
 
@@ -170,18 +166,6 @@ public partial class ReadDetailsBoatPage : Page
 
     private void UpdateData(object sender, RoutedEventArgs e)
     {
-        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken && !_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            _changeStatusDialog.ShowDialog();
-        }
-        _changeStatusDialog.Closed += (sender, args) =>
-        {
-            _changeStatusDialog = new DatePickPopupWindow();  // New instance upon closing wrongfully
-        };
-        if (_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            return;
-        }
         BoatEntity boat = new BoatEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -190,6 +174,7 @@ public partial class ReadDetailsBoatPage : Page
             Name = ViewModel.Name,
             Status = ViewModel.Status
         };
+
         var validationResult = _boatValidator.ValidateForUpdate(boat);
         if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
         {
@@ -210,54 +195,54 @@ public partial class ReadDetailsBoatPage : Page
         }
 
 
-        if (validationResult.Count == 0)
-        {
-            _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
-            _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
-        }
-
-        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken &&
-            !_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            _changeStatusDialog.ShowDialog();
-        }
-
-        if (_changeStatusDialog.ViewModel.IsCancelled)
+        if (validationResult.Count != 0)
         {
             return;
         }
 
-        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
-        if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled &&
-            (_oldStatus != BoatStatus.Broken && ViewModel.Status != BoatStatus.Maintaining))
+        var oldStatus = _boatRepository.GetById(ViewModel.BoatId).Status;
+
+        if (ViewModel.Status == BoatStatus.Maintaining && oldStatus != BoatStatus.Broken &&
+            !_changeStatusDialog.ViewModel.IsCancelled)
         {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (MessageBoxResult.No == result)
+            _changeStatusDialog.ShowDialog();
+
+
+            if (_changeStatusDialog.ViewModel.IsCancelled)
             {
+                _changeStatusDialog.ViewModel.IsCancelled = false;
+                // Reset so that it can be called again
                 return;
             }
 
-            if (MessageBoxResult.Yes == result)
+            if (ViewModel.Status == BoatStatus.Maintaining && oldStatus != BoatStatus.Broken)
             {
-                if (ViewModel.Status == BoatStatus.Maintaining)
+                MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. Weet u het zeker?", "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
                 {
-                    _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId,
-                        _changeStatusDialog.ViewModel.EndDate);
+                    return;
                 }
-                else if (ViewModel.Status == BoatStatus.Broken)
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
+                    if (ViewModel.Status == BoatStatus.Maintaining)
+                    {
+                        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+                    }
+                    else if (ViewModel.Status == BoatStatus.Broken)
+                    {
+                        _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
+                    }
                 }
             }
         }
 
-        if (validationResult.Count == 0)
-        {
-            _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
-           _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
-        }
+        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+        _boatRepository.Update(boat);
+        MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+        _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
+
     }
 
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)

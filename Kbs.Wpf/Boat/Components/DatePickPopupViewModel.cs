@@ -7,7 +7,7 @@ namespace Kbs.Wpf.Boat.Components
         private int _boatId;
         private DateTime _endDate;
         private bool _isCancelled = false;
-
+        private string _title;
         public DateTime EndDate
         {
             get => _endDate;
@@ -22,6 +22,12 @@ namespace Kbs.Wpf.Boat.Components
         {
             get => _isCancelled;
             set => SetField(ref _isCancelled, value);
+        }
+
+        public string Title
+        {
+            get => _title;
+            set => SetField(ref _title, value);
         }
     }
 }

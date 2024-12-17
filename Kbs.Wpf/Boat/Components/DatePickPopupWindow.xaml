@@ -5,24 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf.Boat.Components"
         mc:Ignorable="d"
-        Title="ChangeStatusMaintainingWindow" Height="450" Width="800">
+        Title="ChangeStatusMaintainingWindow" Height="600" Width="800"
+        Style="{StaticResource MainWindow}">
     <Window.DataContext>
         <local:DatePickPopupViewModel />
     </Window.DataContext>
-    <Grid Margin="0,0,0,-6">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="403*"/>
-            <ColumnDefinition Width="397*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Verwachte einddatum onderhoud" Style="{StaticResource TitleLabel}" Margin="128,10,0,0" Width="634" Grid.ColumnSpan="2" HorizontalAlignment="Left" Foreground="Black"/>
+    <Grid Style="{StaticResource PageGrid}">
+        <Label Content="{Binding Title}" Style="{StaticResource TitleLabel}" HorizontalAlignment="Center" />
         <Calendar Style="{StaticResource DefaultCalendarStyle}" 
-          VerticalAlignment="Top" HorizontalAlignment="Left" Margin="240,62,0,0" 
-          SelectedDate="{Binding EndDate}" Grid.ColumnSpan="2"/>
+          VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,110,0,0"
+        SelectedDate="{Binding EndDate}"/>
         <Button Content="Invoeren" Click="Submit" 
-        Margin="0,393,10,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
-        Style="{StaticResource FormButton}" Width="145"/>
+        Margin="0,450,170,0" VerticalAlignment="Top" HorizontalAlignment="Center" 
+        Style="{StaticResource FormButton}" Width="120"/>
         <Button Content="Annuleren" Click="Cancel" 
-        Margin="0,393,260,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
-        Style="{StaticResource FormButton}" Width="140" Grid.ColumnSpan="2"/>
+        Margin="170,450,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" 
+        Style="{StaticResource FormButton}" Width="120"/>
     </Grid>
 </Window>

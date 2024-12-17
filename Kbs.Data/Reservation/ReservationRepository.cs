@@ -123,7 +123,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
             splitOn: "BoatId"
         ).ToList();
     }
-    public List<ReservationEntity> GetReservationsWithActiveBoatsByUserId(int userId)
+    public List<ReservationEntity> GetReservationsWithActiveBoatsWithUserId(int userId)
     {
         var query = @"
         SELECT r.*

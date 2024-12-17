@@ -23,13 +23,10 @@ namespace Kbs.Wpf.Boat.Components
             ViewModel.IsCancelled = false;
             if (ViewModel.EndDate <= DateTime.Now)
             {
-                MessageBox.Show("De datum moet in de toekomst liggen.", "Fout", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Er is een fout opgetreden waardoor de applicatie niet langer werkt. Start de applicatie opnieuw op en probeer het opnieuw.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            BoatEntity boat = new BoatEntity()
-            {
-                EndDate = ViewModel.EndDate,
-            };
+            
             Hide();
         }
 

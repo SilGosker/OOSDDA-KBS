@@ -168,14 +168,6 @@ public partial class ReadDetailsBoatPage : Page
 
     private void UpdateData(object sender, RoutedEventArgs e)
     {
-        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken && !_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            _changeStatusDialog.ShowDialog();
-        }
-        if (_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            return;
-        }
         BoatEntity boat = new BoatEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -202,11 +194,25 @@ public partial class ReadDetailsBoatPage : Page
         {
             ViewModel.StatusError = "";
         }
+        if (validationResult.Count == 0)
+        {
+            _boatRepository.Update(boat);
+            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+            _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
+        }
 
+        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken && !_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            _changeStatusDialog.ShowDialog();
+        }
+        if (_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            return;
+        }
         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
         if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled && (_oldStatus != BoatStatus.Broken && ViewModel.Status != BoatStatus.Maintaining))
         {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Weet u zeker dat u deze boot op inactief wilt zetten?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.No == result)
             {
                 return;
@@ -223,14 +229,7 @@ public partial class ReadDetailsBoatPage : Page
                 }
             }
         }
-
-        if (validationResult.Count == 0)
-        {
-            _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
-           _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
-        }
-    }
+     }
 
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)
     {

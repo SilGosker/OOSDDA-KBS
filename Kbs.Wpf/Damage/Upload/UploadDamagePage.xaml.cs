@@ -55,16 +55,6 @@ public partial class UploadDamagePage : Page
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
     {
-        if (!ViewModel.BoatIsFine)
-        {
-            _changeStatusDialog.ShowDialog();
-        }
-
-        if (_changeStatusDialog.ViewModel.IsCancelled)
-        {
-            return;
-        }
-
         var damage = new DamageEntity()
         {
             BoatId = ViewModel.BoatId,
@@ -107,11 +97,19 @@ public partial class UploadDamagePage : Page
             return;
         }
 
+        if (!ViewModel.BoatIsFine)
+        {
+            _changeStatusDialog.ShowDialog();
+        }
 
+        if (_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            return;
+        }
         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
         if (!ViewModel.BoatIsFine && _ReadDetailsBoatViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled)
         {
-            MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("Weet u zeker dat u deze boot op inactief wilt zetten?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.No == result)
             {
                 return;

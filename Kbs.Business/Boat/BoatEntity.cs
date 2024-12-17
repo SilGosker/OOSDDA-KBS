@@ -13,5 +13,4 @@ public class BoatEntity
     public DateTime? DeleteRequestDate { get; set; }
     [Column("ReservationID")]
     public int ReservationId { get; set; }
-    public DateTime EndDate { get; set; }
 }

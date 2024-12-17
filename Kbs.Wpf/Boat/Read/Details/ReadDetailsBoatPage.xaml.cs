@@ -48,7 +48,7 @@ public partial class ReadDetailsBoatPage : Page
         ViewModel.RequestButtonText = ViewModel.DeleteRequestDate == null
             ? "Ter verwijdering opstellen"
             : "Annuleren verwijdering";
-        
+
 
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
         ViewModel.DeleteButtonEnabled = result.Count == 0;
@@ -75,6 +75,7 @@ public partial class ReadDetailsBoatPage : Page
                 ViewModel.SelectedBoatStatus = statusViewModel;
             }
         }
+
         _oldStatus = boat.Status;
     }
 
@@ -163,6 +164,7 @@ public partial class ReadDetailsBoatPage : Page
         {
             popupMessage = "De wacht periode is nog niet gestart.";
         }
+
         MessageBox.Show(popupMessage);
     }
 
@@ -203,19 +205,41 @@ public partial class ReadDetailsBoatPage : Page
             ViewModel.StatusError = "";
         }
 
+
+        if (validationResult.Count == 0)
+        {
+            _boatRepository.Update(boat);
+            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+            _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
+        }
+
+        if (ViewModel.Status == BoatStatus.Maintaining && _oldStatus != BoatStatus.Broken &&
+            !_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            _changeStatusDialog.ShowDialog();
+        }
+
+        if (_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            return;
+        }
+
         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
-        if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled && (_oldStatus != BoatStatus.Broken && ViewModel.Status != BoatStatus.Maintaining))
+        if (ViewModel.Status != BoatStatus.Operational && !_changeStatusDialog.ViewModel.IsCancelled &&
+            (_oldStatus != BoatStatus.Broken && ViewModel.Status != BoatStatus.Maintaining))
         {
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.No == result)
             {
                 return;
             }
+
             if (MessageBoxResult.Yes == result)
             {
                 if (ViewModel.Status == BoatStatus.Maintaining)
                 {
-                    _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+                    _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId,
+                        _changeStatusDialog.ViewModel.EndDate);
                 }
                 else if (ViewModel.Status == BoatStatus.Broken)
                 {

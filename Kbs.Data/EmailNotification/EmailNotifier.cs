@@ -8,8 +8,8 @@ public class EmailNotifier : IEmailNotifier
 {
     public void SendEmailNotification(string address, string name, string subject, string body)
     {
-        var fromAddress = new MailAddress("roeibootverenigingplankie@gmail.com", "From Roeibootvereniging Plankie");
-        var toAddress = new MailAddress(address, $"To {name}");
+        var fromAddress = new MailAddress("roeibootverenigingplankie@gmail.com", "Roeibootvereniging Plankie");
+        var toAddress = new MailAddress(address, name);
         var fromPassword = "vswl vrrh jrgs wptw";
         
         var smtp = new SmtpClient
@@ -24,7 +24,7 @@ public class EmailNotifier : IEmailNotifier
         var message = new MailMessage(fromAddress, toAddress)
         {
             Subject = subject,
-            Body = body
+            Body = body + "\n\n Met vriendelijke groet,\n\nRoeibootvereniging Plankie"
         };
         smtp.Send(message);
     }

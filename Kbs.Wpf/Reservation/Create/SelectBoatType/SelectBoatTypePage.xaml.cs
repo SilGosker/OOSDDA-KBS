@@ -12,6 +12,8 @@ using Kbs.Wpf.Reservation.Create.SelectTime;
 
 namespace Kbs.Wpf.Reservation.Create.SelectBoatType;
 
+[HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
 public partial class SelectBoatTypePage : Page
 {
     private readonly INavigationManager _navigationManager;

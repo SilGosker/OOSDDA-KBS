@@ -259,7 +259,7 @@
                                     <Label.Content>
                                         <TextBlock FontFamily="Segoe UI" FontSize="24">
                                             <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0}/{1}/{2}">
+                                                <MultiBinding StringFormat="{}{2}-{1}-{0}">
                                                     <Binding Path="Day" />
                                                     <Binding Path="Month" />
                                                     <Binding Path="Year" />

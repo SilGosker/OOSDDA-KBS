@@ -16,6 +16,7 @@ using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
+    [HasRole(UserRole.GameCommissioner)]
     public partial class ReadDetailsUserPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();
@@ -41,7 +42,8 @@ namespace Kbs.Wpf.User.Read.Details
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)
             {
-                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
+                string boatName = _boatRepository.GetById(reservation.BoatId).Name;
+                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation, boatName));
             }
             var medals = _medalRepository.GetAllByUserId(id);
             foreach (var medal in medals)

@@ -28,6 +28,12 @@ public class UserEntity
 
     public bool Is(UserRole userRole)
     {
+        // banned is 0, bitwise AND will always return 0, resulting in false while the user is banned
+        if (userRole == UserRole.Banned)
+        {
+            return Role == UserRole.Banned;
+        }
+
         return (Role & userRole) != 0;
     }
 

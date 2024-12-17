@@ -6,12 +6,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.IO;
 using Kbs.Wpf.Course.Read.Details;
+using Kbs.Business.User;
 
 namespace Kbs.Wpf.Course.Create
 {
-    /// <summary>
-    /// Interaction logic for CreateCoursePage.xaml
-    /// </summary>
+    [HasRole(UserRole.GameCommissioner)]
     public partial class CreateCoursePage : Page
     {
         private readonly CourseValidator _courseValidator = new();

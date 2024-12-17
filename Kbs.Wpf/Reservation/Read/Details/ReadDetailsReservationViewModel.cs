@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using Kbs.Business.Boat;
+using Kbs.Business.Extentions;
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
@@ -95,7 +96,7 @@ public class ReadDetailsReservationViewModel : ViewModel
     
     public string ReservationIdString => $"Reservering #{ReservationId}";
     public string LengthString => Length.ToString(@"hh\:mm");
-    public string StartTimeString => StartTime.ToString("dd-MM-yyyy HH:mm");
+    public string StartTimeString => StartTime.ToDutchString(true);
     public string HasSteeringWheelString => HasSteeringWheel ? "Ja" : "Nee";
 }
 

@@ -13,6 +13,7 @@ using Kbs.Wpf.Reservation.Read.Index;
 namespace Kbs.Wpf.Reservation.Read.Details;
 
 [HasRole(UserRole.Member)]
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();

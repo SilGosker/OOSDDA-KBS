@@ -37,7 +37,6 @@ public class ReadIndexBoatBoatViewModel : ViewModel
         get => _name;
         set => SetField(ref _name, value);
     }
-    public string BoatIdString => "Boot nr. " + BoatId;
     public string Status
     {
         get => _status;

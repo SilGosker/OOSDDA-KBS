@@ -101,6 +101,10 @@ public partial class UploadDamagePage : Page
         {
             _changeStatusDialog.ShowDialog();
 
+            var boat = _boatRepository.GetById(ViewModel.BoatId);
+            boat.Status = BoatStatus.Maintaining;
+
+
             if (_changeStatusDialog.ViewModel.IsCancelled)
             {
                 // Reset the dialog
@@ -117,6 +121,7 @@ public partial class UploadDamagePage : Page
 
             if (MessageBoxResult.Yes == result)
             {
+                 _boatRepository.Update(boat);
                 if (_ReadDetailsBoatViewModel.Status == BoatStatus.Maintaining)
                 {
                     _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
@@ -129,10 +134,7 @@ public partial class UploadDamagePage : Page
         }
 
         _damageRepository.Create(damage);
-        var boat = _boatRepository.GetById(ViewModel.BoatId);
-        boat.Status = BoatStatus.Maintaining;
-        _boatRepository.Update(boat);
-
+        
         _navigationManager.Navigate(() => new ReadDamageDetailsPage(damage.DamageId, _navigationManager));
     }
 }

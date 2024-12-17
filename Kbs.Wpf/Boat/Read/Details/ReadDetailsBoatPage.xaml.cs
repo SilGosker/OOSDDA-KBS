@@ -29,7 +29,7 @@ public partial class ReadDetailsBoatPage : Page
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
-    private readonly DatePickPopupWindow _changeStatusDialog = new();
+    private DatePickPopupWindow _changeStatusDialog = new();
     private BoatStatus _oldStatus;
 
 
@@ -174,6 +174,10 @@ public partial class ReadDetailsBoatPage : Page
         {
             _changeStatusDialog.ShowDialog();
         }
+        _changeStatusDialog.Closed += (sender, args) =>
+        {
+            _changeStatusDialog = new DatePickPopupWindow();  // New instance upon closing wrongfully
+        };
         if (_changeStatusDialog.ViewModel.IsCancelled)
         {
             return;

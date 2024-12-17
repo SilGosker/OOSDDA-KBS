@@ -1,6 +1,5 @@
 using Dapper;
 using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
@@ -122,5 +121,22 @@ public class ReservationRepository : IReservationRepository, IDisposable
             new { gameId },
             splitOn: "BoatId"
         ).ToList();
+    }
+    public void UpdateWhenBroken(int boatId)
+    {
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId";
+
+        _connection.Execute(query, new { BoatId = boatId });
+    }
+    public void UpdateWhenMaintained(int boatId, DateTime endDate)
+    {
+        endDate = endDate.Date;
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL";
+
+        _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
     }
 }

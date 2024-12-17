@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Kbs.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized"
+        PreviewKeyDown="GoToPreviousPage"
         Style="{StaticResource MainWindow}">
 
     <Window.DataContext>

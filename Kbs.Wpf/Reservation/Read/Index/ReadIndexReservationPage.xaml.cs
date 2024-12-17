@@ -1,12 +1,15 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Reservation.Read.Index;
 
+[HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
 public partial class ReadIndexReservationPage : Page
 {
     private ReadIndexReservationViewModel ReadIndexReservationViewModel => (ReadIndexReservationViewModel)DataContext;

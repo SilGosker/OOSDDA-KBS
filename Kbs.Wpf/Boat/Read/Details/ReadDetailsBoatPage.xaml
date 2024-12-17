@@ -51,8 +51,8 @@
                 <Label Content="{Binding DeleteRequestDate
                     }" Margin="130,280,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="190" />
 
-                <Label Content="Wachttijd:" FontWeight="Bold" Margin="10,310,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <Label Content="{Binding WaitDurationMessage}" Margin="85,310,0,0" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
+                <Label Content="Resterende wachttijd:" FontWeight="Bold" Margin="10,330,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding WaitDurationMessage}" Margin="200,310,0,0" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
 
                 <DataGrid Style="{StaticResource DefaultDataGridStyle}"
                           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
@@ -70,7 +70,7 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="130" Header="Gebruiker"  Binding="{Binding Name}"/>
-                        <DataGridTextColumn Width="100" Header="Startdatum" Binding="{Binding StartDate}" />
+                        <DataGridTextColumn Width="100" Header="Starttijd" Binding="{Binding StartDate}" />
                         <DataGridTextColumn Width="100" Header="Eindtijd" Binding="{Binding EndDate}" />
                         <DataGridTextColumn Width="80" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>

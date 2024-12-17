@@ -1,6 +1,7 @@
 ﻿using Kbs.Wpf.Components;
 using Kbs.Business.Game;
 using Kbs.Business.Medal;
+using Kbs.Business.Extentions;
 
 namespace Kbs.Wpf.Medal.Read
 {
@@ -28,7 +29,7 @@ namespace Kbs.Wpf.Medal.Read
 
         public ReadMedalMedalViewModel(GameEntity game, MedalMaterial material)
         {
-            Date = game.Date.ToShortDateString();  
+            Date = game.Date.ToDutchString();
             Material = material.ToDutchString();  
             Name = game.Name;
         }

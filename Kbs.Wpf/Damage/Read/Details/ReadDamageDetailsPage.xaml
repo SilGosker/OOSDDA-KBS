@@ -29,6 +29,7 @@
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -43,24 +44,27 @@
                         <Run Text="{Binding BoatName}" />
                     </Hyperlink>
                 </TextBlock>
+                <Label Grid.Column="0" Grid.Row="3" Content="Boot nummer:" HorizontalAlignment="Left" FontWeight="Bold" />
+                <Label Grid.Column="1" Grid.Row="3" Content="{Binding BoatId}" HorizontalAlignment="Left" />
 
-                <Label Grid.Column="0" Grid.Row="3" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
+
+                <Label Grid.Column="0" Grid.Row="4" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
 
                 <Button Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Verwijderen" Click="RemoveDamage"
                         HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
                 <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Oplossen"
-                        Click="SolveDamage" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        Click="SolveDamage" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="{Binding SolveButtonEnabled}" />
 
-                <Label Grid.Column="1" Grid.Row="3" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
+                <Label Grid.Column="1" Grid.Row="4" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
                        FontWeight="Bold" />
-                <Label Grid.Column="0" Grid.Row="4" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />
-                <Label Grid.Column="1" Grid.Row="4" Content="{Binding DateFormatted}" HorizontalAlignment="Left" />
-                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving:" HorizontalAlignment="Left"
+                <Label Grid.Column="0" Grid.Row="5" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />
+                <Label Grid.Column="1" Grid.Row="5" Content="{Binding DateFormatted}" HorizontalAlignment="Left" />
+                <Label Grid.Column="0" Grid.Row="6" Content="Beschrijving:" HorizontalAlignment="Left"
                        FontWeight="Bold" />
 
-                <TextBox IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6"
+                <TextBox IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7"
                          Text="{Binding Description}" />
-                <Image Source="{Binding Image}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" />
+                <Image Source="{Binding Image}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" />
 
             </Grid>
         </Border>

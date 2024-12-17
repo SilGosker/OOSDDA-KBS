@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Kbs.Wpf.Reservation.Create.SelectLength;
 
+[HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
 public partial class SelectLengthPage : Page
 {
     private readonly INavigationManager _navigationManager;

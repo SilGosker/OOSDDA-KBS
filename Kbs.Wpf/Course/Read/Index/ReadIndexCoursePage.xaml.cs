@@ -1,12 +1,14 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Wpf.Course.Create;
 using Kbs.Wpf.Course.Read.Details;
 
 namespace Kbs.Wpf.Course.Read.Index;
 
+[HasRole(UserRole.GameCommissioner)]
 public partial class ReadIndexCoursePage : Page
 {
     private readonly INavigationManager _navigationManager;

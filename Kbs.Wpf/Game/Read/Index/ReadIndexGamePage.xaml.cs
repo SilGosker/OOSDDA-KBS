@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Course;
 using Kbs.Business.Game;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
 using Kbs.Wpf.Game.Create;
@@ -10,6 +11,7 @@ using Kbs.Wpf.Game.Read.Details;
 
 namespace Kbs.Wpf.Game.Read.Index;
 
+[HasRole(UserRole.GameCommissioner)]
 public partial class ReadIndexGamePage : Page
 {
     private readonly GameRepository _gameRepository = new();

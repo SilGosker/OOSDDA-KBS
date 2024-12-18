@@ -1,0 +1,50 @@
+﻿@page "/parcours/{id:int}"
+@using Kbs.Business.Course
+@inject ICourseRepository CourseRepository
+
+<h1>Parcours @_course.CourseId</h1>
+
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Naam:</b>
+                <span>@(_course.Name)</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Moeilijkheid:</b>
+                <span>@_course.Difficulty.ToDutchString()</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="justify-content-between d-flex">
+                <b>Beschrijving:</b>
+                <textarea class="m-1" style="width: 100%;" disabled>@(_course.Description)</textarea>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="col-6">
+        <img alt="Een foto van het parcours" width="700" height="700" src="@_base64Image" />
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private CourseEntity _course = new();
+    private string _base64Image;
+
+    protected override void OnInitialized()
+    {
+        _course = CourseRepository.GetById(Id);
+        _base64Image = "data:image/jpeg;base64," + Convert.ToBase64String(_course.Image);
+    }
+}

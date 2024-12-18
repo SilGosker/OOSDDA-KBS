@@ -20,7 +20,11 @@
     @foreach (var boatType in _boatTypes)
     {
         <tr>
-            <td>@boatType.Name</td>
+            <td>
+                <a href="/boottypen/@boatType.BoatTypeId">
+                    @boatType.Name
+                </a>
+            </td>
             <td>@(boatType.HasSteeringWheel ? "Ja" : "Nee")</td>
             <td>@(boatType.RequiredExperience.ToDutchString())</td>
             <td>@(boatType.Seats.ToDutchString())</td>

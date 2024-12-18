@@ -17,7 +17,11 @@
     @foreach (var game in _games)
     {
         <tr>
-            <td>@game.Name</td>
+            <td>
+                <a href="/wedstrijden/@game.GameId">
+                    @game.Name
+                </a>
+            </td>
             <td>@game.Date.ToDutchString()</td>
         </tr>
     }

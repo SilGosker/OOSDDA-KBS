@@ -1,0 +1,47 @@
+﻿@page "/gebruikers"
+
+<PageTitle>Gebruikers</PageTitle>
+@using Kbs.Business.User
+@inject IUserRepository UserRepository
+
+<h1>Gebruikers</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Rol</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in _users)
+    {
+        <tr>
+            <td>
+                <a href="/gebruikers/@user.UserId">
+                    @if (string.IsNullOrWhiteSpace(user.Name))
+                    {
+                        @user.Email
+                    }
+                    else
+                    {
+                        @user.Name
+                    }
+                </a>
+            </td>
+            <td>@(user.Email)</td>
+            <td>@(user.Role.ToDutchString())</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<UserEntity> _users = new();
+
+    protected override void OnInitialized()
+    {
+        _users = UserRepository.Get();
+    }
+
+}

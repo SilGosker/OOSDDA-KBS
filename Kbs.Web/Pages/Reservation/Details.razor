@@ -1,0 +1,78 @@
+﻿@page "/reserveringen/{id:int}"
+@using Kbs.Business.Reservation
+@using Kbs.Business.User
+@using Kbs.Business.Boat
+@inject IReservationRepository ReservationRepository
+@inject IUserRepository UserRepository
+@inject IBoatRepository BoatRepository
+
+<h1>Reservering @_reservation.ReservationId</h1>
+
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Starttijd:</b>
+                <span>@(_reservation.StartTime.ToDutchString(true))</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Eindtijd:</b>
+                <span>@(_reservation.EndTime.ToDutchString(true))</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Status:</b>
+                <span>@_reservation.Status.ToDutchString()</span>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Gebruiker:</b>
+
+                <a href="/gebruikers/@_user.UserId">
+                    @if (string.IsNullOrWhiteSpace(_user.Name))
+                    {
+                        @_user.Email
+                    }
+                    else
+                    {
+                        @_user.Name
+                    }
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Boot:</b>
+                <a href="/boten/@_boat.BoatId">@_boat.Name</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private ReservationEntity _reservation = new();
+    private UserEntity _user = new();
+    private BoatEntity _boat = new();
+
+    protected override void OnInitialized()
+    {
+        _reservation = ReservationRepository.GetById(Id);
+        _user = UserRepository.GetById(_reservation.UserId);
+        _boat = BoatRepository.GetById(_reservation.BoatId);
+    }
+}

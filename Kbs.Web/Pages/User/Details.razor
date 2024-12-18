@@ -1,0 +1,85 @@
+﻿@page "/gebruikers/{id:int}"
+@using Kbs.Business.Reservation
+@using Kbs.Business.User
+@using Kbs.Business.Boat
+@inject IReservationRepository ReservationRepository
+@inject IUserRepository UserRepository
+@inject IBoatRepository BoatRepository
+
+<h1>Gebruiker @_user.UserId</h1>
+
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Naam:</b>
+                <span>@(_user.Name ?? _user.Email)</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Email:</b>
+                <span>@(_user.Email)</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Rol:</b>
+                <span>@_user.Role.ToDutchString()</span>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-6">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Starttijd</th>
+                <th>Eindtijd</th>
+                <th>Boot</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var reservation in _reservations)
+            {
+                var boat = BoatRepository.GetById(reservation.BoatId);
+                <tr>
+                    <td>
+                        <a href="/reserveringen/@reservation.ReservationId">
+                            @reservation.StartTime.ToDutchString(true)
+                        </a>
+                    </td>
+                    <td>@reservation.EndTime.ToDutchString(true)</td>
+                    <td>
+                        <a href="/boten/@boat.BoatId">
+                            @boat.Name
+                        </a>
+                    </td>
+
+                    <td>@reservation.Status.ToDutchString()</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private UserEntity _user = new();
+    private List<ReservationEntity> _reservations = new();
+
+    protected override void OnInitialized()
+    {
+        _user = UserRepository.GetById(Id);
+        _reservations = ReservationRepository.GetByUserId(_user.UserId);
+    }
+}

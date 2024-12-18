@@ -1,0 +1,106 @@
+﻿@page "/boten/{id:int}"
+@using Kbs.Business.Boat
+@using Kbs.Business.BoatType
+@using Kbs.Business.Reservation
+@using Kbs.Business.User
+@inject IBoatRepository BoatRepository
+@inject IBoatTypeRepository BoatTypeRepository
+@inject IReservationRepository ReservationRepository
+@inject IUserRepository UserRepository
+
+<h1>Boot @_boat.BoatId</h1>
+
+<div class="row">
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Naam:</b>
+                <span>@_boat.Name</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Status:</b>
+                <span>@_boat.Status.ToDutchString()</span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Verwijder datum:</b>
+                @if (_boat.DeleteRequestDate == null)
+                {
+                    <i>Niet van toepassing</i>
+                }
+                else
+                {
+                    <span>@(_boat.DeleteRequestDate.Value.ToDutchString())</span>
+                }
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Boottype:</b>
+                <a href="/boottypen/@_boatType.BoatTypeId">@(_boatType.Name)</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-6">
+        
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Starttijd</th>
+                <th>Eindtijd</th>
+                <th>Boot</th>
+                <th>Gebruiker</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in _reservations)
+            {
+                var boat = BoatRepository.GetById(reservation.BoatId);
+                var user = UserRepository.GetById(reservation.UserId);
+                <tr>
+                    <td>
+                        <a href="reserveringen/@reservation.ReservationId"> @reservation.StartTime.ToDutchString(true)</a>
+                    </td>
+                    <td>@reservation.EndTime.ToDutchString(true)</td>
+                    <td>
+                        <a href="/boten/@boat.BoatId">
+                            @boat.Name
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="/gebruikers/@user.UserId">
+                            @(user.Name ?? user.Email)
+                        </a>
+                    </td>
+                    <td>@reservation.Status.ToDutchString()</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private BoatEntity _boat = new();
+    private BoatTypeEntity _boatType = new();
+    private List<ReservationEntity> _reservations = new();
+    protected override void OnInitialized()
+    {
+        _boat = BoatRepository.GetById(Id);
+        _boatType = BoatTypeRepository.GetByBoatId(_boat.BoatId);
+        _reservations = ReservationRepository.GetByBoatId(_boat.BoatId);
+    }
+}

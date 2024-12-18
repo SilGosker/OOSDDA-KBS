@@ -1,0 +1,58 @@
+﻿@page "/reserveringen"
+
+<PageTitle>Reserveringen</PageTitle>
+@using Kbs.Business.Reservation
+@using Kbs.Business.Boat
+@using Kbs.Business.User
+@inject IReservationRepository ReservationRepository
+@inject IBoatRepository BoatRepository
+@inject IUserRepository UserRepository
+
+<h1>Reserveringen</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Starttijd</th>
+        <th>Eindtijd</th>
+        <th>Boot</th>
+        <th>Gebruiker</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var reservation in _reservations)
+    {
+        var boat = BoatRepository.GetById(reservation.BoatId);
+        var user = UserRepository.GetById(reservation.UserId);
+        <tr>
+            <td>
+                <a href="reserveringen/@reservation.ReservationId"> @reservation.StartTime.ToDutchString(true)</a>
+            </td>
+            <td>@reservation.EndTime.ToDutchString(true)</td>
+            <td>
+                <a href="/boten/@boat.BoatId">
+                    @boat.Name
+                </a>
+            </td>
+
+            <td>
+                <a href="/gebruikers/@user.UserId">
+                    @(user.Name ?? user.Email)
+                </a>
+            </td>
+            <td>@reservation.Status.ToDutchString()</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<ReservationEntity> _reservations = new();
+
+    protected override void OnInitialized()
+    {
+        _reservations = ReservationRepository.Get();
+    }
+
+}

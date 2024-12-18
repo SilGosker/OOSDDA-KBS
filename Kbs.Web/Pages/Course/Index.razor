@@ -14,17 +14,21 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var boatType in _boatTypes)
+    @foreach (var course in _boatTypes)
     {
         <tr>
-            <td>@boatType.Name</td>
-            @if (string.IsNullOrWhiteSpace(boatType.Description))
+            <td>
+                <a href="parcours/@course.CourseId">
+                    @course.Name
+                </a>
+            </td>
+            @if (string.IsNullOrWhiteSpace(course.Description))
             {
-                <td>@(boatType.Description)</td>
+                <td>@(course.Description)</td>
             }
             else
             {
-                <td>@boatType.Description[Math.Min(200, boatType.Description.Length)..])</td>
+                <td>@course.Description[Math.Min(200, course.Description.Length)..])</td>
             }
         </tr>
     }

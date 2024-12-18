@@ -1,0 +1,99 @@
+﻿@page "/wedstrijden/{id:int}"
+@using Kbs.Business.Course
+@using Kbs.Business.Game
+@using Kbs.Business.Reservation
+@using Kbs.Business.User
+@using Kbs.Business.Boat
+@inject IGameRepository GameRepository
+@inject ICourseRepository CourseRepository
+@inject IReservationRepository ReservationRepository
+@inject IUserRepository UserRepository
+@inject IBoatRepository BoatRepository
+
+<h1>Wedstrijd @_game.GameId</h1>
+
+<div class="row">
+
+    <div class="col-6">
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Naam:</b>
+                <span>@(_game.Name)</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Datum:</b>
+                <span>@_game.Date.ToDutchString()</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Route:</b>
+                <a href="/parcours/@_course.CourseId">@_course.Name</a>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="col-6">
+        
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Starttijd</th>
+                <th>Eindtijd</th>
+                <th>Boot</th>
+                <th>Gebruiker</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var reservation in _reservations)
+            {
+                var boat = BoatRepository.GetById(reservation.BoatId);
+                var user = UserRepository.GetById(reservation.UserId);
+                <tr>
+                    <td>
+                        <a href="reserveringen/@reservation.ReservationId"> @reservation.StartTime.ToDutchString(true)</a>
+                    </td>
+                    <td>@reservation.EndTime.ToDutchString(true)</td>
+                    <td>
+                        <a href="/boten/@boat.BoatId">
+                            @boat.Name
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="/gebruikers/@user.UserId">
+                            @(user.Name ?? user.Email)
+                        </a>
+                    </td>
+                    <td>@reservation.Status.ToDutchString()</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private GameEntity _game = new();
+    private CourseEntity _course = new();
+    private List<ReservationEntity> _reservations;
+
+    protected override void OnInitialized()
+    {
+        _game = GameRepository.GetById(Id);
+        _course = CourseRepository.GetById(_game.CourseId);
+        _reservations = ReservationRepository.GetManyByGameId(_game.GameId);
+    }
+
+}

@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddScoped<IBoatRepository, BoatRepository>();
 builder.Services.AddScoped<IDamageRepository, DamageRepository>();
 builder.Services.AddScoped<IBoatTypeRepository, BoatTypeRepository>();

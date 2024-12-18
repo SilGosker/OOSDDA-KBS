@@ -1,12 +1,14 @@
 ﻿@page "/boten/{id:int}"
 @using Kbs.Business.Boat
 @using Kbs.Business.BoatType
+@using Kbs.Business.Damage
 @using Kbs.Business.Reservation
 @using Kbs.Business.User
 @inject IBoatRepository BoatRepository
 @inject IBoatTypeRepository BoatTypeRepository
 @inject IReservationRepository ReservationRepository
 @inject IUserRepository UserRepository
+@inject IDamageRepository DamageRepository
 
 <h1>Boot @_boat.BoatId</h1>
 
@@ -25,7 +27,7 @@
                 <span>@_boat.Status.ToDutchString()</span>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-6 justify-content-between d-flex">
                 <b>Verwijder datum:</b>
@@ -39,7 +41,7 @@
                 }
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-6 justify-content-between d-flex">
                 <b>Boottype:</b>
@@ -47,9 +49,9 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-6">
-        
+
         <table class="table">
             <thead>
             <tr>
@@ -61,7 +63,7 @@
             </tr>
             </thead>
             <tbody>
-                @foreach (var reservation in _reservations)
+            @foreach (var reservation in _reservations)
             {
                 var boat = BoatRepository.GetById(reservation.BoatId);
                 var user = UserRepository.GetById(reservation.UserId);
@@ -89,6 +91,19 @@
     </div>
 </div>
 
+<div class="row d-flex border">
+    @foreach (var damage in _damages)
+    {
+        <div class="card m-2" style="width: 22%;">
+            <img class="card-img-top" height="250" style="object-fit: cover" src="@damage.Image.ToHtmlImageSource()" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">@damage.Date.ToDutchString()</h5>
+                <a href="/beschadigingen/@damage.DamageId" class="btn btn-primary">Details</a>
+            </div>
+        </div>
+    }
+</div>
+
 @code
 {
     [Parameter]
@@ -97,10 +112,13 @@
     private BoatEntity _boat = new();
     private BoatTypeEntity _boatType = new();
     private List<ReservationEntity> _reservations = new();
+    private List<DamageEntity> _damages = new();
+
     protected override void OnInitialized()
     {
         _boat = BoatRepository.GetById(Id);
         _boatType = BoatTypeRepository.GetByBoatId(_boat.BoatId);
         _reservations = ReservationRepository.GetByBoatId(_boat.BoatId);
+        _damages = DamageRepository.GetByBoat(_boat);
     }
 }

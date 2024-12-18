@@ -1,0 +1,67 @@
+﻿@page "/beschadigingen/{id:int}"
+@using Kbs.Business.Boat
+@using Kbs.Business.Damage
+@inject IDamageRepository DamageRepository
+@inject IBoatRepository BoatRepository
+
+<h1>Beschadiging @_damage.DamageId</h1>
+
+<div class="row">
+    <div class="col-6">
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Boot:</b>
+                <a href="/boten/@_boat.BoatId">@_boat.Name</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Boot nummer:</b>
+                <span>@_boat.BoatId</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Status:</b>
+                <span>@_damage.Status.ToDutchString()</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6 justify-content-between d-flex">
+                <b>Datum:</b>
+                <span>@(_damage.Date.ToDutchString())</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="justify-content-between d-flex">
+                <b>Beschrijving:</b>
+                <textarea class="w-100 m-2" disabled>@_damage.Description</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <img src="@_damage.Image.ToHtmlImageSource()" style="object-fit: cover;" alt="Een beschadiging"/>
+    </div>
+
+</div>
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private DamageEntity _damage = new();
+    private BoatEntity _boat = new();
+
+    protected override void OnInitialized()
+    {
+        _damage = DamageRepository.GetById(Id);
+        _boat = BoatRepository.GetById(_damage.BoatId);
+    }
+}

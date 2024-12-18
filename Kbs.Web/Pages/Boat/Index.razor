@@ -3,6 +3,7 @@
 <PageTitle>Boten</PageTitle>
 @using Kbs.Business.Boat
 @using Kbs.Business.Damage
+
 @inject IBoatRepository BoatRepository
 @inject IDamageRepository DamageRepository
 
@@ -27,7 +28,7 @@
     {
         <tr>
             <td>
-                    <a href="/boten/@boat.BoatId">@boat.Name</a>
+                <a href="/boten/@boat.BoatId">@boat.Name</a>
             </td>
             <td>@boat.Status.ToDutchString()</td>
             @if (DamageRepository.HasDamage(boat))

@@ -1,0 +1,78 @@
+﻿@page "/parcours/aanmaken"
+@using Kbs.Business.Course
+@inject ICourseRepository CourseRepository
+@inject NavigationManager NavigationManager
+
+<h1>Parcours aanmaken</h1>
+
+<div class="row">
+    <div class="col-4">
+        <span>Geef een naam op voor het parcours</span>
+        <input @bind="_course.Name" type="text" width="100%;" class="form-control"/>
+        <span class="text-danger">@_nameMessage</span>
+    </div>
+
+
+    <div class="col-4">
+        <span>Selecteer een moeilijkheidsgraad</span>
+        <select class="form-control" @onchange="(obj) => _course.Difficulty = Enum.TryParse(obj.Value?.ToString(), out CourseDifficulty difficulty) ? difficulty : 0">
+            <option>Selecteer een optie</option>
+            @foreach (var difficulty in Enum.GetValues<CourseDifficulty>())
+            {
+                <option value="@difficulty">@difficulty.ToDutchString()</option>
+            }
+        </select>
+        <span class="text-danger">@_difficultyMessage</span>
+    </div>
+
+    <div class="col-4">
+        <span>Selecteer een foto</span>
+
+        <InputFile AdditionalAttributes="FileAttributes" OnChange="FileSelected" />
+
+        <span class="text-danger">@_fileMessage</span>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 8px;">
+    <div class="col">
+        <button @onclick="Save" class="btn btn-primary">
+            Opslaan
+        </button>
+    </div>
+</div>
+
+@code
+{
+    private readonly CourseEntity _course = new();
+    private readonly CourseValidator _courseValidator = new();
+    private string _fileMessage;
+    private string _nameMessage;
+    private string _difficultyMessage;
+
+    private static readonly IDictionary<string, object> FileAttributes = new Dictionary<string, object>()
+    {
+        { "class", "form-control" },
+        { "accept", "image/png, image/jpeg" }
+    };
+
+    public void Save()
+    {
+        var validationResult = _courseValidator.ValidateForCreate(_course);
+
+        validationResult.TryGetValue(nameof(_course.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_course.Difficulty), out _difficultyMessage);
+        validationResult.TryGetValue(nameof(_course.Image), out _fileMessage);
+
+        if (validationResult.Count == 0)
+        {
+            CourseRepository.Create(_course);
+            NavigationManager.NavigateTo("/parcours/" + _course.CourseId);
+        }
+    }
+
+    private async Task FileSelected(InputFileChangeEventArgs obj)
+    {
+        _course.Image = await obj.File.OpenReadStream().ToArrayAsync();
+    }
+}

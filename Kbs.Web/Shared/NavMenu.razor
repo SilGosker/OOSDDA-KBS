@@ -10,57 +10,75 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="boten">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Boten
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="boottypen">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Boot typen
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="parcours">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Parcours
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="wedstrijden">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Wedstrijden
-            </NavLink>
-        </div>
-        
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="reserveringen">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Reserveringen
-            </NavLink>
+            <AuthorizeView>
+
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Inloggen
+                    </NavLink>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="counter">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Registreren
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="gebruikers">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Gebruikers
-            </NavLink>
-        </div>
+        <AuthorizeView Roles="Materiaalcommissaris">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="boten">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Boten
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="boottypen">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Boot typen
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Wedstrijdcommissaris">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="parcours">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Parcours
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="wedstrijden">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Wedstrijden
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="reserveringen">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Reserveringen
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="gebruikers">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Gebruikers
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
     </nav>
 </div>
 
 @code {
     private bool collapseNavMenu = true;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
 }

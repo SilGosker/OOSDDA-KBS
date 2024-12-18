@@ -4,6 +4,7 @@ using Kbs.Business.Course;
 using Kbs.Business.Damage;
 using Kbs.Business.Game;
 using Kbs.Business.Reservation;
+using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -12,13 +13,21 @@ using Kbs.Data.Damage;
 using Kbs.Data.Game;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Web;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
+
+SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.MaxValue);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddAuthorizationCore();
+builder.Services.AddCascadingAuthenticationState();
 
+builder.Services.AddScoped<SessionManagerAuthenticationStateProvider>();
+builder.Services.AddScoped<AuthenticationStateProvider>(services => services.GetRequiredService<SessionManagerAuthenticationStateProvider>());
 builder.Services.AddScoped<IBoatRepository, BoatRepository>();
 builder.Services.AddScoped<IDamageRepository, DamageRepository>();
 builder.Services.AddScoped<IBoatTypeRepository, BoatTypeRepository>();

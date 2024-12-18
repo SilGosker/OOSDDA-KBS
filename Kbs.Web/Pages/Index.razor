@@ -1,9 +1,62 @@
 ﻿@page "/"
+@using Kbs.Business.User
+@using Kbs.Business.Session
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
+@inject NavigationManager NavigationManager
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Login</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+@inject IJSRuntime JsRuntime
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+<div class="row col-12">
+    <span>Email</span>
+    <input style="width: 100%;" type="email" @bind="_userEntity.Email" />
+    <span class="text-danger">@_emailMessage</span>
+</div>
+
+<div class="row col-12 d-flex justify-content-center">
+    <span>Wachtwoord</span>
+    <input style="width: 100%;" type="password" @bind="_userEntity.Password" />
+    <span class="text-danger">@_passwordMessage</span>
+</div>
+
+<div class="row col-12">
+    <div class="d-flex justify-content-center">
+        <button class="w-50 btn btn-primary" @onclick="LoginAsync">
+            Inloggen
+        </button>
+    </div>
+</div>
+
+
+@code
+{
+    private readonly UserEntity _userEntity = new();
+    private readonly UserValidator _userValidator = new();
+
+    private string _emailMessage;
+    private string _passwordMessage;
+
+    public async Task LoginAsync()
+    {
+        var validationResult = _userValidator.ValidatorForLogIn(_userEntity);
+        validationResult.TryGetValue(nameof(_userEntity.Email), out _emailMessage);
+        validationResult.TryGetValue(nameof(_userEntity.Password), out _passwordMessage);
+
+        if (validationResult.Count == 0)
+        {
+            if (SessionManager.Instance.TryCreate(_userEntity, out var session))
+            {
+                SessionManagerAuthenticationStateProvider.NotifyAuthenticationStateChanged();
+                NavigationManager.NavigateTo("/boten");
+            }
+            else
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Email of wachtwoord komen niet overeen");
+            }
+        }
+    }
+
+}

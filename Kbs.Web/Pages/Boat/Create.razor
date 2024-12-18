@@ -1,0 +1,62 @@
+﻿@page "/boten/aanmaken"
+@using Kbs.Business.Boat
+@using Kbs.Business.BoatType
+@inject IBoatTypeRepository BoatTypeRepository
+@inject IBoatRepository BoatRepository
+@inject NavigationManager NavigationManager
+<h1>Boot aanmaken</h1>
+
+
+<div class="row">
+    <div class="col-4">
+        <input class="form-control" type="text" style="width: 100%;" placeholder="Naam van de boot" @bind="_boatEntity.Name"/>
+        <span class="text-danger">@_nameMessage</span>
+    </div>
+
+    <div class="col-4">
+
+        <select class="form-control" @onchange="(obj) => _boatEntity.BoatTypeId = int.TryParse(obj.Value?.ToString(), out int boatTypeId) ? boatTypeId : 0">
+            <option>Kies een boottype</option>
+            @foreach (var boatType in BoatTypeRepository.GetAll())
+            {
+                <option value="@boatType.BoatTypeId">@boatType.Name</option>
+            }
+        </select>
+
+        <span class="text-danger">@_boatTypeMessage</span>
+    </div>
+
+    <div class="col-4">
+        <button class="btn btn-primary" @onclick="Save">
+            Opslaan
+        </button>
+    </div>
+</div>
+
+
+@code
+{
+    private readonly BoatEntity _boatEntity = new();
+    private BoatValidator _boatValidator;
+    private string _nameMessage;
+    private string _boatTypeMessage;
+    protected override void OnInitialized()
+    {
+        _boatEntity.Status = BoatStatus.Operational;
+        _boatValidator = new BoatValidator(BoatTypeRepository);
+    }
+
+    private void Save()
+    {
+        var validationResult = _boatValidator.ValidateForCreate(_boatEntity);
+
+        validationResult.TryGetValue(nameof(_boatEntity.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_boatEntity.BoatTypeId), out _boatTypeMessage);
+
+        if (validationResult.Count == 0)
+        {
+            BoatRepository.Create(_boatEntity);
+            NavigationManager.NavigateTo("/boten/" + _boatEntity.BoatId);
+        }
+    }
+}

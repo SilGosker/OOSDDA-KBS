@@ -10,7 +10,13 @@
 @inject IUserRepository UserRepository
 @inject IDamageRepository DamageRepository
 
-<h1>Boot @_boat.BoatId</h1>
+
+<div class="row">
+    <h1>Boot @_boat.BoatId</h1>
+    <div class="col-4">
+        <a class="btn btn-primary" href="/beschadigingen/aanmaken/@_boat.BoatId">Beschadiging uploaden</a>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-6">

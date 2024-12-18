@@ -1,0 +1,75 @@
+﻿@page "/beschadigingen/aanmaken/{boatId:int}"
+@using Kbs.Business.Damage
+@inject IDamageRepository DamageRepository
+@inject NavigationManager NavigationManager
+
+<h1>Parcours aanmaken</h1>
+
+<div class="row">
+    <div class="col-4">
+        <span>Beschrijving</span>
+        <textarea @bind="_damage.Description" type="text" width="100%;" class="form-control"></textarea>
+        <span class="text-danger">@_descriptionMessage</span>
+    </div>
+
+    <div class="col-4">
+        <span>Selecteer een foto</span>
+
+        <InputFile AdditionalAttributes="FileAttributes" OnChange="FileSelected" />
+
+        <span class="text-danger">@_fileMessage</span>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 8px;">
+    <div class="col">
+        <button @onclick="Save" class="btn btn-primary">
+            Opslaan
+        </button>
+    </div>
+</div>
+
+@code
+{
+    [Parameter]
+    public int BoatId { get; set; }
+    private readonly DamageEntity _damage = new()
+    {
+        Date = DateTime.Now,
+        Status = DamageStatus.UnSolved
+    };
+
+    private readonly DamageValidator _damageValidator = new();
+    private string _fileMessage;
+    private string _descriptionMessage;
+
+    protected override void OnInitialized()
+    {
+        _damage.BoatId = BoatId;
+    }
+
+    private static readonly IDictionary<string, object> FileAttributes = new Dictionary<string, object>()
+    {
+        { "class", "form-control" },
+        { "accept", "image/png, image/jpeg" }
+    };
+
+    public void Save()
+    {
+        var validationResult = _damageValidator.ValidateForUpload(_damage);
+
+        validationResult.TryGetValue(nameof(_damage.Description), out _descriptionMessage);
+        validationResult.TryGetValue(nameof(_damage.Image), out _fileMessage);
+
+        if (validationResult.Count == 0)
+        {
+            DamageRepository.Create(_damage);
+            NavigationManager.NavigateTo("/beschadigingen/" + _damage.DamageId);
+        }
+    }
+
+    private async Task FileSelected(InputFileChangeEventArgs obj)
+    {
+        _damage.Image = await obj.File.OpenReadStream().ToArrayAsync();
+    }
+}

@@ -17,4 +17,8 @@ public interface IReservationRepository
     public List<ReservationEntity> GetByUserId(int userId);
     public int CountByUser(int userid);
     public List<ReservationEntity> GetManyByGameId(int gameId);
+    public void UpdateWhenMaintained(int boatId, DateTime endDate);
+    public void UpdateWhenBroken(int boatId);
+
+
 }

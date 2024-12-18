@@ -53,6 +53,7 @@ public class BoatRepository : IBoatRepository
     }
     public void DeleteById(int boatId)
     {
+        _connection.Execute("DELETE FROM Damage WHERE BoatId = @boatId", new { boatId });
         _connection.Execute("DELETE FROM Boat WHERE BoatId = @boatId", new { boatId });
     }
     
@@ -67,4 +68,5 @@ public class BoatRepository : IBoatRepository
     {
         return _connection.Query<BoatEntity>("SELECT * FROM Boat WHERE BoatId in (SELECT BoatId FROM Reservation WHERE GameId = @GameId)", new { gameId }).ToList();
     }
+    
 }

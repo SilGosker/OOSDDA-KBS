@@ -9,9 +9,9 @@ using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
-using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
@@ -25,11 +25,12 @@ public partial class ReadDetailsBoatPage : Page
     private readonly BoatTypeRepository _boatTypeRepository = new();
     private readonly DamageRepository _damageRepository = new();
     private readonly UserRepository _userRepository = new();
-    private readonly ReservationRepository _registrationRepository = new();
+    private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
-
+    private DatePickPopupWindow _changeStatusDialog = new("Verwachte einddatum onderhoud");
+    
     public ReadDetailsBoatPage(INavigationManager navigationManager, int boatId)
     {
         _navigationManager = navigationManager;
@@ -46,10 +47,11 @@ public partial class ReadDetailsBoatPage : Page
             ? "Ter verwijdering opstellen"
             : "Annuleren verwijdering";
 
+
         var result = _boatValidator.IsValidForPermanentDeletion(boat);
         ViewModel.DeleteButtonEnabled = result.Count == 0;
 
-        foreach (var reservation in _registrationRepository.GetByBoatId(boat.BoatId))
+        foreach (var reservation in _reservationRepository.GetByBoatId(boat.BoatId))
         {
             var user = _userRepository.GetById(reservation.UserId);
             ViewModel.Reservations.Add(new ReadDetailsBoatReservationViewModel(reservation, user));
@@ -72,6 +74,7 @@ public partial class ReadDetailsBoatPage : Page
             }
         }
     }
+
 
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -171,6 +174,7 @@ public partial class ReadDetailsBoatPage : Page
             Name = ViewModel.Name,
             Status = ViewModel.Status
         };
+
         var validationResult = _boatValidator.ValidateForUpdate(boat);
         if (validationResult.TryGetValue(nameof(boat.Name), out string nameErrorMessage))
         {
@@ -190,11 +194,55 @@ public partial class ReadDetailsBoatPage : Page
             ViewModel.StatusError = "";
         }
 
-        if (validationResult.Count == 0)
+
+        if (validationResult.Count != 0)
         {
-            _boatRepository.Update(boat);
-            MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+            return;
         }
+
+        var oldStatus = _boatRepository.GetById(ViewModel.BoatId).Status;
+
+        if (ViewModel.Status == BoatStatus.Maintaining && oldStatus != BoatStatus.Broken &&
+            !_changeStatusDialog.ViewModel.IsCancelled)
+        {
+            _changeStatusDialog.ShowDialog();
+
+
+            if (_changeStatusDialog.ViewModel.IsCancelled)
+            {
+                _changeStatusDialog.ViewModel.IsCancelled = false;
+                // Reset so that it can be called again
+                return;
+            }
+
+            if (ViewModel.Status == BoatStatus.Maintaining && oldStatus != BoatStatus.Broken)
+            {
+                MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. Weet u het zeker?", "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (ViewModel.Status == BoatStatus.Maintaining)
+                    {
+                        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+                    }
+                    else if (ViewModel.Status == BoatStatus.Broken)
+                    {
+                        _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
+                    }
+                }
+            }
+        }
+
+        _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+        _boatRepository.Update(boat);
+        MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+        _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
+
     }
 
     private void NavigateToBoatTypePage(object sender, RoutedEventArgs e)

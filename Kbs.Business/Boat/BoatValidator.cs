@@ -1,4 +1,5 @@
 ﻿using Kbs.Business.BoatType;
+using Kbs.Business.Game;
 using Kbs.Business.Helpers;
 
 namespace Kbs.Business.Boat;
@@ -77,4 +78,16 @@ public class BoatValidator
 
         return validationResult;
     }
+    public static Dictionary<string, string> ValidateEndDate(DateTime endDate)
+    {
+        var result = new Dictionary<string, string>();
+
+        if (endDate <= DateTime.Now)
+        {
+            result.Add(nameof(endDate), "De datum moet in de toekomst liggen.");
+        }
+
+        return result;
+    }
+
 }

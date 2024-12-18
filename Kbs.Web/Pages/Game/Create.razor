@@ -1,0 +1,69 @@
+﻿@page "/wedstrijden/aanmaken"
+@using Kbs.Business.Course
+@using Kbs.Business.Game
+@inject IGameRepository GameRepository
+@inject ICourseRepository CourseRepository
+@inject NavigationManager NavigationManager
+<h1>Boot aanmaken</h1>
+
+
+<div class="row">
+    <div class="col-4">
+        <input class="form-control" type="text" style="width: 100%;" placeholder="Naam van de boot" @bind="_gameEntity.Name"/>
+        <span class="text-danger">@_nameMessage</span>
+    </div>
+
+    <div class="col-4">
+
+        <select class="form-control" @onchange="(obj) => _gameEntity.CourseId = int.TryParse(obj.Value?.ToString(), out int boatTypeId) ? boatTypeId : 0">
+            <option>Kies een parcours</option>
+            @foreach (var course in CourseRepository.GetAll())
+            {
+                <option value="@course.CourseId">@course.Name</option>
+            }
+        </select>
+
+        <span class="text-danger">@_courseMessage</span>
+    </div>
+    
+    <span class="col-4">
+        <input type="date" @bind="_gameEntity.Date" class="form-control" />
+        <span class="text-danger">@_dateMessage</span>
+    </span>
+</div>
+
+<div class="row" style="margin-top: 4px;">
+    <div class="col-4">
+        <button class="btn btn-primary" @onclick="Save">
+            Opslaan
+        </button>
+    </div>
+</div>
+
+
+@code
+{
+    private readonly GameEntity _gameEntity = new()
+    {
+        Date = DateTime.Now
+    };
+    private readonly GameValidator _gameValidator = new();
+    private string _nameMessage;
+    private string _courseMessage;
+    private string _dateMessage;
+
+    private void Save()
+    {
+        var validationResult = _gameValidator.ValidateForCreate(_gameEntity);
+
+        validationResult.TryGetValue(nameof(_gameEntity.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_gameEntity.CourseId), out _courseMessage);
+        validationResult.TryGetValue(nameof(_gameEntity.Date), out _dateMessage);
+
+        if (validationResult.Count == 0)
+        {
+            GameRepository.Create(_gameEntity);
+            NavigationManager.NavigateTo("/wedstrijden/" + _gameEntity.GameId);
+        }
+    }
+}

@@ -4,7 +4,12 @@
 @using Kbs.Business.Game
 @inject IGameRepository GameRepository
 
-<h1>Wedstrijden</h1>
+<div class="row">
+    <h1 class="col-4">Wedstrijden</h1>
+    <div class="col-4">
+        <a href="/wedstrijden/aanmaken" class="btn btn-primary">Wedstrijd aanmaken</a>
+    </div>
+</div>
 
 <table class="table">
     <thead>

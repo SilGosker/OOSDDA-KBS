@@ -1,0 +1,42 @@
+﻿@page "/parcours"
+
+<PageTitle>Parcours</PageTitle>
+@using Kbs.Business.Course
+@inject ICourseRepository CourseRepository
+
+<h1>Parcours</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Beschrijving</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var boatType in _boatTypes)
+    {
+        <tr>
+            <td>@boatType.Name</td>
+            @if (string.IsNullOrWhiteSpace(boatType.Description))
+            {
+                <td>@(boatType.Description)</td>
+            }
+            else
+            {
+                <td>@boatType.Description[Math.Min(200, boatType.Description.Length)..])</td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<CourseEntity> _boatTypes = new();
+
+    protected override void OnInitialized()
+    {
+        _boatTypes = CourseRepository.GetAll();
+    }
+
+}

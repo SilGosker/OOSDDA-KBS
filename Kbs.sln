@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbs.Data", "Kbs.Data\Kbs.Da
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kbs.Business.Tests", "Kbs.Business.Tests\Kbs.Business.Tests.csproj", "{81401AF3-7407-4104-9005-29B393EA1D18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kbs.Web", "Kbs.Web\Kbs.Web.csproj", "{2ECF9ED2-DB9F-4E0D-8570-EE44795915DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{81401AF3-7407-4104-9005-29B393EA1D18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81401AF3-7407-4104-9005-29B393EA1D18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81401AF3-7407-4104-9005-29B393EA1D18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECF9ED2-DB9F-4E0D-8570-EE44795915DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECF9ED2-DB9F-4E0D-8570-EE44795915DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECF9ED2-DB9F-4E0D-8570-EE44795915DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECF9ED2-DB9F-4E0D-8570-EE44795915DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

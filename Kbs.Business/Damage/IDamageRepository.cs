@@ -10,4 +10,5 @@ public interface IDamageRepository
     public void Solve(DamageEntity damage);
     public void Create(DamageEntity damage);
 
+    bool HasDamage(BoatEntity boat);
 }

@@ -1,0 +1,41 @@
+﻿@page "/boottypen"
+
+<PageTitle>Boat types</PageTitle>
+@using Kbs.Business.BoatType
+@inject IBoatTypeRepository BoatTypeRepository
+
+<h1>Boot typen</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Heeft een stuur</th>
+        <th>Ervaring</th>
+        <th>Stoelen</th>
+        <th>Snelheid</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var boatType in _boatTypes)
+    {
+        <tr>
+            <td>@boatType.Name</td>
+            <td>@(boatType.HasSteeringWheel ? "Ja" : "Nee")</td>
+            <td>@(boatType.RequiredExperience.ToDutchString())</td>
+            <td>@(boatType.Seats.ToDutchString())</td>
+            <td>@(boatType.Speed) kmh</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<BoatTypeEntity> _boatTypes = new();
+
+    protected override void OnInitialized()
+    {
+        _boatTypes = BoatTypeRepository.GetAll();
+    }
+
+}

@@ -51,6 +51,21 @@ namespace Kbs.Business.Mock
             throw new NotImplementedException();
         }
 
+        public void UpdateWhenMaintained(int boatId, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateWhenBroken(int boatId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ReservationEntity> GetByBoatWhenUpdated(int boatId, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<ReservationEntity> OrderByStatusAndTime(List<ReservationEntity> reservations)
         {
             return reservations.OrderByDescending(e => e.Status).ThenBy(e => e.StartTime).ToList();

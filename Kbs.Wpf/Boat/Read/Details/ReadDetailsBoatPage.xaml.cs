@@ -2,10 +2,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
+using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Damage;
+using Kbs.Data.EmailNotification;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
@@ -26,6 +28,7 @@ public partial class ReadDetailsBoatPage : Page
     private readonly DamageRepository _damageRepository = new();
     private readonly UserRepository _userRepository = new();
     private readonly ReservationRepository _reservationRepository = new();
+    private readonly EmailNotifier _emailNotifier = new();
     private readonly INavigationManager _navigationManager;
     private readonly BoatValidator _boatValidator;
     private ReadDetailsBoatViewModel ViewModel => (ReadDetailsBoatViewModel)DataContext;
@@ -106,7 +109,7 @@ public partial class ReadDetailsBoatPage : Page
     private void RequestDeletion(object sender, RoutedEventArgs e)
     {
         DateTime? newDeleteRequestDateValue;
-        string popupMessage = "";
+        string popupMessage;
         if (ViewModel.DeleteRequestDate == null)
         {
             newDeleteRequestDateValue = DateTime.Now;
@@ -131,10 +134,10 @@ public partial class ReadDetailsBoatPage : Page
 
     private void PermanentDeletion(object sender, RoutedEventArgs e)
     {
-        string popupMessage = "";
+        string popupMessage;
         if (ViewModel.DeleteRequestDate != null)
         {
-            BoatEntity boat = new BoatEntity()
+            BoatEntity boat = new BoatEntity
             {
                 BoatId = ViewModel.BoatId,
                 BoatTypeId = ViewModel.BoatTypeId,
@@ -214,8 +217,8 @@ public partial class ReadDetailsBoatPage : Page
                 // Reset so that it can be called again
                 return;
             }
-
-            if (ViewModel.Status == BoatStatus.Maintaining && oldStatus != BoatStatus.Broken)
+            
+            if (ViewModel.Status == BoatStatus.Maintaining)
             {
                 MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. Weet u het zeker?", "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
@@ -226,13 +229,32 @@ public partial class ReadDetailsBoatPage : Page
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (ViewModel.Status == BoatStatus.Maintaining)
-                    {
+                    if (ViewModel.Status == BoatStatus.Maintaining){
+                        var reservations = _reservationRepository.GetByBoatWhenUpdated(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
+                        foreach (var reservation in reservations)
+                        {
+                            var user = _userRepository.GetById(reservation.UserId);
+                            _emailNotifier.SendEmailNotification(user.Email, 
+                                user.Name ?? "Onbekend",
+                                "Reservering geannuleerd", 
+                                $"Uw reservering voor de {ViewModel.BoatTypeName} {ViewModel.Name} op {reservation.StartTime} is geannuleerd vanwege onderhoud aan de boot.\nLog in op de app om een nieuwe reservering te plaatsen.");
+
+                        }
                         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
                     }
                     else if (ViewModel.Status == BoatStatus.Broken)
                     {
                         _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
+                        var reservations = _reservationRepository.GetByBoatWhenUpdated(ViewModel.BoatId);
+                        foreach (var reservation in reservations)
+                        {
+                            var user = _userRepository.GetById(reservation.UserId);
+                            _emailNotifier.SendEmailNotification(user.Email, 
+                                user.Name ?? "Onbekend",
+                                "Reservering geannuleerd", 
+                                $"Uw reservering voor de {ViewModel.BoatTypeName} {ViewModel.Name} op {reservation.StartTime} is geannuleerd door schade aan de boot\nLog in op de app om een nieuwe reservering te plaatsen.");
+
+                        }
                     }
                 }
             }
@@ -240,7 +262,7 @@ public partial class ReadDetailsBoatPage : Page
 
         _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
         _boatRepository.Update(boat);
-        MessageBox.Show($"{boat.Name} succesvol geüpdatet");
+        MessageBox.Show($"{boat.Name} succesvol geÃ¼pdatet");
         _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, ViewModel.BoatId));
 
     }

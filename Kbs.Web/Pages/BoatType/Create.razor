@@ -1,0 +1,93 @@
+﻿@page "/boottypen/aanmaken"
+@using Kbs.Business.BoatType
+@inject IBoatTypeRepository BoatTypeRepository
+@inject NavigationManager NavigationManager
+<h1>Boottypen aanmaken</h1>
+
+
+<div class="row">
+
+    <div class="col-4">
+        <input class="form-control" type="text" style="width: 100%;" placeholder="Naam van de boot" @bind="_boatTypeEntity.Name"/>
+        <span class="text-danger">@_nameMessage</span>
+    </div>
+
+    <div class="col-4">
+        <select class="form-control" @onchange="(obj) => _boatTypeEntity.RequiredExperience = Enum.TryParse(obj.Value?.ToString(), out BoatTypeRequiredExperience boatTypeId) ? boatTypeId : 0">
+            <option>Kies een verplichte ervaring</option>
+
+            @foreach (var experience in Enum.GetValues<BoatTypeRequiredExperience>())
+            {
+                <option value="@experience">@experience.ToDutchString()</option>
+            }
+        </select>
+
+        <span class="text-danger">@_experienceErrorMessage</span>
+    </div>
+
+    <div class="col-4">
+
+        <select class="form-control" @onchange="(obj) => _boatTypeEntity.Seats = Enum.TryParse(obj.Value?.ToString(), out BoatTypeSeats boatTypeId) ? boatTypeId : 0">
+            <option>Kies de hoeveelheid stoelen</option>
+
+            @foreach (var seats in Enum.GetValues<BoatTypeSeats>())
+            {
+                <option value="@seats">@seats.ToDutchString()</option>
+            }
+        </select>
+
+        <span class="text-danger">@_seatsMessage</span>
+
+    </div>
+</div>
+
+
+<div class="row" style="margin-top: 8px;">
+    <div class="col-4">
+        <input class="form-control" type="number" min="0" step="1" style="width: 100%;" placeholder="De snelheid van het type" @bind="_boatTypeEntity.Speed"/>
+        <span class="text-danger">@_speedMessage</span>
+    </div>
+
+    <div class="col-4">
+        <input class="form-check-input" @bind="_boatTypeEntity.HasSteeringWheel" type="checkbox"/>
+        <span>Het boottype heeft een stuur</span>
+    </div>
+
+    <div class="col-4">
+        <button @onclick="Save" class="btn btn-primary">
+            Opslaan
+        </button>
+    </div>
+</div>
+
+
+@code
+{
+    private readonly BoatTypeEntity _boatTypeEntity = new();
+    private BoatTypeValidator _boatValidator;
+    private string _nameMessage;
+    private string _experienceErrorMessage;
+    private string _seatsMessage;
+    private string _speedMessage;
+
+    protected override void OnInitialized()
+    {
+        _boatValidator = new BoatTypeValidator();
+    }
+
+    private void Save()
+    {
+        var validationResult = _boatValidator.ValidateForCreate(_boatTypeEntity);
+
+        validationResult.TryGetValue(nameof(_boatTypeEntity.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_boatTypeEntity.RequiredExperience), out _experienceErrorMessage);
+        validationResult.TryGetValue(nameof(_boatTypeEntity.Seats), out _seatsMessage);
+        validationResult.TryGetValue(nameof(_boatTypeEntity.Speed), out _speedMessage);
+
+        if (validationResult.Count == 0)
+        {
+            BoatTypeRepository.Create(_boatTypeEntity);
+            NavigationManager.NavigateTo("/boottypen/" + _boatTypeEntity.BoatTypeId);
+        }
+    }
+}

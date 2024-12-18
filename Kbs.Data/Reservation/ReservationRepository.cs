@@ -139,7 +139,6 @@ public class ReservationRepository : IReservationRepository, IDisposable
 
         _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
     }
-
     public List<ReservationEntity> GetByBoatWhenUpdated(int boatId) // When broken
     {
         return _connection.Query<ReservationEntity>(

@@ -13,6 +13,7 @@ using Kbs.Data.User;
 using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
 using Kbs.Wpf.Reservation.Read.Details;
@@ -216,7 +217,7 @@ public partial class ReadDetailsBoatPage : Page
                 // Reset so that it can be called again
                 return;
             }
-
+            
             if (ViewModel.Status == BoatStatus.Maintaining)
             {
                 MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. Weet u het zeker?", "Bevestigen", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -228,9 +229,7 @@ public partial class ReadDetailsBoatPage : Page
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (ViewModel.Status == BoatStatus.Maintaining)
-                    {
-                        
+                    if (ViewModel.Status == BoatStatus.Maintaining){
                         var reservations = _reservationRepository.GetByBoatWhenUpdated(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
                         foreach (var reservation in reservations)
                         {
@@ -246,7 +245,6 @@ public partial class ReadDetailsBoatPage : Page
                     else if (ViewModel.Status == BoatStatus.Broken)
                     {
                         _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
-                        
                         var reservations = _reservationRepository.GetByBoatWhenUpdated(ViewModel.BoatId);
                         foreach (var reservation in reservations)
                         {

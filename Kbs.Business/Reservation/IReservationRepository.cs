@@ -20,5 +20,4 @@ public interface IReservationRepository
     public void UpdateWhenMaintained(int boatId, DateTime endDate);
     public void UpdateWhenBroken(int boatId);
     public List<ReservationEntity> GetByBoatWhenUpdated(int boatId, DateTime endDate);
-
 }

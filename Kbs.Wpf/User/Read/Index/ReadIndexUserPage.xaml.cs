@@ -7,6 +7,7 @@ using Kbs.Wpf.User.Read.Details;
 
 namespace Kbs.Wpf.User.Read.Index
 {
+    [HasRole(UserRole.GameCommissioner)]
     public partial class ReadIndexUserPage : Page
     {
         private readonly UserRepository _userRepository;

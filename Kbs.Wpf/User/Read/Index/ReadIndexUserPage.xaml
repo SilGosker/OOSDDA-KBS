@@ -63,7 +63,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="UserID: " Style="{StaticResource ListItemTextBlockStyle}"/>
+                                    <TextBlock Grid.Column="0" Text="Nummer: " Style="{StaticResource ListItemTextBlockStyle}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding UserId}" Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

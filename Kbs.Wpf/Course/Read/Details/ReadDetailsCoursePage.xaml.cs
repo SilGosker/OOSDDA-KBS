@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Kbs.Business.Course;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Course.Read.Index;
@@ -12,6 +13,7 @@ using Microsoft.Win32;
 
 namespace Kbs.Wpf.Course.Read.Details;
 
+[HasRole(UserRole.GameCommissioner)]
 public partial class ReadDetailsCoursePage : Page
 {
     private readonly CourseRepository _courseRepository = new();

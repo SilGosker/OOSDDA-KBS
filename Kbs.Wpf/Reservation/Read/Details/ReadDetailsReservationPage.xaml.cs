@@ -13,6 +13,7 @@ using Kbs.Wpf.Reservation.Read.Index;
 namespace Kbs.Wpf.Reservation.Read.Details;
 
 [HasRole(UserRole.Member)]
+[HasRole(UserRole.MaterialCommissioner)]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();
@@ -27,7 +28,7 @@ public partial class ReadDetailsReservationPage : Page
         InitializeComponent();
         var reservation = _reservationRepository.GetById(reservationId);
         var boatType = _boatTypeRepository.GetByReservationId(reservationId);
-
+        
         ViewModel.ReservationId = reservation.ReservationId;
         ViewModel.Length = reservation.Length;
         ViewModel.StartTime = reservation.StartTime;

@@ -1,11 +1,13 @@
 ﻿using Kbs.Business.Medal;
 using Kbs.Business.Session;
+using Kbs.Business.User;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
 using System.Windows.Controls;
 
 namespace Kbs.Wpf.Medal.Read;
 
+[HasRole(UserRole.Member)]
 public partial class ReadMedalPage : Page
 {
     private readonly MedalRepository _medalRepository = new();

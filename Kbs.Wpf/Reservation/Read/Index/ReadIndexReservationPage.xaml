@@ -51,7 +51,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Tijdsstip: " Style="{StaticResource ListItemTextBlockStyle}"/>
+                                    <TextBlock Grid.Column="0" Text="Starttijd: " Style="{StaticResource ListItemTextBlockStyle}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding StartTimeString}" Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

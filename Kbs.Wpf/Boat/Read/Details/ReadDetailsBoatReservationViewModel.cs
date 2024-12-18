@@ -1,4 +1,5 @@
-﻿using Kbs.Business.Reservation;
+﻿using Kbs.Business.Extentions;
+using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
 
@@ -14,8 +15,8 @@ public class ReadDetailsBoatReservationViewModel : ViewModel
     public ReadDetailsBoatReservationViewModel(ReservationEntity reservation, UserEntity user)
     {
         Name = user.Name;
-        StartDate = reservation.StartTime.ToString("dd-MM-yyyy HH:mm");
-        EndDate = reservation.EndTime.ToString("dd-MM-yyyy HH:mm");
+        StartDate = reservation.StartTime.ToDutchString(true);
+        EndDate = reservation.EndTime.ToDutchString(true);
         ReservationId = reservation.ReservationId;
         Status = reservation.Status.ToDutchString();
     }

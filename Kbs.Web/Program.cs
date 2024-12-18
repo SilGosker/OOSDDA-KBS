@@ -2,10 +2,12 @@ using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
 using Kbs.Business.Course;
 using Kbs.Business.Damage;
+using Kbs.Business.Game;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Course;
 using Kbs.Data.Damage;
+using Kbs.Data.Game;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<IBoatRepository, BoatRepository>();
 builder.Services.AddScoped<IDamageRepository, DamageRepository>();
 builder.Services.AddScoped<IBoatTypeRepository, BoatTypeRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 
 var app = builder.Build();

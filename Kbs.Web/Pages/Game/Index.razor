@@ -1,7 +1,8 @@
-﻿@page "/parcours"
+﻿@page "/wedstrijden"
 
 <PageTitle>Wedstrijden</PageTitle>
 @using Kbs.Business.Game
+@using Kbs.Business.Extentions
 @inject IGameRepository GameRepository
 
 <h1>Wedstrijden</h1>
@@ -14,22 +15,22 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var boatType in _boatTypes)
+    @foreach (var game in _games)
     {
         <tr>
-            <td>@boatType.Name</td>
-                <td>@boatType.Date.ToDutchString()</td>
+            <td>@game.Name</td>
+            <td>@game.Date.ToDutchString()</td>
         </tr>
     }
     </tbody>
 </table>
 
 @code {
-    private List<GameEntity> _boatTypes = new();
+    private List<GameEntity> _games = new();
 
     protected override void OnInitialized()
     {
-        _boatTypes = GameRepository.GetMany();
+        _games = GameRepository.GetMany();
     }
 
 }

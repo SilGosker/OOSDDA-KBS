@@ -42,6 +42,14 @@
                 </div>
             </Authorized>
         </AuthorizeView>
+        
+        <AuthorizeView Roles="Lid">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="reserveringen">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Reserveringen
+                </NavLink>
+            </div>
+        </AuthorizeView>
 
         <AuthorizeView Roles="Wedstrijdcommissaris">
             <Authorized>
@@ -56,11 +64,7 @@
                     </NavLink>
                 </div>
 
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="reserveringen">
-                        <span class="oi oi-list-rich" aria-hidden="true"></span> Reserveringen
-                    </NavLink>
-                </div>
+         
 
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="gebruikers">

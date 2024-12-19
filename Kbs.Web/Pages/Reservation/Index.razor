@@ -1,10 +1,12 @@
 ﻿@page "/reserveringen"
+@attribute [Authorize(Roles = "Lid")]
 
 <PageTitle>Reserveringen</PageTitle>
 @using Kbs.Business.Reservation
 @using Kbs.Business.Boat
 @using Kbs.Business.User
 @inject IReservationRepository ReservationRepository
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 @inject IBoatRepository BoatRepository
 @inject IUserRepository UserRepository
 
@@ -52,7 +54,8 @@
 
     protected override void OnInitialized()
     {
-        _reservations = ReservationRepository.Get();
+        var userId = SessionManagerAuthenticationStateProvider.Session.User.UserId;
+        _reservations = ReservationRepository.GetByUserId(userId);
     }
 
 }

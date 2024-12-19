@@ -1,4 +1,5 @@
 ﻿@page "/reserveringen/{id:int}"
+@attribute [Authorize(Roles = "Lid")]
 @using Kbs.Business.Reservation
 @using Kbs.Business.User
 @using Kbs.Business.Boat

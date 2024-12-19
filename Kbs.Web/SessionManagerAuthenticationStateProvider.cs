@@ -30,13 +30,20 @@ public class SessionManagerAuthenticationStateProvider : AuthenticationStateProv
             name = _sessionManager.Current.User.Email;
         }
 
-        var identity = new ClaimsIdentity(new[]
+        List<Claim> claims = new(new[]
         {
             new Claim(ClaimTypes.Name, name),
             new Claim(ClaimTypes.Role, _sessionManager.Current.User.Role.ToDutchString()),
             new Claim(ClaimTypes.NameIdentifier, _sessionManager.Current.User.UserId.ToString()),
             new Claim(ClaimTypes.Email, _sessionManager.Current.User.Email),
-        }, "SessionManager_ManagedAuthentication");
+        });
+
+        if (_sessionManager.Current.User.IsGameCommissioner())
+        {
+            claims.Add(new Claim(ClaimTypes.Role, UserRole.Member.ToDutchString()));
+        }
+
+        var identity = new ClaimsIdentity(claims, "SessionManager_ManagedAuthentication");
 
         return Task.FromResult(new AuthenticationState(new ClaimsPrincipal(identity)));
     }

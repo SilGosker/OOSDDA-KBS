@@ -8,17 +8,17 @@
 
 <div class="row col-12">
     <span>Email</span>
-    <input style="width: 100%;" type="email" @bind="_userEntity.Email" />
+    <input style="width: 100%;" type="email" @bind="_userEntity.Email"/>
     <span class="text-danger">@_emailMessage</span>
 </div>
 
 <div class="row col-12 d-flex justify-content-center">
     <span>Wachtwoord</span>
-    <input style="width: 100%;" type="password" @bind="_userEntity.Password" />
+    <input style="width: 100%;" type="password" @bind="_userEntity.Password"/>
     <span class="text-danger">@_passwordMessage</span>
 </div>
 
-<div class="row col-12">
+<div class="row col-12 m-2">
     <div class="d-flex justify-content-center">
         <button class="w-50 btn btn-primary" @onclick="LoginAsync">
             Inloggen
@@ -45,6 +45,11 @@
         {
             if (LocalStorageAuthenticationStateProvider.TryLogin(_userEntity, out var session))
             {
+                if (session.User.IsMember() || session.User.IsGameCommissioner())
+                {
+                    NavigationManager.NavigateTo("/reserveringen");
+                    return;
+                }
                 NavigationManager.NavigateTo("/boten");
             }
             else

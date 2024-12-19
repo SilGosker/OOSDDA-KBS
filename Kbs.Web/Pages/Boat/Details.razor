@@ -98,6 +98,15 @@
     </div>
 </div>
 
+<div class="row d-flex align-items-center justify-content-start">
+    <div style="width: 20px;">
+        <input type="checkbox" class="form-check" @onchange="DamageSelectionChanged"/>
+    </div>
+    <div class="col-4">
+        <span>Toon alle opgeloste beschadigingen</span>
+    </div>
+</div>
+
 <div class="row d-flex border">
     @foreach (var damage in _damages)
     {
@@ -126,6 +135,18 @@
         _boat = BoatRepository.GetById(Id);
         _boatType = BoatTypeRepository.GetByBoatId(_boat.BoatId);
         _reservations = ReservationRepository.GetByBoatId(_boat.BoatId);
-        _damages = DamageRepository.GetByBoat(_boat);
+        DamageSelectionChanged(new ChangeEventArgs());
+    }
+
+    private void DamageSelectionChanged(ChangeEventArgs e)
+    {
+        if (bool.TryParse(e.Value?.ToString(), out bool showSolved) && showSolved)
+        {
+            _damages = DamageRepository.GetSolvedByBoat(_boat);
+        }
+        else
+        {
+            _damages = DamageRepository.GetByBoat(_boat);
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿@page "/reserveringen/aanmaken"
-
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
+@inject IReservationRepository ReservationRepository
+@inject NavigationManager NavigationManager
 @using Kbs.Business.Reservation
 @using Kbs.Business.Boat
 
@@ -21,10 +23,10 @@
 @code
 {
     private int _state = 0;
-    private ReservationEntity _reservation = new();
     private int _boatTypeId;
     private ReservationTime _reservationTime;
-    private List<BoatEntity> _boats;
+    private List<BoatEntity> _boats = new();
+    private readonly ReservationValidator _reservationValidator = new();
 
     private void BoatTypeSelected(int boatTypeId)
     {
@@ -46,6 +48,24 @@
 
     private void CreateReservation(ReservationTime obj)
     {
-        
+        foreach (BoatEntity boatEntity in _boats)
+        {
+            _reservationTime.Length = obj.Length;
+            var reservation = new ReservationEntity
+            {
+                StartTime = obj.StartTime,
+                    BoatId = boatEntity.BoatId,
+                UserId = SessionManagerAuthenticationStateProvider.Session.User.UserId,
+                Status = ReservationStatus.Active
+            };
+
+            var validationResult = _reservationValidator.ValidForCreation(reservation);
+            if (validationResult.Count == 0)
+            {
+                ReservationRepository.Create(reservation);
+            }    
+        }
+
+        NavigationManager.NavigateTo("/reserveringen");
     }
 }

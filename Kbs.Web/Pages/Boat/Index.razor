@@ -6,42 +6,32 @@
 @inject IDamageRepository DamageRepository
 
 <PageTitle>Boten</PageTitle>
+<h1 class="col-4">Boten</h1>
+
 <div class="row">
-    <h1 class="col-4">Boten</h1>
     <div class="col-4">
         <a href="/boten/aanmaken" class="btn btn-primary">Boot aanmaken</a>
     </div>
 </div>
 
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Naam</th>
-        <th>Status</th>
-        <th>Heeft schade</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="row d-flex justify-content-start">
+    
     @foreach (var boat in _boats)
     {
-        <tr>
-            <td>
-                <a href="/boten/@boat.BoatId">@boat.Name</a>
-            </td>
-            <td>@boat.Status.ToDutchString()</td>
+        <Card SubTitle="@boat.Status.ToDutchString()" Title="@boat.Name">
             @if (DamageRepository.HasDamage(boat))
             {
-                <td style="color: red;">Ja</td>
+                <p class="text-danger">Heeft schade</p>
             }
             else
             {
-                <td style="color: darkgreen;">Nee</td>
+                <p class="text-success">Geen schade</p>
             }
-        </tr>
+            <a href="/boten/@boat.BoatId" class="btn btn-primary">Details</a>
+        </Card>
     }
-    </tbody>
-</table>
+</div>
 
 @code {
     private List<BoatEntity> _boats = new();

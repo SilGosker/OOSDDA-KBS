@@ -3,42 +3,47 @@
 @using Kbs.Business.BoatType
 @inject IBoatTypeRepository BoatTypeRepository
 
-<PageTitle>Boat types</PageTitle>
+<PageTitle>Boot typen</PageTitle>
+<h1 class="col-4">Boot typen</h1>
+
 <div class="row">
-    <h1 class="col-4">Boot typen</h1>
     <div class="col-4">
         <a href="/boottypen/aanmaken" class="btn btn-primary">Boottype aanmaken</a>
     </div>
 </div>
 
+<div class="row d-flex justify-content-start">
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Naam</th>
-        <th>Heeft een stuur</th>
-        <th>Ervaring</th>
-        <th>Stoelen</th>
-        <th>Snelheid</th>
-    </tr>
-    </thead>
-    <tbody>
     @foreach (var boatType in _boatTypes)
     {
-        <tr>
-            <td>
-                <a href="/boottypen/@boatType.BoatTypeId">
-                    @boatType.Name
-                </a>
-            </td>
-            <td>@(boatType.HasSteeringWheel ? "Ja" : "Nee")</td>
-            <td>@(boatType.RequiredExperience.ToDutchString())</td>
-            <td>@(boatType.Seats.ToDutchString())</td>
-            <td>@(boatType.Speed) kmh</td>
-        </tr>
+        <Card Title="@boatType.Name">
+            <div class="row">
+                <b class="col-5">Stuur: </b>
+                <small class="col-7 text-muted">
+                    @if (boatType.HasSteeringWheel)
+                    {
+                        @("Beschikbaar")
+                    }
+                    else
+                    {
+                        @("Niet Beschikbaar")
+                    }
+                </small>
+
+                <b class="col-5">Ervaring:</b>
+                <small class="col-7 text-muted">@boatType.RequiredExperience.ToDutchString()</small>
+
+                <b class="col-5">Stoelen:</b>
+                <small class="col-7 text-muted">@boatType.Seats.ToDutchString()</small>
+
+                <b class="col-5">Snelheid:</b>
+                <small class="col-7 text-muted">@boatType.Speed km/h</small>
+            </div>
+
+            <a href="/boten/@boatType.BoatTypeId" class="btn btn-primary">Details</a>
+        </Card>
     }
-    </tbody>
-</table>
+</div>
 
 @code {
     private List<BoatTypeEntity> _boatTypes = new();

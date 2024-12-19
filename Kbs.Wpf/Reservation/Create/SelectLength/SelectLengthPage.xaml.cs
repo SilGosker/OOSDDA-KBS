@@ -141,15 +141,16 @@ public partial class SelectLengthPage : Page
     {
         _starTimeComboBox = (ComboBox)sender;
         string selected = (string)_starTimeComboBox.SelectedItem;
-        if (selected.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(selected))
         {
             return;
         }
 
-        var timespan = TimeSpan.Parse(selected);
+        var selectedStartTime = TimeSpan.Parse(selected);
 
-        DateTime selectedDate = new DateTime();
-        //2025 is speciel in its days an needs a diffrent - value
+        DateTime selectedDate = default;
+
+        // 2025 is special in its days an needs a different - value
         if (_chosenTimeAndBoat.Item1.StartTime.Year == 2025)
         {
             selectedDate = selectedDate.AddDays(_chosenTimeAndBoat.Item1.StartTime.AddDays(-1).DayOfYear);
@@ -169,7 +170,7 @@ public partial class SelectLengthPage : Page
             selectedDate = selectedDate.AddYears(_chosenTimeAndBoat.Item1.StartTime.AddYears(-1).Year);
         }
 
-        selectedDate = selectedDate.Add(timespan);
+        selectedDate = selectedDate.Add(selectedStartTime);
 
         SelectedStartTime = selectedDate;
     }

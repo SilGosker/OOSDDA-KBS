@@ -1,0 +1,31 @@
+﻿<div class="card m-2" style="width: 18rem;">
+    @if (Image != null)
+    {
+        <img class="card-img-top" src="@Image.ToHtmlImageSource()" alt="Card image cap">
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Title</h5>
+        @if (!string.IsNullOrWhiteSpace(SubTitle))
+        {
+            <h6 class="card-subtitle mb-2 text-muted">@SubTitle</h6>
+        }
+        @ChildContent
+    </div>
+</div>
+
+@code
+{
+
+    [Parameter]
+    public string SubTitle { get; set; }
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public byte[] Image { get; set; }
+    
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+}

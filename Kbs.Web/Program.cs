@@ -34,6 +34,7 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<SessionManager>(services => new SessionManager(services.GetRequiredService<IUserRepository>(), TimeSpan.MaxValue));
+builder.Services.AddScoped<ReservationMaker>();
 
 var app = builder.Build();
 

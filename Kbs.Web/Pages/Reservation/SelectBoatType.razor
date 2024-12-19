@@ -1,0 +1,45 @@
+﻿@using Kbs.Business.BoatType
+@inject IBoatTypeRepository BoatTypeRepository
+
+<div class="row d-flex justify-content-center">
+    <h2 class="text-center">Kies een boottype</h2>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Heeft een stuur</th>
+        <th>Ervaring</th>
+        <th>Stoelen</th>
+        <th>Snelheid</th>
+        <th>Actie</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var boatType in BoatTypeRepository.GetAllWithBoats())
+    {
+        <tr>
+            <td>
+                @boatType.Name
+            </td>
+            <td>@(boatType.HasSteeringWheel ? "Ja" : "Nee")</td>
+            <td>@(boatType.RequiredExperience.ToDutchString())</td>
+            <td>@(boatType.Seats.ToDutchString())</td>
+            <td>@(boatType.Speed) kmh</td>
+            <td>
+                <button class="btn btn-primary" @onclick="async () => await OnBoatTypeSelected.InvokeAsync(boatType.BoatTypeId)">
+                    Kies
+                </button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public EventCallback<int> OnBoatTypeSelected { get; set; }
+
+}

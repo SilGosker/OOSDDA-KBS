@@ -1,7 +1,6 @@
 ﻿@page "/reserveringen"
 @attribute [Authorize(Roles = "Lid")]
 
-<PageTitle>Reserveringen</PageTitle>
 @using Kbs.Business.Reservation
 @using Kbs.Business.Boat
 @using Kbs.Business.User
@@ -10,7 +9,15 @@
 @inject IBoatRepository BoatRepository
 @inject IUserRepository UserRepository
 
-<h1>Reserveringen</h1>
+<PageTitle>Reserveringen</PageTitle>
+
+<div class="row">
+    <h1 class="col-4">Reserveringen</h1>
+    <div class="col-4">
+        <a href="/reserveringen/aanmaken" class="btn btn-primary">Reservering aanmaken</a>
+    </div>
+</div>
+
 
 <table class="table">
     <thead>

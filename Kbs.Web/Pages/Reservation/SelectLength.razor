@@ -1,0 +1,79 @@
+﻿@using Kbs.Business.Reservation
+
+
+<div class="row">
+    <h2 class="text-center">Selecteer een lengte</h2>
+</div>
+
+<div class="row" style="margin-botton: 8px;">
+
+    <div class="col-3">
+        <button
+            class="btn btn-primary"
+            @onclick="PreviousStep">
+            Vorige stap
+        </button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-4 d-flex flex-column">
+        @for (TimeSpan timespan = TimeSpan.FromMinutes(30);
+        timespan.TotalHours <= ReservationTime.Length;
+            timespan = timespan.Add(TimeSpan.FromMinutes(30)))
+        {
+            <span>
+                <input class="form-check form-check-inline" type="radio" 
+                       name="startTime" @onclick="() => SetStartTime(timespan)"/>
+                @timespan.ToString(@"hh\:mm")
+            </span>
+            
+        }
+    </div>
+    
+    <div class="col-4">
+        <select class="form-control" title="Selecteer een starttijd">
+            <option>Selecteer een starttijd</option>
+            
+            @for (TimeSpan timespan = ReservationTime.StartTime.TimeOfDay;
+                timespan <= ReservationTime.EndTime.TimeOfDay.Subtract(TimeSpan.FromMinutes(30));
+                timespan = timespan.Add(TimeSpan.FromMinutes(30)))
+            {
+                <option value="@timespan">@timespan.ToString(@"hh\:mm")</option>
+            }
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <button class="btn btn-primary"
+            @onclick="">
+        Vorige stap
+    </button>
+</div>
+
+@code
+{
+    [Parameter]
+    public EventCallback<ReservationTime> OnLengthSelected { get; set; }
+
+    [Parameter]
+    public EventCallback GoBack { get; set; }
+
+    [Parameter]
+    public ReservationTime ReservationTime { get; set; }
+
+    private TimeSpan _selectedStart;
+    private TimeSpan _selectedLength;
+
+    public void SetStartTime(TimeSpan startTime)
+    {
+        _selectedStart = startTime;
+    }
+
+    private async Task PreviousStep()
+    {
+        await GoBack.InvokeAsync();
+    }
+}

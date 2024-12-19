@@ -1,0 +1,51 @@
+﻿@page "/reserveringen/aanmaken"
+
+@using Kbs.Business.Reservation
+@using Kbs.Business.Boat
+
+<h1>Reservering plaatsen</h1>
+
+@switch (_state)
+{
+    default:
+        <SelectBoatType OnBoatTypeSelected="BoatTypeSelected" />
+        break;
+    case 1:
+        <SelectTime GoBack="DecrementState" BlockSelected="BlockSelected" BoatTypeId="@_boatTypeId" />
+        break;
+    case 2:
+        <SelectLength OnLengthSelected="CreateReservation" GoBack="DecrementState" ReservationTime="_reservationTime" />
+        break;
+}
+
+@code
+{
+    private int _state = 0;
+    private ReservationEntity _reservation = new();
+    private int _boatTypeId;
+    private ReservationTime _reservationTime;
+    private List<BoatEntity> _boats;
+
+    private void BoatTypeSelected(int boatTypeId)
+    {
+        _boatTypeId = boatTypeId;
+        _state = 1;
+    }
+
+    private void DecrementState()
+    {
+        _state = Math.Max(0, _state - 1);
+    }
+
+    private void BlockSelected((ReservationTime reservationTime, List<BoatEntity> boats) selection)
+    {
+        _reservationTime = selection.reservationTime;
+        _boats = selection.boats;
+        _state = 2;
+    }
+
+    private void CreateReservation(ReservationTime obj)
+    {
+        
+    }
+}

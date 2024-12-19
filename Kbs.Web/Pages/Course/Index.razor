@@ -1,0 +1,52 @@
+﻿@page "/parcours"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
+@using Kbs.Business.Course
+@inject ICourseRepository CourseRepository
+
+<PageTitle>Parcours</PageTitle>
+<div class="row">
+    <h1 class="col-4">Parcours</h1>
+    <div class="col-4">
+        <a href="/parcours/aanmaken" class="btn btn-primary">Parcours aanmaken</a>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Beschrijving</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var course in _boatTypes)
+    {
+        <tr>
+            <td>
+                <a href="parcours/@course.CourseId">
+                    @course.Name
+                </a>
+            </td>
+            @if (string.IsNullOrWhiteSpace(course.Description))
+            {
+                <td>@(course.Description)</td>
+            }
+            else
+            {
+                <td>@course.Description[Math.Min(200, course.Description.Length)..])</td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<CourseEntity> _boatTypes = new();
+
+    protected override void OnInitialized()
+    {
+        _boatTypes = CourseRepository.GetAll();
+    }
+
+}

@@ -1,0 +1,45 @@
+﻿@page "/wedstrijden"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
+@using Kbs.Business.Game
+@inject IGameRepository GameRepository
+
+<PageTitle>Wedstrijden</PageTitle>
+
+<div class="row">
+    <h1 class="col-4">Wedstrijden</h1>
+    <div class="col-4">
+        <a href="/wedstrijden/aanmaken" class="btn btn-primary">Wedstrijd aanmaken</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Beschrijving</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var game in _games)
+    {
+        <tr>
+            <td>
+                <a href="/wedstrijden/@game.GameId">
+                    @game.Name
+                </a>
+            </td>
+            <td>@game.Date.ToDutchString()</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<GameEntity> _games = new();
+
+    protected override void OnInitialized()
+    {
+        _games = GameRepository.GetMany();
+    }
+
+}

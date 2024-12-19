@@ -1,0 +1,106 @@
+﻿@using Kbs.Business.Session
+@inject SessionManagerAuthenticationStateProvider LocalStorageAuthenticationStateProvider
+
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Kbs.Web</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Inloggen
+                    </NavLink>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="registreren">
+                            <span class="oi oi-plus" aria-hidden="true"></span> Registreren
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+
+        <AuthorizeView Roles="Materiaalcommissaris">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="boten">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Boten
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="boottypen">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Boot typen
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+        
+        <AuthorizeView Roles="Lid">
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="reserveringen">
+                    <span class="oi oi-list-rich" aria-hidden="true"></span> Reserveringen
+                </NavLink>
+            </div>
+        </AuthorizeView>
+
+        <AuthorizeView Roles="Wedstrijdcommissaris">
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="parcours">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Parcours
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="wedstrijden">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Wedstrijden
+                    </NavLink>
+                </div>
+
+         
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="gebruikers">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Gebruikers
+                    </NavLink>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+        
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <a @onclick="Logout" class="nav-link" style="cursor: pointer;">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Uitloggen
+                    </a>
+                </div>
+            </Authorized>
+        </AuthorizeView>
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void Logout()
+    {
+
+        LocalStorageAuthenticationStateProvider.Logout();
+    }
+
+}

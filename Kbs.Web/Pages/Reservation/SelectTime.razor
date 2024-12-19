@@ -1,0 +1,163 @@
+﻿@using Kbs.Business.Boat
+@using Kbs.Business.Reservation
+@inject IBoatRepository BoatRepository
+@inject ReservationMaker ReservationMaker
+<PageTitle>Selecteer een tijdsblok</PageTitle>
+
+<div class="row">
+    <h2 class="text-center">Selecteer een tijdsblok</h2>
+</div>
+
+<div class="row" style="margin-botton: 8px;">
+
+    <div class="col-3">
+        <button
+            class="btn btn-primary"
+            @onclick="PreviousStep">
+            Vorige stap
+        </button>
+    </div>
+
+    <div class="col-3">
+        <select @onchange="BoatSelected" class="form-control">
+            @foreach (var boat in _boats)
+            {
+                <option value="@boat.BoatId">@boat.Name</option>
+            }
+        </select>
+    </div>
+    
+    <div class="col-3">
+        <button
+            class="btn btn-primary"
+            @onclick="PreviousWeek">
+            Vorige week
+        </button>
+    </div>
+    
+    <div class="col-3">
+        <button class="btn btn-primary"
+                @onclick="NextWeek">
+            Volgende week
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="d-flex justify-content-center">
+        
+        <div class="position-relative">
+            @for (var time = new TimeSpan(9, 0, 0);
+                time <= new TimeSpan(17, 0, 0);
+                time += TimeSpan.FromMinutes(30))
+            {
+                <div class="position-absolute d-flex align-items-center" style="top: @(CalculatePosition(time.Add(TimeSpan.FromMinutes(30))) - 10)px; width:1600px;">
+                    
+                    <span>@time.ToString(@"hh\:mm")</span>
+
+                    <hr style="margin: 0; border: 1px solid #ccc; width: 100%;"/>
+                </div>
+            }
+        </div>
+
+        <div style="width: 200px;" />
+
+        @for (int i = 0; i < 7; i++)
+        {
+            var dayOfWeek = _selectedDate.AddDays(i);
+            <div style="width: 200px;" class="d-flex justify-content-start flex-column">
+
+                <div class="m-2" style="width: 100%;">
+                    <b class="text-center">@dayOfWeek.ToDutchString()</b>
+                </div>
+
+                <div class="position-relative" style="height: @(TotalHeight)px; widht: 100%;">
+                    @foreach (var timeBlock in ReservationMaker.MakeReservableTimes(dayOfWeek, _selectedBoats)
+                        .Where(e => e.Length > 0))
+                    {
+                        var height = CalculateHeight(timeBlock.Length);
+                        var position = CalculatePosition(timeBlock.StartTime.TimeOfDay);
+                        <button @onclick="() => OnBlockSelected(timeBlock)" style="height: @(height)px; top: @(position)px;"
+                                class="btn btn-primary position-absolute">
+                            Reserveer
+                        </button>
+                    }
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    private DateTime _selectedDate = DateTime.Now;
+
+    [Parameter]
+    public int BoatTypeId { get; set; }
+
+    [Parameter]
+    public EventCallback GoBack { get; set; }
+
+    [Parameter]
+    public EventCallback<(ReservationTime, List<BoatEntity>)> BlockSelected { get; set; }
+
+    private List<BoatEntity> _boats = new();
+    private List<BoatEntity> _selectedBoats = new();
+        private const int TotalHeight = 600;
+
+    private double CalculateHeight(double length)
+    {
+        return TotalHeight / 8f * length;
+    }
+
+    private double CalculatePosition(TimeSpan start)
+    {
+        return TotalHeight / 8f * (start - TimeSpan.FromHours(9)).TotalHours;
+    }
+
+    protected override void OnInitialized()
+    {
+        _boats = BoatRepository.GetAvailableByType(BoatTypeId);
+        _selectedBoats.Add(_boats.First());
+    }
+
+    private async Task PreviousStep()
+    {
+        await GoBack.InvokeAsync();
+    }
+
+    private void BoatSelected(ChangeEventArgs e)
+    {
+        if (!int.TryParse(e.Value?.ToString(), out int boatId))
+        {
+            return;
+        }
+
+        _selectedBoats.Clear();
+        BoatEntity boat = _boats.First(boatEntity => boatEntity.BoatId == boatId);
+        _selectedBoats.Add(boat);
+    }
+
+    private void PreviousWeek()
+    {
+        var newDate = _selectedDate.AddDays(-7);
+        if (newDate < DateTime.Now)
+        {
+            newDate = DateTime.Now;
+        }
+
+        _selectedDate = newDate;
+    }
+
+    private void NextWeek()
+    {
+        _selectedDate = _selectedDate.AddDays(7);
+    }
+
+    private async Task OnBlockSelected(ReservationTime reservationTime)
+    {
+        await BlockSelected.InvokeAsync((reservationTime, _selectedBoats));
+    }
+
+}

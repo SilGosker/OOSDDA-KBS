@@ -1,0 +1,51 @@
+﻿@page "/boottypen"
+@attribute [Authorize(Roles = "Materiaalcommissaris")]
+@using Kbs.Business.BoatType
+@inject IBoatTypeRepository BoatTypeRepository
+
+<PageTitle>Boat types</PageTitle>
+<div class="row">
+    <h1 class="col-4">Boot typen</h1>
+    <div class="col-4">
+        <a href="/boottypen/aanmaken" class="btn btn-primary">Boottype aanmaken</a>
+    </div>
+</div>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naam</th>
+        <th>Heeft een stuur</th>
+        <th>Ervaring</th>
+        <th>Stoelen</th>
+        <th>Snelheid</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var boatType in _boatTypes)
+    {
+        <tr>
+            <td>
+                <a href="/boottypen/@boatType.BoatTypeId">
+                    @boatType.Name
+                </a>
+            </td>
+            <td>@(boatType.HasSteeringWheel ? "Ja" : "Nee")</td>
+            <td>@(boatType.RequiredExperience.ToDutchString())</td>
+            <td>@(boatType.Seats.ToDutchString())</td>
+            <td>@(boatType.Speed) kmh</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@code {
+    private List<BoatTypeEntity> _boatTypes = new();
+
+    protected override void OnInitialized()
+    {
+        _boatTypes = BoatTypeRepository.GetAll();
+    }
+
+}

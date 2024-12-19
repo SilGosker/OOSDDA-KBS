@@ -1,4 +1,5 @@
 ﻿@page "/parcours/{id:int}"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @inject ICourseRepository CourseRepository
 

@@ -1,8 +1,9 @@
 ﻿@page "/gebruikers"
-
-<PageTitle>Gebruikers</PageTitle>
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.User
 @inject IUserRepository UserRepository
+
+<PageTitle>Gebruikers</PageTitle>
 
 <h1>Gebruikers</h1>
 

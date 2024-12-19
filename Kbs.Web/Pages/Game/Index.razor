@@ -1,8 +1,9 @@
 ﻿@page "/wedstrijden"
-
-<PageTitle>Wedstrijden</PageTitle>
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Game
 @inject IGameRepository GameRepository
+
+<PageTitle>Wedstrijden</PageTitle>
 
 <div class="row">
     <h1 class="col-4">Wedstrijden</h1>

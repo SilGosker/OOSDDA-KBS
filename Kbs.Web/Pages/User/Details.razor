@@ -1,4 +1,5 @@
 ﻿@page "/gebruikers/{id:int}"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Reservation
 @using Kbs.Business.User
 @using Kbs.Business.Boat

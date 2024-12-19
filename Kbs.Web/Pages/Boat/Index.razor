@@ -1,12 +1,11 @@
 ﻿@page "/boten"
-
-<PageTitle>Boten</PageTitle>
+@attribute [Authorize(Roles = "Materiaalcommissaris")]
 @using Kbs.Business.Boat
 @using Kbs.Business.Damage
-
 @inject IBoatRepository BoatRepository
 @inject IDamageRepository DamageRepository
 
+<PageTitle>Boten</PageTitle>
 <div class="row">
     <h1 class="col-4">Boten</h1>
     <div class="col-4">

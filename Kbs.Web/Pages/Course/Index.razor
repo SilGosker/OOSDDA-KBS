@@ -1,9 +1,9 @@
 ﻿@page "/parcours"
-
-<PageTitle>Parcours</PageTitle>
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @inject ICourseRepository CourseRepository
 
+<PageTitle>Parcours</PageTitle>
 <div class="row">
     <h1 class="col-4">Parcours</h1>
     <div class="col-4">

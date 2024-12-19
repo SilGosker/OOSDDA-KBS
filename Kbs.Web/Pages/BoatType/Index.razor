@@ -1,11 +1,9 @@
 ﻿@page "/boottypen"
-
-<PageTitle>Boat types</PageTitle>
+@attribute [Authorize(Roles = "Materiaalcommissaris")]
 @using Kbs.Business.BoatType
 @inject IBoatTypeRepository BoatTypeRepository
 
-
-
+<PageTitle>Boat types</PageTitle>
 <div class="row">
     <h1 class="col-4">Boot typen</h1>
     <div class="col-4">

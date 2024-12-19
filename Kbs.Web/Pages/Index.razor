@@ -1,14 +1,10 @@
 ﻿@page "/"
 @using Kbs.Business.User
-@using Kbs.Business.Session
-@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
+@inject SessionManagerAuthenticationStateProvider LocalStorageAuthenticationStateProvider
 @inject NavigationManager NavigationManager
-
-<PageTitle>Login</PageTitle>
-
-
 @inject IJSRuntime JsRuntime
 
+<PageTitle>Login</PageTitle>
 
 <div class="row col-12">
     <span>Email</span>
@@ -47,9 +43,8 @@
 
         if (validationResult.Count == 0)
         {
-            if (SessionManager.Instance.TryCreate(_userEntity, out var session))
+            if (LocalStorageAuthenticationStateProvider.TryLogin(_userEntity, out var session))
             {
-                SessionManagerAuthenticationStateProvider.NotifyAuthenticationStateChanged();
                 NavigationManager.NavigateTo("/boten");
             }
             else

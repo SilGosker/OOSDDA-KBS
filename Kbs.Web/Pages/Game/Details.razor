@@ -1,4 +1,5 @@
 ﻿@page "/wedstrijden/{id:int}"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @using Kbs.Business.Game
 @using Kbs.Business.Reservation

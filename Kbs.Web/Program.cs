@@ -18,8 +18,6 @@ using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-SessionManager.Instance = new SessionManager(new UserRepository(), TimeSpan.MaxValue);
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
@@ -35,6 +33,7 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+builder.Services.AddScoped<SessionManager>(services => new SessionManager(services.GetRequiredService<IUserRepository>(), TimeSpan.MaxValue));
 
 var app = builder.Build();
 

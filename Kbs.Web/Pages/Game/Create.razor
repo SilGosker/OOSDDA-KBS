@@ -1,4 +1,5 @@
 ﻿@page "/wedstrijden/aanmaken"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @using Kbs.Business.Game
 @inject IGameRepository GameRepository

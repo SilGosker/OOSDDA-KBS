@@ -1,4 +1,5 @@
 ﻿@page "/parcours/aanmaken"
+@attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @inject ICourseRepository CourseRepository
 @inject NavigationManager NavigationManager

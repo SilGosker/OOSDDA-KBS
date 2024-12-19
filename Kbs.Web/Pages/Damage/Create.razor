@@ -1,4 +1,5 @@
 ﻿@page "/beschadigingen/aanmaken/{boatId:int}"
+@attribute [Authorize(Roles = "Materiaalcommissaris")]
 @using Kbs.Business.Damage
 @inject IDamageRepository DamageRepository
 @inject NavigationManager NavigationManager

@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Game;
+using Kbs.Business.Medal;
 using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
@@ -102,6 +103,12 @@ public partial class ReadDetailsGamePage : Page
             return;
         }
         var game = _gameRepository.GetById(ViewModel.GameId);
+        var medals = _medalRepository.GetAllByGameId(game.GameId);
+        foreach (MedalEntity medal in medals)
+        {
+            _medalRepository.RemoveById(medal.MedalId);
+        }
+
         _gameRepository.DeleteById(game.GameId);
         MessageBox.Show($"{game.Name} succesvol verwijderd");
         _navigationManager.Navigate(() => new ReadIndexGamePage(_navigationManager));

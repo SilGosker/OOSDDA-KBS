@@ -10,55 +10,77 @@
 @inject IReservationRepository ReservationRepository
 @inject IUserRepository UserRepository
 @inject IDamageRepository DamageRepository
-
+@inject NotificationService NotificationService
 
 <div class="row">
     <h1>Boot @_boat.BoatId</h1>
-    <div class="col-4">
+    <div class="col-2">
+        <button @onclick="UpdateBoat" class="btn btn-primary">Informatie updaten</button>
+    </div>
+    <div class="col-2">
         <a class="btn btn-primary" href="/beschadigingen/aanmaken/@_boat.BoatId">Beschadiging uploaden</a>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-6">
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Naam:</b>
-                <span>@_boat.Name</span>
-            </div>
+    <div class="col-6 row">
+
+        <b class="col-3">Naam:</b>
+        <div class="col-9">
+            <input type="text" class="w-100 form-control" @bind="@_boat.Name">
+            <span class="text-danger">@_nameMessage</span>
         </div>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Status:</b>
-                <span>@_boat.Status.ToDutchString()</span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Verwijder datum:</b>
-                @if (_boat.DeleteRequestDate == null)
+        <b class="col-3">Status:</b>
+        <div class="col-9">
+            <select class="form-control w-100" @onchange="e => { if (Enum.TryParse(e.Value?.ToString(), out BoatStatus status)) { _boat.Status = status; }}">
+                @foreach (var status in Enum.GetValues<BoatStatus>())
                 {
-                    <i>Niet van toepassing</i>
+                    @if (status == _boat.Status)
+                    {
+                        <option selected="selected" value="@((int)status)">@status.ToDutchString()</option>
+                    }
+                    else
+                    {
+                        <option value="@((int)status)">@status.ToDutchString()</option>
+                    }
                 }
-                else
-                {
-                    <span>@(_boat.DeleteRequestDate.Value.ToDutchString())</span>
-                }
-            </div>
+            </select>
+            <span class="text-danger">@_statusMessage</span>
         </div>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Boottype:</b>
-                <a href="/boottypen/@_boatType.BoatTypeId">@(_boatType.Name)</a>
-            </div>
+        <b class="col-3">Verwijder datum:</b>
+        @if (_boat.DeleteRequestDate == null)
+        {
+            <i class="col-9">Niet van toepassing</i>
+        }
+        else
+        {
+            <span class="col-9">@(_boat.DeleteRequestDate.Value.ToDutchString())</span>
+        }
+
+        <b class="col-3">Boottype:</b>
+        <div class="col-9">
+            <select class="form-control w-100" @onchange="e => { if (int.TryParse(e.Value?.ToString(), out var boatTypeId)) { _boat.BoatTypeId = boatTypeId; }}">
+                @foreach (var boatType in BoatTypeRepository.GetAll())
+                {
+                    @if (boatType.BoatTypeId == _boat.BoatTypeId)
+                    {
+                        <option selected="selected" value="@(boatType.BoatTypeId)">@boatType.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@(boatType.BoatTypeId)">@boatType.Name</option>
+                    }
+                }
+            </select>
         </div>
+
+        <span class="text-danger">@_boatTypeMessage</span>
     </div>
 
     <div class="col-6">
-
+        <h3>Reserveringen</h3>
         <table class="table">
             <thead>
             <tr>
@@ -76,7 +98,7 @@
                 var user = UserRepository.GetById(reservation.UserId);
                 <tr>
                     <td>
-                        <a href="reserveringen/@reservation.ReservationId"> @reservation.StartTime.ToDutchString(true)</a>
+                        @reservation.StartTime.ToDutchString(true)
                     </td>
                     <td>@reservation.EndTime.ToDutchString(true)</td>
                     <td>
@@ -86,9 +108,7 @@
                     </td>
 
                     <td>
-                        <a href="/gebruikers/@user.UserId">
-                            @(user.Name ?? user.Email)
-                        </a>
+                        @(user.Name ?? user.Email)
                     </td>
                     <td>@reservation.Status.ToDutchString()</td>
                 </tr>
@@ -96,6 +116,13 @@
             </tbody>
         </table>
     </div>
+
+</div>
+
+<hr class="border w-100"/>
+
+<div class="row">
+    <h3>Beschadigingen</h3>
 </div>
 
 <div class="row d-flex align-items-center justify-content-start">
@@ -107,7 +134,7 @@
     </div>
 </div>
 
-<div class="row d-flex border">
+<div class="row d-flex">
     @foreach (var damage in _damages)
     {
         <div class="card m-2" style="width: 22%;">
@@ -126,14 +153,18 @@
     public int Id { get; set; }
 
     private BoatEntity _boat = new();
-    private BoatTypeEntity _boatType = new();
     private List<ReservationEntity> _reservations = new();
     private List<DamageEntity> _damages = new();
+
+    private string _nameMessage;
+    private string _statusMessage;
+    private string _boatTypeMessage;
+    private BoatValidator _boatValidator;
 
     protected override void OnInitialized()
     {
         _boat = BoatRepository.GetById(Id);
-        _boatType = BoatTypeRepository.GetByBoatId(_boat.BoatId);
+        _boatValidator = new(BoatTypeRepository);
         _reservations = ReservationRepository.GetByBoatId(_boat.BoatId);
         DamageSelectionChanged(new ChangeEventArgs());
     }
@@ -147,6 +178,19 @@
         else
         {
             _damages = DamageRepository.GetByBoat(_boat);
+        }
+    }
+
+    private async Task UpdateBoat()
+    {
+        var validationResult = _boatValidator.ValidateForUpdate(_boat);
+        validationResult.TryGetValue(nameof(_boat.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_boat.Status), out _statusMessage);
+        validationResult.TryGetValue(nameof(_boat.BoatTypeId), out _boatTypeMessage);
+        if (validationResult.Count == 0)
+        {
+            BoatRepository.Update(_boat);
+            await NotificationService.ShowSuccessNotification("Succesvol geüpdatet!");
         }
     }
 }

@@ -7,35 +7,30 @@
 
 <h1>Gebruikers</h1>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Naam</th>
-        <th>Rol</th>
-    </tr>
-    </thead>
-    <tbody>
+
+<div class="row d-flex justify-content-start">
     @foreach (var user in _users)
     {
-        <tr>
-            <td>
-                <a href="/gebruikers/@user.UserId">
-                    @if (string.IsNullOrWhiteSpace(user.Name))
-                    {
-                        @user.Email
-                    }
-                    else
-                    {
-                        @user.Name
-                    }
-                </a>
-            </td>
-            <td>@(user.Email)</td>
-            <td>@(user.Role.ToDutchString())</td>
-        </tr>
+        string name = user.Name;
+        if (string.IsNullOrWhiteSpace(name)) name = user.Email;
+        <Card Title="@name" SubTitle="@user.Email">
+            <div class="row">
+                @if (user.Is(UserRole.Banned))
+                {
+                    <span class="col-12 text-danger">@user.Role.ToDutchString()</span>
+                }
+                else
+                {
+                    <span class="col-12">@user.Role.ToDutchString()</span>
+                }
+
+                <a href="/gebruikers/@user.UserId" class="btn btn-primary">Details</a>
+            </div>
+          
+        </Card>
     }
-    </tbody>
-</table>
+
+</div>
 
 @code {
     private List<UserEntity> _users = new();

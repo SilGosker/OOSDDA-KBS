@@ -3,45 +3,85 @@
 @using Kbs.Business.Boat
 @using Kbs.Business.BoatType
 @using Kbs.Business.Damage
+@using Microsoft.IdentityModel.Protocols.OpenIdConnect
 @inject IBoatRepository BoatRepository
 @inject IBoatTypeRepository BoatTypeRepository
 @inject IDamageRepository DamageRepository
+@inject NotificationService NotificationService
 
-<h1>Boat type @_boatType.BoatTypeId</h1>
+<div class="row">
+    <h1>Boat type @_boatType.BoatTypeId</h1>
+    <div class="col-2">
+        <button @onclick="Update" class="btn btn-primary">Informatie updaten</button>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-6">
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Naam:</b>
-                <span>@_boatType.Name</span>
-            </div>
-        </div>
 
         <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Heeft een stuur:</b>
-                <span>@(_boatType.HasSteeringWheel ? "Ja" : "Nee")</span>
+            <b class="col-3">Naam:</b>
+            <div class="col-9">
+                <input type="text" class="form-control w-100" @bind="@_boatType.Name"/>
+                <div class="text-danger">@_nameMessage</div>
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Stoelen:</b>
-                <span>@(_boatType.Seats.ToDutchString())</span>
+
+            <b class="col-3">Snelheid:</b>
+            <div class="col-9">
+                <input type="number" class="form-control w-100" @bind="@_boatType.Speed"/>
+                <div class="text-danger">@_speedMessage</div>
             </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Moeilijkheidsniveau:</b>
-                <span>@(_boatType.RequiredExperience.ToDutchString())</span>
+
+            <b class="col-3">Heeft een stuur:</b>
+            <div class="col-9 d-flex align-items-center">
+                <input type="checkbox" class="form-check" style="margin-right: 8px;" @bind="_boatType.HasSteeringWheel"/>
+                <span>
+                    @(_boatType.HasSteeringWheel ? "Ja" : "Nee")
+                </span>
             </div>
+
+            <b class="col-3">Stoelen:</b>
+            <div class="col-9">
+                <select class="form-control w-100" @onchange="e => { if (Enum.TryParse(e.Value?.ToString(), out BoatTypeSeats seats)) { _boatType.Seats = seats; }}">
+                    @foreach (var seats in Enum.GetValues<BoatTypeSeats>())
+                    {
+                        if (seats == _boatType.Seats)
+                        {
+                            <option selected value="@seats">@seats.ToDutchString()</option>
+                        }
+                        else
+                        {
+                            <option value="@seats">@seats.ToDutchString()</option>
+                        }
+                    }
+                </select>
+                <div class="text-danger">@_seatsMessage</div>
+            </div>
+
+            <b class="col-3">Moeilijkheidsniveau:</b>
+            <div class="col-9">
+                <select class="form-control w-100" @onchange="e => { if (Enum.TryParse(e.Value?.ToString(), out BoatTypeRequiredExperience seats)) { _boatType.RequiredExperience = seats; }}">
+                    @foreach (var requiredExperience in Enum.GetValues<BoatTypeRequiredExperience>())
+                    {
+                        if (requiredExperience == _boatType.RequiredExperience)
+                        {
+                            <option selected value="@requiredExperience">@requiredExperience.ToDutchString()</option>
+                        }
+                        else
+                        {
+                            <option value="@requiredExperience">@requiredExperience.ToDutchString()</option>
+                        }
+                    }
+                </select>
+                <div class="text-danger">@_experienceMessage</div>
+            </div>
+
         </div>
     </div>
-    
+
     <div class="col-6">
-        <table class="table">
+        <h3 class="col-12">Boten</h3>
+        <table class="col-12 table">
             <thead>
             <tr>
                 <th>Naam</th>
@@ -59,11 +99,11 @@
                     <td>@boat.Status.ToDutchString()</td>
                     @if (DamageRepository.HasDamage(boat))
                     {
-                        <td style="color: red;">Ja</td>
+                        <td class="text-danger">Ja</td>
                     }
                     else
                     {
-                        <td style="color: darkgreen;">Nee</td>
+                        <td class="text-success">Nee</td>
                     }
                 </tr>
             }
@@ -76,11 +116,35 @@
 {
     [Parameter]
     public int Id { get; set; }
+
     private BoatTypeEntity _boatType = new();
     private List<BoatEntity> _boats = new();
+    private readonly BoatTypeValidator _boatTypeValidator = new();
+    private string _nameMessage;
+    private string _speedMessage;
+    private string _seatsMessage;
+    private string _experienceMessage;
+
+
     protected override void OnInitialized()
     {
         _boatType = BoatTypeRepository.GetById(Id);
         _boats = BoatRepository.GetManyByType(_boatType.BoatTypeId);
+    }
+
+    private async Task Update()
+    {
+        var validationResult = _boatTypeValidator.ValidatorForUpdate(_boatType);
+
+        validationResult.TryGetValue(nameof(_boatType.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_boatType.Speed), out _speedMessage);
+        validationResult.TryGetValue(nameof(_boatType.Seats), out _seatsMessage);
+        validationResult.TryGetValue(nameof(_boatType.RequiredExperience), out _experienceMessage);
+        if (validationResult.Count == 0)
+        {
+            BoatTypeRepository.Update(_boatType);
+
+            await NotificationService.ShowSuccessNotification("Boot type succesvol geüpdatet");
+        }
     }
 }

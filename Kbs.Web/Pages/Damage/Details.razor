@@ -4,52 +4,47 @@
 @using Kbs.Business.Damage
 @inject IDamageRepository DamageRepository
 @inject IBoatRepository BoatRepository
+@inject NavigationManager NavigationManager
+@inject NotificationService NotificationService
 
-<h1>Beschadiging @_damage.DamageId</h1>
+<div class="row">
+    <h1>Beschadiging @_damage.DamageId</h1>
+    <div class="col-2">
+        @if (_damage.Status != DamageStatus.Solved)
+        {
+            <button @onclick="Solve" class="btn btn-primary">Oplossen</button>
+        }
+    </div>
+    <div class="col-2">
+        <button @onclick="Delete" class="btn btn-danger">Verwijderen</button>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-6">
-
         <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Boot:</b>
-                <a href="/boten/@_boat.BoatId">@_boat.Name</a>
-            </div>
-        </div>
+            <b class="col-3">Boot:</b>
+            <a class="col-9" href="/boten/@_boat.BoatId">@_boat.Name</a>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Boot nummer:</b>
-                <span>@_boat.BoatId</span>
-            </div>
-        </div>
+            <b class="col-3">Boot nummer:</b>
+            <span class="col-9">@_boat.BoatId</span>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Status:</b>
-                <span>@_damage.Status.ToDutchString()</span>
-            </div>
-        </div>
+            <b class="col-3">Status:</b>
+            <span class="col-9">@_damage.Status.ToDutchString()</span>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Datum:</b>
-                <span>@(_damage.Date.ToDutchString())</span>
-            </div>
-        </div>
+            <b class="col-3">Datum:</b>
+            <span class="col-9">@(_damage.Date.ToDutchString())</span>
 
-        <div class="row">
-            <div class="justify-content-between d-flex">
-                <b>Beschrijving:</b>
-                <textarea class="w-100 m-2" disabled>@_damage.Description</textarea>
-            </div>
+            <b class="col-12">Beschrijving:</b>
+            <textarea disabled class="form-control col-12 m-2">@_damage.Description</textarea>
         </div>
     </div>
+
 
     <div class="col-6">
         <img src="@_damage.Image.ToHtmlImageSource()" style="object-fit: cover;" alt="Een beschadiging"/>
     </div>
-
 </div>
 
 @code
@@ -64,5 +59,23 @@
     {
         _damage = DamageRepository.GetById(Id);
         _boat = BoatRepository.GetById(_damage.BoatId);
+    }
+
+    private async Task Solve()
+    {
+        _damage.Status = DamageStatus.Solved;
+        DamageRepository.Solve(_damage);
+        await NotificationService.ShowSuccessNotification("Beschadiging opgelost!");
+        NavigationManager.NavigateTo("/boten/" + _damage.BoatId);
+    }
+
+    private async Task Delete()
+    {
+        if (await NotificationService.ShowConfirmation("Weet u zeker dat u de beschadiging wilt verwijderen?"))
+        {
+            DamageRepository.Delete(_damage);
+            await NotificationService.ShowSuccessNotification("Beschadiging verwijderd");
+            NavigationManager.NavigateTo("/boten/" + _boat.BoatId);
+        }
     }
 }

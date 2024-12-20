@@ -9,6 +9,6 @@ public interface IDamageRepository
     DamageEntity GetById(int id);
     public void Solve(DamageEntity damage);
     public void Create(DamageEntity damage);
-
+    public void Delete(DamageEntity damage);
     bool HasDamage(BoatEntity boat);
 }

@@ -6,7 +6,7 @@
 @inject IReservationRepository ReservationRepository
 @inject IUserRepository UserRepository
 @inject IBoatRepository BoatRepository
-
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 <h1>Reservering @_reservation.ReservationId</h1>
 
 <div class="row">
@@ -32,24 +32,27 @@
                 <span>@_reservation.Status.ToDutchString()</span>
             </div>
         </div>
-        
-        
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Gebruiker:</b>
 
-                <a href="/gebruikers/@_user.UserId">
-                    @if (string.IsNullOrWhiteSpace(_user.Name))
-                    {
-                        @_user.Email
-                    }
-                    else
-                    {
-                        @_user.Name
-                    }
-                </a>
+
+        @if (SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner())
+        {
+            <div class="row">
+                <div class="col-6 justify-content-between d-flex">
+                    <b>Gebruiker:</b>
+                    <a href="/gebruikers/@_user.UserId">
+                        @if (string.IsNullOrWhiteSpace(_user.Name))
+                        {
+                            @_user.Email
+                        }
+                        else
+                        {
+                            @_user.Name
+                        }
+                    </a>
+                </div>
             </div>
-        </div>
+        }
+
 
         <div class="row">
             <div class="col-6 justify-content-between d-flex">

@@ -12,27 +12,14 @@
     </div>
 </div>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Naam</th>
-        <th>Beschrijving</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="row d-flex justify-content-start">
     @foreach (var game in _games)
     {
-        <tr>
-            <td>
-                <a href="/wedstrijden/@game.GameId">
-                    @game.Name
-                </a>
-            </td>
-            <td>@game.Date.ToDutchString()</td>
-        </tr>
+        <Card Title="@game.Name" SubTitle="@game.Date.ToDutchString()">
+            <a href="/wedstrijden/@game.GameId" class="btn btn-primary">Details</a>
+        </Card>
     }
-    </tbody>
-</table>
+</div>
 
 @code {
     private List<GameEntity> _games = new();

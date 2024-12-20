@@ -7,5 +7,6 @@ public interface IBoatTypeRepository
     BoatTypeEntity GetByReservationId(int reservationId);
     BoatTypeEntity GetById(int boatTypeId);
     List<BoatTypeEntity> GetAllWithBoats();
+    void Update(BoatTypeEntity boatType);
     BoatTypeEntity GetByBoatId(int boatId);
 }

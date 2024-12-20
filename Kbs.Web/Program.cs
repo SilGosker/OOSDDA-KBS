@@ -14,6 +14,7 @@ using Kbs.Data.Game;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Web;
+using Kbs.Web.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +36,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<SessionManager>(services => new SessionManager(services.GetRequiredService<IUserRepository>(), TimeSpan.MaxValue));
 builder.Services.AddScoped<ReservationMaker>();
+builder.Services.AddScoped<NotificationService>();
 
 var app = builder.Build();
 

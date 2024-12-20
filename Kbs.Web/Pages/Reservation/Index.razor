@@ -7,54 +7,37 @@
 @inject IReservationRepository ReservationRepository
 @inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 @inject IBoatRepository BoatRepository
-@inject IUserRepository UserRepository
 
 <PageTitle>Reserveringen</PageTitle>
+<h1>Reserveringen</h1>
 
 <div class="row">
-    <h1 class="col-4">Reserveringen</h1>
     <div class="col-4">
         <a href="/reserveringen/aanmaken" class="btn btn-primary">Reservering aanmaken</a>
     </div>
 </div>
 
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Starttijd</th>
-        <th>Eindtijd</th>
-        <th>Boot</th>
-        <th>Gebruiker</th>
-        <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
+<div class="row d-flex justify-content-start">
     @foreach (var reservation in _reservations)
     {
         var boat = BoatRepository.GetById(reservation.BoatId);
-        var user = UserRepository.GetById(reservation.UserId);
-        <tr>
-            <td>
-                <a href="reserveringen/@reservation.ReservationId"> @reservation.StartTime.ToDutchString(true)</a>
-            </td>
-            <td>@reservation.EndTime.ToDutchString(true)</td>
-            <td>
-                <a href="/boten/@boat.BoatId">
-                    @boat.Name
-                </a>
-            </td>
-
-            <td>
-                <a href="/gebruikers/@user.UserId">
-                    @(user.Name ?? user.Email)
-                </a>
-            </td>
-            <td>@reservation.Status.ToDutchString()</td>
-        </tr>
+        <Card Title="@reservation.StartTime.ToDutchString()" SubTitle="@(reservation.StartTime.TimeOfDay.ToString(@"hh\:mm") + " - " + reservation.EndTime.TimeOfDay.ToString(@"hh\:mm"))">
+            <div class="row">
+                <span class="col-12">@boat.Name</span>
+                @if (reservation.Status == ReservationStatus.Active)
+                {
+                    <span class="col-12 text-muted">@reservation.Status.ToDutchString()</span>
+                }
+                else
+                {
+                    <span class="col-12 text-danger">@reservation.Status.ToDutchString()</span>
+                }
+                <a class="col-12 btn btn-primary" href="/reserveringen/@reservation.ReservationId">Details</a>
+            </div>
+            
+        </Card>
     }
-    </tbody>
-</table>
+</div>
 
 @code {
     private List<ReservationEntity> _reservations = new();

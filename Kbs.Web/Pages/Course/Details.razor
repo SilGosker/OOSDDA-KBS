@@ -2,36 +2,57 @@
 @attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
 @inject ICourseRepository CourseRepository
+@inject NotificationService NotificationService
 
-<h1>Parcours @_course.CourseId</h1>
+<div class="row">
+    <h1>Parcours @_course.CourseId</h1>
+    <div class="col-2">
+        <button @onclick="Update" class="btn btn-primary">Informatie updaten</button>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-6">
         <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Naam:</b>
-                <span>@(_course.Name)</span>
+            <b class="col-3">Naam:</b>
+            <div class="col-9">
+                <input type="text" class="form-control" @bind="_course.Name"/>
+                <span class="text-danger">@_nameMessage</span>
+            </div>
+
+            <b class="col-3">Moeilijkheid:</b>
+            <div class="col-9">
+                <select class="form-control w-100">
+                    @foreach (var difficulty in Enum.GetValues<CourseDifficulty>())
+                    {
+                        if (difficulty == _course.Difficulty)
+                        {
+                            <option selected value="@difficulty">@difficulty.ToDutchString()</option>
+                        }
+                        else
+                        {
+                            <option value="@difficulty">@difficulty.ToDutchString()</option>
+                        }
+                    }
+                </select>
+                <span class="text-danger">@_difficultyMessage</span>
+            </div>
+
+            <b class="col-3">Beschrijving:</b>
+            <div class="col-12">
+                <textarea class="w-100">@_course.Description</textarea>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Moeilijkheid:</b>
-                <span>@_course.Difficulty.ToDutchString()</span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="justify-content-between d-flex">
-                <b>Beschrijving:</b>
-                <textarea class="m-1" style="width: 100%;" disabled>@(_course.Description)</textarea>
-            </div>
-        </div>
-
     </div>
-    
+
     <div class="col-6">
-        <img style="object-fit: cover;" alt="Een foto van het parcours" width="700" height="700" src="@_base64Image" />
+        <div class="row">
+            <div class="col-2">
+                <InputFile AdditionalAttributes="FileInputAttributes" OnChange="UpdateImage"/>
+            </div>
+            <span class="text-danger col-10">@_imageMessage</span>
+            <img class="col-12" style="object-fit: cover;" alt="Een foto van het parcours" width="700" height="700" src="@_course.Image.ToHtmlImageSource()"/>
+        </div>
     </div>
 </div>
 
@@ -41,11 +62,36 @@
     public int Id { get; set; }
 
     private CourseEntity _course = new();
-    private string _base64Image;
+    private readonly CourseValidator _courseValidator = new();
+    private string _nameMessage;
+    private string _difficultyMessage;
+    private string _imageMessage;
+
+    private static readonly IDictionary<string, object> FileInputAttributes = new Dictionary<string, object>()
+    {
+        { "class", "form-control"}
+    };
 
     protected override void OnInitialized()
     {
         _course = CourseRepository.GetById(Id);
-        _base64Image = "data:image/jpeg;base64," + Convert.ToBase64String(_course.Image);
+    }
+
+    private async Task Update()
+    {
+        var validationResult = _courseValidator.ValidateForUpdate(_course);
+        validationResult.TryGetValue(nameof(_course.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_course.Difficulty), out _difficultyMessage);
+        validationResult.TryGetValue(nameof(_course.Image), out _imageMessage);
+        if (validationResult.Count == 0)
+        {
+            CourseRepository.Update(_course);
+            await NotificationService.ShowSuccessNotification("Succesvol geüpdatet");
+        }
+    }
+
+    private async Task UpdateImage(InputFileChangeEventArgs obj)
+    {
+        _course.Image = await obj.File.OpenReadStream().ToArrayAsync();
     }
 }

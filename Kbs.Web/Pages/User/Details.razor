@@ -41,8 +41,8 @@
             <tr>
                 <th>Starttijd</th>
                 <th>Eindtijd</th>
-                <th>Boot</th>
                 <th>Status</th>
+                <th>Details</th>
             </tr>
             </thead>
             <tbody>
@@ -51,18 +51,14 @@
                 var boat = BoatRepository.GetById(reservation.BoatId);
                 <tr>
                     <td>
-                        <a href="/reserveringen/@reservation.ReservationId">
-                            @reservation.StartTime.ToDutchString(true)
-                        </a>
+                        @reservation.StartTime.ToDutchString(true)
                     </td>
                     <td>@reservation.EndTime.ToDutchString(true)</td>
+                    <td>@reservation.Status.ToDutchString()</td>
                     <td>
-                        <a href="/boten/@boat.BoatId">
-                            @boat.Name
-                        </a>
+                        <a class="btn btn-primary" href="/reserveringen/@reservation.ReservationId">Details</a>
                     </td>
 
-                    <td>@reservation.Status.ToDutchString()</td>
                 </tr>
             }
             </tbody>

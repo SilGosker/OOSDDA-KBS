@@ -8,6 +8,11 @@ h1:focus {
     outline: none;
 }
 
+.col-2, .col-6, .col-8, .col-10, .col-3, .col-9 {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
 a, .btn-link {
     color: #0071c1;
 }

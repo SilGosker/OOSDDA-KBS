@@ -23,7 +23,6 @@ public class DamageRepository : IDamageRepository
     {
         return _connection.QueryFirstOrDefault<DamageEntity>("SELECT * FROM Damage WHERE DamageId = @Id", new { Id = id });
     }
-    
 
     public bool HasDamage(BoatEntity boat)
     {

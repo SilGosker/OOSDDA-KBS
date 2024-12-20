@@ -50,11 +50,11 @@
     {
         foreach (BoatEntity boatEntity in _boats)
         {
-            _reservationTime.Length = obj.Length;
             var reservation = new ReservationEntity
             {
                 StartTime = obj.StartTime,
-                    BoatId = boatEntity.BoatId,
+                Length = obj.EndTime - obj.StartTime,
+                BoatId = boatEntity.BoatId,
                 UserId = SessionManagerAuthenticationStateProvider.Session.User.UserId,
                 Status = ReservationStatus.Active
             };

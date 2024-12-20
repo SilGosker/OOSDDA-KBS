@@ -3,7 +3,6 @@
 
 @using Kbs.Business.Reservation
 @using Kbs.Business.Boat
-@using Kbs.Business.User
 @inject IReservationRepository ReservationRepository
 @inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 @inject IBoatRepository BoatRepository
@@ -16,7 +15,7 @@
         @{
             var validator = new ReservationValidator();
         }
-        @if (!validator.IsReservationLimitReached(ReservationRepository.CountByUser(SessionManagerAuthenticationStateProvider.Session.User.UserId)))
+        @if (SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner() || !validator.IsReservationLimitReached(ReservationRepository.CountByUser(SessionManagerAuthenticationStateProvider.Session.User.UserId)))
         {
             <a href="/reserveringen/aanmaken" class="btn btn-primary">Reservering aanmaken</a>
         }

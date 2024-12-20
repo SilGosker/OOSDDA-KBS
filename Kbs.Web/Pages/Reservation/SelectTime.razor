@@ -2,6 +2,7 @@
 @using Kbs.Business.Reservation
 @inject IBoatRepository BoatRepository
 @inject ReservationMaker ReservationMaker
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 <PageTitle>Selecteer een tijdsblok</PageTitle>
 
 <div class="row">
@@ -19,14 +20,27 @@
     </div>
 
     <div class="col-3">
-        <select @onchange="BoatSelected" class="form-control">
-            @foreach (var boat in _boats)
-            {
-                <option value="@boat.BoatId">@boat.Name</option>
-            }
-        </select>
+        @if (SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner())
+        {
+            <select @onchange="BoatSelected" multiple class="form-control">
+                @foreach (var boat in _boats)
+                {
+                    <option value="@boat.BoatId">@boat.Name</option>
+                }
+            </select>
+        }
+        else
+        {
+            <select @onchange="BoatSelected" class="form-control">
+                @foreach (var boat in _boats)
+                {
+                    <option value="@boat.BoatId">@boat.Name</option>
+                }
+            </select>
+        }
+
     </div>
-    
+
     <div class="col-3">
         <button
             class="btn btn-primary"
@@ -34,7 +48,7 @@
             Vorige week
         </button>
     </div>
-    
+
     <div class="col-3">
         <button class="btn btn-primary"
                 @onclick="NextWeek">
@@ -45,14 +59,14 @@
 
 <div class="row">
     <div class="d-flex justify-content-center">
-        
+
         <div class="position-relative">
             @for (var time = new TimeSpan(9, 0, 0);
                 time <= new TimeSpan(17, 0, 0);
                 time += TimeSpan.FromMinutes(30))
             {
                 <div class="position-absolute d-flex align-items-center" style="top: @(CalculatePosition(time.Add(TimeSpan.FromMinutes(30))) - 10)px; width:1600px;">
-                    
+
                     <span>@time.ToString(@"hh\:mm")</span>
 
                     <hr style="margin: 0; border: 1px solid #ccc; width: 100%;"/>
@@ -60,7 +74,7 @@
             }
         </div>
 
-        <div style="width: 200px;" />
+        <div style="width: 200px;"/>
 
         @for (int i = 0; i < 7; i++)
         {
@@ -77,6 +91,7 @@
                     {
                         var height = CalculateHeight(timeBlock.Length);
                         var position = CalculatePosition(timeBlock.StartTime.TimeOfDay);
+
                         <button @onclick="() => OnBlockSelected(timeBlock)" style="height: @(height)px; top: @(position)px;"
                                 class="btn btn-primary position-absolute">
                             Reserveer
@@ -119,7 +134,10 @@
     protected override void OnInitialized()
     {
         _boats = BoatRepository.GetAvailableByType(BoatTypeId);
-        _selectedBoats.Add(_boats.First());
+        @if (!SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner())
+        {
+            _selectedBoats.Add(_boats.First());
+        }
     }
 
     private async Task PreviousStep()
@@ -129,14 +147,22 @@
 
     private void BoatSelected(ChangeEventArgs e)
     {
-        if (!int.TryParse(e.Value?.ToString(), out int boatId))
+        if (e.Value is not string[])
         {
-            return;
+            e.Value = new string[] { e.Value?.ToString() };
         }
 
         _selectedBoats.Clear();
-        BoatEntity boat = _boats.First(boatEntity => boatEntity.BoatId == boatId);
-        _selectedBoats.Add(boat);
+        foreach (string s in (string[])e.Value)
+        {
+            if (!int.TryParse(s, out int boatId))
+            {
+                return;
+            }
+
+            BoatEntity boat = _boats.First(boatEntity => boatEntity.BoatId == boatId);
+            _selectedBoats.Add(boat);
+        }
     }
 
     private void PreviousWeek()
@@ -152,11 +178,26 @@
 
     private void NextWeek()
     {
-        _selectedDate = _selectedDate.AddDays(7);
+        @if (SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner())
+        {
+            _selectedDate = _selectedDate.AddDays(7);
+            return;
+        }
+        var newDate = _selectedDate.AddDays(7);
+        if (newDate > DateTime.Now.AddDays(14))
+        {
+            newDate = DateTime.Now.AddDays(14);
+        }
+        _selectedDate = newDate;
     }
 
     private async Task OnBlockSelected(ReservationTime reservationTime)
     {
+        if (_selectedBoats.Count == 0)
+        {
+            return;
+        }
+
         await BlockSelected.InvokeAsync((reservationTime, _selectedBoats));
     }
 

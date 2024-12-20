@@ -1,6 +1,5 @@
 ﻿@using Kbs.Business.Reservation
-
-
+@inject SessionManagerAuthenticationStateProvider SessionManagerAuthenticationStateProvider
 <div class="row">
     <h2 class="text-center">Selecteer een lengte</h2>
 </div>
@@ -20,16 +19,36 @@
 <div class="row">
     <div class="col-4 d-flex flex-column">
         <span>Selecteer een lengte</span>
-        @for (TimeSpan timespan = TimeSpan.FromMinutes(30);
-            timespan.TotalHours <= (ReservationTime.EndTime - (_selectedStart != default
+        @{
+            var end = (ReservationTime.EndTime - (_selectedStart != default
                 ? _selectedStart
                 : ReservationTime.StartTime.TimeOfDay)).TimeOfDay.TotalHours;
+
+            if (!SessionManagerAuthenticationStateProvider.Session.User.IsGameCommissioner() && end > 2)
+            {
+                end = 2;
+            }
+        }
+
+        @for (TimeSpan timespan = TimeSpan.FromMinutes(30);
+            timespan.TotalHours <= end;
             timespan = timespan.Add(TimeSpan.FromMinutes(30)))
         {
             <span>
-                <input class="form-check form-check-inline" type="radio"
-                       name="startTime" @onclick="() => SetLength(timespan)"/>
-                @timespan.ToString(@"hh\:mm")
+                
+                @if (timespan != _selectedLength)
+                {
+                    <input class="form-check form-check-inline" type="radio" value="@timespan.ToString(@"hh\:mm")"
+                           name="startTime" @onchange="SetLength"/>
+                    @timespan.ToString(@"hh\:mm")
+                }
+                else
+                {
+                    <input checked class="form-check form-check-inline" type="radio"
+                           name="startTime" @onchange="SetLength" />
+                    @timespan.ToString(@"hh\:mm")
+                }
+                
             </span>
         }
     </div>
@@ -72,10 +91,6 @@
     private readonly ReservationValidator _reservationValidator = new();
     private string _errorMessage;
 
-    public void SetLength(TimeSpan startTime)
-    {
-        _selectedLength = startTime;
-    }
 
     public void SetStartTime(TimeSpan startTime)
     {
@@ -98,6 +113,14 @@
             return;
         }
 
-        await OnLengthSelected.InvokeAsync(new ReservationTime(ReservationTime.StartTime.Date.Add(_selectedStart), ReservationTime.StartTime.Add(_selectedLength)));
+
+        var start = ReservationTime.StartTime.Date.Add(_selectedStart);
+        var end = start.Add(_selectedLength);
+        await OnLengthSelected.InvokeAsync(new ReservationTime(start, end));
+    }
+
+    private void SetLength(ChangeEventArgs obj)
+    {
+        TimeSpan.TryParse(obj.Value?.ToString(), out _selectedLength);
     }
 }

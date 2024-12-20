@@ -16,6 +16,11 @@ public class NotificationService
         await _jsRuntime.InvokeVoidAsync("notyf.success", message);
     }
 
+    public async Task ShowErrorNotification(string message)
+    {
+        await _jsRuntime.InvokeVoidAsync("notyf.error", message);
+    }
+
     public async Task<bool> ShowConfirmation(string message)
     {
         return await _jsRuntime.InvokeAsync<bool>("swalConfirmation", message);

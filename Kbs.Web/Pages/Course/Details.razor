@@ -1,13 +1,20 @@
 ﻿@page "/parcours/{id:int}"
 @attribute [Authorize(Roles = "Wedstrijdcommissaris")]
 @using Kbs.Business.Course
+@using Kbs.Business.Game
+@using Kbs.Data.Game
+@using System.Text
 @inject ICourseRepository CourseRepository
 @inject NotificationService NotificationService
-
+@inject NavigationManager NavigationManager
+@inject IGameRepository GameRepository
 <div class="row">
     <h1>Parcours @_course.CourseId</h1>
     <div class="col-2">
         <button @onclick="Update" class="btn btn-primary">Informatie updaten</button>
+    </div>
+    <div class="col-2">
+        <button @onclick="Delete" class="btn btn-danger">Verwijderen</button>
     </div>
 </div>
 
@@ -93,5 +100,27 @@
     private async Task UpdateImage(InputFileChangeEventArgs obj)
     {
         _course.Image = await obj.File.OpenReadStream().ToArrayAsync();
+    }
+
+    private async Task Delete()
+    {
+        if (await NotificationService.ShowConfirmation("Weet u zeker dat u de parcours wilt verwijderen?"))
+        {
+            var games = GameRepository.GetManyByCourse(_course.CourseId);
+            if (games.Any())
+            {
+                StringBuilder sb = new("Parcours kan niet verwijderen, de volgende games zijn eraan gekoppeld:");
+                foreach (GameEntity game in games)
+                {
+                    sb.Append(game.Name).Append(", ");
+                }
+
+                await NotificationService.ShowErrorNotification(sb.ToString());
+                return;
+            }
+            CourseRepository.Delete(_course.CourseId);
+            await NotificationService.ShowSuccessNotification("Parcours verwijderd!");
+            NavigationManager.NavigateTo("/parcours");
+        }
     }
 }

@@ -5,38 +5,63 @@
 @using Kbs.Business.Reservation
 @using Kbs.Business.User
 @using Kbs.Business.Boat
+@using Kbs.Business.Medal
 @inject IGameRepository GameRepository
 @inject ICourseRepository CourseRepository
 @inject IReservationRepository ReservationRepository
 @inject IUserRepository UserRepository
 @inject IBoatRepository BoatRepository
+@inject NotificationService NotificationService
+@inject NavigationManager NavigationManager
+@inject IMedalRepository MedalRepository
 
 <h1>Wedstrijd @_game.GameId</h1>
+
+<div class="row">
+    <div class="col-2">
+        <button @onclick="Update" class="btn btn-primary">Opslaan</button>
+    </div>
+    <div class="col-2">
+        <button @onclick="Delete" class="btn btn-danger">Verwijderen</button>
+    </div>
+</div>
 
 <div class="row">
 
     <div class="col-6">
         <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Naam:</b>
-                <span>@(_game.Name)</span>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Datum:</b>
-                <span>@_game.Date.ToDutchString()</span>
+            <b class="col-2">Naam:</b>
+            <div class="col-10">
+                <input @bind="_game.Name" class="form-control w-100"/>
+                <span class="text-danger">@_nameMessage</span>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-6 justify-content-between d-flex">
-                <b>Route:</b>
-                <a href="/parcours/@_course.CourseId">@_course.Name</a>
+            <b class="col-2">Datum:</b>
+            <div class="col-10">
+                <input class="form-control w-100" type="date" @bind="_game.Date"/>
+                <span class="text-danger">@_dateMessage</span>
             </div>
-        </div>
 
+            <b class="col-2">Parcours:</b>
+            <div class="col-10">
+                <select class="form-control w-100">
+                    @foreach (var course in CourseRepository.GetAll())
+                    {
+                        if (course.CourseId == _game.CourseId)
+                        {
+                            <option selected value="@course.CourseId">@course.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@course">@course.Name</option>
+                        }
+                    }
+                </select>
+                <span class="text-danger">@_courseMessage</span>
+            </div>
+
+        </div>
     </div>
 
     <div class="col-6">
@@ -82,14 +107,44 @@
     public int Id { get; set; }
 
     private GameEntity _game = new();
-    private CourseEntity _course = new();
     private List<ReservationEntity> _reservations;
+    private string _nameMessage;
+    private string _courseMessage;
+    private string _dateMessage;
+    private readonly GameValidator _gameValidator = new();
 
     protected override void OnInitialized()
     {
         _game = GameRepository.GetById(Id);
-        _course = CourseRepository.GetById(_game.CourseId);
         _reservations = ReservationRepository.GetManyByGameId(_game.GameId);
     }
 
+    private async Task Update()
+    {
+        var validationResult = _gameValidator.ValidateForUpdate(_game);
+        validationResult.TryGetValue(nameof(_game.Name), out _nameMessage);
+        validationResult.TryGetValue(nameof(_game.CourseId), out _courseMessage);
+        validationResult.TryGetValue(nameof(_game.Date), out _dateMessage);
+
+        if (validationResult.Count == 0)
+        {
+            GameRepository.Update(_game);
+            await NotificationService.ShowSuccessNotification("succesvol geüpdatet");
+        }
+    }
+
+    private async Task Delete()
+    {
+        if (await NotificationService.ShowConfirmation("Weet u zeker dat u deze wedstrijd wilt verwijderen?"))
+        {
+            var medals = MedalRepository.GetAllByGameId(_game.GameId);
+            foreach (MedalEntity medal in medals)
+            {
+                MedalRepository.RemoveById(medal.MedalId);
+            }
+            GameRepository.DeleteById(_game.GameId);
+            await NotificationService.ShowSuccessNotification("Game succesvol verwijderd");
+            NavigationManager.NavigateTo("/wedstrijden");
+        }
+    }
 }

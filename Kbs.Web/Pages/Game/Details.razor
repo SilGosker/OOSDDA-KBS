@@ -129,7 +129,7 @@
         if (validationResult.Count == 0)
         {
             GameRepository.Update(_game);
-            await NotificationService.ShowSuccessNotification("succesvol geüpdatet");
+            await NotificationService.ShowSuccessNotification("succesvol geüpdatet!");
         }
     }
 
@@ -143,7 +143,7 @@
                 MedalRepository.RemoveById(medal.MedalId);
             }
             GameRepository.DeleteById(_game.GameId);
-            await NotificationService.ShowSuccessNotification("Game succesvol verwijderd");
+            await NotificationService.ShowSuccessNotification("Game succesvol verwijderd!");
             NavigationManager.NavigateTo("/wedstrijden");
         }
     }

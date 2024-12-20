@@ -6,8 +6,24 @@
 @inject IReservationRepository ReservationRepository
 @inject IUserRepository UserRepository
 @inject IBoatRepository BoatRepository
+@inject NotificationService NotificationService
 
 <h1>Gebruiker @_user.UserId</h1>
+<div class="row">
+    @if (!_user.Is(UserRole.Banned))
+    {
+        <div class="col-2">
+            <button @onclick="Ban" class="btn btn-primary">Verbannen</button>
+        </div>
+    }
+    else
+    {
+        <div class="col-2">
+            <button @onclick="UnBan" class="btn btn-primary">Hef verbanning op</button>
+        </div>
+    }
+    
+</div>
 
 <div class="row">
     <div class="col-6">
@@ -78,5 +94,22 @@
     {
         _user = UserRepository.GetById(Id);
         _reservations = ReservationRepository.GetByUserId(_user.UserId);
+    }
+
+    private async Task Ban()
+    {
+        if (await NotificationService.ShowConfirmation("Weet u zeker dat deze gebruiker verbannen moet worden?"))
+        {
+            _user.Role = UserRole.Banned;
+            UserRepository.Update(_user);
+            await NotificationService.ShowSuccessNotification("Succesvol verbannen!");
+        }
+    }
+
+    private async Task UnBan()
+    {
+        _user.Role = UserRole.Member;
+        UserRepository.Update(_user);
+        await NotificationService.ShowSuccessNotification("Gebruiker is weer een lid.");
     }
 }

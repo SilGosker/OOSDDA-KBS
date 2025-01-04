@@ -12,7 +12,7 @@
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
 
-        <Label Content="{Binding BoatTypeNameString}" Style="{StaticResource TitleLabel}" />
+        <Label Content="{Binding BoatTypeNameFormatted}" Style="{StaticResource TitleLabel}" />
         <Button Content="Verwijderen" Click="RemoveBoatType"
                 HorizontalAlignment="Right" Margin="412,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" />

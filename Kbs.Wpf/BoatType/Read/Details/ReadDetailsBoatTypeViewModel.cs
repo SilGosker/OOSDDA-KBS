@@ -30,7 +30,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             set
             {
                 SetField(ref _name, value);
-                OnPropertyChanged(nameof(BoatTypeNameString));
+                OnPropertyChanged(nameof(BoatTypeNameFormatted));
             }
         }
         public int BoatTypeId
@@ -38,7 +38,7 @@ namespace Kbs.Wpf.BoatType.Read.Details
             get => _boatTypeId;
             set => SetField(ref _boatTypeId, value);    
         }
-        public string BoatTypeNameString => $"Boottype #{BoatTypeId}";
+        public string BoatTypeNameFormatted => $"Boottype #{BoatTypeId}";
         public int Speed
         {
             get => _speed;

@@ -82,7 +82,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Datum: "
                                                Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding DateString}"
+                                    <TextBlock Grid.Column="1" Text="{Binding DateFormatted}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

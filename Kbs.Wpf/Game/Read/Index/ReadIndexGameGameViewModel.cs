@@ -38,7 +38,7 @@ public class ReadIndexGameGameViewModel : ViewModel
         set
         {
             SetField(ref _date, value);
-            OnPropertyChanged(nameof(DateString));
+            OnPropertyChanged(nameof(DateFormatted));
         }
     }
     
@@ -50,7 +50,7 @@ public class ReadIndexGameGameViewModel : ViewModel
         set => SetField(ref _course, value);
     }
 
-    public string DateString => Date.ToDutchString();
+    public string DateFormatted => Date.ToDutchString();
     
 
 }

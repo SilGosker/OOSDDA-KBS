@@ -5,11 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Course.Read.Details"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="900"
-      Title="Course details">
+      d:DesignHeight="1080" d:DesignWidth="1740"
+      Title="ReadDetailsCoursePage">
     <Page.DataContext>
         <details:ReadDetailsCourseViewModel />
     </Page.DataContext>
+    
     <Grid Style="{StaticResource PageGrid}">
 
         <Label Style="{StaticResource TitleLabel}" Content="{Binding IdFormatted}" />

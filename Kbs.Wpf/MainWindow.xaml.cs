@@ -40,37 +40,37 @@ public partial class MainWindow : Window, INavigationManager
         if (user.IsMaterialCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this))
-                { Name = "Boottypen" });
+                { Name = "\u2693 Boottypen", StartsNewSection = true });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this))
-                { Name = "Boten" });
+                { Name = "\ud83d\udea4 Boten" });
         }
 
         if (user.IsMember() || user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this))
-                { Name = "Mijn reserveringen" });
+                { Name = "\ud83d\uddd3\ufe0f Mijn reserveringen", StartsNewSection = true });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this))
-                { Name = "Nieuwe reservering" });
+                { Name = "\u2795 Nieuwe reservering" });
         }
 
         if (user.IsMember())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage())
-                { Name = "Medailles" });
+                { Name = "\ud83c\udfc5 Medailles" });
         }
 
         if (user.IsGameCommissioner())
         {
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this))
-                { Name = "Overzicht Wedstrijden" });
+                { Name = "\ud83c\udfc1 Overzicht Wedstrijden", StartsNewSection = true });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this))
-                { Name = "Overzicht leden" });
+                { Name = "\ud83d\udc65 Overzicht leden" });
             ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this))
-                { Name = "Overzicht parcours" });
+                { Name = "\ud83d\udccd Overzicht parcours" });
         }
 
         ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
-            { Name = "Instellingen" });
+            { Name = "\u2699\ufe0f Instellingen", StartsNewSection = true });
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)

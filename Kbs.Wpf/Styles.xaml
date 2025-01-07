@@ -167,6 +167,43 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="SidebarNavigationButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="14" />
+        <!-- <Setter Property="FontWeight" Value="Bold" /> -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Style="{x:Null}">
+                        <ContentPresenter
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="5,0" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#3B4048" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#3E434B" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
     <Style TargetType="TextBlock" x:Key="HyperlinkStyle">
         <Setter Property="TextDecorations" Value="Underline" />
@@ -628,4 +665,8 @@
         <Setter Property="CalendarDayButtonStyle" Value="{StaticResource CustomCalendarDayButtonStyle}" />
         <Setter Property="CalendarItemStyle" Value="{StaticResource DefaultCalendarItemStyle}" />
     </Style>
+    
+    <ControlTemplate x:Key="ContentOnlyTemplate" TargetType="{x:Type Button}">
+        <ContentPresenter />
+    </ControlTemplate>
 </ResourceDictionary>

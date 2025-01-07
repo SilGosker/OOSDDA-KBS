@@ -15,7 +15,7 @@ public class NavigationItemViewModel : ViewModel
     }
 
     public string Name { get; set; }
-
+    public bool StartsNewSection { get; set; }
     public ICommand Navigate { get; set; } 
 
 }

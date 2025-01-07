@@ -11,12 +11,14 @@ using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
 using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
     [HasRole(UserRole.GameCommissioner)]
+    [HighlightFor(typeof(UserEntity))]
     public partial class ReadDetailsUserPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();

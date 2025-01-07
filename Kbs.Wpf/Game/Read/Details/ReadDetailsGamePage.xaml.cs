@@ -9,6 +9,7 @@ using Kbs.Data.Game;
 using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Game.Read.Index;
 using Kbs.Wpf.Medal.Create;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
@@ -18,6 +19,7 @@ using Kbs.Wpf.User.Read.Details;
 namespace Kbs.Wpf.Game.Read.Details;
 
 [HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(GameEntity))]
 public partial class ReadDetailsGamePage : Page
 {
     private readonly GameRepository _gameRepository = new();

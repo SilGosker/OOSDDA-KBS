@@ -1,5 +1,7 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf;
@@ -14,8 +16,24 @@ public class NavigationItemViewModel : ViewModel
         });
     }
 
-    public string Name { get; set; }
-    public bool StartsNewSection { get; set; }
-    public ICommand Navigate { get; set; } 
-
+    private string _name;
+    private bool _startsNewSection;
+    private bool _isHighlighted;
+    public Type Type { get; set; }
+    public string Name
+    {
+        get => _name;
+        set => SetField(ref _name, value);
+    }
+    public bool StartsNewSection
+    {
+        get => _startsNewSection;
+        set => SetField(ref _startsNewSection, value);
+    }
+    public ICommand Navigate { get; set; }
+    public bool IsHighlighted
+    {
+        get => _isHighlighted;
+        set => SetField(ref _isHighlighted, value);
+    }
 }

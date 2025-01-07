@@ -8,12 +8,14 @@ using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 
 namespace Kbs.Wpf.Reservation.Read.Details;
 
 [HasRole(UserRole.Member)]
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(ReservationEntity))]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();

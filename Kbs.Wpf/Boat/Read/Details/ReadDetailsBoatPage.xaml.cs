@@ -21,6 +21,7 @@ using Kbs.Wpf.Reservation.Read.Details;
 namespace Kbs.Wpf.Boat.Read.Details;
 
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(BoatEntity))]
 public partial class ReadDetailsBoatPage : Page
 {
     private readonly BoatRepository _boatRepository = new();

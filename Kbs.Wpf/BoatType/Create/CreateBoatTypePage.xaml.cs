@@ -4,10 +4,12 @@ using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Wpf.BoatType.Components;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.Create;
 
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(BoatTypeEntity))]
 public partial class CreateBoatTypePage : Page
 {
     private CreateBoatTypeViewModel ViewModel => (CreateBoatTypeViewModel)DataContext;

@@ -2,6 +2,12 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
+using Kbs.Business.Course;
+using Kbs.Business.Game;
+using Kbs.Business.Medal;
+using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Wpf.Boat.Read.Index;
@@ -39,38 +45,48 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMaterialCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this))
-                { Name = "\u2693 Boottypen", StartsNewSection = true });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this))
-                { Name = "\ud83d\udea4 Boten" });
+
+            AddNavigationItem<BoatTypeEntity>(() => new ViewBoatTypesPage(this), "\u2693 Boottypen", true);
+            AddNavigationItem<BoatEntity>(() => new ReadIndexBoatPage(this), "\ud83d\udea4 Boten", false);
         }
 
         if (user.IsMember() || user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this))
-                { Name = "\ud83d\uddd3\ufe0f Mijn reserveringen", StartsNewSection = true });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this))
-                { Name = "\u2795 Nieuwe reservering" });
+            AddNavigationItem<ReservationEntity>(() => new ReadIndexReservationPage(this), "\ud83d\uddd3\ufe0f Mijn reserveringen", true);
+            AddNavigationItem<ReservationTime>(() => new SelectBoatTypePage(this), "\u2795 Nieuwe reservering", false);
         }
 
         if (user.IsMember())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage())
-                { Name = "\ud83c\udfc5 Medailles" });
+            AddNavigationItem<MedalEntity>(() => new ReadMedalPage(), "\ud83c\udfc5 Medailles", false);
         }
 
         if (user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this))
-                { Name = "\ud83c\udfc1 Overzicht Wedstrijden", StartsNewSection = true });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this))
-                { Name = "\ud83d\udc65 Overzicht leden" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this))
-                { Name = "\ud83d\udccd Overzicht parcours" });
+            AddNavigationItem<GameEntity>(() => new ReadIndexGamePage(this), "\ud83c\udfc1 Overzicht Wedstrijden", true);
+            AddNavigationItem<UserEntity>(() => new ReadIndexUserPage(this), "\ud83d\udc65 Overzicht Leden", false);
+            AddNavigationItem<CourseEntity>(() => new ReadIndexCoursePage(this), "\ud83d\udccd Overzicht Parcours", false);
         }
 
-        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
-            { Name = "\u2699\ufe0f Instellingen", StartsNewSection = true });
+        AddNavigationItem<Business.Session.Session>(() => new UpdateUserPage(this), "\u2699\ufe0f Instellingen", true);
+    }
+
+    private void AddNavigationItem<T>(Func<Page> creator, string title, bool startsNew)
+    {
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, creator)
+        {
+            Name = title,
+            StartsNewSection = startsNew,
+            Type = typeof(T)
+        });
+    }
+
+    private void HighlightNavigationItem(Type type)
+    {
+        foreach (NavigationItemViewModel navigationItem in ViewModel.NavigationItems)
+        {
+            navigationItem.IsHighlighted = navigationItem.Type == type;
+        }
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
@@ -105,6 +121,7 @@ public partial class MainWindow : Window, INavigationManager
     public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
     {
         Page page;
+        HighlightForAttribute highlightForAttribute;
         var attributes = typeof(TPage).GetCustomAttributes(typeof(HasRoleAttribute))
             .Cast<HasRoleAttribute>().ToArray();
 
@@ -120,6 +137,9 @@ public partial class MainWindow : Window, INavigationManager
             if (attributes.Any(e => user.Is(e.UserRole)))
             {
                 page = creator();
+                highlightForAttribute = page.GetType().GetCustomAttribute<HighlightForAttribute>();
+
+                HighlightNavigationItem(highlightForAttribute?.Type);
 
                 _pageHistoryService.TryPush(page);
                 NavigationFrame.Navigate(page);
@@ -131,6 +151,10 @@ public partial class MainWindow : Window, INavigationManager
         }
 
         page = creator();
+        highlightForAttribute = page.GetType().GetCustomAttribute<HighlightForAttribute>();
+
+        HighlightNavigationItem(highlightForAttribute?.Type);
+        
         _pageHistoryService.TryPush(page);
 
         NavigationFrame.Navigate(page);

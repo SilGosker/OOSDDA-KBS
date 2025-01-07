@@ -10,12 +10,14 @@ using Kbs.Data.Damage;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Damage.Read.Details;
 using Microsoft.Win32;
 
 namespace Kbs.Wpf.Damage.Upload;
 
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(DamageEntity))]
 public partial class UploadDamagePage : Page
 {
     private readonly DamageValidator _damageValidator = new();

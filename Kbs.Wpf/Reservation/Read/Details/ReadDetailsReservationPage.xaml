@@ -6,12 +6,13 @@
       xmlns:details="clr-namespace:Kbs.Wpf.Reservation.Read.Details"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="ReadDetailsReservationPage">
     <Page.DataContext>
         <details:ReadDetailsReservationViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
-        <Label Content="{Binding ReservationIdString}" Style="{StaticResource TitleLabel}" />
+        <Label Content="{Binding ReservationIdFormatted}" Style="{StaticResource TitleLabel}" />
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10">
                 <Grid.ColumnDefinitions>
@@ -31,14 +32,14 @@
                 <Label Grid.Row="0" Grid.Column="0" FontWeight="Bold" Content="Zitplaatsen:"/>
                 <Label Grid.Row="0" Grid.Column="1" Content="{Binding Seats}" />
                 <Label Grid.Row="1" Grid.Column="0" FontWeight="Bold" Content="Tijdstip:" />
-                <Label Grid.Row="1" Grid.Column="1" Content="{Binding StartTimeString}" />
+                <Label Grid.Row="1" Grid.Column="1" Content="{Binding StartTimeFormatted}" />
                 <Label Grid.Row="2" Grid.Column="0" FontWeight="Bold" Content="Boot:" />
                 <Label Grid.Row="2" Grid.Column="1" Content="{Binding BoatEntity.Name}" />
 
                 <Label Grid.Row="0" Grid.Column="2" FontWeight="Bold" Content="Stuur:" />
-                <Label Grid.Row="0" Grid.Column="3" Content="{Binding HasSteeringWheelString}" />
+                <Label Grid.Row="0" Grid.Column="3" Content="{Binding HasSteeringWheelFormatted}" />
                 <Label Grid.Row="1" Grid.Column="2" FontWeight="Bold" Content="Tijdsduur:" />
-                <Label Grid.Row="1" Grid.Column="3" Content="{Binding LengthString}" />
+                <Label Grid.Row="1" Grid.Column="3" Content="{Binding LengthFormatted}" />
 
                 <Label Grid.Row="0" Grid.Column="4" FontWeight="Bold" Content="Niveau:" />
                 <Label Grid.Row="0" Grid.Column="5" Content="{Binding Experience}" />

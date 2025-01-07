@@ -6,13 +6,14 @@
       xmlns:details="clr-namespace:Kbs.Wpf.BoatType.Read.Details"
       mc:Ignorable="d" 
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="ReadDetailsBoatTypePage">
     <Page.DataContext>
         <details:ReadDetailsBoatTypeViewModel />
     </Page.DataContext>
     <Grid Style="{StaticResource PageGrid}">
 
-        <Label Content="{Binding BoatTypeNameString}" Style="{StaticResource TitleLabel}" />
+        <Label Content="{Binding BoatTypeNameFormatted}" Style="{StaticResource TitleLabel}" />
         <Button Content="Verwijderen" Click="RemoveBoatType"
                 HorizontalAlignment="Right" Margin="412,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" />

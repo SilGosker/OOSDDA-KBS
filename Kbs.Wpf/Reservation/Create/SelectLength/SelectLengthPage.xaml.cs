@@ -8,6 +8,7 @@ using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Game.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectTime;
 using Kbs.Wpf.Reservation.Read.Index;
@@ -17,6 +18,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength;
 
 [HasRole(UserRole.Member)]
 [HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(ReservationTime))]
 public partial class SelectLengthPage : Page
 {
     private readonly INavigationManager _navigationManager;

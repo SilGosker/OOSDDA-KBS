@@ -6,7 +6,7 @@
       xmlns:details="clr-namespace:Kbs.Wpf.User.Read.Details"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1740"
-
+      HorizontalAlignment="Center"
       Title="ReadUserDetailedPage">
     <Page.DataContext>
         <details:ReadDetailsUserViewModel />
@@ -47,7 +47,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="100" Header="Reservering" Binding="{Binding ReservationId}" />
                         <DataGridTextColumn Width="100" Header="Boot naam" Binding="{Binding BoatName}" />
-                        <DataGridTextColumn Width="120" Header="Datum en starttijd" Binding="{Binding StartTimeString}" />
+                        <DataGridTextColumn Width="120" Header="Datum en starttijd" Binding="{Binding StartTimeFormatted}" />
                         <DataGridTextColumn Width="90" Header="Status" Binding="{Binding Status}" />
                     </DataGrid.Columns>
                 </DataGrid>

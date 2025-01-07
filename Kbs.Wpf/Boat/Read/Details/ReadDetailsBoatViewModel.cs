@@ -35,10 +35,10 @@ public class ReadDetailsBoatViewModel : ViewModel
         set
         {
             SetField(ref _boatId, value);
-            OnPropertyChanged(nameof(BoatIdString));
+            OnPropertyChanged(nameof(BoatIdFormatted));
         }
     }
-    public string BoatIdString => $"Boot #{BoatId}";
+    public string BoatIdFormatted => $"Boot #{BoatId}";
     public string Name
     {
         get => _name;

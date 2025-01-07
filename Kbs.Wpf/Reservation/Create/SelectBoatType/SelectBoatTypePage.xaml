@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Reservation.Create.SelectBoatType"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="MakeReservation">
     <Page.DataContext>
         <index:SelectBoatTypeViewModel />
@@ -77,7 +78,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Stuur: "
                                                Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding HasSteeringWheelString}"
+                                    <TextBlock Grid.Column="1" Text="{Binding HasSteeringWheelFormatted}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

@@ -3,11 +3,13 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.User;
 using Kbs.Data.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.User.Read.Details;
 
 namespace Kbs.Wpf.User.Read.Index
 {
     [HasRole(UserRole.GameCommissioner)]
+    [HighlightFor(typeof(UserEntity))]
     public partial class ReadIndexUserPage : Page
     {
         private readonly UserRepository _userRepository;

@@ -9,11 +9,13 @@ using Kbs.Wpf.Medal.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 using System.Windows;
 using System.Windows.Controls;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Game.Read.Details;
 
 namespace Kbs.Wpf.Medal.Create;
 
 [HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(MedalEntity))]
 public partial class CreateMedalPage : Page
 {
     private CreateMedalViewModel ViewModel => (CreateMedalViewModel)DataContext;

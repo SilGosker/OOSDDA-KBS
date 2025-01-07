@@ -4,8 +4,8 @@ namespace Kbs.Wpf.Session.Login;
 
 public class LoginViewModel : ViewModel
 {
-    private string _email = "admin@boot.nl";
-    private string _password = "Testen4!";
+    private string _email;
+    private string _password;
     private string _emailErrorMessage;
     private string _passwordErrorMessage;
 

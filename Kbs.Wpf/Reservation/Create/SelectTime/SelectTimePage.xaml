@@ -99,37 +99,37 @@
                           StrokeThickness="2" HorizontalAlignment="Right" />
                     <Line Grid.Row="0" Grid.Column="6" Y1="0" Y2="94" Stroke="{StaticResource ColorPrimaryText}"
                           StrokeThickness="2" HorizontalAlignment="Right" />
-                    <Line Grid.Row="1" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="1" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="1" Grid.Column="0" Content="7:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="2" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="2" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="2" Grid.Column="0" Content="9:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="3" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="3" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="3" Grid.Column="0" Content="11:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="4" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="4" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="4" Grid.Column="0" Content="13:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="5" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="5" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="5" Grid.Column="0" Content="15:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="6" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="6" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="6" Grid.Column="0" Content="17:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />
 
-                    <Line Grid.Row="7" Grid.Column="1" Stroke="{StaticResource ColorHyperlink}" X1="0" X2="1050"
+                    <Line Grid.Row="7" Grid.Column="1" Stroke="{StaticResource ColorBorder}" X1="0" X2="1050"
                           Grid.ColumnSpan="8" StrokeThickness="1" Visibility="Visible" VerticalAlignment="Center" />
                     <Label Grid.Row="7" Grid.Column="0" Content="19:00" FontSize="28" HorizontalAlignment="Center"
                            VerticalAlignment="Center" />

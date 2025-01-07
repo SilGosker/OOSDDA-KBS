@@ -1,6 +1,4 @@
-
 using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
 
 namespace Kbs.Business.Reservation;
 
@@ -15,9 +13,11 @@ public interface IReservationRepository
     public List<ReservationEntity> GetByBoatId(int boatBoatId);
     public List<ReservationEntity> GetByBoatIdAndDay(BoatEntity boat, DateTime day);
     public List<ReservationEntity> GetByUserId(int userId);
+    public Task ChangeStatusAsync();
     public int CountByUser(int userid);
     public List<ReservationEntity> GetManyByGameId(int gameId);
     public void UpdateWhenMaintained(int boatId, DateTime endDate);
     public void UpdateWhenBroken(int boatId);
+    public List<ReservationEntity> GetByBoatWhenUpdated(int boatId);
     public List<ReservationEntity> GetByBoatWhenUpdated(int boatId, DateTime endDate);
 }

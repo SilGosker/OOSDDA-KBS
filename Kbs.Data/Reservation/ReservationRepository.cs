@@ -5,7 +5,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Reservation;
 
-public class ReservationRepository : IReservationRepository, IDisposable
+public class ReservationRepository : IReservationRepository
 {
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
 
@@ -30,11 +30,6 @@ public class ReservationRepository : IReservationRepository, IDisposable
         if (res.ReservationId == 0) return;
 
         _connection.Execute("DELETE FROM Reservation WHERE ReservationID = @ReservationId", res);
-    }
-
-    public void Dispose()
-    {
-        _connection?.Dispose();
     }
 
     public List<ReservationEntity> Get()

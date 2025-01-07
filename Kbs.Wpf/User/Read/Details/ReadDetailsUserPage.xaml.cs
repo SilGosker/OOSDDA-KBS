@@ -71,7 +71,7 @@ namespace Kbs.Wpf.User.Read.Details
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == result)
             {
-                _userRepository.ChangeRole(entity);
+                _userRepository.Ban(entity);
                 _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
             }
         }

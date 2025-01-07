@@ -24,7 +24,6 @@ public class DamageRepository : IDamageRepository
         return _connection.QueryFirstOrDefault<DamageEntity>("SELECT * FROM Damage WHERE DamageId = @Id", new { Id = id });
     }
     
-
     public bool HasDamage(BoatEntity boat)
     {
         return _connection.QueryFirstOrDefault<int>("SELECT COUNT(*) FROM Damage WHERE BoatID = @BoatId AND Status = 2", boat) > 0;

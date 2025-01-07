@@ -20,7 +20,7 @@
     </Page.Resources>
 
     <Grid Style="{StaticResource PageGrid}">
-        <Label Content="Medaille overzicht" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
+        <Label Style="{StaticResource TitleLabel}" Content="Medailles" />
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid>
                 <Grid.ColumnDefinitions>

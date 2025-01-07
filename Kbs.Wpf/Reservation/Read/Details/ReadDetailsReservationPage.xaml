@@ -6,6 +6,7 @@
       xmlns:details="clr-namespace:Kbs.Wpf.Reservation.Read.Details"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="ReadDetailsReservationPage">
     <Page.DataContext>
         <details:ReadDetailsReservationViewModel />

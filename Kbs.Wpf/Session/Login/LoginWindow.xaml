@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="LoginWindow" 
         d:DesignWidth="1740" d:DesignHeight="1080"
+        HorizontalAlignment="Center"
         Style="{StaticResource MainWindow}">
     <Window.DataContext>
         <local:LoginViewModel />

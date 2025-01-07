@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Kbs.Wpf.Medal.Read"
       mc:Ignorable="d"
       d:DesignHeight="900" d:DesignWidth="800"
+      HorizontalAlignment="Center"
       Title="ReadMedalPage">
 
     <Page.DataContext>

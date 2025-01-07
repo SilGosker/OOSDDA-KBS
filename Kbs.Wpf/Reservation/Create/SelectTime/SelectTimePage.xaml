@@ -6,6 +6,7 @@
       xmlns:selectTime="clr-namespace:Kbs.Wpf.Reservation.Create.SelectTime"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="SelectTime">
     <Page.DataContext>
         <selectTime:SelectTimeViewModel />

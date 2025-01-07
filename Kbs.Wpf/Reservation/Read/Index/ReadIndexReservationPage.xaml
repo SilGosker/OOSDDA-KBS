@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Reservation.Read.Index"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
       Title="ReadIndexReservationPage">
     <Page.DataContext>
         <index:ReadIndexReservationViewModel />

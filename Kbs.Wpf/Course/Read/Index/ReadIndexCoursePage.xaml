@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Course.Read.Index"
       mc:Ignorable="d"
       d:DesignHeight="1200" d:DesignWidth="900"
+      HorizontalAlignment="Center"
       Title="ReadIndexCoursePage">
     <Page.DataContext>
         <index:ReadIndexCourseViewModel />

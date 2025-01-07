@@ -6,6 +6,7 @@
       xmlns:details="clr-namespace:Kbs.Wpf.BoatType.Read.Details"
       mc:Ignorable="d" 
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="ReadDetailsBoatTypePage">
     <Page.DataContext>
         <details:ReadDetailsBoatTypeViewModel />

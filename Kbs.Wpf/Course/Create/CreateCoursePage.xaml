@@ -6,6 +6,7 @@
       xmlns:create="clr-namespace:Kbs.Wpf.Course.Create"
       mc:Ignorable="d"
       d:DesignHeight="680" d:DesignWidth="900"
+      HorizontalAlignment="Center"
       Title="CreateCoursePage">
     <Page.DataContext>
         <create:CreateCourseViewModel />

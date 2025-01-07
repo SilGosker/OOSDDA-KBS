@@ -46,8 +46,8 @@ public partial class MainWindow : Window, INavigationManager
         if (user.IsMaterialCommissioner())
         {
 
-            AddNavigationItem<BoatTypeEntity>(() => new ViewBoatTypesPage(this), "\u2693 Boottypen", true);
-            AddNavigationItem<BoatEntity>(() => new ReadIndexBoatPage(this), "\ud83d\udea4 Boten", false);
+            AddNavigationItem<BoatTypeEntity>(() => new ViewBoatTypesPage(this), "\u2693 Overzicht Boottypen", true);
+            AddNavigationItem<BoatEntity>(() => new ReadIndexBoatPage(this), "\ud83d\udea4 Overzicht Boten", false);
         }
 
         if (user.IsMember() || user.IsGameCommissioner())
@@ -58,7 +58,7 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMember())
         {
-            AddNavigationItem<MedalEntity>(() => new ReadMedalPage(), "\ud83c\udfc5 Medailles", false);
+            AddNavigationItem<MedalEntity>(() => new ReadMedalPage(), "\ud83c\udfc5 Mijn Medailles", false);
         }
 
         if (user.IsGameCommissioner())

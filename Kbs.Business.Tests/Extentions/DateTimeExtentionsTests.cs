@@ -53,10 +53,10 @@ namespace Kbs.Business.Extentions
         [InlineData(5, "Maandag")]
         [InlineData(6, "Dinsdag")]
 
-        public void ConvertDayOfWeekToDutchTests(int daysFromWednessday, string result)
+        public void ToDutchString_TranslatesValueDayOfWeek(int daysFromWednessday, string result)
         {
             DateTime day = new DateTime(2024, 11, 27);
-            Assert.Equal(result, (day.AddDays(daysFromWednessday)).ConvertDateTimeToDutchDayOfWeekString());
+            Assert.Equal(result, (string)(day.AddDays(daysFromWednessday)).DayOfWeek.ToDutchString());
         }
     }
 }

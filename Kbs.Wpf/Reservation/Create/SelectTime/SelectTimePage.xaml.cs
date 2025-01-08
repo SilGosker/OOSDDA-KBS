@@ -151,7 +151,7 @@ public partial class SelectTimePage : Page
             weekday = DateTime.Now;
             weekday = weekday.AddDays(i);
             ViewModel.ThisWeek.Add(weekday);
-            ViewModel.DaysOfWeek.Add(weekday.ConvertDateTimeToDutchDayOfWeekString());
+            ViewModel.DaysOfWeek.Add(weekday.DayOfWeek.ToDutchString());
             
             if (SessionManager.Instance.Current.User.IsMember())
             {

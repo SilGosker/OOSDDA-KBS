@@ -52,7 +52,7 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         {
             this.AvailableStartTimes = availableStartTimes;
             this.Name = name;
-            this.Day = reservationDate.ConvertDateTimeToDutchDayOfWeekString();
+            this.Day = reservationDate.DayOfWeek.ToDutchString();
             this.Date = reservationDate.ToDutchString();
         }
     }

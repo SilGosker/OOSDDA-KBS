@@ -23,9 +23,9 @@ namespace Kbs.Business.Extentions
             return dateTime.ToString("yyyy-MM-dd HH:mm");
         }
 
-        public static string ConvertDateTimeToDutchDayOfWeekString(this DateTime dateTime)
+        public static string ToDutchString(this DayOfWeek dayOfWeek)
         {
-            switch (dateTime.DayOfWeek.ToString())
+            switch (dayOfWeek.ToString())
             {
                 case "Monday": return "Maandag";
                 case "Tuesday": return "Dinsdag";

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using Kbs.Data.User;
 using Kbs.Wpf.Session.Login;
 
-namespace Kbs.Wpf.User.Registration;
+namespace Kbs.Wpf.User.Register;
 
 public partial class RegisterUserWindow : Window
 {
@@ -30,32 +30,10 @@ public partial class RegisterUserWindow : Window
         
         var validationResult = _userValidator.ValidatorForRegister(user, ViewModel.PasswordConfirmation);
 
-        if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
-        {
-            ViewModel.EmailErrorMessage = emailMessage;
-        }
-        else
-        {
-            ViewModel.EmailErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
-        {
-            ViewModel.PasswordErrorMessage = passwordMessage;
-        }
-        else
-        {
-            ViewModel.PasswordErrorMessage = string.Empty;
-        }
-        
-        if (validationResult.TryGetValue(nameof(ViewModel.PasswordConfirmation), out string passwordConfirmationMessage))
-        {
-            ViewModel.PasswordConfirmationErrorMessage = passwordConfirmationMessage;
-        }
-        else
-        {
-            ViewModel.PasswordConfirmationErrorMessage = string.Empty;
-        }
+        ViewModel.EmailErrorMessage = validationResult.TryGetValue(nameof(user.Email), out string emailMessage) ? emailMessage : string.Empty;
+        ViewModel.PasswordErrorMessage = validationResult.TryGetValue(nameof(user.Password), out string passwordMessage) ? passwordMessage : string.Empty;
+        ViewModel.PasswordConfirmationErrorMessage = validationResult.TryGetValue(nameof(ViewModel.PasswordConfirmation), out string passwordConfirmationMessage) ? passwordConfirmationMessage : string.Empty;
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(user.Name), out string nameMessage) ? nameMessage : string.Empty;
         
         if (validationResult.Count > 0)
         {

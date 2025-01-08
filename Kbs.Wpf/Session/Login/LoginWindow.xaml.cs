@@ -5,7 +5,7 @@ using Kbs.Business.User;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.User.Ban;
-using Kbs.Wpf.User.Registration;
+using Kbs.Wpf.User.Register;
 
 namespace Kbs.Wpf.Session.Login;
 

@@ -1,6 +1,6 @@
 using Kbs.Wpf.Components;
 
-namespace Kbs.Wpf.User.Registration;
+namespace Kbs.Wpf.User.Register;
 
 public class RegisterUserViewModel : ViewModel
 {
@@ -11,6 +11,7 @@ public class RegisterUserViewModel : ViewModel
     private string _emailErrorMessage;
     private string _passwordErrorMessage;
     private string _passwordConfirmationErrorMessage;
+    private string _nameErrorMessage;
 
     public string Email
     {
@@ -48,5 +49,10 @@ public class RegisterUserViewModel : ViewModel
     {
         get => _passwordConfirmationErrorMessage;
         set => SetField(ref _passwordConfirmationErrorMessage, value);
+    }
+    public string NameErrorMessage
+    {
+        get => _nameErrorMessage;
+        set => SetField(ref _nameErrorMessage, value);
     }
 }

@@ -226,7 +226,7 @@
                     <ItemsControl
                         HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
-                        ItemsSource="{Binding ThisWeek}"
+                        ItemsSource="{Binding DaysOfWeek}"
                         Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="7">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -236,7 +236,7 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Label FontFamily="Segoe UI" FontSize="24"
-                                       Content="{Binding DayOfWeek}"
+                                       Content="{Binding }"
                                        Width="150"
                                        HorizontalContentAlignment="Center" />
                             </DataTemplate>

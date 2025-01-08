@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
+using Kbs.Business.Extentions;
 using Kbs.Business.Game;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
@@ -140,6 +141,7 @@ public partial class SelectTimePage : Page
     private void RefreshCalendar()
     {
         ViewModel.ThisWeek.Clear();
+        ViewModel.DaysOfWeek.Clear();
         Buttons.Children.Clear();
         var countVar = 0;
 
@@ -149,7 +151,7 @@ public partial class SelectTimePage : Page
             weekday = DateTime.Now;
             weekday = weekday.AddDays(i);
             ViewModel.ThisWeek.Add(weekday);
-            ViewModel.DaysOfWeek.Add(ReservationMaker.ConvertDayOfWeekToDutch(weekday));
+            ViewModel.DaysOfWeek.Add(weekday.DayOfWeek.ToDutchString());
             
             if (SessionManager.Instance.Current.User.IsMember())
             {

@@ -79,8 +79,11 @@ public class UserValidator
                 errors.Add(nameof(user.Password), errorString);
             }
         }
-
-        if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+        if (user.Email.Length > 255)
+        {
+            errors.Add(nameof(user.Email), "E-mailadres moet korter zijn dan 255 tekens");
+        }
+        else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
             !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
         {
             errors.Add(nameof(user.Email), "Ongeldig email adres");
@@ -145,7 +148,11 @@ public class UserValidator
         }
         else
         {
-            if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+            if (user.Email.Length > 255)
+            {
+                errors.Add(nameof(user.Email), "E-mailadres moet korter zijn dan 255 tekens");
+            }
+            else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
                 !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
             {
                 errors.Add(nameof(user.Email), "Ongeldig email adres");

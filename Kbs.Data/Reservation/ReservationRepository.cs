@@ -104,7 +104,10 @@ public class ReservationRepository : IReservationRepository
         JOIN 
             Boat b ON r.BoatID = b.BoatID
         WHERE 
-            r.GameID = @gameId";
+            r.GameID = @gameId
+        AND
+            r.Status = 3";
+
 
         return _connection.Query<ReservationEntity, BoatEntity, ReservationEntity>(
             sql,

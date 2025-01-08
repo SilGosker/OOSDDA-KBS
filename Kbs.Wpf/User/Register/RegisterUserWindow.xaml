@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf.User.Registration"
         mc:Ignorable="d"
-        Title="RegisterUserWindow" 
+        Title="Roeibootvereniging Plankie - Registreren" 
         d:DesignWidth="1740" d:DesignHeight="1080"
         HorizontalAlignment="Center"
-        Style="{StaticResource MainWindow}">
+        Style="{StaticResource MainWindow}"
+        Icon="/Images/plankie.jpg">
     <Window.DataContext>
         <local:RegisterUserViewModel />
     </Window.DataContext>

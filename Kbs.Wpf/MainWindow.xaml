@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowState="Maximized"
+        Title="Roeibootvereniging Plankie - Reserveringssysteem" Height="450" Width="800" WindowState="Maximized"
         PreviewKeyDown="GoToPreviousPage"
-        Style="{StaticResource MainWindow}">
+        Style="{StaticResource MainWindow}"
+        Icon="/Images/plankie.jpg">
 
     <Window.DataContext>
         <local:MainViewModel/>

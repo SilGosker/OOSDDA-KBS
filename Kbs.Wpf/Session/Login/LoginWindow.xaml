@@ -9,7 +9,7 @@
         d:DesignWidth="1740" d:DesignHeight="1080"
         HorizontalAlignment="Center"
         Style="{StaticResource MainWindow}"
-        Icon="/Images/plankie.jpg">
+        Icon="/Images/plankie.png">
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>

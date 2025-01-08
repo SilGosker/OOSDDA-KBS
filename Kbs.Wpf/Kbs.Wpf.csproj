@@ -26,10 +26,9 @@
 		<Resource Include="Resources\Images\silver.png" Link="Images\silver.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
-		<Resource Include="Resources\Images\NoImageAvailable.jpg" Link="Images\NoImageAvailable.jpg">
+		<Content Include="Resources\Images\NoImageAvailable.jpg" Link="Images\NoImageAvailable.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Resource>
-		<None Remove="Resources\Images\plankie.png" />
+		</Content>
 	</ItemGroup>
 	
 	<ItemGroup>

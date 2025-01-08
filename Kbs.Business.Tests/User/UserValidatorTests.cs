@@ -29,6 +29,92 @@ public class UserValidatorTests
         Assert.Equal("Email is verplicht", validationResult[nameof(user.Email)]);
     }
 
+    [Fact]
+    public void ValidateForRegister_WithNameMoreThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var user = new UserEntity()
+        {
+            Name = new string('a', 256),
+            Password = "Testing1234#",
+            Email = "test@test.test",
+            
+        };
+        var validator = new UserValidator();
+
+        // Act
+        var result = validator.ValidatorForRegister(user, "Testing1234#");
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(user.Name), out string nameError));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", nameError);
+    }
+
+    [Fact]
+    public void ValidateForUpdate_WithNameMoreThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var user = new UserEntity()
+        {
+            Name = new string('a', 256),
+            Password = "Testing1234#",
+            Email = "test@test.test",
+        };
+        var validator = new UserValidator();
+
+        // Act
+        var result = validator.ValidatorForUpdate(user, "Testing1234#", new MockUserRepository(), "test@test.test");
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(user.Name), out string nameError));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", nameError);
+    }
+    
+    [Fact]
+    public void ValidateForRegister_WithEmailLongerThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var user = new UserEntity()
+        {
+            Name = "Test",
+            Password = "Testing1234#",
+            Email = new string('a', 256) + "@test.com", 
+        };
+        var validator = new UserValidator();
+
+        // Act
+        var result = validator.ValidatorForRegister(user, "Testing1234#");
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(user.Email), out string emailError));
+        Assert.Equal("E-mailadres moet korter zijn dan 255 tekens", emailError);
+    }
+    
+    [Fact]
+    public void ValidateForUpdate_WithEmailLongerThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var user = new UserEntity()
+        {
+            Name = "Test",
+            Password = "Testing1234#",
+            Email = new string('a', 256) + "@test.com", 
+        };
+        var validator = new UserValidator();
+
+        // Act
+        var result = validator.ValidatorForUpdate(user, "Testing1234#", new MockUserRepository(),
+            new string('a', 256) + "@test.com");
+        
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(user.Email), out string emailError));
+        Assert.Equal("E-mailadres moet korter zijn dan 255 tekens", emailError);
+    }
+
     [Theory]
     [InlineData(null)]
     [InlineData("")]

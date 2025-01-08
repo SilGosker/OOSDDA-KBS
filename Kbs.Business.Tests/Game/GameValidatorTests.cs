@@ -28,6 +28,48 @@ public class GameValidatorTests
     }
 
     [Fact]
+    public void ValidateForCreate_WithNameLargerThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var game = new GameEntity
+        {
+            Name = new string('a', 256),
+            Date = DateTime.Now.AddDays(1),
+            CourseId = 1
+        };
+        var validator = new GameValidator();
+
+        // Act
+        var result = validator.ValidateForCreate(game);
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(game.Name), out string nameError));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", nameError);
+    }
+    
+    [Fact]
+    public void ValidateForUpdate_WithNameLargerThan255Characters_ReturnsError()
+    {
+        // Arrange
+        var game = new GameEntity
+        {
+            Name = new string('a', 256),
+            Date = DateTime.Now.AddDays(1),
+            CourseId = 1
+        };
+        var validator = new GameValidator();
+
+        // Act
+        var result = validator.ValidateForUpdate(game);
+
+        // Assert
+        Assert.Single(result);
+        Assert.True(result.TryGetValue(nameof(game.Name), out string nameError));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", nameError);
+    }
+    
+    [Fact]
     public void ValidateForCreate_WithPastDate_ReturnsError()
     {
         // Arrange

@@ -23,6 +23,50 @@ public class CourseValidatorTests
         Assert.True(validationResult.TryGetValue(nameof(course.Name), out string errorMessage));
         Assert.Equal("Naam is verplicht", errorMessage);
     }
+    
+    [Fact]
+    public void ValidateForCreate_WhenNameIsLargerThan255Characters_ShouldReturnError()
+    {
+        // Arrange
+        var course = new CourseEntity()
+        {
+            Name = new string('a', 256),
+            Difficulty = CourseDifficulty.Easy,
+            Image = new byte[] { 0xFF, 0xD8, 0xFF }
+        };
+        var validator = new CourseValidator();
+
+        // Act
+        var validationResult = validator.ValidateForCreate(course);
+
+        // Assert
+        Assert.NotNull(validationResult);
+        Assert.Single(validationResult);
+        Assert.True(validationResult.TryGetValue(nameof(course.Name), out string errorMessage));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", errorMessage);
+    }
+    
+    [Fact]
+    public void ValidateForUpdate_WhenNameIsLargerThan255Characters_ShouldReturnError()
+    {
+        // Arrange
+        var course = new CourseEntity()
+        {
+            Name = new string('a', 256),
+            Difficulty = CourseDifficulty.Easy,
+            Image = new byte[] { 0xFF, 0xD8, 0xFF }
+        };
+        var validator = new CourseValidator();
+
+        // Act
+        var validationResult = validator.ValidateForUpdate(course);
+
+        // Assert
+        Assert.NotNull(validationResult);
+        Assert.Single(validationResult);
+        Assert.True(validationResult.TryGetValue(nameof(course.Name), out string errorMessage));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", errorMessage);
+    }
 
     [Fact]
     public void ValidateForCreate_WhenDifficultyIsEmpty_ShouldReturnError()

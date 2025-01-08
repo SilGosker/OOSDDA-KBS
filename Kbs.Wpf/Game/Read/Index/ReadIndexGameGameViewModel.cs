@@ -17,7 +17,7 @@ public class ReadIndexGameGameViewModel : ViewModel
         Name = game.Name;
         Id = game.GameId;
         Date = game.Date;
-        Course = course.Name ?? "Onbekend";
+        Course = course?.Name ?? "Onbekend";
     }
     
     public string Name

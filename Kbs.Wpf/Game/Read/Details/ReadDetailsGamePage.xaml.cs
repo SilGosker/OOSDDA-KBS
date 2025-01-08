@@ -38,7 +38,7 @@ public partial class ReadDetailsGamePage : Page
         ViewModel.GameId = game.GameId;
         ViewModel.CourseId = game.CourseId;
         ViewModel.Name = game.Name;
-        ViewModel.CourseName = _courseRepository.GetById(game.CourseId).Name;
+        ViewModel.CourseName = _courseRepository.GetById(game.CourseId)?.Name ?? "Onbekend";
         ViewModel.Date = game.Date;
         
         foreach (var reservation in _reservationRepository.GetManyByGameId(game.GameId))

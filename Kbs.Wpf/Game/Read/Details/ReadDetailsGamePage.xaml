@@ -42,7 +42,7 @@
                 <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="283"/>
 
                 <Label Content="Parcours:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
-                <Label Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="117,148,75,0"
+                <Label Foreground="Red" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="117,138,75,0"
                        Content="{Binding CourseErrorMessage}" />
                 <ComboBox ItemsSource="{Binding Courses}" 
                           SelectionChanged="CourseChanged" IsEditable="True" 
@@ -53,7 +53,7 @@
                 <Calendar Style="{StaticResource DefaultCalendarStyle}" 
                           VerticalAlignment="Top" HorizontalAlignment="Left" Margin="117, 170, 0, 20" 
                           SelectedDate="{Binding Date}"/>
-                <Label Foreground="Red" VerticalAlignment="Top" Margin="117,510,0,20"
+                <Label Foreground="Red" VerticalAlignment="Top" Margin="117,496,0,20"
                        Content="{Binding DateErrorMessage}" />
 
                 <DataGrid Style="{StaticResource DefaultDataGridStyle}"

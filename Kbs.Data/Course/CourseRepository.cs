@@ -30,6 +30,7 @@ public class CourseRepository : ICourseRepository
     }
     public void Delete(int id) 
     {
+        _connection.Execute("UPDATE Game SET CourseId = NULL WHERE CourseId = @CourseId;", new { CourseId = id });
         _connection.Execute("DELETE FROM Course WHERE CourseId = @CourseId", new { CourseId = id });
     }
 }

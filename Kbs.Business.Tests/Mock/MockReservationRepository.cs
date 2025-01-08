@@ -41,6 +41,11 @@ namespace Kbs.Business.Mock
             return Reservations.Where(e => e.UserId == userId).ToList();
         }
 
+        public Task ChangeStatusAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public int CountByUser(int userid)
         {
             throw new NotImplementedException();
@@ -57,6 +62,11 @@ namespace Kbs.Business.Mock
         }
 
         public void UpdateWhenBroken(int boatId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ReservationEntity> GetByBoatWhenUpdated(int boatId)
         {
             throw new NotImplementedException();
         }

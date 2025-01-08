@@ -29,7 +29,27 @@ public class MockBoatTypeRepository : IBoatTypeRepository
         throw new NotImplementedException();
     }
 
+    public void Delete(BoatTypeEntity boatType)
+    {
+        throw new NotImplementedException();
+    }
+
     public BoatTypeEntity GetByBoatId(int boatId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<BoatTypeEntity> GetByBoatName(string name)
+    {
+        throw new NotImplementedException();
+    }
+
+    public BoatTypeEntity GetByBoatTypeID(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(BoatTypeEntity boatType)
     {
         throw new NotImplementedException();
     }

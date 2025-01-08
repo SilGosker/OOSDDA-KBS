@@ -29,7 +29,7 @@
 
                 <Label FontWeight="Bold" Content="Emailadres:" Margin="10,170,0,0" VerticalAlignment="Top"/>
                 <Label Content="{Binding Email}"
-                       Margin="121,170,0,0" VerticalAlignment="Top"/>
+                       Margin="121,170,0,0" VerticalAlignment="Top" MaxWidth="250"/>
 
                 <DataGrid
                     Style="{StaticResource DefaultDataGridStyle}"

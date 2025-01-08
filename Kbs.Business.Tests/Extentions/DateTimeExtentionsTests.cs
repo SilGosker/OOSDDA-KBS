@@ -10,7 +10,7 @@ namespace Kbs.Business.Extentions
     public class DateTimeExtentionsTests
     {
         [Fact]
-        
+
         public void ToDutchString_TranslatesValueDateOnly()
         {
 
@@ -42,6 +42,21 @@ namespace Kbs.Business.Extentions
             // Assert
             Assert.Equal("2024-06-09 23:59", result1);
             Assert.Equal("2024-12-31 12:30", result2);
+        }
+
+        [Theory]
+        [InlineData(0, "Woensdag")]
+        [InlineData(1, "Donderdag")]
+        [InlineData(2, "Vrijdag")]
+        [InlineData(3, "Zaterdag")]
+        [InlineData(4, "Zondag")]
+        [InlineData(5, "Maandag")]
+        [InlineData(6, "Dinsdag")]
+
+        public void ConvertDayOfWeekToDutchTests(int daysFromWednessday, string result)
+        {
+            DateTime day = new DateTime(2024, 11, 27);
+            Assert.Equal(result, (day.AddDays(daysFromWednessday)).ConvertDateTimeToDutchDayOfWeekString());
         }
     }
 }

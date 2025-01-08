@@ -6,7 +6,7 @@ public static class BoatTypeSeatsExtensions
     {
         return seats switch
         {
-            BoatTypeSeats.One => "Een zitplaats",
+            BoatTypeSeats.One => "Één zitplaats",
             BoatTypeSeats.Two => "Twee zitplaatsen",
             BoatTypeSeats.Three => "Drie zitplaatsen",
             BoatTypeSeats.Four => "Vier zitplaatsen",

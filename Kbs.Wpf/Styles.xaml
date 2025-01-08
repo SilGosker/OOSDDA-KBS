@@ -157,10 +157,12 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ColorButtonHoverBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource ColorCaretBrush}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource ColorButtonPressedBorder}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.6" />
@@ -403,10 +405,12 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ColorCaretBrush}" />
                             <Setter Property="Background" Value="{StaticResource ColorButtonHoverBackground}" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
                             <Setter Property="BorderBrush" Value="{StaticResource ColorButtonPressedBorder}" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -475,6 +479,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#3B4048" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#23272A" />

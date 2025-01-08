@@ -96,7 +96,7 @@ public class UserValidator
         return errors;
     }
 
-    public Dictionary<string, string> ValidatorForRegistration(UserEntity user, string passwordConfirmation)
+    public Dictionary<string, string> ValidatorForRegister(UserEntity user, string passwordConfirmation)
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();

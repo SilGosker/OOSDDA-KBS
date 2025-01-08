@@ -6,13 +6,13 @@ using Kbs.Wpf.Session.Login;
 
 namespace Kbs.Wpf.User.Registration;
 
-public partial class RegistrationWindow : Window
+public partial class RegisterUserWindow : Window
 {
-    private RegistrationViewModel ViewModel => (RegistrationViewModel)DataContext;
+    private RegisterUserViewModel ViewModel => (RegisterUserViewModel)DataContext;
     private readonly UserValidator _userValidator = new();
     private readonly LoginWindow _loginWindow;
     private readonly UserRepository _userRepository = new();
-    public RegistrationWindow(LoginWindow loginWindow)
+    public RegisterUserWindow(LoginWindow loginWindow)
     {
         _loginWindow = loginWindow;
         InitializeComponent();
@@ -28,7 +28,7 @@ public partial class RegistrationWindow : Window
             Role = UserRole.Member
         };
         
-        var validationResult = _userValidator.ValidatorForRegistration(user, ViewModel.PasswordConfirmation);
+        var validationResult = _userValidator.ValidatorForRegister(user, ViewModel.PasswordConfirmation);
 
         if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
         {

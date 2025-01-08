@@ -2,7 +2,7 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.Registration;
 
-public class RegistrationViewModel : ViewModel
+public class RegisterUserViewModel : ViewModel
 {
     private string _email;
     private string _name;

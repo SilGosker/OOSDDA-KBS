@@ -360,7 +360,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "");
+        var validationResult = validator.ValidatorForRegister(user, "");
 
         // Assert
         Assert.Single(validationResult);
@@ -376,7 +376,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Short1!");
+        var validationResult = validator.ValidatorForRegister(user, "Short1!");
 
         // Assert
         Assert.Single(validationResult);
@@ -392,7 +392,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "lowercase1!");
+        var validationResult = validator.ValidatorForRegister(user, "lowercase1!");
 
         // Assert
         Assert.Single(validationResult);
@@ -408,7 +408,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Password!");
+        var validationResult = validator.ValidatorForRegister(user, "Password!");
 
         // Assert
         Assert.Single(validationResult);
@@ -424,7 +424,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Password1");
+        var validationResult = validator.ValidatorForRegister(user, "Password1");
 
         // Assert
         Assert.Single(validationResult);
@@ -440,7 +440,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Password1!");
+        var validationResult = validator.ValidatorForRegister(user, "Password1!");
 
         // Assert
         Assert.Single(validationResult);
@@ -456,7 +456,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Password1!");
+        var validationResult = validator.ValidatorForRegister(user, "Password1!");
 
         // Assert
         Assert.Single(validationResult);
@@ -472,7 +472,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "DifferentPassword1!");
+        var validationResult = validator.ValidatorForRegister(user, "DifferentPassword1!");
 
         // Assert
         Assert.Single(validationResult);
@@ -488,7 +488,7 @@ public class UserValidatorTests
         var validator = new UserValidator();
 
         // Act
-        var validationResult = validator.ValidatorForRegistration(user, "Password1!");
+        var validationResult = validator.ValidatorForRegister(user, "Password1!");
 
         // Assert
         Assert.Empty(validationResult);

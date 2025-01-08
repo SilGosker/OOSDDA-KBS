@@ -12,7 +12,7 @@ namespace Kbs.Wpf.Session.Login;
 public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
-    private RegistrationWindow _registrationWindow;
+    private RegisterUserWindow _registrationWindow;
     private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {

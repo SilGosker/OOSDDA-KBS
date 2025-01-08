@@ -19,8 +19,9 @@
 	  <Resource Include="Resources\Images\goud.png" Link="Images\goud.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
-	  <Resource Include="Resources\Images\plankie.jpg" Link="Images\plankie.jpg">
+	  <Resource Include="Resources\Images\plankie.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	    <Link>Images\plankie.png</Link>
 	  </Resource>
 		<Resource Include="Resources\Images\silver.png" Link="Images\silver.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -28,6 +29,7 @@
 		<Resource Include="Resources\Images\NoImageAvailable.jpg" Link="Images\NoImageAvailable.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Resource>
+		<None Remove="Resources\Images\plankie.png" />
 	</ItemGroup>
 	
 	<ItemGroup>

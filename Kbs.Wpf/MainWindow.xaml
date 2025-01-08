@@ -8,7 +8,7 @@
         Title="Roeibootvereniging Plankie - Reserveringssysteem" Height="450" Width="800" WindowState="Maximized"
         PreviewKeyDown="GoToPreviousPage"
         Style="{StaticResource MainWindow}"
-        Icon="/Images/plankie.jpg">
+        Icon="/Images/plankie.png">
 
     <Window.DataContext>
         <local:MainViewModel/>

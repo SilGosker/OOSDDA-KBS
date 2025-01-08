@@ -62,9 +62,7 @@
                           Margin="387,50,10,10" Height="320">
 
                     <DataGrid.Resources>
-                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
-                            <EventSetter Event="MouseDoubleClick" Handler="ReservationSelected"/>
-                        </Style>
+                        <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" />
                     </DataGrid.Resources>
 
                     <DataGrid.Columns>

@@ -3,7 +3,10 @@ using System.Windows.Controls;
 using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Components;
+using Kbs.Wpf.Reservation.Read.Index;
+using Kbs.Wpf.User.Ban;
 
 namespace Kbs.Wpf.User.Update;
 
@@ -61,7 +64,19 @@ public partial class UpdateUserPage : Page
             SessionManager.Instance.UpdateSessionUser(user.Email, ((passwordUpdated) ? user.Password : null), user.Name);
             _userRepository.Update(sessionUser);
             MessageBox.Show("Gegevens zijn aangepast.");
-            _navigationManager.Navigate(() => new UpdateUserPage(_navigationManager));
+
+            if (sessionUser.IsMember() || sessionUser.IsGameCommissioner())
+            {
+                _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            }
+            else if (sessionUser.IsMaterialCommissioner())
+            {
+                _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
+            }
+            else
+            {
+                _navigationManager.Navigate(() => new BanUserPage());
+            }
             return;
         }
     }

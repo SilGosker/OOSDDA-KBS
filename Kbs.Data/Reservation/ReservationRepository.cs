@@ -81,7 +81,7 @@ public class ReservationRepository : IReservationRepository
     public int CountByUser(int userId)
     {
         return _connection.QuerySingleOrDefault<int>(
-            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId",
+            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId AND Status = 3",
             new { userId }
         );
     }

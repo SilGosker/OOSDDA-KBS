@@ -93,20 +93,6 @@ public partial class ReadDetailsBoatPage : Page
         }
     }
 
-    private void ReservationSelected(object sender, MouseButtonEventArgs e)
-    {
-        var row = (DataGridRow)sender;
-        if (row == null)
-        {
-            return;
-        }
-
-        var dataContext = (ReadDetailsBoatReservationViewModel)row.DataContext;
-
-        _navigationManager.Navigate(() =>
-            new ReadDetailsReservationPage(dataContext.ReservationId, _navigationManager));
-    }
-
     private void RequestDeletion(object sender, RoutedEventArgs e)
     {
         DateTime? newDeleteRequestDateValue;

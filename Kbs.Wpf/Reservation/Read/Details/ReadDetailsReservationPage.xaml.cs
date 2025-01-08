@@ -14,7 +14,7 @@ using Kbs.Wpf.Reservation.Read.Index;
 namespace Kbs.Wpf.Reservation.Read.Details;
 
 [HasRole(UserRole.Member)]
-[HasRole(UserRole.MaterialCommissioner)]
+[HasRole(UserRole.GameCommissioner)]
 [HighlightFor(typeof(ReservationEntity))]
 public partial class ReadDetailsReservationPage : Page
 {

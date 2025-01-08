@@ -33,7 +33,7 @@ namespace Kbs.Wpf.User.Read.Details
             }
         }
 
-        public string StartTimeString
+        public string StartTimeFormatted
         {
             get => StartTime.ToDutchString(true);
         }

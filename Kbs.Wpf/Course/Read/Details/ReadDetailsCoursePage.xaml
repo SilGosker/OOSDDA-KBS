@@ -5,11 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Course.Read.Details"
       mc:Ignorable="d"
-      d:DesignHeight="800" d:DesignWidth="900"
-      Title="Course details">
+      d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
+      Title="ReadDetailsCoursePage">
     <Page.DataContext>
         <details:ReadDetailsCourseViewModel />
     </Page.DataContext>
+    
     <Grid Style="{StaticResource PageGrid}">
 
         <Label Style="{StaticResource TitleLabel}" Content="{Binding IdFormatted}" />
@@ -31,12 +33,12 @@
                        Content="{Binding Path=ImageErrorMessage}" />
                 
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top"/>
-                <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>
-                <Label Content="{Binding NameErrorMessage}" Margin="117,78,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <TextBox HorizontalAlignment="Left" Margin="180,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>
+                <Label Content="{Binding NameErrorMessage}" Margin="176,78,0,0" Foreground="Red" VerticalAlignment="Top"/>
                 
                 <Label Content="Moeilijkheid: " FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top"/>
-                <ComboBox ItemsSource="{Binding Difficulties}" IsEditable="True" HorizontalAlignment="Left" Margin="121,110,0,0" VerticalAlignment="Top" Width="130" SelectedItem="{Binding SelectedDifficulty}" />
-                <Label Content="{Binding DifficultyErrorMessage}" Margin="117,138,0,0" Foreground="Red" VerticalAlignment="Top"/>
+                <ComboBox ItemsSource="{Binding Difficulties}" IsEditable="True" HorizontalAlignment="Left" Margin="180,110,0,0" VerticalAlignment="Top" Width="130" SelectedItem="{Binding SelectedDifficulty}" />
+                <Label Content="{Binding DifficultyErrorMessage}" Margin="176,138,0,0" Foreground="Red" VerticalAlignment="Top"/>
 
                 <Label Content="Beschrijving: " FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top"/>
                 <TextBox Margin="10, 210, 0, 10" AcceptsReturn="True" Width="300" TextWrapping="Wrap"

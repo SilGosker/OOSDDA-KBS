@@ -9,10 +9,12 @@ using Kbs.Data.BoatType;
 using Kbs.Data.Damage;
 using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Details;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Read.Index;
 
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(BoatEntity))]
 public partial class ReadIndexBoatPage : Page
 {
     private readonly BoatRepository _boatRepository = new();

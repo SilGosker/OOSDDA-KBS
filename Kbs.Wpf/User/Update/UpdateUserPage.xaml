@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Kbs.Wpf.User.Update"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="UpdateUserPage">
     <Page.DataContext>
         <local:UpdateUserViewModel />

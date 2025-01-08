@@ -6,7 +6,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1740"
-      Background="White"
       HorizontalAlignment="Center"
       Title="ReadDetailsBoatPage">
     <Page.DataContext>
@@ -15,21 +14,21 @@
 
     <Grid Style="{StaticResource PageGrid}">
  
-        <Label Content="{Binding BoatIdString}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
+        <Label Content="{Binding BoatIdFormatted}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
         <Button Content="Update gegevens" Click="UpdateData" 
                 Margin="0,90,364,0" VerticalAlignment="Top" HorizontalAlignment="Right" 
                 Style="{StaticResource FormButton}" Width="120"/>
-        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" HorizontalAlignment="Right"
-                Margin="0,90,180,0" VerticalAlignment="Top" Style="{StaticResource FormButton}" Width="170" />
+        <Button Content="{Binding RequestButtonText}" Click="RequestDeletion" 
+                HorizontalAlignment="Right" Margin="0,90,180,0" VerticalAlignment="Top" 
+                Style="{StaticResource FormButton}" Width="170" />
         <Button Content="Permanent verwijderen" Click="PermanentDeletion"
                 IsEnabled="{Binding DeleteButtonEnabled}"
                 HorizontalAlignment="Right" Margin="0,90,20,0" VerticalAlignment="Top"
                 Style="{StaticResource FormButton}" Width="150" />
+        
         <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
             <Grid HorizontalAlignment="Stretch" Margin="10, 0, 10, 10">
-
-                <Label Content="Reserveringen" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
-
+                
                 <Label Content="Naam:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top" />
                 <Label Content="{Binding NameError}" Foreground="Red" Margin="117,78,0,0" Height="30" VerticalAlignment="Top" />
                 <TextBox HorizontalAlignment="Left" Margin="121,50,0,0" TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Top" Width="130"/>
@@ -53,6 +52,7 @@
                 <Label Content="Resterende wachttijd:" FontWeight="Bold" Margin="10,330,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
                 <Label Content="{Binding WaitDurationMessage}" Margin="200,310,0,0" Height="70" VerticalAlignment="Top" HorizontalAlignment="Left" Width="246" />
 
+                <Label Content="Reserveringen" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
                 <DataGrid Style="{StaticResource DefaultDataGridStyle}"
                           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
                           IsReadOnly="True"

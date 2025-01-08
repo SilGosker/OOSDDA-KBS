@@ -6,6 +6,7 @@
       xmlns:selectLength="clr-namespace:Kbs.Wpf.Reservation.Create.SelectLength"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="SelectLength">
     <Page.DataContext>
         <selectLength:SelectLengthViewModel />

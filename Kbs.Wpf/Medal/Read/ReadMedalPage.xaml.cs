@@ -4,10 +4,12 @@ using Kbs.Business.User;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
 using System.Windows.Controls;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Medal.Read;
 
 [HasRole(UserRole.Member)]
+[HighlightFor(typeof(MedalEntity))]
 public partial class ReadMedalPage : Page
 {
     private readonly MedalRepository _medalRepository = new();

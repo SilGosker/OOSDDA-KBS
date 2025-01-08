@@ -3,15 +3,14 @@ using System.Windows.Controls;
 using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
-using Kbs.Wpf.Reservation.Read.Index;
-using Kbs.Wpf.Boat.Read.Index;
-using Kbs.Wpf.User.Ban;
+using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.User.Update;
 
 [HasRole(UserRole.Member)]
 [HasRole(UserRole.GameCommissioner)]
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(Kbs.Business.Session.Session))]
 public partial class UpdateUserPage : Page
 {
     private readonly UserValidator _userValidator = new(); 

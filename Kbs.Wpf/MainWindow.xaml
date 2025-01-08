@@ -18,11 +18,24 @@
                 <ItemsControl ItemsSource="{Binding NavigationItems}" d:ItemsSource="{d:SampleData ItemCount=20}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Margin="10, 10, 0, 0">
-                                <Hyperlink Command="{Binding Navigate}" CommandParameter="{Binding}">
-                                    <Run Text="{Binding Name}" />
-                                </Hyperlink>
-                            </TextBlock>
+                            <StackPanel Background="#2C2F33">
+                                <!-- Add empty row when there is a new section -->
+                                <StackPanel.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding StartsNewSection}" Value="True">
+                                                <Setter Property="Margin" Value="0,20,0,0" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Resources>
+                                    
+                                <Button Style="{StaticResource SidebarNavigationButtonStyle}" 
+                                        Command="{Binding Navigate}"
+                                        CommandParameter="{Binding}">
+                                    <TextBlock Text="{Binding Name}" Margin="5,5,0,5"/>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Game.Read.Index"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="ReadIndexGamePage">
     <Page.DataContext>
         <index:ReadIndexGameViewModel />
@@ -82,7 +83,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Datum: "
                                                Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding DateString}"
+                                    <TextBlock Grid.Column="1" Text="{Binding DateFormatted}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

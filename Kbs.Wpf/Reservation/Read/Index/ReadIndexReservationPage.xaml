@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Reservation.Read.Index"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
       Title="ReadIndexReservationPage">
     <Page.DataContext>
         <index:ReadIndexReservationViewModel />
@@ -38,7 +39,7 @@
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
 
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ReservationIdString}" Style="{StaticResource ListItemTextBlockStyle}"
+                            <TextBlock Text="{Binding ReservationIdFormatted}" Style="{StaticResource ListItemTextBlockStyle}"
                                        FontSize="20"
                                        FontWeight="Bold"
                                        VerticalAlignment="Top" />
@@ -52,7 +53,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Starttijd: " Style="{StaticResource ListItemTextBlockStyle}"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding StartTimeString}" Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding StartTimeFormatted}" Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>
                             <StackPanel>
@@ -62,7 +63,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="Lengte: " Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding DurationString}" Style="{StaticResource ListItemTextBlockStyle}" />
+                                    <TextBlock Grid.Column="1" Text="{Binding DurationFormatted}" Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>
                             <StackPanel>

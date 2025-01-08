@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Kbs.Wpf.Game.Read.Details"
       mc:Ignorable="d"
       d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
       Title="ReadDetailsGamePage">
     <Page.DataContext>
         <local:ReadDetailsGameViewModel />

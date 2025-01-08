@@ -23,7 +23,7 @@ public partial class UpdateUserPage : Page
     public UpdateUserPage(INavigationManager navigationManager)
     {
         InitializeComponent();
-        this._navigationManager = navigationManager;
+        _navigationManager = navigationManager;
         ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
         ViewModel.InputName = SessionManager.Instance.Current.User.Name;
     }
@@ -39,24 +39,10 @@ public partial class UpdateUserPage : Page
         };
         var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, sessionUser.Email);
             
-        if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
-        {
-            ViewModel.EmailErrorMessage = emailMessage;
-        }
-        else
-        {
-            ViewModel.EmailErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
-        {
-            ViewModel.PasswordErrorMessage = passwordMessage;
-        }
-        else
-        {
-            ViewModel.PasswordErrorMessage = string.Empty;
-        }
-
+        ViewModel.EmailErrorMessage = validationResult.TryGetValue(nameof(user.Email), out string emailMessage) ? emailMessage : string.Empty;
+        ViewModel.PasswordErrorMessage = validationResult.TryGetValue(nameof(user.Password), out string passwordMessage) ? passwordMessage : string.Empty;
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(user.Name), out string nameMessage) ? nameMessage : string.Empty;
+        
         // When no errors are shown
         if (validationResult.Count == 0)
         {
@@ -77,7 +63,6 @@ public partial class UpdateUserPage : Page
             {
                 _navigationManager.Navigate(() => new BanUserPage());
             }
-            return;
         }
     }
     private void PasswordChanged(object sender, RoutedEventArgs e)

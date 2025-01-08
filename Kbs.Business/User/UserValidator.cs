@@ -46,6 +46,10 @@ public class UserValidator
         if (!string.IsNullOrEmpty(user.Password))
         {
             var errorStringBuilder = new StringBuilder();
+            if(user.Name is { Length: > 255 })
+            {
+                errors.Add(nameof(user.Name), "Naam mag niet langer zijn dan 255 karakters");
+            }
             if (user.Password.Length < 8)
             {
                 errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");
@@ -108,6 +112,10 @@ public class UserValidator
         else
         {
             var errorStringBuilder = new StringBuilder();
+            if(user.Name is { Length: > 255 })
+            {
+                errors.Add(nameof(user.Name), "Naam mag niet langer zijn dan 255 karakters");
+            }
             if (user.Password.Length < 8)
             {
                 errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");

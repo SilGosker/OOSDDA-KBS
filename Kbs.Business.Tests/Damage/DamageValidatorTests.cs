@@ -27,6 +27,26 @@ public class DamageValidatorTests
     }
 
     [Fact]
+    public void ValidateForUpload_WithDescriptionLargerThan255Characters_ShouldReturnError()
+    {
+        // Arrange
+        var validator = new DamageValidator();
+        var entity = new DamageEntity()
+        {
+            Description = new string('a', 256),
+            Image = new byte[] { 0xFF, 0xD8, 0xFF } // valid image header
+        };
+
+        // Act
+        var result = validator.ValidateForUpload(entity);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.True(result.ContainsKey(nameof(entity.Description)));
+        Assert.Equal("Omschrijving mag niet langer zijn dan 255 karakters", result[nameof(entity.Description)]);
+    }
+    
+    [Fact]
     public void ValidateForUpload_WithNullImage_ShouldReturnError()
     {
         // Arrange

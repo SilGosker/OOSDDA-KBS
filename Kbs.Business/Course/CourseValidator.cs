@@ -1,11 +1,4 @@
-using Kbs.Business.BoatType;
 using Kbs.Business.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Kbs.Business.Course
 {
@@ -19,6 +12,10 @@ namespace Kbs.Business.Course
             if (string.IsNullOrWhiteSpace(course.Name))
             {
                 validationResult.Add(nameof(course.Name), "Naam is verplicht");
+            }
+            else if (course.Name.Length > 255)
+            {
+                validationResult.Add(nameof(course.Name), "Naam mag niet langer zijn dan 255 karakters");
             }
 
             if (!Enum.IsDefined(course.Difficulty))
@@ -56,6 +53,10 @@ namespace Kbs.Business.Course
             if (string.IsNullOrWhiteSpace(course.Name))
             {
                 result.Add(nameof(course.Name), "Naam is verplicht");
+            }
+            else if (course.Name.Length > 255)
+            {
+                result.Add(nameof(course.Name), "Naam mag niet langer zijn dan 255 karakters");
             }
 
             if (course.Difficulty == default)

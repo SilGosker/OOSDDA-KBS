@@ -13,6 +13,10 @@ public class BoatTypeValidator
         {
             validationResult.Add(nameof(boatType.Name), "Naam is verplicht");
         }
+        else if (boatType.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boatType.Name), "Naam mag niet langer zijn dan 255 karakters");
+        }
 
         if (!Enum.IsDefined(boatType.RequiredExperience))
         {
@@ -52,6 +56,10 @@ public class BoatTypeValidator
         if (string.IsNullOrWhiteSpace(boatType.Name))
         {
             validationResult.Add(nameof(boatType.Name), "Naam is verplicht");
+        }
+        else if (boatType.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boatType.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
 
         return validationResult;

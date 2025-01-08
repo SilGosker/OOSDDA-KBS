@@ -1,5 +1,4 @@
 ﻿using Kbs.Business.BoatType;
-using Kbs.Business.Game;
 using Kbs.Business.Helpers;
 
 namespace Kbs.Business.Boat;
@@ -23,7 +22,12 @@ public class BoatValidator
         if (string.IsNullOrWhiteSpace(boat.Name))
         {
             validationResult.Add(nameof(boat.Name), "Naam is verplicht");
+        } 
+        else if (boat.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boat.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
+        
 
         // Validate BoatTypeId
         if (_boatTypeRepository.GetById(boat.BoatTypeId) == null)
@@ -43,6 +47,10 @@ public class BoatValidator
         if (string.IsNullOrWhiteSpace(boat.Name))
         {
             validationResult.Add(nameof(boat.Name), "Naam is verplicht");
+        }
+        else if (boat.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boat.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
 
         if (!Enum.IsDefined(boat.Status))

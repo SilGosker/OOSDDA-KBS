@@ -10,6 +10,10 @@ public class DamageValidator
         {
             result.Add(nameof(damage.Description), "Omschrijving is verplicht");
         }
+        else if (damage.Description.Length > 255)
+        {
+            result.Add(nameof(damage.Description), "Omschrijving mag niet langer zijn dan 255 karakters");
+        }
 
         byte[] pngImageHeader = new byte[]
         {

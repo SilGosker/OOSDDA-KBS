@@ -12,10 +12,10 @@ namespace Kbs.Wpf.BoatType.Read.Index
         private BoatTypeSeatsViewModel _seats;
         public ReadBoatTypeIndexBoatTypeViewModel(BoatTypeEntity boatType)
         {
-            Name = boatType.Name;
-            Id = boatType.BoatTypeId;
-            Experience = new BoatTypeExperienceViewModel(boatType.RequiredExperience);
-            Seats = new BoatTypeSeatsViewModel(boatType.Seats);
+            this.Name = boatType.Name;
+            this.Id = boatType.BoatTypeId;
+            this.Experience = new BoatTypeExperienceViewModel(boatType.RequiredExperience);
+            this.Seats = new BoatTypeSeatsViewModel(boatType.Seats);
         }
 
         public string Name

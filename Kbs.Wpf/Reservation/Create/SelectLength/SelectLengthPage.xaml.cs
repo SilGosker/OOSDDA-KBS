@@ -151,8 +151,8 @@ public partial class SelectLengthPage : Page
         var timespan = TimeSpan.Parse(selected);
 
         DateTime selectedDate = new DateTime();
-        //2025 is speciel in its days an needs a diffrent - value
-        if (_chosenTimeAndBoat.Item1.StartTime.Year == 2025)
+        //leapyears are diffrent in its days and needs an additional day subtracted
+        if (_chosenTimeAndBoat.Item1.StartTime.Year % 4 != 0)
         {
             selectedDate = selectedDate.AddDays(_chosenTimeAndBoat.Item1.StartTime.AddDays(-1).DayOfYear);
         }

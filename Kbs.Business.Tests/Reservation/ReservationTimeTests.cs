@@ -1,6 +1,4 @@
 ﻿
-using Kbs.Business.Boat;
-
 namespace Kbs.Business.Reservation
 {
     public class ReservationTimeTests

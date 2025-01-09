@@ -3,14 +3,9 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Components;
 
-public class BoatStatusViewModel : ViewModel
+public class BoatStatusViewModel(BoatStatus types) : ViewModel
 {
-    public BoatStatusViewModel(BoatStatus types)
-    {
-        BoatStatus = types;
-    }
-
-    public BoatStatus BoatStatus { get; }
+    public BoatStatus BoatStatus { get; } = types;
 
     // Override ToString to display the BoatStatuses in Dutch
     public override string ToString()

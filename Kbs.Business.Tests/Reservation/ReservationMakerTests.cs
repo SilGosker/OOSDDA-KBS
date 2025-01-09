@@ -1,7 +1,4 @@
-﻿
-using Kbs.Business.Extentions;
-using Kbs.Business.Mock;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.Serialization;
+﻿using Kbs.Business.Mock;
 
 namespace Kbs.Business.Reservation
 {

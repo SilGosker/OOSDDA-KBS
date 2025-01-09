@@ -25,7 +25,7 @@ public class PageHistoryService
     {
         if (_pages.Count > 1)
         {
-            _pages.TryPop(out var currentPage);
+            _pages.TryPop(out _);
         }
 
         _pages.TryPeek(out Page previousPage);

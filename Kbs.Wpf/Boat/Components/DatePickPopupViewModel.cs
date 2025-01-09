@@ -6,7 +6,7 @@ namespace Kbs.Wpf.Boat.Components
     {
         private int _boatId;
         private DateTime _endDate;
-        private bool _isCancelled = false;
+        private bool _isCancelled;
         private string _title;
         public DateTime EndDate
         {

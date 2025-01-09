@@ -31,14 +31,7 @@ public partial class CreateBoatPage : Page
     private void TypeChanged(object sender, SelectionChangedEventArgs e)
     {
         var type = (CreateBoatBoatTypeViewModel)((ComboBox)sender).SelectedItem;
-        if (type == null)
-        {
-            ViewModel.BoatTypeId = 0;
-        }
-        else
-        {
-            ViewModel.BoatTypeId = type.BoatTypeId;
-        }
+        ViewModel.BoatTypeId = type?.BoatTypeId ?? 0;
     }
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
@@ -52,23 +45,8 @@ public partial class CreateBoatPage : Page
 
         var validationResult = new BoatValidator(_boatTypeRepository).ValidateForCreate(boat);
 
-        if (validationResult.TryGetValue(nameof(boat.Name), out string nameError))
-        {
-            ViewModel.NameErrorMessage = nameError;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(boat.BoatTypeId), out string boatTypeError))
-        {
-            ViewModel.BoatTypeErrorMessage = boatTypeError;
-        }
-        else
-        {
-            ViewModel.BoatTypeErrorMessage = string.Empty;
-        }
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(boat.Name), out string nameError) ? nameError : string.Empty;
+        ViewModel.BoatTypeErrorMessage = validationResult.TryGetValue(nameof(boat.BoatTypeId), out string boatTypeError) ? boatTypeError : string.Empty;
 
         if (validationResult.Count != 0)
         {
@@ -76,7 +54,6 @@ public partial class CreateBoatPage : Page
         }
 
         _boatRepository.Create(boat);
-
         _navigationManager.Navigate(() => new ReadDetailsBoatPage(_navigationManager, boat.BoatId));
     }
 }

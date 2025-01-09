@@ -45,7 +45,6 @@ public partial class ReadDetailsReservationPage : Page
 
     public void Delete(object sender, RoutedEventArgs e)
     {
-        
         var entity = _reservationRepository.GetById(ViewModel.ReservationId);
         if (ViewModel.Status == ReservationStatus.Active.ToDutchString())
         {

@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Kbs.Business.Boat;
 using Kbs.Business.Course;
 using Microsoft.Data.SqlClient;
 

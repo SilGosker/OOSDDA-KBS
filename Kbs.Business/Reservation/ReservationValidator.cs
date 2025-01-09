@@ -1,6 +1,3 @@
-using Kbs.Business.User;
-using System;
-
 namespace Kbs.Business.Reservation;
 
 public class ReservationValidator

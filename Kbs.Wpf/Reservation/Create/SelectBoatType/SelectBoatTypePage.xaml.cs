@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.BoatType;
 using Kbs.Business.Game;
-using Kbs.Business.Medal;
 using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;

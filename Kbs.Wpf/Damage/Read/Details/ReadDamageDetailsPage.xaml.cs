@@ -5,8 +5,6 @@ using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Damage;
 using Kbs.Wpf.Boat.Read.Details;
-using Kbs.Wpf.Boat.Read.Index;
-using Kbs.Wpf.BoatType.Read.Index;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Damage.Read.Details;
@@ -35,15 +33,7 @@ public partial class ReadDamageDetailsPage : Page
         ViewModel.Date = damage.Date;
         ViewModel.Image = damage.Image.ToImageSource();
         ViewModel.BoatName = boat.Name;
-
-        if (damage.Status == Business.Damage.DamageStatus.Solved)
-        {
-            ViewModel.SolveButtonEnabled = false;
-        } else
-        {
-            ViewModel.SolveButtonEnabled = true;
-        }
-
+        ViewModel.SolveButtonEnabled = damage.Status != DamageStatus.Solved;
     }
 
     private void NavigateToBoatPage(object sender, RoutedEventArgs e)

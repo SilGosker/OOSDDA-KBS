@@ -1,4 +1,3 @@
-﻿using Kbs.Business.Reservation;
 ﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
 

@@ -3,17 +3,14 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
 using Kbs.Business.Game;
-using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Game;
 using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
-using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
-using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {

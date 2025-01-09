@@ -14,7 +14,7 @@ namespace Kbs.Business.Medal
             return medalMaterial switch
             {
                 MedalMaterial.Bronze => "Brons",
-                MedalMaterial.Silver => "Silver",
+                MedalMaterial.Silver => "Zilver",
                 MedalMaterial.Gold => "Goud",
                 _ => "Onbekend"
             };

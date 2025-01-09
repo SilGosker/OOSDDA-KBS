@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using Kbs.Business.Boat;
+using Kbs.Business.Extentions;
 using Kbs.Business.Reservation;
 using Kbs.Wpf.Components;
 
@@ -57,7 +58,7 @@ public class ReadDetailsReservationViewModel : ViewModel
         set
         {
             SetField(ref _startTime, value);
-            OnPropertyChanged(nameof(StartTimeString));
+            OnPropertyChanged(nameof(StartTimeFormatted));
         }
     }
     
@@ -67,7 +68,7 @@ public class ReadDetailsReservationViewModel : ViewModel
         set
         {
             SetField(ref _length, value);
-            OnPropertyChanged(nameof(LengthString));
+            OnPropertyChanged(nameof(LengthFormatted));
         }
     }
     
@@ -77,7 +78,7 @@ public class ReadDetailsReservationViewModel : ViewModel
         set
         {
             SetField(ref _reservationId, value);
-            OnPropertyChanged(nameof(ReservationIdString));
+            OnPropertyChanged(nameof(ReservationIdFormatted));
         }
     }
     
@@ -93,9 +94,9 @@ public class ReadDetailsReservationViewModel : ViewModel
         set => SetField(ref _speed, value);
     }
     
-    public string ReservationIdString => $"Reservering #{ReservationId}";
-    public string LengthString => Length.ToString(@"hh\:mm");
-    public string StartTimeString => StartTime.ToString("dd-MM-yyyy HH:mm");
-    public string HasSteeringWheelString => HasSteeringWheel ? "Ja" : "Nee";
+    public string ReservationIdFormatted => $"Reservering #{ReservationId}";
+    public string LengthFormatted => Length.ToString(@"hh\:mm");
+    public string StartTimeFormatted => StartTime.ToDutchString(true);
+    public string HasSteeringWheelFormatted => HasSteeringWheel ? "Ja" : "Nee";
 }
 

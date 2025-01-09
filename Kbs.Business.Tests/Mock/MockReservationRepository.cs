@@ -41,12 +41,37 @@ namespace Kbs.Business.Mock
             return Reservations.Where(e => e.UserId == userId).ToList();
         }
 
+        public Task ChangeStatusAsync()
+        {
+            throw new NotImplementedException();
+        }
+
         public int CountByUser(int userid)
         {
             throw new NotImplementedException();
         }
 
         public List<ReservationEntity> GetManyByGameId(int gameId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateWhenMaintained(int boatId, DateTime endDate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateWhenBroken(int boatId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ReservationEntity> GetByBoatWhenUpdated(int boatId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ReservationEntity> GetByBoatWhenUpdated(int boatId, DateTime endDate)
         {
             throw new NotImplementedException();
         }

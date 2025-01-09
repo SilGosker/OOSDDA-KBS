@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kbs.Wpf.Medal.Read"
       mc:Ignorable="d"
-      d:DesignHeight="900" d:DesignWidth="800"
+      d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
       Title="ReadMedalPage">
 
     <Page.DataContext>
@@ -19,8 +20,8 @@
     </Page.Resources>
 
     <Grid Style="{StaticResource PageGrid}">
-        <Label Content="Medaille overzicht" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
-        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+        <Label Style="{StaticResource TitleLabel}" Content="Medailles" />
+        <Border Background="Transparent" VerticalAlignment="Stretch" Width="830" Margin="20,132,20,20">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -28,40 +29,41 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition MinHeight="270" />
-                    <RowDefinition MinHeight="270" />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="270" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0"
+                <Label Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0"
                        Content="{Binding GoldFormatted}" />
 
-                <Image Margin="10" MaxHeight="240" Grid.Column="1" Grid.Row="0" Source="{StaticResource Gold}"
+                <Image MaxHeight="240" Grid.Column="0" Grid.Row="0" Source="{StaticResource Gold}"
                        HorizontalAlignment="Center" VerticalAlignment="Top"
                        Height="275" />
 
-                <Label Grid.Column="0" Grid.Row="1" Content="{Binding SilverFormatted}"
+                <Label Grid.Column="1" Grid.Row="0" Content="{Binding SilverFormatted}"
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+                <Image MaxHeight="240" Grid.Column="1" Grid.Row="0" Source="{StaticResource Silver}"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" />
 
-                <Label Grid.Column="2" Grid.Row="1" Content="{Binding BronzeFormatted}" VerticalAlignment="Bottom"
+                <Label Grid.Column="2" Grid.Row="0" Content="{Binding BronzeFormatted}" VerticalAlignment="Bottom"
                        HorizontalAlignment="Center" />
-
-                <Image MaxHeight="240" Grid.Row="1" Grid.Column="2" Source="{StaticResource Bronze}"
+                <Image MaxHeight="240" Grid.Row="0" Grid.Column="2" Source="{StaticResource Bronze}"
                        HorizontalAlignment="Center" VerticalAlignment="Top" />
 
-                <Image MaxHeight="240" Grid.Column="0" Grid.Row="1" Source="{StaticResource Silver}"
-                       HorizontalAlignment="Center" VerticalAlignment="Top" />
+                
 
-                <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2" Content="Wedstrijden" Margin="0"
+                <Label Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Content="Wedstrijden" Margin="10"
                        Style="{StaticResource TitleLabel}" />
 
-                <DataGrid Padding="10" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3"
+                <DataGrid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2"
+                          Margin="100, 10, 100, 20"
                           Style="{StaticResource DefaultDataGridStyle}"
-
                           ColumnHeaderStyle="{StaticResource DefaultDataGridColumnHeaderStyle}"
-                          ItemsSource="{Binding Games}" d:ItemsSource="{d:SampleData ItemCount=100}"
-                          VerticalScrollBarVisibility="Auto">
+                          ItemsSource="{Binding Games}" 
+                          d:ItemsSource="{d:SampleData ItemCount=100}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                          VerticalAlignment="Stretch">
 
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}" />

@@ -17,10 +17,10 @@ public class BoatTypeRepository : IBoatTypeRepository
     public void Delete(BoatTypeEntity boatType)
     {
         ThrowHelper.ThrowIfNull(boatType);
+        _connection.Execute("DELETE FROM Damage WHERE (BoatID IN (SELECT BoatID FROM Boat WHERE BoatTypeID = @BoatTypeID))", boatType);
         _connection.Execute("DELETE FROM Reservation WHERE BoatID IN (SELECT BoatID FROM Boat WHERE BoatTypeID = @BoatTypeID)", boatType);
         _connection.Execute("DELETE FROM Boat WHERE BoatTypeID = @BoatTypeID", boatType);
         _connection.Execute("DELETE FROM boatType WHERE BoatTypeID = @BoatTypeID", boatType);
-        
     }
    
     public BoatTypeEntity GetByReservationId(int reservationID)

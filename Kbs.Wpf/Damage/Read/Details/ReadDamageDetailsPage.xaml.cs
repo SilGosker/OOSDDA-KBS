@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Kbs.Business.Damage;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.Damage;
@@ -11,6 +12,7 @@ using Kbs.Wpf.Components;
 namespace Kbs.Wpf.Damage.Read.Details;
 
 [HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(DamageEntity))]
 public partial class ReadDamageDetailsPage : Page
 {
     private readonly DamageRepository _damageRepository = new();
@@ -33,6 +35,15 @@ public partial class ReadDamageDetailsPage : Page
         ViewModel.Date = damage.Date;
         ViewModel.Image = damage.Image.ToImageSource();
         ViewModel.BoatName = boat.Name;
+
+        if (damage.Status == Business.Damage.DamageStatus.Solved)
+        {
+            ViewModel.SolveButtonEnabled = false;
+        } else
+        {
+            ViewModel.SolveButtonEnabled = true;
+        }
+
     }
 
     private void NavigateToBoatPage(object sender, RoutedEventArgs e)

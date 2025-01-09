@@ -1,23 +1,25 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Kbs.Business.Boat;
+using Kbs.Business.BoatType;
+using Kbs.Business.Course;
+using Kbs.Business.Game;
+using Kbs.Business.Medal;
+using Kbs.Business.Reservation;
 using Kbs.Business.Session;
 using Kbs.Business.User;
-using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Boat.Read.Index;
-using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Index;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Course.Read.Index;
 using Kbs.Wpf.User.Update;
-using Kbs.Wpf.Damage.Read.Details;
-using Kbs.Wpf.Game.Create;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Index;
 using Kbs.Wpf.Session.Login;
-using Kbs.Wpf.Medal.Create;
 using Kbs.Wpf.Medal.Read;
 using Kbs.Wpf.User.Read.Index;
-using Kbs.Wpf.Course.Create;
 using Kbs.Wpf.Game.Read.Index;
 
 namespace Kbs.Wpf;
@@ -25,6 +27,7 @@ namespace Kbs.Wpf;
 public partial class MainWindow : Window, INavigationManager
 {
     private MainViewModel ViewModel => (MainViewModel)DataContext;
+    private PageHistoryService _pageHistoryService = new();
 
     protected override void OnClosed(EventArgs e)
     {
@@ -42,32 +45,48 @@ public partial class MainWindow : Window, INavigationManager
 
         if (user.IsMaterialCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ViewBoatTypesPage(this)) { Name = "Boottypen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexBoatPage(this)) { Name = "Boten" });
+
+            AddNavigationItem<BoatTypeEntity>(() => new ViewBoatTypesPage(this), "\u2693 Overzicht Boottypen", true);
+            AddNavigationItem<BoatEntity>(() => new ReadIndexBoatPage(this), "\ud83d\udea4 Overzicht Boten", false);
         }
 
         if (user.IsMember() || user.IsGameCommissioner())
         {
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexReservationPage(this)) { Name = "Mijn reserveringen" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new SelectBoatTypePage(this)) { Name = "Nieuwe reservering" });
+            AddNavigationItem<ReservationEntity>(() => new ReadIndexReservationPage(this), "\ud83d\uddd3\ufe0f Mijn reserveringen", true);
+            AddNavigationItem<ReservationTime>(() => new SelectBoatTypePage(this), "\u2795 Nieuwe reservering", false);
         }
 
         if (user.IsMember())
         {
-            // For sprint 3
-            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadMedalPage()) { Name = "Medailles" });
+            AddNavigationItem<MedalEntity>(() => new ReadMedalPage(), "\ud83c\udfc5 Mijn Medailles", false);
         }
 
         if (user.IsGameCommissioner())
         {
-            // For sprint 3
-            // ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexGamePage(this)) { Name = "Overzicht Wedstrijden" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexUserPage(this)) { Name = "Overzicht leden" });
-            ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new ReadIndexCoursePage(this)) { Name = "Overzicht parcours" });
+            AddNavigationItem<GameEntity>(() => new ReadIndexGamePage(this), "\ud83c\udfc1 Overzicht Wedstrijden", true);
+            AddNavigationItem<UserEntity>(() => new ReadIndexUserPage(this), "\ud83d\udc65 Overzicht Leden", false);
+            AddNavigationItem<CourseEntity>(() => new ReadIndexCoursePage(this), "\ud83d\udccd Overzicht Parcours", false);
         }
 
-        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, () => new UpdateUserPage(this))
-            { Name = "Instellingen" });
+        AddNavigationItem<Business.Session.Session>(() => new UpdateUserPage(this), "\u2699\ufe0f Instellingen", true);
+    }
+
+    private void AddNavigationItem<T>(Func<Page> creator, string title, bool startsNew)
+    {
+        ViewModel.NavigationItems.Add(new NavigationItemViewModel(this, creator)
+        {
+            Name = title,
+            StartsNewSection = startsNew,
+            Type = typeof(T)
+        });
+    }
+
+    private void HighlightNavigationItem(Type type)
+    {
+        foreach (NavigationItemViewModel navigationItem in ViewModel.NavigationItems)
+        {
+            navigationItem.IsHighlighted = navigationItem.Type == type;
+        }
     }
 
     private async void SessionExpired(object sender, SessionTimeExpiredEventArgs args)
@@ -102,6 +121,7 @@ public partial class MainWindow : Window, INavigationManager
     public void Navigate<TPage>(Func<TPage> creator) where TPage : Page
     {
         Page page;
+        HighlightForAttribute highlightForAttribute;
         var attributes = typeof(TPage).GetCustomAttributes(typeof(HasRoleAttribute))
             .Cast<HasRoleAttribute>().ToArray();
 
@@ -117,6 +137,11 @@ public partial class MainWindow : Window, INavigationManager
             if (attributes.Any(e => user.Is(e.UserRole)))
             {
                 page = creator();
+                highlightForAttribute = page.GetType().GetCustomAttribute<HighlightForAttribute>();
+
+                HighlightNavigationItem(highlightForAttribute?.Type);
+
+                _pageHistoryService.TryPush(page);
                 NavigationFrame.Navigate(page);
                 return;
             }
@@ -126,6 +151,12 @@ public partial class MainWindow : Window, INavigationManager
         }
 
         page = creator();
+        highlightForAttribute = page.GetType().GetCustomAttribute<HighlightForAttribute>();
+
+        HighlightNavigationItem(highlightForAttribute?.Type);
+        
+        _pageHistoryService.TryPush(page);
+
         NavigationFrame.Navigate(page);
     }
 
@@ -135,5 +166,20 @@ public partial class MainWindow : Window, INavigationManager
         var loginWindow = new LoginWindow();
         loginWindow.Show();
         Close();
+    }
+
+    private void GoToPreviousPage(object sender, KeyEventArgs e)
+    {
+        if (e.Key != Key.Escape)
+        {
+            return;
+        }
+
+        var page = _pageHistoryService.Previous();
+
+        if (page != null)
+        {
+            NavigationFrame.Navigate(page);
+        }
     }
 }

@@ -10,6 +10,10 @@ public class GameValidator
         {
             result.Add(nameof(game.Name), "Naam is verplicht");
         }
+        else if (game.Name.Length > 255)
+        {
+            result.Add(nameof(game.Name), "Naam mag niet langer zijn dan 255 karakters");
+        }
 
         if (game.CourseId <= 0)
         {
@@ -30,6 +34,10 @@ public class GameValidator
         if (string.IsNullOrWhiteSpace(game.Name))
         {
             result.Add(nameof(game.Name), "Naam is verplicht");
+        }
+        else if (game.Name.Length > 255)
+        {
+            result.Add(nameof(game.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
 
         if (game.Date < DateTime.Now)

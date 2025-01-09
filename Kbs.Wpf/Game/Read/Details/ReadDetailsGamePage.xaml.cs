@@ -2,32 +2,43 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Game;
+using Kbs.Business.Medal;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
+using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
+using Kbs.Data.User;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Game.Read.Index;
+using Kbs.Wpf.Medal.Create;
+using Kbs.Wpf.Reservation.Create.SelectBoatType;
 using Kbs.Wpf.Reservation.Read.Details;
+using Kbs.Wpf.User.Read.Details;
 
 namespace Kbs.Wpf.Game.Read.Details;
 
+[HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(GameEntity))]
 public partial class ReadDetailsGamePage : Page
 {
     private readonly GameRepository _gameRepository = new();
     private readonly CourseRepository _courseRepository = new();
     private readonly ReservationRepository _reservationRepository = new();
     private readonly INavigationManager _navigationManager;
-    private readonly GameValidator _gameValidator;
+    private readonly GameValidator _gameValidator = new();
+    private readonly MedalRepository _medalRepository = new();
+    private readonly UserRepository _userRepository = new();
     private ReadDetailsGameViewModel ViewModel => (ReadDetailsGameViewModel)DataContext;
     public ReadDetailsGamePage(INavigationManager navigationManager, int gameId)
     {
         _navigationManager = navigationManager;
-        _gameValidator = new GameValidator();
         InitializeComponent();
         var game = _gameRepository.GetById(gameId);
         ViewModel.GameId = game.GameId;
         ViewModel.CourseId = game.CourseId;
         ViewModel.Name = game.Name;
-        ViewModel.CourseName = _courseRepository.GetById(game.CourseId).Name;
+        ViewModel.CourseName = _courseRepository.GetById(game.CourseId)?.Name ?? "Onbekend";
         ViewModel.Date = game.Date;
         
         foreach (var reservation in _reservationRepository.GetManyByGameId(game.GameId))
@@ -38,6 +49,13 @@ public partial class ReadDetailsGamePage : Page
                 Name = reservation.Boat.Name
             });
         }
+
+        foreach (var medal in _medalRepository.GetAllByGameId(gameId))
+        {
+            var user = _userRepository.GetById(medal.UserId);
+            ViewModel.Medals.Add(new ReadDetailsGameMedalViewModel(user, medal));
+        }
+
 
         foreach (var course in _courseRepository.GetAll())
         {
@@ -87,6 +105,12 @@ public partial class ReadDetailsGamePage : Page
             return;
         }
         var game = _gameRepository.GetById(ViewModel.GameId);
+        var medals = _medalRepository.GetAllByGameId(game.GameId);
+        foreach (MedalEntity medal in medals)
+        {
+            _medalRepository.RemoveById(medal.MedalId);
+        }
+
         _gameRepository.DeleteById(game.GameId);
         MessageBox.Show($"{game.Name} succesvol verwijderd");
         _navigationManager.Navigate(() => new ReadIndexGamePage(_navigationManager));
@@ -102,5 +126,22 @@ public partial class ReadDetailsGamePage : Page
     {
         var reservation = (ReadDetailsGameBoatViewModel)((DataGridRow)sender).DataContext;
         _navigationManager.Navigate(() => new ReadDetailsReservationPage(reservation.ReservationId, _navigationManager));
+    }
+
+    private void AddReservations(object sender, RoutedEventArgs e)
+    {
+        var game = _gameRepository.GetById(ViewModel.GameId);
+        _navigationManager.Navigate(() => new SelectBoatTypePage(_navigationManager, game));
+    }
+
+    private void GiveMedal(object sender, RoutedEventArgs e)
+    {
+        _navigationManager.Navigate(() => new CreateMedalPage(_navigationManager, ViewModel.GameId));
+    }
+
+    private void OnMedalClick(object sender, MouseButtonEventArgs e)
+    {
+        var medal = (ReadDetailsGameMedalViewModel)((DataGridRow)sender).DataContext;
+        _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, medal.UserId));
     }
 }

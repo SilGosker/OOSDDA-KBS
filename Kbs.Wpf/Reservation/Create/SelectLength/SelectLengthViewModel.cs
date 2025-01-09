@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.Reservation;
 ﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
+using Kbs.Business.Extentions;
 
 namespace Kbs.Wpf.Reservation.Create.SelectLength
 {
@@ -51,8 +52,8 @@ namespace Kbs.Wpf.Reservation.Create.SelectLength
         {
             this.AvailableStartTimes = availableStartTimes;
             this.Name = name;
-            this.Day = ReservationMaker.ConvertDayOfWeekToDutch(reservationDate);
-            this.Date = reservationDate.Day + "/" + reservationDate.Month + "/" + reservationDate.Year;
+            this.Day = reservationDate.DayOfWeek.ToDutchString();
+            this.Date = reservationDate.ToDutchString();
         }
     }
 }

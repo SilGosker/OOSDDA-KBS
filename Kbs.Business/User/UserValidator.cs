@@ -46,6 +46,10 @@ public class UserValidator
         if (!string.IsNullOrEmpty(user.Password))
         {
             var errorStringBuilder = new StringBuilder();
+            if(user.Name is { Length: > 255 })
+            {
+                errors.Add(nameof(user.Name), "Naam mag niet langer zijn dan 255 karakters");
+            }
             if (user.Password.Length < 8)
             {
                 errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");
@@ -79,8 +83,11 @@ public class UserValidator
                 errors.Add(nameof(user.Password), errorString);
             }
         }
-
-        if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+        if (user.Email.Length > 255)
+        {
+            errors.Add(nameof(user.Email), "E-mailadres moet korter zijn dan 255 tekens");
+        }
+        else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
             !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
         {
             errors.Add(nameof(user.Email), "Ongeldig email adres");
@@ -93,7 +100,7 @@ public class UserValidator
         return errors;
     }
 
-    public Dictionary<string, string> ValidatorForRegistration(UserEntity user, string passwordConfirmation)
+    public Dictionary<string, string> ValidatorForRegister(UserEntity user, string passwordConfirmation)
     {
         ThrowHelper.ThrowIfNull(user);
         var errors = new Dictionary<string, string>();
@@ -105,6 +112,10 @@ public class UserValidator
         else
         {
             var errorStringBuilder = new StringBuilder();
+            if(user.Name is { Length: > 255 })
+            {
+                errors.Add(nameof(user.Name), "Naam mag niet langer zijn dan 255 karakters");
+            }
             if (user.Password.Length < 8)
             {
                 errorStringBuilder.AppendLine("- Wachtwoord moet minimaal 8 tekens lang zijn");
@@ -145,7 +156,11 @@ public class UserValidator
         }
         else
         {
-            if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
+            if (user.Email.Length > 255)
+            {
+                errors.Add(nameof(user.Email), "E-mailadres moet korter zijn dan 255 tekens");
+            }
+            else if (!EmailValidationRegex.IsMatch(user.Email.Trim()) ||
                 !System.Net.Mail.MailAddress.TryCreate(user.Email.Trim(), out _))
             {
                 errors.Add(nameof(user.Email), "Ongeldig email adres");

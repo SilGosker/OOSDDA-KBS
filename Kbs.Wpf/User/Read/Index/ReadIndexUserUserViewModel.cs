@@ -1,6 +1,7 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Kbs.Wpf.User.Read.Index
 {
@@ -31,7 +32,14 @@ namespace Kbs.Wpf.User.Read.Index
         public ReadIndexUserUserViewModel(UserEntity user)
         {
             ThrowHelper.ThrowIfNull(user);
-            Name = user.Name;
+            if (string.IsNullOrEmpty(user.Name))
+            {
+                Name = user.Email;
+            }
+            else
+            {
+                Name = user.Name;
+            }
             UserId = user.UserId;
             Role = user.Role.ToDutchString();
         }

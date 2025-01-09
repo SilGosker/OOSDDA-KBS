@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Kbs.Wpf.User.Update"
       mc:Ignorable="d"
       d:DesignWidth="1740" d:DesignHeight="1080"
+      HorizontalAlignment="Center"
       Title="UpdateUserPage">
     <Page.DataContext>
         <local:UpdateUserViewModel />
@@ -18,7 +19,8 @@
 
             <Label Content="Naam" HorizontalAlignment="Left" Margin="195,17,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding InputName}" Margin="200,43,0,0" VerticalAlignment="Top" Width="400" />
-
+            <Label Content="{Binding NameErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,70,0,0" VerticalAlignment="Top" />
+            
             <Label Content="Email" HorizontalAlignment="Left" Margin="195,87,0,0" VerticalAlignment="Top" />
             <TextBox HorizontalAlignment="Left" Text="{Binding InputEmail}" Margin="200,113,0,0" VerticalAlignment="Top" Width="400" />
             <Label Content="{Binding EmailErrorMessage}" Foreground="Red" HorizontalAlignment="Left" Margin="195,140,0,0" VerticalAlignment="Top" />
@@ -39,7 +41,5 @@
             </Grid>
         </Grid>
         <Button IsDefault="True" Style="{StaticResource FormButton}" Content="Update gegevens" HorizontalAlignment="Center" Margin="0,410,0,0" VerticalAlignment="Top" Click="Submit" Width="110"/>
-    
-        <Button IsCancel="True" Style="{StaticResource FormButton}" Content="Annuleren" HorizontalAlignment="Center" Margin="0,480,0,0" VerticalAlignment="Top" Click="Cancel" Width="110"/>
     </Grid>
 </Page>

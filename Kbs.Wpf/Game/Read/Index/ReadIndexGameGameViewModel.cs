@@ -1,4 +1,5 @@
 using System.Windows.Media;
+using Kbs.Business.Extentions;
 using Kbs.Business.Game;
 using Kbs.Wpf.Components;
 
@@ -16,7 +17,7 @@ public class ReadIndexGameGameViewModel : ViewModel
         Name = game.Name;
         Id = game.GameId;
         Date = game.Date;
-        Course = course.Name ?? "Onbekend";
+        Course = course?.Name ?? "Onbekend";
     }
     
     public string Name
@@ -31,12 +32,14 @@ public class ReadIndexGameGameViewModel : ViewModel
         set => SetField(ref _id, value);
     }
     
-    public string GameIdString => "Wedstrijd nr. " + Id;
-    
     public DateTime Date
     {
         get => _date;
-        set => SetField(ref _date, value);
+        set
+        {
+            SetField(ref _date, value);
+            OnPropertyChanged(nameof(DateFormatted));
+        }
     }
     
     public Brush DateColor => Date > DateTime.Now ? Brushes.Green : Brushes.Red;
@@ -46,4 +49,8 @@ public class ReadIndexGameGameViewModel : ViewModel
         get => _course;
         set => SetField(ref _course, value);
     }
+
+    public string DateFormatted => Date.ToDutchString();
+    
+
 }

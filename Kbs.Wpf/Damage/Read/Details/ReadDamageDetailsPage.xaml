@@ -5,63 +5,50 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:details="clr-namespace:Kbs.Wpf.Damage.Read.Details"
       mc:Ignorable="d"
-      d:DesignHeight="600" d:DesignWidth="900"
+      d:DesignHeight="1080" d:DesignWidth="1740"
       HorizontalAlignment="Center"
-      MinWidth="400"
       Title="ReadDamageDetails">
-
     <Page.DataContext>
         <details:ReadDamageDetailsViewModel />
     </Page.DataContext>
+    
     <Grid Style="{StaticResource PageGrid}">
-        <Border Margin="20, 132, 20, 20" Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Grid>
+        
+        <Label Content="{Binding DamageIdFormatted}" Style="{StaticResource TitleLabel}" Margin="0,27,0,0" />
+        <Button Content="Verwijderen" Click="RemoveDamage"
+                HorizontalAlignment="Right" Margin="0,90,150,0" VerticalAlignment="Top" 
+                Style="{StaticResource FormButton}" Width="120" />
+        <Button Content="Oplossen" Click="SolveDamage"
+                HorizontalAlignment="Right" Margin="0,90,20,0" VerticalAlignment="Top"
+                Style="{StaticResource FormButton}" Width="120" />
+        
+        <Border Background="Transparent" VerticalAlignment="Top" Width="830" Margin="20,132,20,20">
+            <Grid HorizontalAlignment="Stretch" Margin="10, 0, 10, 10">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="20" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Label Grid.ColumnSpan="2" Content="{Binding DamageIdFormatted}" HorizontalContentAlignment="Center" Margin="358,0,0,0" />
-                <Separator Grid.Column="0" BorderBrush="White" Grid.Row="1" Grid.ColumnSpan="2" />
-
-                <Label Grid.Column="0" Grid.Row="2" Content="Boot:" HorizontalAlignment="Left" FontWeight="Bold" />
-                <TextBlock Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left"
-                           FontWeight="Bold">
+                <!-- left -->
+                <Label Content="Boot:" FontWeight="Bold" Margin="10,50,0,0" VerticalAlignment="Top" />
+                <TextBlock Margin="121,57,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
                     <Hyperlink Click="NavigateToBoatPage">
                         <Run Text="{Binding BoatName}" />
                     </Hyperlink>
                 </TextBlock>
+                
+                <Label Content="Boot nummer:" FontWeight="Bold" Margin="10,110,0,0" VerticalAlignment="Top" />
+                <Label Content="{Binding BoatId}" Margin="121, 110, 0, 0" VerticalAlignment="Top" />
+                
+                <Label Content="Status:" FontWeight="Bold" Margin="10,170,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding StatusFormatted}" Margin="121, 170, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
 
-                <Label Grid.Column="0" Grid.Row="3" Content="Status:" HorizontalAlignment="Left" FontWeight="Bold" />
+                
+                <Label Content="Datum:" FontWeight="Bold" Margin="10,230,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                <Label Content="{Binding DateFormatted}" Margin="121, 230, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                
+                <!-- right -->
+                <Label Content="Beschrijving:" FontWeight="Bold" Margin="387,20,0,0" VerticalAlignment="Top" />
 
-                <Button Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Verwijderen" Click="RemoveDamage"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" />
-                <Button Grid.Column="0" Grid.Row="0" Style="{StaticResource FormButton}" Margin="10" Content="Oplossen"
-                        Click="SolveDamage" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-                <Label Grid.Column="1" Grid.Row="3" Content="{Binding StatusFormatted}" HorizontalAlignment="Left"
-                       FontWeight="Bold" />
-                <Label Grid.Column="0" Grid.Row="4" Content="Datum:" HorizontalAlignment="Left" FontWeight="Bold" />
-                <Label Grid.Column="1" Grid.Row="4" Content="{Binding DateFormatted}" HorizontalAlignment="Left" />
-                <Label Grid.Column="0" Grid.Row="5" Content="Beschrijving:" HorizontalAlignment="Left"
-                       FontWeight="Bold" />
-
-                <TextBox IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6"
-                         Text="{Binding Description}" />
-                <Image Source="{Binding Image}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" />
-
+                <TextBox Margin="387,50,10,20" Height="320"
+                         IsReadOnly="True" Text="{Binding Description}" VerticalAlignment="Top"/>
+                <Image Source="{Binding Image}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 390, 10, 20" />
             </Grid>
         </Border>
     </Grid>

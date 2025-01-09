@@ -3,7 +3,7 @@
 public class BoatTypeSeatsExtensionsTests
 {
     [Theory]
-    [InlineData(BoatTypeSeats.One, "Een zitplaats")]
+    [InlineData(BoatTypeSeats.One, "Één zitplaats")]
     [InlineData(BoatTypeSeats.Two, "Twee zitplaatsen")]
     [InlineData(BoatTypeSeats.Three, "Drie zitplaatsen")]
     [InlineData(BoatTypeSeats.Four, "Vier zitplaatsen")]

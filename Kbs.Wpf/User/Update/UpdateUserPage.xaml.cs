@@ -3,10 +3,17 @@ using System.Windows.Controls;
 using Kbs.Business.User;
 using Kbs.Business.Session;
 using Kbs.Data.User;
+using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Index;
+using Kbs.Wpf.User.Ban;
 
 namespace Kbs.Wpf.User.Update;
 
+[HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
+[HasRole(UserRole.MaterialCommissioner)]
+[HighlightFor(typeof(Kbs.Business.Session.Session))]
 public partial class UpdateUserPage : Page
 {
     private readonly UserValidator _userValidator = new(); 
@@ -16,7 +23,7 @@ public partial class UpdateUserPage : Page
     public UpdateUserPage(INavigationManager navigationManager)
     {
         InitializeComponent();
-        this._navigationManager = navigationManager;
+        _navigationManager = navigationManager;
         ViewModel.InputEmail = SessionManager.Instance.Current.User.Email;
         ViewModel.InputName = SessionManager.Instance.Current.User.Name;
     }
@@ -32,24 +39,10 @@ public partial class UpdateUserPage : Page
         };
         var validationResult = _userValidator.ValidatorForUpdate(user, ViewModel.InputConfirmPassword, _userRepository, sessionUser.Email);
             
-        if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
-        {
-            ViewModel.EmailErrorMessage = emailMessage;
-        }
-        else
-        {
-            ViewModel.EmailErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
-        {
-            ViewModel.PasswordErrorMessage = passwordMessage;
-        }
-        else
-        {
-            ViewModel.PasswordErrorMessage = string.Empty;
-        }
-
+        ViewModel.EmailErrorMessage = validationResult.TryGetValue(nameof(user.Email), out string emailMessage) ? emailMessage : string.Empty;
+        ViewModel.PasswordErrorMessage = validationResult.TryGetValue(nameof(user.Password), out string passwordMessage) ? passwordMessage : string.Empty;
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(user.Name), out string nameMessage) ? nameMessage : string.Empty;
+        
         // When no errors are shown
         if (validationResult.Count == 0)
         {
@@ -57,13 +50,20 @@ public partial class UpdateUserPage : Page
             SessionManager.Instance.UpdateSessionUser(user.Email, ((passwordUpdated) ? user.Password : null), user.Name);
             _userRepository.Update(sessionUser);
             MessageBox.Show("Gegevens zijn aangepast.");
-            _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
-            return;
+
+            if (sessionUser.IsMember() || sessionUser.IsGameCommissioner())
+            {
+                _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
+            }
+            else if (sessionUser.IsMaterialCommissioner())
+            {
+                _navigationManager.Navigate(() => new ReadIndexBoatPage(_navigationManager));
+            }
+            else
+            {
+                _navigationManager.Navigate(() => new BanUserPage());
+            }
         }
-    }
-    private void Cancel(object sender, RoutedEventArgs e)
-    {
-        _navigationManager.Navigate(() => new ReadIndexReservationPage(_navigationManager));
     }
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {

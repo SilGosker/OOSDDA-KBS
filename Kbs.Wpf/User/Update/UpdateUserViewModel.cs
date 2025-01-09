@@ -10,6 +10,7 @@ public class UpdateUserViewModel : ViewModel
     private string _inputConfirmPassword;
     private string _emailErrorMessage;
     private string _passwordErrorMessage;
+    private string _nameErrorMessage;
 
     public string InputName { get => _inputName; set => SetField(ref _inputName, value); }
     public string InputEmail { get => _inputEmail; set => SetField(ref _inputEmail, value); }
@@ -17,4 +18,5 @@ public class UpdateUserViewModel : ViewModel
     public string InputConfirmPassword { get => _inputConfirmPassword; set => SetField(ref _inputConfirmPassword, value); }
     public string EmailErrorMessage { get => _emailErrorMessage; set => SetField(ref _emailErrorMessage, value); }
     public string PasswordErrorMessage { get => _passwordErrorMessage; set => SetField(ref _passwordErrorMessage, value); }
+    public string NameErrorMessage { get => _nameErrorMessage; set => SetField(ref _nameErrorMessage, value); }
 }

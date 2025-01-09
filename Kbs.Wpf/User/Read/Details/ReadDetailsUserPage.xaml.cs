@@ -11,11 +11,14 @@ using Kbs.Data.Medal;
 using Kbs.Data.Reservation;
 using Kbs.Data.User;
 using Kbs.Wpf.BoatType.Read.Details;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Details;
 using static Dapper.SqlMapper;
 
 namespace Kbs.Wpf.User.Read.Details
 {
+    [HasRole(UserRole.GameCommissioner)]
+    [HighlightFor(typeof(UserEntity))]
     public partial class ReadDetailsUserPage : Page
     {
         private readonly UserRepository _userRepository = new UserRepository();
@@ -41,7 +44,8 @@ namespace Kbs.Wpf.User.Read.Details
             var reservations = _reservationRepository.GetByUserId(id);
             foreach (var reservation in reservations)
             {
-                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation));
+                string boatName = _boatRepository.GetById(reservation.BoatId).Name;
+                ViewModel.Reservations.Add(new ReadDetailsUserReservationViewModel(reservation, boatName));
             }
             var medals = _medalRepository.GetAllByUserId(id);
             foreach (var medal in medals)
@@ -69,7 +73,7 @@ namespace Kbs.Wpf.User.Read.Details
             MessageBoxResult result = MessageBox.Show("Weet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (MessageBoxResult.Yes == result)
             {
-                _userRepository.ChangeRole(entity);
+                _userRepository.Ban(entity);
                 _navigationManager.Navigate(() => new ReadDetailsUserPage(_navigationManager, userId));
             }
         }

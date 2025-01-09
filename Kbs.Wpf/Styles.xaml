@@ -12,7 +12,7 @@
     <Brush x:Key="ColorBorder">#99AAB5</Brush> <!-- Cool Gray -->
     <Brush x:Key="ColorButtonHoverBackground">#3B4048</Brush> <!-- Charcoal Gray -->
     <Brush x:Key="ColorButtonPressedBorder">#72767D</Brush> <!-- Gray -->
-
+    <Brush x:Key="ColorNavigationButtonHover">#3E434B</Brush>
     <Brush x:Key="ColorEmptySpace">#33373D</Brush>
 
     <Style x:Key="MainWindow" TargetType="Window">
@@ -157,14 +157,57 @@
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource ColorButtonHoverBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource ColorCaretBrush}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
                 <Setter Property="BorderBrush" Value="{StaticResource ColorButtonPressedBorder}" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Opacity" Value="0.6" />
             </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="SidebarNavigationButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
+        <Setter Property="Foreground" Value="#DCDDDE" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontSize" Value="14" />
+        <!-- <Setter Property="FontWeight" Value="Bold" /> -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="4"
+                        BorderThickness="0"
+                        BorderBrush="Transparent"
+                        Style="{x:Null}">
+                        <ContentPresenter
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="5,0" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource ColorNavigationButtonHover}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="{StaticResource ColorNavigationButtonHover}" />
+            </Trigger>
+            <DataTrigger Binding="{Binding Path=IsHighlighted}" Value="True">
+                <Setter Property="Background" Value="{StaticResource ColorNavigationButtonHover}" />
+            </DataTrigger>
+
         </Style.Triggers>
     </Style>
 
@@ -362,10 +405,12 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ColorCaretBrush}" />
                             <Setter Property="Background" Value="{StaticResource ColorButtonHoverBackground}" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="{StaticResource ColorSecondaryBackground}" />
                             <Setter Property="BorderBrush" Value="{StaticResource ColorButtonPressedBorder}" />
+                            <Setter Property="Cursor" Value="Hand" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -434,6 +479,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#3B4048" />
+                <Setter Property="Cursor" Value="Hand" />
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="#23272A" />
@@ -628,4 +674,8 @@
         <Setter Property="CalendarDayButtonStyle" Value="{StaticResource CustomCalendarDayButtonStyle}" />
         <Setter Property="CalendarItemStyle" Value="{StaticResource DefaultCalendarItemStyle}" />
     </Style>
+    
+    <ControlTemplate x:Key="ContentOnlyTemplate" TargetType="{x:Type Button}">
+        <ContentPresenter />
+    </ControlTemplate>
 </ResourceDictionary>

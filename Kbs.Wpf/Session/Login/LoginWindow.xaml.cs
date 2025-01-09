@@ -4,14 +4,15 @@ using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Reservation.Read.Index;
-using Kbs.Wpf.User.Registration;
+using Kbs.Wpf.User.Ban;
+using Kbs.Wpf.User.Register;
 
 namespace Kbs.Wpf.Session.Login;
 
 public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
-    private RegistrationWindow _registrationWindow;
+    private RegisterUserWindow _registrationWindow;
     private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {
@@ -67,15 +68,22 @@ public partial class LoginWindow : Window
         _registrationWindow.Close();
         var window = new MainWindow();
         window.Show();
-        // MaterialCommissioner: Navigate to boat index page.
-        if (session.User.Role == UserRole.MaterialCommissioner)
+
+        // Go to default page based on role
+        switch (session.User.Role)
         {
-            window.Navigate(() =>new ReadIndexBoatPage(window));
-        }
-        // Member and other people: Navigate to reservation index page.
-        else
-        {
-            window.Navigate(() => new ReadIndexReservationPage(window));
+            // Banned user: Navigate to ban user page.
+            case UserRole.Banned:
+                window.Navigate(() => new BanUserPage());
+                break;
+            // MaterialCommissioner: Navigate to boat index page.
+            case UserRole.MaterialCommissioner:
+                window.Navigate(() => new ReadIndexBoatPage(window));
+                break;
+            // Member and other people: Navigate to reservation index page.
+            default:
+                window.Navigate(() => new ReadIndexReservationPage(window));
+                break;
         }
 
         Close();

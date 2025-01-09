@@ -8,11 +8,14 @@ using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
 using Kbs.Data.Reservation;
 using Kbs.Wpf.Boat.Read.Index;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Reservation.Read.Index;
 
 namespace Kbs.Wpf.Reservation.Read.Details;
 
 [HasRole(UserRole.Member)]
+[HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(ReservationEntity))]
 public partial class ReadDetailsReservationPage : Page
 {
     private readonly BoatTypeRepository _boatTypeRepository = new();
@@ -27,7 +30,7 @@ public partial class ReadDetailsReservationPage : Page
         InitializeComponent();
         var reservation = _reservationRepository.GetById(reservationId);
         var boatType = _boatTypeRepository.GetByReservationId(reservationId);
-
+        
         ViewModel.ReservationId = reservation.ReservationId;
         ViewModel.Length = reservation.Length;
         ViewModel.StartTime = reservation.StartTime;

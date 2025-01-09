@@ -2,13 +2,17 @@
 using System.Windows.Controls;
 using Kbs.Business.Course;
 using Kbs.Business.Game;
+using Kbs.Business.User;
 using Kbs.Data.Course;
 using Kbs.Data.Game;
+using Kbs.Wpf.Components;
 using Kbs.Wpf.Game.Read.Details;
 using Kbs.Wpf.Reservation.Create.SelectBoatType;
 
 namespace Kbs.Wpf.Game.Create;
 
+[HasRole(UserRole.GameCommissioner)]
+[HighlightFor(typeof(GameEntity))]
 public partial class CreateGamePage : Page
 {
     private readonly GameValidator _gameValidator;

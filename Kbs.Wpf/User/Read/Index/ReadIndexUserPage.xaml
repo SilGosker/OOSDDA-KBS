@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.User.Read.Index"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1740"
+      HorizontalAlignment="Center"
       Title="ReadIndexUserViewModel">
     <Page.DataContext>
         <index:ReadIndexUserViewModel />
@@ -63,7 +64,7 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="UserID: " Style="{StaticResource ListItemTextBlockStyle}"/>
+                                    <TextBlock Grid.Column="0" Text="Nummer: " Style="{StaticResource ListItemTextBlockStyle}"/>
                                     <TextBlock Grid.Column="1" Text="{Binding UserId}" Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

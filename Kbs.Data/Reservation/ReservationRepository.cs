@@ -1,12 +1,11 @@
 using Dapper;
 using Kbs.Business.Boat;
-using Kbs.Business.BoatType;
 using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Reservation;
 
-public class ReservationRepository : IReservationRepository, IDisposable
+public class ReservationRepository : IReservationRepository
 {
     private readonly SqlConnection _connection = new(DatabaseConstants.ConnectionString);
 
@@ -31,11 +30,6 @@ public class ReservationRepository : IReservationRepository, IDisposable
         if (res.ReservationId == 0) return;
 
         _connection.Execute("DELETE FROM Reservation WHERE ReservationID = @ReservationId", res);
-    }
-
-    public void Dispose()
-    {
-        _connection?.Dispose();
     }
 
     public List<ReservationEntity> Get()
@@ -87,7 +81,7 @@ public class ReservationRepository : IReservationRepository, IDisposable
     public int CountByUser(int userId)
     {
         return _connection.QuerySingleOrDefault<int>(
-            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId",
+            "SELECT COUNT(ReservationID) FROM Reservation WHERE UserID = @userId AND Status = 3",
             new { userId }
         );
     }
@@ -110,7 +104,10 @@ public class ReservationRepository : IReservationRepository, IDisposable
         JOIN 
             Boat b ON r.BoatID = b.BoatID
         WHERE 
-            r.GameID = @gameId";
+            r.GameID = @gameId
+        AND
+            r.Status = 3";
+
 
         return _connection.Query<ReservationEntity, BoatEntity, ReservationEntity>(
             sql,
@@ -121,6 +118,39 @@ public class ReservationRepository : IReservationRepository, IDisposable
             },
             new { gameId },
             splitOn: "BoatId"
+        ).ToList();
+    }
+    public void UpdateWhenBroken(int boatId)
+    {
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId";
+
+        _connection.Execute(query, new { BoatId = boatId });
+    }
+    public void UpdateWhenMaintained(int boatId, DateTime endDate)
+    {
+        endDate = endDate.Date;
+        var query = @"UPDATE Reservation 
+                  SET Status = 1 
+                  WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL";
+
+        _connection.Execute(query, new { BoatId = boatId, EndDate = endDate });
+    }
+    public List<ReservationEntity> GetByBoatWhenUpdated(int boatId) // When broken
+    {
+        return _connection.Query<ReservationEntity>(
+            @"SELECT * FROM Reservation WHERE BoatID = @BoatId",
+            new { BoatId = boatId }
+        ).ToList();
+    }
+    
+    public List<ReservationEntity> GetByBoatWhenUpdated(int boatId, DateTime endDate) // When maintained
+    {
+        endDate = endDate.Date;
+        return _connection.Query<ReservationEntity>(
+            @"SELECT * FROM Reservation WHERE BoatID = @BoatId AND CONVERT(DATE, StartTime) < @EndDate AND StartTime IS NOT NULL",
+            new { BoatId = boatId, EndDate = endDate }
         ).ToList();
     }
 }

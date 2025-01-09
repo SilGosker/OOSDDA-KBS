@@ -16,6 +16,25 @@ public class BoatValidatorTests
         var exception = Assert.Throws<ArgumentNullException>(() => validator.ValidateForCreate(boat));
         Assert.Equal("Value cannot be null. (Parameter 'boat')", exception.Message);
     }
+    
+    [Fact]
+    public void ValidateForCreate_ShouldReturnError_WhenBoatNameIsLargerThan255Characters()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            Name = new string('a', 256),
+            BoatTypeId = 1
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.ValidateForCreate(boat);
+
+        // Assert
+        Assert.Contains(nameof(BoatEntity.Name), result.Keys);
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", result[nameof(BoatEntity.Name)]);
+    }
 
     [Fact]
     public void ValidateForCreate_ShouldReturnError_WhenBoatNameIsNullOrWhitespace()
@@ -172,5 +191,24 @@ public class BoatValidatorTests
 
         // Reset
         BoatValidator.RequestDeletionTime = TimeSpan.FromMinutes(30);
+    }
+    
+    [Fact]
+    public void ValidForUpdate_ShouldReturnError_WhenNameIsLargerThan255Characters()
+    {
+        // Arrange
+        var boat = new BoatEntity
+        {
+            Name = new string('a', 256),
+            BoatTypeId = 1
+        };
+        var validator = new BoatValidator(new MockBoatTypeRepository());
+
+        // Act
+        var result = validator.ValidateForUpdate(boat);
+
+        // Assert
+        Assert.Contains(nameof(BoatEntity.Name), result.Keys);
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", result[nameof(BoatEntity.Name)]);
     }
 }

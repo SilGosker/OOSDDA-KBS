@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kbs.Wpf.Session.Login"
         mc:Ignorable="d"
-        Title="LoginWindow" 
+        Title="Roeibootvereniging Plankie - Inloggen" 
         d:DesignWidth="1740" d:DesignHeight="1080"
-        Style="{StaticResource MainWindow}">
+        HorizontalAlignment="Center"
+        Style="{StaticResource MainWindow}"
+        Icon="/Images/plankie.png">
     <Window.DataContext>
         <local:LoginViewModel />
     </Window.DataContext>

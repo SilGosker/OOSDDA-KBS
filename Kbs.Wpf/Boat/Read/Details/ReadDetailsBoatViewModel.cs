@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Kbs.Business.Boat;
+using Kbs.Business.Extentions;
 using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Components;
@@ -34,10 +35,10 @@ public class ReadDetailsBoatViewModel : ViewModel
         set
         {
             SetField(ref _boatId, value);
-            OnPropertyChanged(nameof(BoatIdString));
+            OnPropertyChanged(nameof(BoatIdFormatted));
         }
     }
-    public string BoatIdString => $"Boot #{BoatId}";
+    public string BoatIdFormatted => $"Boot #{BoatId}";
     public string Name
     {
         get => _name;
@@ -104,8 +105,8 @@ public class ReadDetailsBoatViewModel : ViewModel
     }
 
     public string DeleteRequestDateMessage => _deleteRequestDate != null ?
-        _deleteRequestDate.Value.ToString("dd-MM-yyyy HH:mm")
-        :"";
+        _deleteRequestDate.Value.ToDutchString(true) : "";
+        
     public TimeSpan? WaitDuration
     {
         get

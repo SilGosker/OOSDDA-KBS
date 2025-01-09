@@ -22,7 +22,12 @@ public class BoatValidator
         if (string.IsNullOrWhiteSpace(boat.Name))
         {
             validationResult.Add(nameof(boat.Name), "Naam is verplicht");
+        } 
+        else if (boat.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boat.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
+        
 
         // Validate BoatTypeId
         if (_boatTypeRepository.GetById(boat.BoatTypeId) == null)
@@ -42,6 +47,10 @@ public class BoatValidator
         if (string.IsNullOrWhiteSpace(boat.Name))
         {
             validationResult.Add(nameof(boat.Name), "Naam is verplicht");
+        }
+        else if (boat.Name.Length > 255)
+        {
+            validationResult.Add(nameof(boat.Name), "Naam mag niet langer zijn dan 255 karakters");
         }
 
         if (!Enum.IsDefined(boat.Status))
@@ -77,4 +86,16 @@ public class BoatValidator
 
         return validationResult;
     }
+    public static Dictionary<string, string> ValidateEndDate(DateTime endDate)
+    {
+        var result = new Dictionary<string, string>();
+
+        if (endDate <= DateTime.Now)
+        {
+            result.Add(nameof(endDate), "De datum moet in de toekomst liggen.");
+        }
+
+        return result;
+    }
+
 }

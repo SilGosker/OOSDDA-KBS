@@ -6,6 +6,7 @@
       xmlns:index="clr-namespace:Kbs.Wpf.Course.Read.Index"
       mc:Ignorable="d"
       d:DesignHeight="1200" d:DesignWidth="900"
+      HorizontalAlignment="Center"
       Title="ReadIndexCoursePage">
     <Page.DataContext>
         <index:ReadIndexCourseViewModel />
@@ -32,7 +33,7 @@
                 <DataTemplate>
                     <Grid Style="{StaticResource ListViewItemGrid}" Width="375">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding CourseId}" Style="{StaticResource ListItemTextBlockStyle}"
+                            <TextBlock Text="{Binding Name}" Style="{StaticResource ListItemTextBlockStyle}"
                                        FontSize="20"
                                        FontWeight="Bold"
                                        VerticalAlignment="Top" />
@@ -44,9 +45,9 @@
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="Naam: "
+                                    <TextBlock Grid.Column="0" Text="Nummer: "
                                                Style="{StaticResource ListItemTextBlockStyle}" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Name}"
+                                    <TextBlock Grid.Column="1" Text="{Binding CourseId}"
                                                Style="{StaticResource ListItemTextBlockStyle}" />
                                 </Grid>
                             </StackPanel>

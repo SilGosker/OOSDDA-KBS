@@ -24,6 +24,52 @@ public class BoatTypeValidatorTests
         Assert.True(validationResult.TryGetValue(nameof(boatType.Name), out string errorMessage));
         Assert.Equal("Naam is verplicht", errorMessage);
     }
+    
+    [Fact]
+    public void ValidateForCreate_WhenNameIsLargerThan255Characters_ShouldReturnError()
+    {
+        // Arrange
+        var boatType = new BoatTypeEntity()
+        {
+            Name = new string('a', 256),
+            RequiredExperience = BoatTypeRequiredExperience.Beginner,
+            Seats = BoatTypeSeats.Two,
+            Speed = 100
+        };
+        var validator = new BoatTypeValidator();
+
+        // Act
+        var validationResult = validator.ValidateForCreate(boatType);
+
+        // Assert
+        Assert.NotNull(validationResult);
+        Assert.Single(validationResult);
+        Assert.True(validationResult.TryGetValue(nameof(boatType.Name), out string errorMessage));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", errorMessage);
+    }
+    
+    [Fact]
+    public void ValidateForUpdate_WhenNameIsLargerThan255Characters_ShouldReturnError()
+    {
+        // Arrange
+        var boatType = new BoatTypeEntity()
+        {
+            Name = new string('a', 256),
+            RequiredExperience = BoatTypeRequiredExperience.Beginner,
+            Seats = BoatTypeSeats.Two,
+            Speed = 100
+        };
+        var validator = new BoatTypeValidator();
+
+        // Act
+        var validationResult = validator.ValidatorForUpdate(boatType);
+
+        // Assert
+        Assert.NotNull(validationResult);
+        Assert.Single(validationResult);
+        Assert.True(validationResult.TryGetValue(nameof(boatType.Name), out string errorMessage));
+        Assert.Equal("Naam mag niet langer zijn dan 255 karakters", errorMessage);
+    }
 
     [Fact]
     public void ValidateForCreate_WhenRequiredExperienceIsDefault_ShouldReturnError()

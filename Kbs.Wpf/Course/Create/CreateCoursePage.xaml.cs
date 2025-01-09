@@ -40,7 +40,6 @@ public partial class CreateCoursePage : Page
 
         if (dialog.ShowDialog() == true)
         {
-
             ViewModel.ImagePath = dialog.FileName;
         }
     }
@@ -64,32 +63,9 @@ public partial class CreateCoursePage : Page
 
         var validationResult = _courseValidator.ValidateForCreate(course);
 
-        if (validationResult.TryGetValue(nameof(course.Image), out string imageError))
-        {
-            ViewModel.ImageErrorMessage = imageError;
-        }
-        else
-        {
-            ViewModel.ImageErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(course.Name), out string nameError))
-        {
-            ViewModel.NameErrorMessage = nameError;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(course.Difficulty), out string difficultyError))
-        {
-            ViewModel.DifficultyErrorMessage = difficultyError;
-        }
-        else
-        {
-            ViewModel.DifficultyErrorMessage = string.Empty;
-        }
+        ViewModel.ImageErrorMessage = validationResult.TryGetValue(nameof(course.Image), out string imageError) ? imageError : string.Empty;
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(course.Name), out string nameError) ? nameError : string.Empty;
+        ViewModel.DifficultyErrorMessage = validationResult.TryGetValue(nameof(course.Difficulty), out string difficultyError) ? difficultyError : string.Empty;
 
         if (validationResult.Count != 0)
         {
@@ -103,13 +79,6 @@ public partial class CreateCoursePage : Page
     private void DifficultyChanged(object sender, SelectionChangedEventArgs e)
     {
         var difficulties = (CourseDifficultyViewModel)((ComboBox)sender).SelectedItem;
-        if (difficulties == null)
-        {
-            ViewModel.Difficulty = 0;
-        }
-        else
-        {
-            ViewModel.Difficulty = difficulties.CourseDifficulty;
-        }
+        ViewModel.Difficulty = difficulties?.CourseDifficulty ?? 0;
     }
 }

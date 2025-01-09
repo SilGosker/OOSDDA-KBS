@@ -2,7 +2,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Kbs.Business.Boat;
-using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
@@ -16,7 +15,6 @@ using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Damage.Read.Details;
 using Kbs.Wpf.Damage.Upload;
-using Kbs.Wpf.Reservation.Read.Details;
 
 namespace Kbs.Wpf.Boat.Read.Details;
 

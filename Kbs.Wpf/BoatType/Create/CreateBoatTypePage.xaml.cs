@@ -34,30 +34,13 @@ public partial class CreateBoatTypePage : Page
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
     {
         var experience = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
-        if (experience == null)
-        {
-            ViewModel.RequiredExperience = 0;
-        }
-        else
-        {
-            ViewModel.RequiredExperience = experience.RequiredExperience;
-        }
-
+        ViewModel.RequiredExperience = experience?.RequiredExperience ?? 0;
     }
 
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
         var seats = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (seats == null)
-        {
-        ViewModel.Seats = 0;
-        }
-        else
-        {
-            ViewModel.Seats = seats.BoatTypeSeats;
-        }
-
-
+        ViewModel.Seats = seats?.BoatTypeSeats ?? 0;
     }
 
     private void Submit(object sender, System.Windows.RoutedEventArgs e)
@@ -73,41 +56,10 @@ public partial class CreateBoatTypePage : Page
 
         var validationResult = new BoatTypeValidator().ValidateForCreate(boatType);
 
-        if (validationResult.TryGetValue(nameof(boatType.Name), out string nameError))
-        {
-            ViewModel.NameErrorMessage = nameError;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(boatType.RequiredExperience), out string experienceError))
-        {
-            ViewModel.ExperienceErrorMessage = experienceError;
-        }
-        else
-        {
-            ViewModel.ExperienceErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(boatType.Seats), out string seatsErrorMessage))
-        {
-            ViewModel.SeatsErrorMessage = seatsErrorMessage;
-        }
-        else
-        {
-            ViewModel.SeatsErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(boatType.Speed), out string speedErrorMessage))
-        {
-            ViewModel.SpeedErrorMessage = speedErrorMessage;
-        }
-        else
-        {
-            ViewModel.SpeedErrorMessage = string.Empty;
-        }
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(boatType.Name), out string nameError) ? nameError : string.Empty;
+        ViewModel.ExperienceErrorMessage = validationResult.TryGetValue(nameof(boatType.RequiredExperience), out string experienceError) ? experienceError : string.Empty;
+        ViewModel.SeatsErrorMessage = validationResult.TryGetValue(nameof(boatType.Seats), out string seatsErrorMessage) ? seatsErrorMessage : string.Empty;
+        ViewModel.SpeedErrorMessage = validationResult.TryGetValue(nameof(boatType.Speed), out string speedErrorMessage) ? speedErrorMessage : string.Empty;
 
         if (validationResult.Count != 0)
         {
@@ -115,7 +67,6 @@ public partial class CreateBoatTypePage : Page
         }
 
         _boatTypeRepository.Create(boatType);
-        
         _navigationManager.Navigate(() => new ReadDetailsBoatTypePage(_navigationManager, boatType.BoatTypeId));
     }
 }

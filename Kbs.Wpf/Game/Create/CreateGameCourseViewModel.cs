@@ -2,16 +2,10 @@
 
 namespace Kbs.Wpf.Game.Create;
 
-public class CreateGameCourseViewModel
+public class CreateGameCourseViewModel(CourseEntity course)
 {
-    public CreateGameCourseViewModel(CourseEntity course)
-    {
-        Name = course.Name;
-        Id = course.CourseId;
-    }
-
-    public int Id { get; }
-    public string Name { get; }
+    public int Id { get; } = course.CourseId;
+    public string Name { get; } = course.Name;
 
     public override string ToString()
     {

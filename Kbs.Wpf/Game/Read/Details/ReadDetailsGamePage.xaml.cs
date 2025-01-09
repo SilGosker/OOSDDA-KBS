@@ -56,7 +56,6 @@ public partial class ReadDetailsGamePage : Page
             ViewModel.Medals.Add(new ReadDetailsGameMedalViewModel(user, medal));
         }
 
-
         foreach (var course in _courseRepository.GetAll())
         {
             var courseViewModel = new ReadDetailsGameCourseViewModel

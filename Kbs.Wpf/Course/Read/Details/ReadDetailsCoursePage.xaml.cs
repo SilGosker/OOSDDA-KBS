@@ -2,14 +2,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using Kbs.Business.Course;
-using Kbs.Business.Reservation;
-using Kbs.Business.Session;
 using Kbs.Business.User;
 using Kbs.Data.Course;
-using Kbs.Wpf.Boat.Read.Index;
 using Kbs.Wpf.Components;
 using Kbs.Wpf.Course.Read.Index;
-using Kbs.Wpf.Reservation.Read.Index;
 using Microsoft.Win32;
 
 namespace Kbs.Wpf.Course.Read.Details;
@@ -44,7 +40,7 @@ public partial class ReadDetailsCoursePage : Page
         }
     }
 
-    private void SelectFile(object sender, System.Windows.RoutedEventArgs e)
+    private void SelectFile(object sender, RoutedEventArgs e)
     {
         var fileDialog = new OpenFileDialog
         {
@@ -82,32 +78,9 @@ public partial class ReadDetailsCoursePage : Page
 
         var validationResult = _courseValidator.ValidateForUpdate(course);
 
-        if (validationResult.TryGetValue(nameof(course.Name), out string nameErrorMessage))
-        {
-            ViewModel.NameErrorMessage = nameErrorMessage;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = null;
-        }
-
-        if (validationResult.TryGetValue(nameof(course.Image), out string imageErrorMessage))
-        {
-            ViewModel.ImageErrorMessage = imageErrorMessage;
-        }
-        else
-        {
-            ViewModel.ImageErrorMessage = null;
-        }
-
-        if (validationResult.TryGetValue(nameof(course.Difficulty), out string difficultyErrorMessage))
-        {
-            ViewModel.DifficultyErrorMessage = difficultyErrorMessage;
-        }
-        else
-        {
-            ViewModel.DifficultyErrorMessage = null;
-        }
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(course.Name), out string nameErrorMessage) ? nameErrorMessage : string.Empty;
+        ViewModel.ImageErrorMessage = validationResult.TryGetValue(nameof(course.Image), out string imageErrorMessage) ? imageErrorMessage : string.Empty;
+        ViewModel.DifficultyErrorMessage = validationResult.TryGetValue(nameof(course.Difficulty), out string difficultyErrorMessage) ? difficultyErrorMessage : string.Empty;
 
         if (validationResult.Count != 0)
         {

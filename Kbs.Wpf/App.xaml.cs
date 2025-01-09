@@ -21,7 +21,14 @@ public partial class App : Application
     }
     private async void UpdateReservationStatusAsync()
     {
-        ReservationRepository res = new ReservationRepository();
-        await res.ChangeStatusAsync(); // Gebruik 'await' voor de asynchrone aanroep
+        try
+        {
+            ReservationRepository res = new ReservationRepository();
+            await res.ChangeStatusAsync(); // Gebruik 'await' voor de asynchrone aanroep    
+        }
+        catch
+        {
+            MessageBox.Show("Er kan geen verbinding gemaakt worden met de database. Controleer de databaseconnectie.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

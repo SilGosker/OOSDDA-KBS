@@ -3,7 +3,6 @@ using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Business.Extentions;
 using Kbs.Wpf.Boat.Components;
-using Kbs.Wpf.Boat.Create;
 using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Read.Details;

@@ -23,7 +23,7 @@ public class WeekDayTranslationConverter : IValueConverter
             return string.Empty;
         }
 
-        return value.ToString()!
+        return value.ToString()?
             .Replace('D', 'T')
             .Replace('Z', 'S')
             .Replace('V', 'F');

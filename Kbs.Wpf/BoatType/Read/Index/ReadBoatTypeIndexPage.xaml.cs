@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using Kbs.Business.BoatType;
 using Kbs.Business.User;
 using Kbs.Data.BoatType;
-using Kbs.Data.Reservation;
 using Kbs.Wpf.BoatType.Create;
 using Kbs.Wpf.BoatType.Read.Details;
 using Kbs.Wpf.Components;
@@ -20,7 +19,6 @@ public partial class ViewBoatTypesPage : Page
     private readonly BoatTypeRepository _boatTypeRepository = new();
     public ViewBoatTypesPage(INavigationManager navigationManager)
     {
-
         _navigationManager = navigationManager;
         InitializeComponent();
         foreach (var boatType in _boatTypeRepository.GetAll())

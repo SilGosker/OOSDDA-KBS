@@ -3,13 +3,9 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.BoatType.Components;
 
-public class BoatTypeExperienceViewModel : ViewModel
+public class BoatTypeExperienceViewModel(BoatTypeRequiredExperience requiredExperience) : ViewModel
 {
-    public BoatTypeExperienceViewModel(BoatTypeRequiredExperience requiredExperience)
-    {
-        RequiredExperience = requiredExperience;
-    }
-    public BoatTypeRequiredExperience RequiredExperience { get; }
+    public BoatTypeRequiredExperience RequiredExperience { get; } = requiredExperience;
 
     // Override ToString to display the RequiredExperience in Dutch
     public override string ToString()

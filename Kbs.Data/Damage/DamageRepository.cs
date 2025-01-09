@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Kbs.Business.Boat;
 using Kbs.Business.Damage;
-using Kbs.Business.Reservation;
 using Microsoft.Data.SqlClient;
 
 namespace Kbs.Data.Damage;

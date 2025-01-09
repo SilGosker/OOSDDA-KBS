@@ -13,6 +13,7 @@ public partial class LoginWindow : Window
 {
     private readonly UserValidator _userValidator = new UserValidator();
     private RegisterUserWindow _registrationWindow;
+    private bool _isClosed;
     private LoginViewModel ViewModel => (LoginViewModel)DataContext;
     public LoginWindow()
     {
@@ -30,23 +31,8 @@ public partial class LoginWindow : Window
 
         var validationResult = _userValidator.ValidatorForLogIn(user);
 
-        if (validationResult.TryGetValue(nameof(user.Email), out string emailMessage))
-        {
-            ViewModel.EmailErrorMessage = emailMessage;
-        }
-        else
-        {
-            ViewModel.EmailErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(user.Password), out string passwordMessage))
-        {
-            ViewModel.PasswordErrorMessage = passwordMessage;
-        }
-        else
-        {
-            ViewModel.PasswordErrorMessage = string.Empty;
-        }
+        ViewModel.EmailErrorMessage = validationResult.TryGetValue(nameof(user.Email), out string emailMessage) ? emailMessage : string.Empty;
+        ViewModel.PasswordErrorMessage = validationResult.TryGetValue(nameof(user.Password), out string passwordMessage) ? passwordMessage : string.Empty;
 
         if (validationResult.Count > 0)
         {
@@ -55,8 +41,7 @@ public partial class LoginWindow : Window
 
         Login(user);
     }
-
-
+    
     public void Login(UserEntity user)
     {
         if (!SessionManager.Instance.TryCreate(user, out var session))
@@ -93,6 +78,7 @@ public partial class LoginWindow : Window
     {
         try
         {
+            _isClosed = true;
             _registrationWindow.Close();
         }
         catch (Exception)
@@ -111,11 +97,13 @@ public partial class LoginWindow : Window
     private void PasswordChanged(object sender, RoutedEventArgs e)
     {
         ViewModel.Password = ((PasswordBox)sender).Password;
-
     }
     
     public void RegistrationClosed()
     {
-        _registrationWindow = new(this);
+        if (!_isClosed)
+        {
+            _registrationWindow = new(this);
+        }
     }
 }

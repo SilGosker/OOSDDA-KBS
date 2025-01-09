@@ -3,14 +3,9 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Course.Components;
 
-public class CourseDifficultyViewModel : ViewModel
+public class CourseDifficultyViewModel(CourseDifficulty difficulties) : ViewModel
 {
-    public CourseDifficultyViewModel(CourseDifficulty difficulties)
-    {
-        CourseDifficulty = difficulties;
-    }
-
-    public CourseDifficulty CourseDifficulty { get; }
+    public CourseDifficulty CourseDifficulty { get; } = difficulties;
 
     // Override ToString to display the BoatTypeSeats in Dutch
     public override string ToString()

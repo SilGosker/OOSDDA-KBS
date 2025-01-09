@@ -2,18 +2,11 @@ using System.Windows.Input;
 
 namespace Kbs.Wpf.Components;
 
-public class RelayCommand<T> : ICommand
+public class RelayCommand<T>(Action<T> execute, Func<T, bool> canExecute = null) : ICommand
 {
-    private readonly Action<T> _execute;
-    private readonly Func<T, bool> _canExecute;
+    private readonly Action<T> _execute = execute ?? throw new ArgumentNullException(nameof(execute));
 
-    public RelayCommand(Action<T> execute, Func<T, bool> canExecute = null)
-    {
-        _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-        _canExecute = canExecute;
-    }
-
-    public bool CanExecute(object parameter) => _canExecute?.Invoke((T)parameter) ?? true;
+    public bool CanExecute(object parameter) => canExecute?.Invoke((T)parameter) ?? true;
 
     public void Execute(object parameter) => _execute((T)parameter);
 

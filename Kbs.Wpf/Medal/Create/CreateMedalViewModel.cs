@@ -1,12 +1,6 @@
-﻿using Kbs.Wpf.Boat.Create;
-using Kbs.Wpf.Components;
+﻿using Kbs.Wpf.Components;
 using Kbs.Wpf.Medal.Components;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Kbs.Wpf.Medal.Create
 {

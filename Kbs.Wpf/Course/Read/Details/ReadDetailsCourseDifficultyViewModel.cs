@@ -2,14 +2,9 @@
 
 namespace Kbs.Wpf.Course.Read.Details;
 
-public class ReadDetailsCourseDifficultyViewModel
+public class ReadDetailsCourseDifficultyViewModel(CourseDifficulty difficulty)
 {
-    public CourseDifficulty Difficulty { get; set; }
-
-    public ReadDetailsCourseDifficultyViewModel(CourseDifficulty difficulty)
-    {
-        Difficulty = difficulty;
-    }
+    public CourseDifficulty Difficulty { get; set; } = difficulty;
 
     // override ToString to display the difficulty in the ComboBox
     public override string ToString()

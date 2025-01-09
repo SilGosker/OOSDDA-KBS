@@ -6,6 +6,7 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\Images\plankie.ico</ApplicationIcon>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -19,9 +20,8 @@
 	  <Resource Include="Resources\Images\goud.png" Link="Images\goud.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
-	  <Resource Include="Resources\Images\plankie.png">
+	  <Resource Include="Resources\Images\plankie.png" Link="Images\plankie.png">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	    <Link>Images\plankie.png</Link>
 	  </Resource>
 		<Resource Include="Resources\Images\silver.png" Link="Images\silver.png">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -29,6 +29,9 @@
 		<Content Include="Resources\Images\NoImageAvailable.jpg" Link="Images\NoImageAvailable.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+		<Resource Include="Resources\Images\plankie.ico" Link="Images\plankie.ico">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
 	</ItemGroup>
 	
 	<ItemGroup>

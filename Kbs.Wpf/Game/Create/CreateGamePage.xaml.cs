@@ -47,32 +47,9 @@ public partial class CreateGamePage : Page
 
         var validationResult = _gameValidator.ValidateForCreate(game);
 
-        if (validationResult.TryGetValue(nameof(game.Name), out string nameErrorMessage))
-        {
-            ViewModel.NameErrorMessage = nameErrorMessage;
-        }
-        else
-        {
-            ViewModel.NameErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(game.Date), out string dateErrorMessage))
-        {
-            ViewModel.DateErrorMessage = dateErrorMessage;
-        }
-        else
-        {
-            ViewModel.DateErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(game.CourseId), out string courseErrorMessage))
-        {
-            ViewModel.CourseErrorMessage = courseErrorMessage;
-        }
-        else
-        {
-            ViewModel.CourseErrorMessage = string.Empty;
-        }
+        ViewModel.NameErrorMessage = validationResult.TryGetValue(nameof(game.Name), out string nameErrorMessage) ? nameErrorMessage : string.Empty;
+        ViewModel.DateErrorMessage = validationResult.TryGetValue(nameof(game.Date), out string dateErrorMessage) ? dateErrorMessage : string.Empty;
+        ViewModel.CourseErrorMessage = validationResult.TryGetValue(nameof(game.CourseId), out string courseErrorMessage) ? courseErrorMessage : string.Empty;
 
         return validationResult.Count == 0 ? game : null;
     }

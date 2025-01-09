@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using Kbs.Wpf.Components;
-using System.Windows.Controls;
 
 namespace Kbs.Wpf.Game.Create;
 

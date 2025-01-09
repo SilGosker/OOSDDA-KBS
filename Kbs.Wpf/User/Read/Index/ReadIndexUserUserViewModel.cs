@@ -1,7 +1,6 @@
 ﻿using Kbs.Business.Helpers;
 using Kbs.Business.User;
 using Kbs.Wpf.Components;
-using Microsoft.IdentityModel.Tokens;
 
 namespace Kbs.Wpf.User.Read.Index
 {

@@ -1,5 +1,4 @@
-﻿using System.Net.NetworkInformation;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Kbs.Business.Damage;
 using Kbs.Business.Extentions;
 using Kbs.Wpf.Components;

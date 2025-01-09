@@ -1,13 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Kbs.Business.Boat;
 using Kbs.Business.BoatType;
-using Kbs.Business.Reservation;
 using Kbs.Business.User;
 using Kbs.Data.Boat;
 using Kbs.Data.BoatType;
-using Kbs.Wpf.Boat.Components;
 using Kbs.Wpf.Boat.Read.Details;
 using Kbs.Wpf.BoatType.Components;
 using Kbs.Wpf.BoatType.Read.Index;
@@ -20,9 +17,8 @@ namespace Kbs.Wpf.BoatType.Read.Details;
 public partial class ReadDetailsBoatTypePage : Page
 {
     private readonly INavigationManager _navigationManager;
-    private readonly BoatTypeRepository _boatTypeRepository = new BoatTypeRepository();
-    private readonly BoatRepository _boatRepository = new BoatRepository();
-    private readonly ReservationEntity _reservationEntity = new ReservationEntity();
+    private readonly BoatTypeRepository _boatTypeRepository = new();
+    private readonly BoatRepository _boatRepository = new();
     private readonly BoatTypeValidator _boatTypeValidator = new();
     private ReadDetailsBoatTypeViewModel ReadDetailsBoatTypeViewModel => (ReadDetailsBoatTypeViewModel)DataContext;
     public ReadDetailsBoatTypePage(INavigationManager navigationManager, int boatTypeId)
@@ -38,9 +34,9 @@ public partial class ReadDetailsBoatTypePage : Page
         ReadDetailsBoatTypeViewModel.Name = boatType.Name;
 
         var boats = _boatRepository.GetManyByType(boatTypeId);
-        foreach (var boattype in boats)
+        foreach (var boat in boats)
         {
-            ReadDetailsBoatTypeViewModel.Items.Add(new ReadDetailsBoatTypeBoatViewModel(boattype));
+            ReadDetailsBoatTypeViewModel.Items.Add(new ReadDetailsBoatTypeBoatViewModel(boat));
         }
         foreach (var requiredExperience in Enum.GetValues<BoatTypeRequiredExperience>())
         {
@@ -75,7 +71,6 @@ public partial class ReadDetailsBoatTypePage : Page
             _boatTypeRepository.Delete(entity);
             this.Refresh();
         }
-            
     }
 
     private void UpdateData(object sender, RoutedEventArgs e)
@@ -93,37 +88,10 @@ public partial class ReadDetailsBoatTypePage : Page
         var validationResult = _boatTypeValidator.ValidatorForUpdate(boatType);
         if (validationResult.Count > 0)
         {
-            if (validationResult.TryGetValue(nameof(boatType.Name), out string nameError))
-            {
-                ReadDetailsBoatTypeViewModel.NameError = nameError;
-            } else
-            {
-                ReadDetailsBoatTypeViewModel.NameError = "";
-            }
-            if (validationResult.TryGetValue(nameof(boatType.Seats), out string seatsError))
-            {
-                ReadDetailsBoatTypeViewModel.SeatsError = seatsError;
-            }
-            else
-            {
-                ReadDetailsBoatTypeViewModel.SeatsError = "";
-            }
-            if (validationResult.TryGetValue(nameof(boatType.RequiredExperience), out string experienceError))
-            {
-                ReadDetailsBoatTypeViewModel.ExperienceError = experienceError;
-            }
-            else
-            {
-                ReadDetailsBoatTypeViewModel.ExperienceError = "";
-            }
-            if (validationResult.TryGetValue(nameof(boatType.Speed), out string speedError))
-            {
-                ReadDetailsBoatTypeViewModel.SpeedError = speedError;
-            }
-            else
-            {
-                ReadDetailsBoatTypeViewModel.SpeedError = "";
-            }
+            ReadDetailsBoatTypeViewModel.NameError = validationResult.TryGetValue(nameof(boatType.Name), out string nameError) ? nameError : string.Empty;
+            ReadDetailsBoatTypeViewModel.SeatsError = validationResult.TryGetValue(nameof(boatType.Seats), out string seatsError) ? seatsError : string.Empty;
+            ReadDetailsBoatTypeViewModel.ExperienceError = validationResult.TryGetValue(nameof(boatType.RequiredExperience), out string experienceError) ? experienceError : string.Empty;
+            ReadDetailsBoatTypeViewModel.SpeedError = validationResult.TryGetValue(nameof(boatType.Speed), out string speedError) ? speedError : string.Empty;
         }
         else
         {
@@ -147,26 +115,12 @@ public partial class ReadDetailsBoatTypePage : Page
     private void SeatsChanged(object sender, SelectionChangedEventArgs e)
     {
         var type = (BoatTypeSeatsViewModel)((ComboBox)sender).SelectedItem;
-        if (type == null)
-        {
-            ReadDetailsBoatTypeViewModel.Seats = BoatTypeSeats.One;
-        }
-        else
-        {
-            ReadDetailsBoatTypeViewModel.Seats = type.BoatTypeSeats;
-        }
+        ReadDetailsBoatTypeViewModel.Seats = type?.BoatTypeSeats ?? BoatTypeSeats.One;
     }
 
     private void ExperienceChanged(object sender, SelectionChangedEventArgs e)
     {
         var type = (BoatTypeExperienceViewModel)((ComboBox)sender).SelectedItem;
-        if (type == null)
-        {
-            ReadDetailsBoatTypeViewModel.Experience = BoatTypeRequiredExperience.Beginner;
-        }
-        else
-        {
-            ReadDetailsBoatTypeViewModel.Experience = type.RequiredExperience;
-        }
+        ReadDetailsBoatTypeViewModel.Experience = type?.RequiredExperience ?? BoatTypeRequiredExperience.Beginner;
     }
 }

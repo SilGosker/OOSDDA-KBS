@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Kbs.Business.Boat;
 using Kbs.Business.Damage;
 using Kbs.Business.User;
@@ -27,10 +26,8 @@ public partial class UploadDamagePage : Page
     private readonly INavigationManager _navigationManager;
     private UploadDamageViewModel ViewModel => (UploadDamageViewModel)DataContext;
     private readonly DatePickPopupWindow _changeStatusDialog = new("Verwachte einddatum onderhoud");
-    private ReadDetailsBoatViewModel _ReadDetailsBoatViewModel = new();
-
-
-
+    private readonly ReadDetailsBoatViewModel _readDetailsBoatViewModel = new();
+    
     public UploadDamagePage(int boatId, INavigationManager navigationManager)
     {
         _navigationManager = navigationManager;
@@ -40,7 +37,7 @@ public partial class UploadDamagePage : Page
 
     }
 
-    private void SelectFileButtonClick(object sender, System.Windows.RoutedEventArgs e)
+    private void SelectFileButtonClick(object sender, RoutedEventArgs e)
     {
         var dialog = new OpenFileDialog
         {
@@ -55,7 +52,7 @@ public partial class UploadDamagePage : Page
         }
     }
 
-    private void Submit(object sender, System.Windows.RoutedEventArgs e)
+    private void Submit(object sender, RoutedEventArgs e)
     {
         var damage = new DamageEntity()
         {
@@ -76,23 +73,8 @@ public partial class UploadDamagePage : Page
 
         var validationResult = _damageValidator.ValidateForUpload(damage);
 
-        if (validationResult.TryGetValue(nameof(damage.Image), out string imageError))
-        {
-            ViewModel.FileErrorMessage = imageError;
-        }
-        else
-        {
-            ViewModel.FileErrorMessage = string.Empty;
-        }
-
-        if (validationResult.TryGetValue(nameof(damage.Description), out string descriptionError))
-        {
-            ViewModel.DescriptionErrorMessage = descriptionError;
-        }
-        else
-        {
-            ViewModel.DescriptionErrorMessage = string.Empty;
-        }
+        ViewModel.FileErrorMessage = validationResult.TryGetValue(nameof(damage.Image), out string imageError) ? imageError : string.Empty;
+        ViewModel.DescriptionErrorMessage = validationResult.TryGetValue(nameof(damage.Description), out string descriptionError) ? descriptionError : string.Empty;
 
         if (validationResult.Count != 0)
         {
@@ -105,8 +87,7 @@ public partial class UploadDamagePage : Page
 
             var boat = _boatRepository.GetById(ViewModel.BoatId);
             boat.Status = BoatStatus.Maintaining;
-
-
+            
             if (_changeStatusDialog.ViewModel.IsCancelled)
             {
                 // Reset the dialog
@@ -116,19 +97,19 @@ public partial class UploadDamagePage : Page
 
             MessageBoxResult result = MessageBox.Show("Alle reserveringen tot de gekozen datum worden geannuleerd. sWeet u het zeker?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (MessageBoxResult.No == result)
+            if (result == MessageBoxResult.No)
             {
                 return;
             }
 
-            if (MessageBoxResult.Yes == result)
+            if (result == MessageBoxResult.Yes)
             {
                  _boatRepository.Update(boat);
-                if (_ReadDetailsBoatViewModel.Status == BoatStatus.Maintaining)
+                if (_readDetailsBoatViewModel.Status == BoatStatus.Maintaining)
                 {
                     _reservationRepository.UpdateWhenMaintained(ViewModel.BoatId, _changeStatusDialog.ViewModel.EndDate);
                 }
-                else if (_ReadDetailsBoatViewModel.Status == BoatStatus.Broken)
+                else if (_readDetailsBoatViewModel.Status == BoatStatus.Broken)
                 {
                     _reservationRepository.UpdateWhenBroken(ViewModel.BoatId);
                 }

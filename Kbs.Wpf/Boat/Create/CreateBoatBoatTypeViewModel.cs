@@ -3,18 +3,12 @@ using Kbs.Wpf.Components;
 
 namespace Kbs.Wpf.Boat.Create;
 
-public class CreateBoatBoatTypeViewModel : ViewModel
+public class CreateBoatBoatTypeViewModel(BoatTypeEntity boatType) : ViewModel
 {
-    private readonly string _name;
-    
-    public CreateBoatBoatTypeViewModel(BoatTypeEntity boatType)
-    {
-        _name = boatType.Name;
-        BoatTypeId = boatType.BoatTypeId;
-    }
-    
-    public int BoatTypeId { get; private set; }
-    
+    private readonly string _name = boatType.Name;
+
+    public int BoatTypeId { get; private set; } = boatType.BoatTypeId;
+
     public override string ToString()
     {
         return _name;

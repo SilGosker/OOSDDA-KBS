@@ -1,11 +1,4 @@
-﻿using Kbs.Business.Boat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Kbs.Business.Medal
+﻿namespace Kbs.Business.Medal
 {
     public class MedalMaterialExtentionTests
     {

@@ -11,7 +11,7 @@ namespace Kbs.Business.Medal
     {
         [Theory]
         [InlineData(MedalMaterial.Bronze, "Brons")]
-        [InlineData(MedalMaterial.Silver, "Silver")]
+        [InlineData(MedalMaterial.Silver, "Zilver")]
         [InlineData(MedalMaterial.Gold, "Goud")]
         [InlineData((MedalMaterial)int.MaxValue, "Onbekend")]
         [InlineData((MedalMaterial)0, "Onbekend")]
